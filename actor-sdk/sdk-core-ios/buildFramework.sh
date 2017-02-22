@@ -61,6 +61,9 @@ mkdir -p build/Podspec/
 rm -fr build/Podspec
 mkdir -p build/Podspec/ActorSDK.framework
 mkdir -p build/Podspec/ActorSDK.framework.dSYM
+
+rm -fr build/Output/ActorSDK.framework/libswiftRemoteMirror.dylib
+
 cp -r build/Output/ActorSDK.framework build/Podspec/
 cp -r build/Output/ActorSDK.framework.dSYM build/Podspec/
 cp -r Template/ build/Podspec/
