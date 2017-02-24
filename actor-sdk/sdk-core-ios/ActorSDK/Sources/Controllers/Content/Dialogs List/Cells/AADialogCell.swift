@@ -6,6 +6,8 @@ import UIKit
 
 final class AADialogCell: AATableViewCell, AABindedCell {
     
+    open var binder = AABinder()
+    
     // Binding data type
     
     public typealias BindData = ACDialog
@@ -44,12 +46,12 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     open let titleView = YYLabel()
     open let dialogTypeView = UIImageView()
     open let messageView = YYLabel()
+    open let typingView = YYLabel()
     
     open let dateView = YYLabel()
     open let statusView = UIImageView()
     open let counterView = YYLabel()
     open let counterViewBg = UIImageView()
-    
         
     // Binding Data
     
@@ -70,6 +72,10 @@ final class AADialogCell: AATableViewCell, AABindedCell {
 //        messageView.fadeOnAsynchronouslyDisplay = true
         messageView.clearContentsBeforeAsynchronouslyDisplay = true
         
+        typingView.displaysAsynchronously = true
+        typingView.ignoreCommonProperties = true
+        typingView.clearContentsBeforeAsynchronouslyDisplay = true
+        
         dateView.displaysAsynchronously = true
         dateView.ignoreCommonProperties = true
 //        dateView.fadeOnAsynchronouslyDisplay = true
@@ -88,6 +94,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         self.contentView.addSubview(titleView)
         self.contentView.addSubview(dialogTypeView)
         self.contentView.addSubview(messageView)
+        self.contentView.addSubview(typingView)
         self.contentView.addSubview(dateView)
         self.contentView.addSubview(statusView)
         self.contentView.addSubview(counterViewBg)
@@ -131,6 +138,10 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         if !messageView.displaysAsynchronously {
             messageView.displaysAsynchronously = true
         }
+        
+        if !typingView.displaysAsynchronously{
+            typingView.displaysAsynchronously = true
+        }
     
         
         // Reseting Text Layout on new peer binding
@@ -138,6 +149,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
             avatarView.alpha = 0
             titleView.alpha = 0
             messageView.alpha = 0
+            typingView.alpha = 0
             statusView.alpha = 0
             dateView.alpha = 0
             counterView.alpha = 0
@@ -145,6 +157,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         } else {
             titleView.clearContentsBeforeAsynchronouslyDisplay = false
             messageView.clearContentsBeforeAsynchronouslyDisplay = false
+            typingView.clearContentsBeforeAsynchronouslyDisplay = false
             dateView.clearContentsBeforeAsynchronouslyDisplay = false            
             counterView.clearContentsBeforeAsynchronouslyDisplay = false
         }
@@ -172,9 +185,30 @@ final class AADialogCell: AATableViewCell, AABindedCell {
             }
         }
         
+        let peerId = item.peer.peerId
+        let user = Actor.getUserWithUid(peerId)
         
+
+        binder.bind(Actor.getTypingWithUid(peerId), valueModel2: user.getPresenceModel(), closure:{ (typing:JavaLangBoolean?, presence:ACUserPresence?) -> () in
+            
+//            if (typing != nil && typing!.booleanValue()) {
+//                self.typingView.text = Actor.getFormatter().formatTyping()
+//            } else {
+//                if (user.isBot()) {
+//                    self.typingView.text = "bot"
+//                } else {
+//                    let stateText = Actor.getFormatter().formatPresence(presence, with: user.getSex())
+//                    self.typingView.text = stateText;
+//                    let state = presence!.state.ordinal()
+//                    if (state == ACUserPresence_State.online().ordinal()) {
+//                        self.typingView.textColor = self.appStyle.userOnlineNavigationColor
+//                    } else {
+//                        self.typingView.textColor = self.appStyle.userOfflineNavigationColor
+//                    }
+//                }
+//            }
+        })
         
- 
         // Cancelling Renderer and forcing layouting to start new rendering
         cellRenderer.cancelRender()
 
@@ -191,7 +225,45 @@ final class AADialogCell: AATableViewCell, AABindedCell {
 //        }
 //    }
     
-  
+//    open func bind(_ user: ACUserVM, isAdmin: Bool) {
+//        
+//        // Bind name and avatar
+//        let name = user.getNameModel().get()!
+//        nameLabel.text = name
+//        avatarView.bind(name, id: Int(user.getId()), avatar: user.getAvatarModel().get())
+//        
+//        // Bind admin flag
+//        adminLabel.isHidden = !isAdmin
+//        
+//        // Bind onlines
+//        
+//        if user.isBot() {
+//            self.onlineLabel.textColor = self.appStyle.userOnlineColor
+//            self.onlineLabel.text = "bot"
+//            self.onlineLabel.alpha = 1
+//        } else {
+//            binder.bind(user.getPresenceModel()) { (value: ACUserPresence?) -> () in
+//                
+//                if value != nil {
+//                    self.onlineLabel.showView()
+//                    self.onlineLabel.text = Actor.getFormatter().formatPresence(value!, with: user.getSex())
+//                    if value!.state.ordinal() == ACUserPresence_State.online().ordinal() {
+//                        self.onlineLabel.textColor = self.appStyle.userOnlineColor
+//                    } else {
+//                        self.onlineLabel.textColor = self.appStyle.userOfflineColor
+//                    }
+//                } else {
+//                    self.onlineLabel.alpha = 0
+//                    self.onlineLabel.text = ""
+//                }
+//            }
+//        }
+//    }
+    
+    open override func prepareForReuse() {
+        super.prepareForReuse()
+        binder.unbindAll()
+    }
     
     open func addImageDialogType(_ image: UIImage!){
         dialogTypeView.image = image
@@ -258,6 +330,8 @@ final class AADialogCell: AATableViewCell, AABindedCell {
                 titleView.clearContentsBeforeAsynchronouslyDisplay = false
                 messageView.displaysAsynchronously = false
                 messageView.clearContentsBeforeAsynchronouslyDisplay = false
+                typingView.displaysAsynchronously = false
+                typingView.clearContentsBeforeAsynchronouslyDisplay = false
                 dateView.displaysAsynchronously = false
                 dateView.clearContentsBeforeAsynchronouslyDisplay = false
                 counterView.displaysAsynchronously = false
@@ -418,6 +492,17 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         messageView.textLayout = render.messageLayout
         presentView(messageView)
         
+        
+        //
+        // Typing
+        //
+        
+        let typingViewFrame = CGRect(x: padding, y: 44, width: render.messageWidth, height: 22)
+        UIView.performWithoutAnimation {
+            self.typingView.frame = typingViewFrame
+        }
+        typingView.textLayout = render.messageLayout
+        presentView(typingView)
         
         //
         // Message State
