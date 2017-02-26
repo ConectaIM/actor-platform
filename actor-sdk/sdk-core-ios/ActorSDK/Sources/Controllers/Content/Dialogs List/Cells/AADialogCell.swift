@@ -61,7 +61,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        NSLog("init(style: UITableViewCellStyle, reuseIdentifier: String?)")
+        //NSLog("init(style: UITableViewCellStyle, reuseIdentifier: String?)")
     
         cellRenderer = AABackgroundCellRenderer<AADialogCellConfig, AADialogCellLayout>(renderer: cellRender, receiver: cellApply)
         
@@ -109,7 +109,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     open func bind(_ item: ACDialog, table: AAManagedTable, index: Int, totalCount: Int) {
-        NSLog("bind(_ item: ACDialog, table: AAManagedTable, index: Int, totalCount: Int)")
+       // NSLog("bind(_ item: ACDialog, table: AAManagedTable, index: Int, totalCount: Int)")
         //
         // Checking dialog rebinding
         //
@@ -232,7 +232,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     open override func prepareForReuse() {
-        NSLog("prepareForReuse()")
+        //NSLog("prepareForReuse()")
         super.prepareForReuse()
         binder.unbindAll()
     }
@@ -255,7 +255,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        NSLog("layoutSubviews()")
+        //NSLog("layoutSubviews()")
         
         // We expect height == 76;
         let width = self.contentView.frame.width
@@ -339,7 +339,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     fileprivate func cellRender(_ config: AADialogCellConfig) -> AADialogCellLayout! {
-        NSLog("cellRender(_ config: AADialogCellConfig) -> AADialogCellLayout! ")
+        //NSLog("cellRender(_ config: AADialogCellConfig) -> AADialogCellLayout! ")
         //
         // Title Layouting
         //
@@ -429,7 +429,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     fileprivate func cellApply(_ render: AADialogCellLayout!) {
-         NSLog("cellApply(_ render: AADialogCellLayout!)")
+        // NSLog("cellApply(_ render: AADialogCellLayout!)")
         //
         // Avatar
         //
