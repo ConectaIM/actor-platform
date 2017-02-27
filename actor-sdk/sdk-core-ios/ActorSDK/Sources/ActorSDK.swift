@@ -340,6 +340,7 @@ import UserNotifications
         // Subscribe to network changes
         
         reachability = Reachability()!
+        
         if reachability != nil {
             reachability.whenReachable = { reachability in
                 self.messenger.forceNetworkCheck()
@@ -353,6 +354,8 @@ import UserNotifications
         } else {
             print("Unable to create Reachability")
         }
+        
+        UIMenuController.shared.menuItems = [UIMenuItem(title: AALocalized("NavigationEdit"), action: #selector(AABubbleTextCell.edit(_:)))]
     }
     
     func didLoggedIn() {

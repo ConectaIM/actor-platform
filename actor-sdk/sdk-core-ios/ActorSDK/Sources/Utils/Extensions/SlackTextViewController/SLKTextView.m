@@ -753,7 +753,16 @@ SLKPastableMediaType SLKPastableMediaTypeFromNSString(NSString *string)
     UIMenuItem *redo = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Redo", nil) action:@selector(slk_redo:)];
     UIMenuItem *format = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Format", nil) action:@selector(slk_presentFormattingMenu:)];
     
-    [[UIMenuController sharedMenuController] setMenuItems:@[undo, redo, format]];
+    
+    if([UIMenuController sharedMenuController].menuItems == nil){
+        [[UIMenuController sharedMenuController] setMenuItems:@[undo, redo, format]];
+    }else{
+        NSMutableArray *oldItens = [NSMutableArray arrayWithArray:[UIMenuController sharedMenuController].menuItems];
+        [oldItens addObject:undo];
+        [oldItens addObject:redo];
+        [oldItens addObject:format];
+        [[UIMenuController sharedMenuController] setMenuItems:oldItens];
+    }
 }
 
 - (void)slk_undo:(id)sender

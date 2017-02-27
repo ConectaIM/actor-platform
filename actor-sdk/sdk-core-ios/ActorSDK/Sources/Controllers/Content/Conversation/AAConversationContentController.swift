@@ -524,4 +524,7 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
         
     }
     
+    
+    open func onEditMessageTap(rid:Int64, msg:String){}
+    
 }

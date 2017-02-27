@@ -80,6 +80,7 @@ open class AABubbleTextCell : AABubbleCell {
         
         statusView.contentMode = UIViewContentMode.center
         
+    
         contentView.addSubview(messageText)
         contentView.addSubview(dateText)
         contentView.addSubview(statusView)
@@ -180,24 +181,40 @@ open class AABubbleTextCell : AABubbleCell {
         }
     }
     
+    
+    
     // Menu for Text cell
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        if action == #selector(UIResponderStandardEditActions.copy(_:)) {
+            if (bindedMessage!.content is ACTextContent) {
+                return true
+            }
+        }
+        
+        if action == #selector(UIResponderStandardEditActions.delete(_:)) {
+            return true
+        }
+        
+        if action == #selector(AABubbleTextCell.edit(_:)) {
+            if(isOut && self.bindedMessage?.messageState.toNSEnum() == .SENT){
+                return true
+            }
+        }
+        
+        return false
+    }
     
-//    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-//        if action == #selector(NSObject.copy(_:)) {
-//            if (bindedMessage!.content is ACTextContent) {
-//                return true
-//            }
-//        }
-//        if action == #selector(NSObject.delete(_:)) {
-//            return true
-//        }
-//        return false
-//    }
-//    
-//    open override func copy(_ sender: AnyObject?) {
-//        UIPasteboard.general.string = (bindedMessage!.content as! ACTextContent).text
-//    }
+    open override func copy(_ sender: Any?) {
+        UIPasteboard.general.string = (bindedMessage!.content as! ACTextContent).text
+    }
     
+    open func edit(_ sender: Any?){
+        NSLog("Editando mensagem")
+        self.controller.onEditMessageTap(rid: bindedMessage!.rid, msg: (bindedMessage?.content as! ACTextContent).text)
+    }
+    
+   
     open func urlLongTap(_ url: URL) {
         if url.scheme != "source" && url.scheme == "send" {
             let actionSheet: UIAlertController = UIAlertController(title: nil, message: url.absoluteString, preferredStyle: .actionSheet)

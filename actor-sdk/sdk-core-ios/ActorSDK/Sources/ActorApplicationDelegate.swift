@@ -8,7 +8,6 @@ open class ActorApplicationDelegate: ActorSDKDelegateDefault, UIApplicationDeleg
     
     public override init() {
         super.init()
-        
         ActorSDK.sharedActor().delegate = self
     }
     

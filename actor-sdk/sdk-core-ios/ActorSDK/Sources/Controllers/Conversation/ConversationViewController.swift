@@ -8,7 +8,6 @@ import MobileCoreServices
 import AddressBook
 import AddressBookUI
 import AVFoundation
-//import AGEmojiKeyboard
 
 
 final public class ConversationViewController:
@@ -22,9 +21,6 @@ final public class ConversationViewController:
     AAAudioRecorderDelegate,
     AAConvActionSheetDelegate,
     AAStickersKeyboardDelegate
-    //,
-    //AGEmojiKeyboardViewDataSource,
-   // AGEmojiKeyboardViewDelegate
     {
     
     // Data binder
@@ -78,6 +74,10 @@ final public class ConversationViewController:
     open var removeExcedentControllers = true
     
 
+    //
+    // Editing Message
+    //
+    var editingId:Int64!
     
     ////////////////////////////////////////////////////////////
     // MARK: - Init
@@ -291,8 +291,6 @@ final public class ConversationViewController:
         self.stickersView = AAStickersKeyboard(frame: frame)
         self.stickersView.delegate = self
         
-        //emojiKeyboar.frame = frame
-        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(ConversationViewController.updateStickersStateOnCloseKeyboard),
@@ -478,7 +476,6 @@ final public class ConversationViewController:
         subtitleView.frame = CGRect(x: 0, y: 22, width: (navigationView.frame.width - 0), height: 20)
         
         stickersView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216)
-        //emojiKeyboar.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216)
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -552,6 +549,11 @@ final public class ConversationViewController:
         } else {
             navigateNext(controller, removeCurrent: false)
         }
+    }
+    
+    public override func onEditMessageTap(rid:Int64, msg:String){
+        self.editingId = rid
+        textView.text = msg
     }
     
     func onCallTap() {
@@ -629,14 +631,31 @@ final public class ConversationViewController:
         
     }
     
+    
     ////////////////////////////////////////////////////////////
     // MARK: - Right/Left button pressed
     ////////////////////////////////////////////////////////////
     
     override open func didPressRightButton(_ sender: Any!) {
         if !self.textView.text.isEmpty {
-            Actor.sendMessage(withMentionsDetect: peer, withText: textView.text)
-            super.didPressRightButton(sender)
+            if(self.editingId != nil){
+                Actor.updateMessage(with: peer, withText: textView.text, withRid: self.editingId).failure { (e: JavaLangException!) -> () in
+                    if let re:ACRpcException = (e as! ACRpcException){
+                        if re.tag == "NOT_IN_TIME_WINDOW"{
+                            self.alertUser("Mensagem mto velha")
+                        } else if re.tag == "NOT_LAST_MESSAGE" {
+                            self.alertUser("Nao é a ultima")
+                        } else {
+                            self.alertUser(e.getMessage())
+                        }
+                    }
+                }
+                self.editingId = nil
+                self.textView.text = ""
+            }else{
+                Actor.sendMessage(withMentionsDetect: peer, withText: textView.text)
+                super.didPressRightButton(sender)
+            }
         }
     }
     
