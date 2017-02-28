@@ -115,6 +115,9 @@ class AAListProcessor: NSObject, ARListProcessor {
                         // to update it's size
                         // TODO: In the future releases it might be implemented
                         // in more flexible way
+                        NSLog("PrevLayout Key \(prevList.layouts[oldIndex].key)")
+                        NSLog("ActualLayout Key \(layouts[i].key)")
+                        
                         if prevList.layouts[oldIndex].key != layouts[i].key {
                             
                             // Mark as forced update
@@ -296,6 +299,8 @@ class AAListProcessor: NSObject, ARListProcessor {
     func buildLayout(_ message: ACMessage, layoutCache: AALayoutCache) -> AACellLayout {
         
         var layout: AACellLayout! = layoutCache.pick(message.rid)
+        
+        NSLog("Message state \(message.messageState.description)")
         
         if (layout == nil) {
             // Usually never happens
