@@ -770,5 +770,9 @@
  *
  */
 
-"EditingMessage" = "Editing Message";
+"EditingMessage" = "Editing";
+
+"MessageToOld" = "The message is to old";
+
+"IsNotLastMessage" = "Its not the last message";
 

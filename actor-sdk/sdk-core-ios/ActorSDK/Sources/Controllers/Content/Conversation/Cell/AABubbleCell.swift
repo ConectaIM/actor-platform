@@ -242,6 +242,7 @@ open class AABubbleCell: UICollectionViewCell {
     
     open func performBind(_ message: ACMessage, receiveDate: jlong, readDate: jlong, setting: AACellSetting, isShowNewMessages: Bool, layout: AACellLayout) {
         
+        NSLog("UPDATE_MSG performBind")
         var reuse = false
         if (bindedMessage != nil && bindedMessage?.rid == message.rid) {
             reuse = true

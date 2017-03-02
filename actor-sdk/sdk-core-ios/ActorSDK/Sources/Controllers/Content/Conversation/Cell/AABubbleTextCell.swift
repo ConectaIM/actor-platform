@@ -96,17 +96,12 @@ open class AABubbleTextCell : AABubbleCell {
     open override func bind(_ message: ACMessage, receiveDate: jlong, readDate: jlong, reuse: Bool, cellLayout: AACellLayout, setting: AACellSetting) {
         
         let msg:ACTextContent = (message.content as! ACTextContent)
-        NSLog("bind message \(msg.text)")
+        NSLog("UPDATE_MSG Bind da mensagem \(msg.text)")
        
-        
         // Saving cell settings
         self.cellLayout = cellLayout as! TextCellLayout
         
-        
-        
-        NSLog("Texto do layout \(self.cellLayout.textLayout.text)")
-        
-        //self.cellLayout.textLayout.text = "fasdfas"
+        NSLog("UPDATE_MSG Texto do layout \(self.cellLayout.textLayout.text.string)")
         
         self.isClanchTop = setting.clenchTop
         self.isClanchBottom = setting.clenchBottom
@@ -163,6 +158,7 @@ open class AABubbleTextCell : AABubbleCell {
         dateWidth = self.cellLayout.dateWidth!
         
         if (isOut) {
+            NSLog("UPDATE_MSG atualizando o status da mensagem")
             switch(message.messageState.toNSEnum()) {
             case .SENT:
                 if message.sortDate <= readDate {
@@ -223,7 +219,7 @@ open class AABubbleTextCell : AABubbleCell {
     open func edit(_ sender: Any?){
         NSLog("Editando mensagem")
         self.controller.onEditMessageTap(rid: bindedMessage!.rid, msg: (bindedMessage?.content as! ACTextContent).text)
-        self.needRelayout = true
+        //self.needRelayout = true
     }
     
    
@@ -339,10 +335,6 @@ open class TextCellLayout: AACellLayout {
      NSAttributedString layout
      */
     public init(senderId: Int, text: String, attributedText: NSAttributedString, date: Int64, isOut: Bool, peer: ACPeer, layoutKey: String = TextCellLayout.textKey, layouter: AABubbleLayouter) {
-        
-        
-        NSLog("Init text layout atttext \(attributedText)")
-        NSLog("Init text layout text \(text)")
         
         // Setting attributed text
         self.text = text
@@ -508,7 +500,7 @@ open class TextCellLayout: AACellLayout {
                 date: Int64(message.date),
                 isOut: message.isOut,
                 peer: peer,
-                layoutKey: TextCellLayout.unsupportedKey,
+                layoutKey:  TextCellLayout.unsupportedKey,
                 layouter: layouter
             )
         }
@@ -522,8 +514,10 @@ open class AABubbleTextCellLayouter: AABubbleLayouter {
     
     open func buildLayout(_ peer: ACPeer, message: ACMessage) -> AACellLayout {
         let msg:ACTextContent = (message.content as! ACTextContent)
-        NSLog("----------- buildLayout \(msg.text) ------------")
-        return TextCellLayout(message: message, peer: peer, layouter: self)
+        NSLog("UPDATE_MSG AABubbleTextCellLayouter buildLayout \(msg.text)")
+        return TextCellLayout(message: message,
+                              peer: peer,
+                              layouter: self)
     }
     
     open func isSuitable(_ message: ACMessage) -> Bool {

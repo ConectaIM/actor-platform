@@ -481,7 +481,7 @@ final public class ConversationViewController:
         
         stickersView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216)
         
-        self.textInputbar.editorTitle.text = AALocalized("Editing")
+        self.textInputbar.editorTitle.text = AALocalized("EditingMessage")
         self.textInputbar.editorLeftButton.sizeToFit()
         self.textInputbar.editorRightButton.sizeToFit()
         
@@ -561,21 +561,19 @@ final public class ConversationViewController:
     }
     
     public override func onEditMessageTap(rid:Int64, msg:String){
-        
         self.textView.text = msg
         self.editingId = rid
-        
         self.textInputbar.beginTextEditing()
     }
-
+    
     open override func didCommitTextEditing(_ sender: Any!){
         if(self.editingId != nil){
             Actor.updateMessage(with: peer, withText: textView.text, withRid: self.editingId).failure { (e: JavaLangException!) -> () in
                 if let re:ACRpcException = (e as! ACRpcException){
                     if re.tag == "NOT_IN_TIME_WINDOW"{
-                        self.alertUser("Mensagem mto velha")
+                        self.alertUser(AALocalized("MessageToOld"))
                     } else if re.tag == "NOT_LAST_MESSAGE" {
-                        self.alertUser("Nao é a ultima")
+                        self.alertUser(AALocalized("IsNotLastMessage"))
                     } else {
                         self.alertUser(e.getMessage())
                     }

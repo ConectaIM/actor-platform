@@ -148,8 +148,12 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
     }
     
     open func bindCell(_ collectionView: UICollectionView, cellForRowAtIndexPath indexPath: IndexPath, cell: UICollectionViewCell) {
+        NSLog("UPDATE_MSG bindCeelll")
+        
         let list = getProcessedList()
         let message = list!.items[(indexPath as NSIndexPath).row]
+        
+        //verificar o id editado aqui e marcar o layout para tualizacao
         let setting = list!.cellSettings[(indexPath as NSIndexPath).row]
         let layout = list!.layouts[(indexPath as NSIndexPath).row]
         let bubbleCell = (cell as! AABubbleCell)

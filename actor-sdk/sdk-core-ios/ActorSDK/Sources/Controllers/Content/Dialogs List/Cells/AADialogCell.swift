@@ -6,7 +6,7 @@ import UIKit
 
 final class AADialogCell: AATableViewCell, AABindedCell {
     
-    open var binder = AABinder()
+    fileprivate let binder = AABinder()
     
     // Binding data type
     
@@ -61,7 +61,6 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //NSLog("init(style: UITableViewCellStyle, reuseIdentifier: String?)")
     
         cellRenderer = AABackgroundCellRenderer<AADialogCellConfig, AADialogCellLayout>(renderer: cellRender, receiver: cellApply)
         
@@ -109,10 +108,48 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     open func bind(_ item: ACDialog, table: AAManagedTable, index: Int, totalCount: Int) {
-       // NSLog("bind(_ item: ACDialog, table: AAManagedTable, index: Int, totalCount: Int)")
+
         //
         // Checking dialog rebinding
         //
+        if (item.peer.peerType.ordinal() == ACPeerType.private().ordinal()) {
+            let user = Actor.getUserWithUid(item.peer.peerId)
+            binder.bind(Actor.getTypingWithUid(item.peer.peerId), valueModel2: user.getPresenceModel(), closure:{ (typing:JavaLangBoolean?, presence:ACUserPresence?) -> () in
+                if (typing != nil && typing!.booleanValue()) {
+                    self.typingMessage = Actor.getFormatter().formatTyping()
+                    self.typingView.isHidden = false
+                    self.messageView.isHidden = true
+                } else {
+                    self.typingView.isHidden = true
+                    self.messageView.isHidden = false
+                }
+                self.cellRenderer.cancelRender()
+                self.setNeedsLayout()
+            })
+        } else if (item.peer.peerType.ordinal() == ACPeerType.group().ordinal()) {
+            let group = Actor.getGroupWithGid(item.peer.peerId)
+            binder.bind(Actor.getGroupTyping(withGid: group.getId()), valueModel2: group.membersCount, valueModel3: group.getPresenceModel(), closure: { (typingValue:IOSIntArray?, membersCount: JavaLangInteger?, onlineCount:JavaLangInteger?) -> () in
+                if (group.isMemberModel().get().booleanValue()) {
+                    if (typingValue != nil && typingValue!.length() > 0) {
+                        self.typingView.textColor = self.appStyle.navigationSubtitleActiveColor
+                        if (typingValue!.length() == 1) {
+                            let uid = typingValue!.int(at: 0);
+                            let user = Actor.getUserWithUid(uid)
+                            self.typingMessage = Actor.getFormatter().formatTyping(withName: user.getNameModel().get())
+                        } else {
+                            self.typingMessage = Actor.getFormatter().formatTyping(withCount: typingValue!.length());
+                        }
+                        self.typingView.isHidden = false
+                        self.messageView.isHidden = true
+                    } else {
+                        self.typingView.isHidden = true
+                        self.messageView.isHidden = false
+                    }
+                    self.cellRenderer.cancelRender()
+                    self.setNeedsLayout()
+                }
+            })
+        }
         
         // Nothing changed
         if bindedItem == item {
@@ -187,44 +224,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
             }
         }
         
-        if (item.peer.peerType.ordinal() == ACPeerType.private().ordinal()) {
-            let user = Actor.getUserWithUid(item.peer.peerId)
-            binder.bind(Actor.getTypingWithUid(item.peer.peerId), valueModel2: user.getPresenceModel(), closure:{ (typing:JavaLangBoolean?, presence:ACUserPresence?) -> () in
-                if (typing != nil && typing!.booleanValue()) {
-                    self.typingMessage = Actor.getFormatter().formatTyping()
-                    self.typingView.isHidden = false
-                    self.messageView.isHidden = true
-                } else {
-                   self.typingView.isHidden = true
-                   self.messageView.isHidden = false
-                }
-                self.cellRenderer.cancelRender()
-                self.setNeedsLayout()
-            })
-        } else if (item.peer.peerType.ordinal() == ACPeerType.group().ordinal()) {
-            let group = Actor.getGroupWithGid(item.peer.peerId)
-            binder.bind(Actor.getGroupTyping(withGid: group.getId()), valueModel2: group.membersCount, valueModel3: group.getPresenceModel(), closure: { (typingValue:IOSIntArray?, membersCount: JavaLangInteger?, onlineCount:JavaLangInteger?) -> () in
-                if (group.isMemberModel().get().booleanValue()) {
-                    if (typingValue != nil && typingValue!.length() > 0) {
-                        self.typingView.textColor = self.appStyle.navigationSubtitleActiveColor
-                        if (typingValue!.length() == 1) {
-                            let uid = typingValue!.int(at: 0);
-                            let user = Actor.getUserWithUid(uid)
-                            self.typingMessage = Actor.getFormatter().formatTyping(withName: user.getNameModel().get())
-                        } else {
-                            self.typingMessage = Actor.getFormatter().formatTyping(withCount: typingValue!.length());
-                        }
-                        self.typingView.isHidden = false
-                        self.messageView.isHidden = true
-                    } else {
-                       self.typingView.isHidden = true
-                       self.messageView.isHidden = false
-                    }
-                    self.cellRenderer.cancelRender()
-                    self.setNeedsLayout()
-                }
-            })
-        }
+       
 
         // Cancelling Renderer and forcing layouting to start new rendering
         cellRenderer.cancelRender()
@@ -232,7 +232,6 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     open override func prepareForReuse() {
-        //NSLog("prepareForReuse()")
         super.prepareForReuse()
         binder.unbindAll()
     }
@@ -255,8 +254,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        //NSLog("layoutSubviews()")
-        
+
         // We expect height == 76;
         let width = self.contentView.frame.width
         let leftPadding = CGFloat(76)
@@ -339,7 +337,6 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     fileprivate func cellRender(_ config: AADialogCellConfig) -> AADialogCellLayout! {
-        //NSLog("cellRender(_ config: AADialogCellConfig) -> AADialogCellLayout! ")
         //
         // Title Layouting
         //
@@ -403,6 +400,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         let typingText = NSMutableAttributedString(string:config.typingText)
         typingText.yy_font = UIFont.systemFont(ofSize: 16)
         typingText.yy_color = dialogTextActiveColor
+        
 
         let typingContainer = YYTextContainer(size: CGSize(width: messageWidth, height: 1000))
         typingContainer.maximumNumberOfRows = 1
@@ -429,7 +427,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     fileprivate func cellApply(_ render: AADialogCellLayout!) {
-        // NSLog("cellApply(_ render: AADialogCellLayout!)")
+        
         //
         // Avatar
         //

@@ -725,4 +725,8 @@
 
 "ErrorUnableToCall" = "Unable to call this number";
 
-"EditingMessage" = "Editando Mensagem";
+"EditingMessage" = "Editando";
+
+"MessageToOld" = "A mensagem é muito antiga";
+
+"IsNotLastMessage" = "Esta não é a ultima mensagem";
