@@ -6,6 +6,8 @@ import UIKit
 
 final class AADialogCell: AATableViewCell, AABindedCell {
     
+    fileprivate let binder = AABinder()
+    
     // Binding data type
     
     public typealias BindData = ACDialog
@@ -13,7 +15,6 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     // Hight of cell
     
     open static func bindedCellHeight(_ table: AAManagedTable, item: ACDialog) -> CGFloat {
-        
         return 76
     }
     
@@ -44,19 +45,22 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     open let titleView = YYLabel()
     open let dialogTypeView = UIImageView()
     open let messageView = YYLabel()
+    open let typingView = YYLabel()
     
     open let dateView = YYLabel()
     open let statusView = UIImageView()
     open let counterView = YYLabel()
     open let counterViewBg = UIImageView()
-    
         
     // Binding Data
     
     fileprivate var bindedItem: ACDialog?
+
+    private var typingMessage = ""
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
     
         cellRenderer = AABackgroundCellRenderer<AADialogCellConfig, AADialogCellLayout>(renderer: cellRender, receiver: cellApply)
         
@@ -69,6 +73,10 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         messageView.ignoreCommonProperties = true
 //        messageView.fadeOnAsynchronouslyDisplay = true
         messageView.clearContentsBeforeAsynchronouslyDisplay = true
+        
+        typingView.displaysAsynchronously = true
+        typingView.ignoreCommonProperties = true
+        typingView.clearContentsBeforeAsynchronouslyDisplay = true
         
         dateView.displaysAsynchronously = true
         dateView.ignoreCommonProperties = true
@@ -88,6 +96,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         self.contentView.addSubview(titleView)
         self.contentView.addSubview(dialogTypeView)
         self.contentView.addSubview(messageView)
+        self.contentView.addSubview(typingView)
         self.contentView.addSubview(dateView)
         self.contentView.addSubview(statusView)
         self.contentView.addSubview(counterViewBg)
@@ -99,10 +108,48 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     open func bind(_ item: ACDialog, table: AAManagedTable, index: Int, totalCount: Int) {
-        
+
         //
         // Checking dialog rebinding
         //
+        if (item.peer.peerType.ordinal() == ACPeerType.private().ordinal()) {
+            let user = Actor.getUserWithUid(item.peer.peerId)
+            binder.bind(Actor.getTypingWithUid(item.peer.peerId), valueModel2: user.getPresenceModel(), closure:{ (typing:JavaLangBoolean?, presence:ACUserPresence?) -> () in
+                if (typing != nil && typing!.booleanValue()) {
+                    self.typingMessage = Actor.getFormatter().formatTyping()
+                    self.typingView.isHidden = false
+                    self.messageView.isHidden = true
+                } else {
+                    self.typingView.isHidden = true
+                    self.messageView.isHidden = false
+                }
+                self.cellRenderer.cancelRender()
+                self.setNeedsLayout()
+            })
+        } else if (item.peer.peerType.ordinal() == ACPeerType.group().ordinal()) {
+            let group = Actor.getGroupWithGid(item.peer.peerId)
+            binder.bind(Actor.getGroupTyping(withGid: group.getId()), valueModel2: group.membersCount, valueModel3: group.getPresenceModel(), closure: { (typingValue:IOSIntArray?, membersCount: JavaLangInteger?, onlineCount:JavaLangInteger?) -> () in
+                if (group.isMemberModel().get().booleanValue()) {
+                    if (typingValue != nil && typingValue!.length() > 0) {
+                        self.typingView.textColor = self.appStyle.navigationSubtitleActiveColor
+                        if (typingValue!.length() == 1) {
+                            let uid = typingValue!.int(at: 0);
+                            let user = Actor.getUserWithUid(uid)
+                            self.typingMessage = Actor.getFormatter().formatTyping(withName: user.getNameModel().get())
+                        } else {
+                            self.typingMessage = Actor.getFormatter().formatTyping(withCount: typingValue!.length());
+                        }
+                        self.typingView.isHidden = false
+                        self.messageView.isHidden = true
+                    } else {
+                        self.typingView.isHidden = true
+                        self.messageView.isHidden = false
+                    }
+                    self.cellRenderer.cancelRender()
+                    self.setNeedsLayout()
+                }
+            })
+        }
         
         // Nothing changed
         if bindedItem == item {
@@ -131,13 +178,18 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         if !messageView.displaysAsynchronously {
             messageView.displaysAsynchronously = true
         }
-    
+        
+        if !typingView.displaysAsynchronously {
+            typingView.displaysAsynchronously = true
+        }
+
         
         // Reseting Text Layout on new peer binding
         if !isRebind {
             avatarView.alpha = 0
             titleView.alpha = 0
             messageView.alpha = 0
+            typingView.alpha = 0
             statusView.alpha = 0
             dateView.alpha = 0
             counterView.alpha = 0
@@ -145,10 +197,10 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         } else {
             titleView.clearContentsBeforeAsynchronouslyDisplay = false
             messageView.clearContentsBeforeAsynchronouslyDisplay = false
+            typingView.clearContentsBeforeAsynchronouslyDisplay = false
             dateView.clearContentsBeforeAsynchronouslyDisplay = false            
             counterView.clearContentsBeforeAsynchronouslyDisplay = false
         }
-        
         
         //
         // Message State
@@ -172,26 +224,17 @@ final class AADialogCell: AATableViewCell, AABindedCell {
             }
         }
         
-        
-        
- 
+       
+
         // Cancelling Renderer and forcing layouting to start new rendering
         cellRenderer.cancelRender()
-
         setNeedsLayout()
     }
     
-//    open override func willTransition(to state: UITableViewCellStateMask) {
-//        super.willTransition(to: state)
-//        
-//        if state.contains(UITableViewCellStateMask.showingEditControlMask) {
-//            isEditing = true
-//        } else {
-//            isEditing = false
-//        }
-//    }
-    
-  
+    open override func prepareForReuse() {
+        super.prepareForReuse()
+        binder.unbindAll()
+    }
     
     open func addImageDialogType(_ image: UIImage!){
         dialogTypeView.image = image
@@ -206,13 +249,12 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         let dialogTypeFrame = CGRect(x: 76, y: 17, width: 18, height: 18)
         dialogTypeView.frame = dialogTypeFrame
         self.titleView.left = 76
-        
     }
  
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         // We expect height == 76;
         let width = self.contentView.frame.width
         let leftPadding = CGFloat(76)
@@ -249,7 +291,8 @@ final class AADialogCell: AATableViewCell, AABindedCell {
                 item: binItem,
                 isStatusVisible: !statusView.isHidden,
                 titleWidth: titleFrame.width,
-                contentWidth: width)
+                contentWidth: width,
+                typingText:self.typingMessage)
             
             if cellRenderer.requestRender(config) {
                 
@@ -258,6 +301,8 @@ final class AADialogCell: AATableViewCell, AABindedCell {
                 titleView.clearContentsBeforeAsynchronouslyDisplay = false
                 messageView.displaysAsynchronously = false
                 messageView.clearContentsBeforeAsynchronouslyDisplay = false
+                typingView.displaysAsynchronously = false
+                typingView.clearContentsBeforeAsynchronouslyDisplay = false
                 dateView.displaysAsynchronously = false
                 dateView.clearContentsBeforeAsynchronouslyDisplay = false
                 counterView.displaysAsynchronously = false
@@ -292,7 +337,6 @@ final class AADialogCell: AATableViewCell, AABindedCell {
     }
     
     fileprivate func cellRender(_ config: AADialogCellConfig) -> AADialogCellLayout! {
-        
         //
         // Title Layouting
         //
@@ -351,6 +395,19 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         
         
         //
+        // Typing
+        //
+        let typingText = NSMutableAttributedString(string:config.typingText)
+        typingText.yy_font = UIFont.systemFont(ofSize: 16)
+        typingText.yy_color = dialogTextActiveColor
+        
+
+        let typingContainer = YYTextContainer(size: CGSize(width: messageWidth, height: 1000))
+        typingContainer.maximumNumberOfRows = 1
+        typingContainer.truncationType = .end
+        let typingLayout = YYTextLayout(container: typingContainer, text: typingText)!
+        
+        //
         // Date
         //
         
@@ -366,7 +423,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         let dateContainer = YYTextContainer(size: CGSize(width: 60, height: 1000))
         let dateLayout = YYTextLayout(container: dateContainer, text: dateAtrStr)!
         
-        return AADialogCellLayout(titleLayout: titleLayout, messageLayout: messageLayout, messageWidth: messageWidth, counterLayout: counterLayout, dateLayout: dateLayout)
+        return AADialogCellLayout(titleLayout: titleLayout, messageLayout: messageLayout, typingLayout:typingLayout, messageWidth: messageWidth, counterLayout: counterLayout, dateLayout: dateLayout)
     }
     
     fileprivate func cellApply(_ render: AADialogCellLayout!) {
@@ -415,9 +472,24 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         UIView.performWithoutAnimation {
             self.messageView.frame = messageViewFrame
         }
-        messageView.textLayout = render.messageLayout
-        presentView(messageView)
+        self.messageView.textLayout = render.messageLayout
+        if !self.messageView.isHidden{
+            presentView(messageView)
+        }
         
+        
+        //
+        // Typing
+        //
+        
+        let typingViewFrame = CGRect(x: padding, y: 44, width: render.messageWidth, height: 22)
+        UIView.performWithoutAnimation {
+            self.typingView.frame = typingViewFrame
+        }
+        typingView.textLayout = render.typingLayout
+        if !self.typingView.isHidden{
+             presentView(typingView)
+        }
         
         //
         // Message State
@@ -468,12 +540,14 @@ private class AADialogCellConfig {
     let titleWidth: CGFloat
     let isStatusVisible: Bool
     let contentWidth: CGFloat
+    let typingText:String
     
-    init(item: ACDialog, isStatusVisible: Bool, titleWidth: CGFloat, contentWidth: CGFloat) {
+    init(item: ACDialog, isStatusVisible: Bool, titleWidth: CGFloat, contentWidth: CGFloat, typingText:String) {
         self.item = item
         self.titleWidth = titleWidth
         self.contentWidth = contentWidth
         self.isStatusVisible = isStatusVisible
+        self.typingText = typingText
     }
 }
 
@@ -490,18 +564,21 @@ private class AADialogCellLayout {
     let titleLayout: YYTextLayout
     let counterLayout: YYTextLayout?
     let messageLayout: YYTextLayout
+    let typingLayout: YYTextLayout
     let messageWidth: CGFloat
     let dateLayout: YYTextLayout
     
     init(
         titleLayout: YYTextLayout,
         messageLayout: YYTextLayout,
+        typingLayout: YYTextLayout,
         messageWidth: CGFloat,
         counterLayout: YYTextLayout?,
         dateLayout: YYTextLayout) {
             self.titleLayout = titleLayout
             self.counterLayout = counterLayout
             self.messageLayout = messageLayout
+            self.typingLayout = typingLayout
             self.messageWidth = messageWidth
             self.dateLayout = dateLayout
     }

@@ -201,6 +201,8 @@ open class AABubbleCell: UICollectionViewCell {
         //self.layer.rasterizationScale = UIScreen.mainScreen().scale
         //self.layer.drawsAsynchronously = true
         //self.contentView.layer.drawsAsynchronously = true
+        
+        
     }
     
     public required init(coder aDecoder: NSCoder) {
@@ -219,18 +221,18 @@ open class AABubbleCell: UICollectionViewCell {
         return false
     }
 
-//    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-//        if action == #selector(Object.delete(_:)) {
-//            return true
-//        }
-//        return false
-//    }
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.delete(_:)) {
+            return true
+        }
+        return false
+    }
     
-//    open override func delete(_ sender: Any?) {
-//        let rids = IOSLongArray(length: 1)
-//        rids?.replaceLong(at: 0, withLong: bindedMessage!.rid)
-//        Actor.deleteMessages(with: self.peer, withRids: rids)
-//    }
+    open override func delete(_ sender: Any?) {
+        let rids = IOSLongArray(length: 1)
+        rids?.replaceLong(at: 0, withLong: bindedMessage!.rid)
+        Actor.deleteMessages(with: self.peer, withRids: rids)
+    }
     
     func avatarDidTap() {
         if bindedMessage != nil {
@@ -240,6 +242,7 @@ open class AABubbleCell: UICollectionViewCell {
     
     open func performBind(_ message: ACMessage, receiveDate: jlong, readDate: jlong, setting: AACellSetting, isShowNewMessages: Bool, layout: AACellLayout) {
         
+        NSLog("UPDATE_MSG performBind")
         var reuse = false
         if (bindedMessage != nil && bindedMessage?.rid == message.rid) {
             reuse = true

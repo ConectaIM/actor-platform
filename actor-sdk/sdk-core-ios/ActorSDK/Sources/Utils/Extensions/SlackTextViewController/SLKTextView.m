@@ -32,6 +32,8 @@ NSString * const SLKTextViewPastedItemData =                        @"SLKTextVie
 
 static NSString *const SLKTextViewGenericFormattingSelectorPrefix = @"slk_format_";
 
+static BOOL isMenuInitialized = NO;
+
 @interface SLKTextView ()
 
 // The label used as placeholder
@@ -54,6 +56,8 @@ static NSString *const SLKTextViewGenericFormattingSelectorPrefix = @"slk_format
 @property (nonatomic, strong) NSMutableArray *registeredFormattingTitles;
 @property (nonatomic, strong) NSMutableArray *registeredFormattingSymbols;
 @property (nonatomic, getter=isFormatting) BOOL formatting;
+
+
 
 @end
 
@@ -556,7 +560,6 @@ SLKPastableMediaType SLKPastableMediaTypeFromNSString(NSString *string)
 - (BOOL)canBecomeFirstResponder
 {
     [self slk_addCustomMenuControllerItems];
-    
     return [super canBecomeFirstResponder];
 }
 
@@ -749,11 +752,23 @@ SLKPastableMediaType SLKPastableMediaTypeFromNSString(NSString *string)
 
 - (void)slk_addCustomMenuControllerItems
 {
-    UIMenuItem *undo = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Undo", nil) action:@selector(slk_undo:)];
-    UIMenuItem *redo = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Redo", nil) action:@selector(slk_redo:)];
-    UIMenuItem *format = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Format", nil) action:@selector(slk_presentFormattingMenu:)];
-    
-    [[UIMenuController sharedMenuController] setMenuItems:@[undo, redo, format]];
+    if(!isMenuInitialized){
+        UIMenuItem *undo = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Undo", nil) action:@selector(slk_undo:)];
+        UIMenuItem *redo = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Redo", nil) action:@selector(slk_redo:)];
+        UIMenuItem *format = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Format", nil) action:@selector(slk_presentFormattingMenu:)];
+        
+        if([UIMenuController sharedMenuController].menuItems == nil){
+            [[UIMenuController sharedMenuController] setMenuItems:@[undo, redo, format]];
+        }else{
+            NSMutableArray *oldItens = [NSMutableArray arrayWithArray:[UIMenuController sharedMenuController].menuItems];
+            [oldItens addObject:undo];
+            [oldItens addObject:redo];
+            [oldItens addObject:format];
+            [[UIMenuController sharedMenuController] setMenuItems:oldItens];
+        }
+        isMenuInitialized = YES;
+    }
+ 
 }
 
 - (void)slk_undo:(id)sender
@@ -928,7 +943,6 @@ SLKPastableMediaType SLKPastableMediaTypeFromNSString(NSString *string)
 - (void)slk_didHideMenuController:(NSNotification *)notification
 {
     self.formatting = NO;
-    
     [self slk_addCustomMenuControllerItems];
 }
 

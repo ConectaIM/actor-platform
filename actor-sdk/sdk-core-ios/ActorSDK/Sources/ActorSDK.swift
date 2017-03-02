@@ -340,6 +340,7 @@ import UserNotifications
         // Subscribe to network changes
         
         reachability = Reachability()!
+        
         if reachability != nil {
             reachability.whenReachable = { reachability in
                 self.messenger.forceNetworkCheck()
@@ -353,6 +354,8 @@ import UserNotifications
         } else {
             print("Unable to create Reachability")
         }
+        
+        UIMenuController.shared.menuItems = [UIMenuItem(title: AALocalized("NavigationEdit"), action: #selector(AABubbleTextCell.edit(_:)))]
     }
     
     func didLoggedIn() {
@@ -405,7 +408,7 @@ import UserNotifications
         }
         
         if apiPushId != nil {
-            NSLog("Fazendo o registro no push pushRegisterToken")
+            //NSLog("Fazendo o registro no push pushRegisterToken")
             messenger.registerApplePush(withApnsId: jint(apiPushId!), withToken: token)
         }
     }
@@ -416,7 +419,7 @@ import UserNotifications
         }
         
         if apiPushId != nil {
-            NSLog("Fazendo o registro no pushkit pushRegisterKitToken")
+           // NSLog("Fazendo o registro no pushkit pushRegisterKitToken")
             messenger.registerApplePushKit(withApnsId: jint(apiPushId!), withToken: token)
         }
 
@@ -441,7 +444,7 @@ import UserNotifications
     }
     
     fileprivate func requestPushKit() {
-        NSLog("Requisitando o pushKit requestPushKit")
+        //NSLog("Requisitando o pushKit requestPushKit")
         let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
         voipRegistry.delegate = self        
         voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
@@ -450,20 +453,20 @@ import UserNotifications
     @objc open func pushRegistry(_ registry: PKPushRegistry, didUpdate credentials: PKPushCredentials, forType type: PKPushType) {
         if (type == PKPushType.voIP) {
             let tokenString = credentials.token.map { String(format: "%02.2hhx", $0) }.joined()
-            NSLog("Vai registrar o voip para o token: \(tokenString)")
+            //NSLog("Vai registrar o voip para o token: \(tokenString)")
             pushRegisterKitToken(tokenString.replace(" ", dest: "").replace("<", dest: "").replace(">", dest: ""))
         }
     }
     
     @objc open func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
-        NSLog("Invalidando o push token para voip didInvalidatePushTokenForType")
+        //NSLog("Invalidando o push token para voip didInvalidatePushTokenForType")
         if (type == PKPushType.voIP) {
             
         }
     }
     
     @objc open func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, forType type: PKPushType) {
-        NSLog("Recebendo pushKit notification didReceiveIncomingPushWith")
+        //NSLog("Recebendo pushKit notification didReceiveIncomingPushWith")
         if (type == PKPushType.voIP) {
             let aps = payload.dictionaryPayload["aps"] as! [NSString: AnyObject]
             if let callId = aps["callId"] as? String {
@@ -871,7 +874,7 @@ import UserNotifications
     //
     
     open func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        NSLog("Recebendo notificacao normal didReceiveRemoteNotification")
+        //NSLog("Recebendo notificacao normal didReceiveRemoteNotification")
         if !messenger.isLoggedIn() {
             completionHandler(UIBackgroundFetchResult.noData)
             return
@@ -881,11 +884,11 @@ import UserNotifications
     
     open func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // Nothing?
-        NSLog("Recebendo notificacao normal 2 didReceiveRemoteNotification")
+        //NSLog("Recebendo notificacao normal 2 didReceiveRemoteNotification")
     }
     
     open func application(_ application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        NSLog("Vai requisitar o pushkit didRegisterUserNotificationSettings")
+       // NSLog("Vai requisitar o pushkit didRegisterUserNotificationSettings")
         requestPushKit()
     }
     
@@ -909,7 +912,7 @@ import UserNotifications
     }
     
     open func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        NSLog("Perform with fetch performFetchWithCompletionHandler")
+        //NSLog("Perform with fetch performFetchWithCompletionHandler")
         if !messenger.isLoggedIn() {
             completionHandler(UIBackgroundFetchResult.noData)
             return

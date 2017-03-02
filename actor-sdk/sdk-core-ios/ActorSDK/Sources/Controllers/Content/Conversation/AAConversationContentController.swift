@@ -148,8 +148,12 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
     }
     
     open func bindCell(_ collectionView: UICollectionView, cellForRowAtIndexPath indexPath: IndexPath, cell: UICollectionViewCell) {
+        NSLog("UPDATE_MSG bindCeelll")
+        
         let list = getProcessedList()
         let message = list!.items[(indexPath as NSIndexPath).row]
+        
+        //verificar o id editado aqui e marcar o layout para tualizacao
         let setting = list!.cellSettings[(indexPath as NSIndexPath).row]
         let layout = list!.layouts[(indexPath as NSIndexPath).row]
         let bubbleCell = (cell as! AABubbleCell)
@@ -265,10 +269,8 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
             UIView.setAnimationsEnabled(false)
         }
         
-//        NSLog("👮🏻 onCollectionChanged called was: \(prevCount)")
         
         self.willUpdate()
-//        NSLog("👮🏻 willUpdate called")
         
         let list = self.displayList.getProcessedList() as? AAPreprocessedList
         
@@ -277,10 +279,8 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
         if modification.nonUpdateCount() > 0 {
             
             isUpdating = true
-//            NSLog("👮🏻 batch updates")
+            
             self.collectionView.performBatchUpdates({ () -> Void in
-                
-//                NSLog("👮🏻 batch started")
                 
                 // Removed rows
                 if modification.removedCount() > 0 {
@@ -288,7 +288,6 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
                     for i in 0..<modification.removedCount() {
                         let removedRow = Int(modification.getRemoved(jint(i)))
                         rows.append(IndexPath(row: removedRow, section: 0))
-//                        NSLog("👮🏻 removed \(removedRow)")
                     }
                     self.collectionView.deleteItems(at: rows)
                 }
@@ -299,7 +298,6 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
                     for i in 0..<modification.addedCount() {
                         let insertedRow = Int(modification.getAdded(jint(i)))
                         rows.append(IndexPath(row: insertedRow, section: 0))
-//                        print("👮🏻 inserted \(insertedRow)")
                     }
                     
                     self.collectionView.insertItems(at: rows)
@@ -312,7 +310,6 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
                         let sourceRow = Int((mov?.getSourceIndex())!)
                         let destRow = Int((mov?.getDestIndex())!)
                         self.collectionView.moveItem(at: IndexPath(row: sourceRow, section: 0), to: IndexPath(row: destRow, section: 0))
-//                        NSLog("👮🏻 moved \(sourceRow) -> \(destRow)")
                     }
                 }
                 
@@ -320,11 +317,9 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
                 self.prevCount = self.getCount()
                 self.collectionViewLayout.beginUpdates(modification.isLoadMore, list: list, unread: self.unreadMessageId)
                 isAppliedList = true
-//                NSLog("👮🏻 batch updates:end \(self.prevCount)")
             }, completion: { (b) -> Void in
-//                NSLog("👮🏻 batch updates:completion")
+
             })
-//            NSLog("👮🏻 batch updates:after")
         }
         
         if !isAppliedList {
@@ -337,9 +332,7 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
         
         if modification.updatedCount() > 0 {
             for i in 0..<modification.updatedCount() {
-                
                 let updIndex = Int(modification.getUpdated(i))
-                // Is forced update not marking as required for soft update
                 if (list!.forceUpdated[updIndex]) {
                     continue
                 }
@@ -387,7 +380,6 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
         }
         
         self.didUpdate()
-//        NSLog("👮🏻 didUpdate Called")
         
         if modification.isLoadMore {
             UIView.setAnimationsEnabled(true)
@@ -523,5 +515,8 @@ open class AAConversationContentController: SLKTextViewController, ARDisplayList
         }
         
     }
+    
+    
+    open func onEditMessageTap(rid:Int64, msg:String){}
     
 }

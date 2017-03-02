@@ -724,3 +724,9 @@
 "ErrorUnableToJoin" = "Unable to join to group";
 
 "ErrorUnableToCall" = "Unable to call this number";
+
+"EditingMessage" = "Editando";
+
+"MessageToOld" = "A mensagem é muito antiga";
+
+"IsNotLastMessage" = "Esta não é a ultima mensagem";

@@ -61,6 +61,8 @@ class AAListProcessor: NSObject, ARListProcessor {
         
         autoreleasepool {
             
+            NSLog("TYPING autoreleasepool")
+            
             let start = CFAbsoluteTimeGetCurrent()
             var section = start
             
@@ -79,7 +81,7 @@ class AAListProcessor: NSObject, ARListProcessor {
                 objs.append(msg)
             }
             
-            if ENABLE_LOGS { log("processing(items): \(CFAbsoluteTimeGetCurrent() - section)") }
+            if ENABLE_LOGS { log("UPDATE_MSG processing(items): \(CFAbsoluteTimeGetCurrent() - section)") }
             section = CFAbsoluteTimeGetCurrent()
             
             // Calculating cell settings
@@ -88,7 +90,7 @@ class AAListProcessor: NSObject, ARListProcessor {
                 settings.append(buildCellSetting(i, items: objs))
             }
             
-            if ENABLE_LOGS { log("processing(settings): \(CFAbsoluteTimeGetCurrent() - section)") }
+            if ENABLE_LOGS { log("UPDATE_MSG processing(settings): \(CFAbsoluteTimeGetCurrent() - section)") }
             section = CFAbsoluteTimeGetCurrent()
             
             // Building cell layouts
@@ -96,7 +98,7 @@ class AAListProcessor: NSObject, ARListProcessor {
                 layouts.append(buildLayout(objs[i], layoutCache: layoutCache))
             }
             
-            if ENABLE_LOGS { log("processing(layouts): \(CFAbsoluteTimeGetCurrent() - section)") }
+            if ENABLE_LOGS { log("UPDATE_MSG processing(layouts): \(CFAbsoluteTimeGetCurrent() - section)") }
             section = CFAbsoluteTimeGetCurrent()
             
             // Calculating force and simple updates
@@ -107,25 +109,36 @@ class AAListProcessor: NSObject, ARListProcessor {
                     
                     let obj = objs[i]
                     let oldIndex: Int! = prevList.indexMap[obj.rid]
+                    
                     if oldIndex != nil {
-                        
+
                         // Check if layout keys are same
                         // If text was replaced by media it might force-updated
                         // If size of bubble changed you might to change layout key
                         // to update it's size
                         // TODO: In the future releases it might be implemented
                         // in more flexible way
-                        if prevList.layouts[oldIndex].key != layouts[i].key {
+                        var valueChanged = false
+                        
+                        if prevList.items[oldIndex].content is ACTextContent {
+                            let oldContent = prevList.items[oldIndex].content as! ACTextContent
+                            let index: Int! = indexes[obj.rid]
                             
+                            let newContent = objs[index].content as! ACTextContent
+                            
+                            if oldContent.text != newContent.text {
+                                valueChanged = true
+                            }
+                        }
+                        
+                        if prevList.layouts[oldIndex].key != layouts[i].key || valueChanged {
                             // Mark as forced update
                             isForced = true
-                            
                             // Hack for rewriting layout information
                             // Removing layout from cache
                             layoutCache.revoke(objs[i].rid)
                             // Building new layout
                             layouts[i] = buildLayout(objs[i], layoutCache: layoutCache)
-                            
                         } else {
                             
                             // Otherwise check bubble settings to check
@@ -139,7 +152,6 @@ class AAListProcessor: NSObject, ARListProcessor {
                                     // Date separator change size so make cell for resize
                                     isForced = true
                                 } else {
-                                    
                                     // Other changes doesn't change size, so just update content
                                     // without resizing
                                     isUpdated = true
@@ -167,7 +179,7 @@ class AAListProcessor: NSObject, ARListProcessor {
                 }
             }
             
-            if ENABLE_LOGS { log("processing(updates): \(CFAbsoluteTimeGetCurrent() - section)") }
+            if ENABLE_LOGS { log("UPDATE_MSG processing(updates): \(CFAbsoluteTimeGetCurrent() - section)") }
             section = CFAbsoluteTimeGetCurrent()
             
             // Updating cell heights
@@ -178,9 +190,9 @@ class AAListProcessor: NSObject, ARListProcessor {
                 heights.append(height)
             }
             
-            if ENABLE_LOGS { log("processing(heights): \(CFAbsoluteTimeGetCurrent() - section)") }
+            if ENABLE_LOGS { log("UPDATE_MSG processing(heights): \(CFAbsoluteTimeGetCurrent() - section)") }
             
-            if ENABLE_LOGS { log("processing(all): \(CFAbsoluteTimeGetCurrent() - start)") }
+            if ENABLE_LOGS { log("UPDATE_MSG processing(all): \(CFAbsoluteTimeGetCurrent() - start)") }
         }
         
         // Put everything together

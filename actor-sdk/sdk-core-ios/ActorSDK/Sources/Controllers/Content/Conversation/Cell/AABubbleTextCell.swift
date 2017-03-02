@@ -80,6 +80,7 @@ open class AABubbleTextCell : AABubbleCell {
         
         statusView.contentMode = UIViewContentMode.center
         
+    
         contentView.addSubview(messageText)
         contentView.addSubview(dateText)
         contentView.addSubview(statusView)
@@ -94,8 +95,14 @@ open class AABubbleTextCell : AABubbleCell {
     
     open override func bind(_ message: ACMessage, receiveDate: jlong, readDate: jlong, reuse: Bool, cellLayout: AACellLayout, setting: AACellSetting) {
         
+        let msg:ACTextContent = (message.content as! ACTextContent)
+        NSLog("UPDATE_MSG Bind da mensagem \(msg.text)")
+       
         // Saving cell settings
         self.cellLayout = cellLayout as! TextCellLayout
+        
+        NSLog("UPDATE_MSG Texto do layout \(self.cellLayout.textLayout.text.string)")
+        
         self.isClanchTop = setting.clenchTop
         self.isClanchBottom = setting.clenchBottom
         
@@ -151,6 +158,7 @@ open class AABubbleTextCell : AABubbleCell {
         dateWidth = self.cellLayout.dateWidth!
         
         if (isOut) {
+            NSLog("UPDATE_MSG atualizando o status da mensagem")
             switch(message.messageState.toNSEnum()) {
             case .SENT:
                 if message.sortDate <= readDate {
@@ -180,24 +188,41 @@ open class AABubbleTextCell : AABubbleCell {
         }
     }
     
+    
+    
     // Menu for Text cell
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        if action == #selector(UIResponderStandardEditActions.copy(_:)) {
+            if (bindedMessage!.content is ACTextContent) {
+                return true
+            }
+        }
+        
+        if action == #selector(UIResponderStandardEditActions.delete(_:)) {
+            return true
+        }
+        
+        if action == #selector(AABubbleTextCell.edit(_:)) {
+            if(isOut && self.bindedMessage?.messageState.toNSEnum() == .SENT){
+                return true
+            }
+        }
+        
+        return false
+    }
     
-//    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-//        if action == #selector(NSObject.copy(_:)) {
-//            if (bindedMessage!.content is ACTextContent) {
-//                return true
-//            }
-//        }
-//        if action == #selector(NSObject.delete(_:)) {
-//            return true
-//        }
-//        return false
-//    }
-//    
-//    open override func copy(_ sender: AnyObject?) {
-//        UIPasteboard.general.string = (bindedMessage!.content as! ACTextContent).text
-//    }
+    open override func copy(_ sender: Any?) {
+        UIPasteboard.general.string = (bindedMessage!.content as! ACTextContent).text
+    }
     
+    open func edit(_ sender: Any?){
+        NSLog("Editando mensagem")
+        self.controller.onEditMessageTap(rid: bindedMessage!.rid, msg: (bindedMessage?.content as! ACTextContent).text)
+        //self.needRelayout = true
+    }
+    
+   
     open func urlLongTap(_ url: URL) {
         if url.scheme != "source" && url.scheme == "send" {
             let actionSheet: UIAlertController = UIAlertController(title: nil, message: url.absoluteString, preferredStyle: .actionSheet)
@@ -475,7 +500,7 @@ open class TextCellLayout: AACellLayout {
                 date: Int64(message.date),
                 isOut: message.isOut,
                 peer: peer,
-                layoutKey: TextCellLayout.unsupportedKey,
+                layoutKey:  TextCellLayout.unsupportedKey,
                 layouter: layouter
             )
         }
@@ -488,7 +513,11 @@ open class TextCellLayout: AACellLayout {
 open class AABubbleTextCellLayouter: AABubbleLayouter {
     
     open func buildLayout(_ peer: ACPeer, message: ACMessage) -> AACellLayout {
-        return TextCellLayout(message: message, peer: peer, layouter: self)
+        let msg:ACTextContent = (message.content as! ACTextContent)
+        NSLog("UPDATE_MSG AABubbleTextCellLayouter buildLayout \(msg.text)")
+        return TextCellLayout(message: message,
+                              peer: peer,
+                              layouter: self)
     }
     
     open func isSuitable(_ message: ACMessage) -> Bool {

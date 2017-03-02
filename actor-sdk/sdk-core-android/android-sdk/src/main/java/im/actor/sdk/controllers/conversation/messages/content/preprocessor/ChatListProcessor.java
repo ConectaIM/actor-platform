@@ -74,7 +74,6 @@ public class ChatListProcessor implements ListProcessor<Message> {
     @Override
     public Object process(@NotNull List<Message> items, @Nullable Object previous) {
 
-
         // Init tools
         if (mobileInvitePattern == null) {
             mobileInvitePattern = Pattern.compile("(actor:\\\\/\\\\/)(invite\\\\?token=)([0-9-a-z]{1,64})");
@@ -128,9 +127,6 @@ public class ChatListProcessor implements ListProcessor<Message> {
                     Spannable spannableString = new SpannableString(text.getText());
                     boolean hasSpannable = false;
 
-                    // Wait Emoji to load
-                   // Emoji.waitForEmoji();
-
                     // Process markdown
                     Spannable markdown = AndroidMarkdown.processText(text.getText());
                     if (markdown != null) {
@@ -179,16 +175,6 @@ public class ChatListProcessor implements ListProcessor<Message> {
                         hasSpannable = true;
                     }
 
-                    // Process Emoji
-//                    if (SmileProcessor.containsEmoji(spannableString)) {
-//                        spannableString = emoji().processEmojiCompatMutable(spannableString, SmileProcessor.CONFIGURATION_BUBBLES);
-//                        hasSpannable = true;
-//                    }
-
-
-//                    spannableString = new SpannableString(Emoji.replaceEmoji(spannableString+"ffff", new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG).getFontMetricsInt(), Screen.dp(20), false));
-//                    hasSpannable = true;
-
                     updatedTexts.put(msg.getRid(), updatedCounter);
                     preprocessedTexts.put(msg.getRid(), new PreprocessedTextData(reactions, text.getText(),
                             hasSpannable ? spannableString : null));
@@ -216,7 +202,6 @@ public class ChatListProcessor implements ListProcessor<Message> {
                 builder.setSpan(new ForegroundColorSpan(colors[Math.abs(msg.getSenderId()) % colors.length]), 0, name.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 //builder.append("\n");
                 spannableString = builder.append(spannableString);
-
 
                 preprocessedTexts.put(msg.getRid(), new PreprocessedTextData(reactions, text, spannableString));
 

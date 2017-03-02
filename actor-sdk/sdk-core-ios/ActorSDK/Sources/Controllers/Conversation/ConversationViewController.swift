@@ -8,7 +8,6 @@ import MobileCoreServices
 import AddressBook
 import AddressBookUI
 import AVFoundation
-//import AGEmojiKeyboard
 
 
 final public class ConversationViewController:
@@ -22,9 +21,6 @@ final public class ConversationViewController:
     AAAudioRecorderDelegate,
     AAConvActionSheetDelegate,
     AAStickersKeyboardDelegate
-    //,
-    //AGEmojiKeyboardViewDataSource,
-   // AGEmojiKeyboardViewDelegate
     {
     
     // Data binder
@@ -58,7 +54,6 @@ final public class ConversationViewController:
     fileprivate var stickersView: AAStickersKeyboard!
     open var stickersButton : UIButton!
     fileprivate var stickersOpen = false
-    //fileprivate var emojiKeyboar: AGEmojiKeyboardView!
     
     
     //
@@ -78,6 +73,10 @@ final public class ConversationViewController:
     open var removeExcedentControllers = true
     
 
+    //
+    // Editing Message
+    //
+    var editingId:Int64!
     
     ////////////////////////////////////////////////////////////
     // MARK: - Init
@@ -162,7 +161,14 @@ final public class ConversationViewController:
          self.textInputbar.addSubview(stickersButton)   
         }
         
+        //
+        //Editing Configurations
+        //
         
+        self.textInputbar.editorLeftButton.setTitle(AALocalized("NavigationCancel"), for: .normal)
+        self.textInputbar.editorRightButton.setTitle(AALocalized("NavigationSave"), for: .normal)
+      
+    
         //
         // Check text for set right button
         //
@@ -290,8 +296,6 @@ final public class ConversationViewController:
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216)
         self.stickersView = AAStickersKeyboard(frame: frame)
         self.stickersView.delegate = self
-        
-        //emojiKeyboar.frame = frame
         
         NotificationCenter.default.addObserver(
             self,
@@ -437,13 +441,11 @@ final public class ConversationViewController:
         Actor.onConversationOpen(with: peer)
         ActorSDK.sharedActor().trackPageVisible(content)
         
-        
         if textView.isFirstResponder == false {
             textView.resignFirstResponder()
         }
         
         textView.text = Actor.loadDraft(with: peer)
-        
     }
     
     open func onOverlayTap() {
@@ -478,7 +480,11 @@ final public class ConversationViewController:
         subtitleView.frame = CGRect(x: 0, y: 22, width: (navigationView.frame.width - 0), height: 20)
         
         stickersView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216)
-        //emojiKeyboar.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216)
+        
+        self.textInputbar.editorTitle.text = AALocalized("EditingMessage")
+        self.textInputbar.editorLeftButton.sizeToFit()
+        self.textInputbar.editorRightButton.sizeToFit()
+        
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -554,6 +560,30 @@ final public class ConversationViewController:
         }
     }
     
+    public override func onEditMessageTap(rid:Int64, msg:String){
+        self.textView.text = msg
+        self.editingId = rid
+        self.textInputbar.beginTextEditing()
+    }
+    
+    open override func didCommitTextEditing(_ sender: Any!){
+        if(self.editingId != nil){
+            Actor.updateMessage(with: peer, withText: textView.text, withRid: self.editingId).failure { (e: JavaLangException!) -> () in
+                if let re:ACRpcException = (e as! ACRpcException){
+                    if re.tag == "NOT_IN_TIME_WINDOW"{
+                        self.alertUser(AALocalized("MessageToOld"))
+                    } else if re.tag == "NOT_LAST_MESSAGE" {
+                        self.alertUser(AALocalized("IsNotLastMessage"))
+                    } else {
+                        self.alertUser(e.getMessage())
+                    }
+                }
+            }
+            self.editingId = nil
+        }
+        super.didCommitTextEditing(sender)
+    }
+    
     func onCallTap() {
         if (self.peer.isGroup) {
             execute(ActorSDK.sharedActor().messenger.doCall(withGid: self.peer.peerId))
@@ -619,7 +649,6 @@ final public class ConversationViewController:
             self.rightButton.setTitle("", for: UIControlState())
             self.rightButton.isEnabled = true
             
-            
             self.rightButton.layoutIfNeeded()
             self.textInputbar.layoutIfNeeded()
             
@@ -628,6 +657,7 @@ final public class ConversationViewController:
         }
         
     }
+    
     
     ////////////////////////////////////////////////////////////
     // MARK: - Right/Left button pressed
@@ -1076,10 +1106,7 @@ final public class ConversationViewController:
     
     open func changeKeyboard() {
         if self.stickersOpen == false {
-             //self.stickersView.loadStickers()
-            
             self.textInputbar.textView.inputView = self.stickersView
-            //self.textInputbar.textView.inputView = self.emojiKeyboar
             self.textInputbar.textView.inputView?.isOpaque = false
             self.textInputbar.textView.inputView?.backgroundColor = UIColor.clear
             self.textInputbar.textView.refreshFirstResponder()
