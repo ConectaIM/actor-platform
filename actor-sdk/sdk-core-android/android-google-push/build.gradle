@@ -20,8 +20,8 @@ version = '0.0.1'
 def baseVersion = "3.0"
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 15
@@ -46,12 +46,12 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:appcompat-v7:25.2.0'
 
     //compile 'im.actor:android-sdk:0.1.30'
     compile project(':actor-sdk:sdk-core-android:android-sdk')
 
-    compile 'com.google.android.gms:play-services-gcm:9.4.0'
+    compile 'com.google.android.gms:play-services-gcm:9.6.1'
 }
 
 //
