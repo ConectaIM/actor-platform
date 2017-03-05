@@ -159,6 +159,8 @@ import UserNotifications
     /// Disable this if you want manually handle online states
     open var automaticOnlineHandling = true
     
+    static open var isDebugMode = false
+    
     
     //
     // Local Settings
@@ -345,14 +347,14 @@ import UserNotifications
             reachability.whenReachable = { reachability in
                 self.messenger.forceNetworkCheck()
             }
-            
+    
             do {
                 try reachability.startNotifier()
             } catch {
-                print("Unable to start Reachability")
+                log("Unable to start Reachability")
             }
         } else {
-            print("Unable to create Reachability")
+            log("Unable to create Reachability")
         }
         
         UIMenuController.shared.menuItems = [UIMenuItem(title: AALocalized("NavigationEdit"), action: #selector(AABubbleTextCell.edit(_:)))]
@@ -408,7 +410,8 @@ import UserNotifications
         }
         
         if apiPushId != nil {
-            //NSLog("Fazendo o registro no push pushRegisterToken")
+            
+            log("PUSH Fazendo o registro no push pushRegisterToken")
             messenger.registerApplePush(withApnsId: jint(apiPushId!), withToken: token)
         }
     }
@@ -419,7 +422,7 @@ import UserNotifications
         }
         
         if apiPushId != nil {
-           // NSLog("Fazendo o registro no pushkit pushRegisterKitToken")
+            log("PUSHKIT Fazendo o registro no pushkit pushRegisterKitToken")
             messenger.registerApplePushKit(withApnsId: jint(apiPushId!), withToken: token)
         }
 
@@ -432,7 +435,7 @@ import UserNotifications
                 if (granted){
                     UIApplication.shared.registerForRemoteNotifications()
                 }else{
-                    print("Acesso ao permitido para notificacoes")
+                    self.log("PUSH Acesso ao permitido para notificacoes")
                 }
             })
         }else{
@@ -441,10 +444,13 @@ import UserNotifications
             UIApplication.shared.registerUserNotificationSettings(settings)
             UIApplication.shared.registerForRemoteNotifications()
         }
+        
+        log("PUSHKIT Vai requisitar o pushkit")
+        self.requestPushKit()
     }
     
     fileprivate func requestPushKit() {
-        //NSLog("Requisitando o pushKit requestPushKit")
+        log("PUSHKIT Requisitando o pushKit requestPushKit e registrando o delegate")
         let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
         voipRegistry.delegate = self        
         voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
@@ -453,20 +459,20 @@ import UserNotifications
     @objc open func pushRegistry(_ registry: PKPushRegistry, didUpdate credentials: PKPushCredentials, forType type: PKPushType) {
         if (type == PKPushType.voIP) {
             let tokenString = credentials.token.map { String(format: "%02.2hhx", $0) }.joined()
-            //NSLog("Vai registrar o voip para o token: \(tokenString)")
+            log("PUSHKIT Vai registrar o voip para o token: \(tokenString)")
             pushRegisterKitToken(tokenString.replace(" ", dest: "").replace("<", dest: "").replace(">", dest: ""))
         }
     }
     
     @objc open func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
-        //NSLog("Invalidando o push token para voip didInvalidatePushTokenForType")
+        log("PUSHKIT Invalidando o push token para voip didInvalidatePushTokenForType")
         if (type == PKPushType.voIP) {
             
         }
     }
     
     @objc open func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, forType type: PKPushType) {
-        //NSLog("Recebendo pushKit notification didReceiveIncomingPushWith")
+        log("Recebendo pushKit notification didReceiveIncomingPushWith")
         if (type == PKPushType.voIP) {
             let aps = payload.dictionaryPayload["aps"] as! [NSString: AnyObject]
             if let callId = aps["callId"] as? String {
@@ -549,6 +555,7 @@ import UserNotifications
         if messenger.isLoggedIn() {
             
             if autoPushMode == .afterLogin {
+                log("PUSH requisitando o push em presentMessengerInWindow")
                 requestPush()
             }
             
@@ -874,7 +881,7 @@ import UserNotifications
     //
     
     open func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        //NSLog("Recebendo notificacao normal didReceiveRemoteNotification")
+        NSLog("PUSH Recebendo notificacao normal didReceiveRemoteNotification")
         if !messenger.isLoggedIn() {
             completionHandler(UIBackgroundFetchResult.noData)
             return
@@ -884,12 +891,11 @@ import UserNotifications
     
     open func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // Nothing?
-        //NSLog("Recebendo notificacao normal 2 didReceiveRemoteNotification")
+        log("PUSH Recebendo notificacao normal 2 didReceiveRemoteNotification")
     }
     
     open func application(_ application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-       // NSLog("Vai requisitar o pushkit didRegisterUserNotificationSettings")
-        requestPushKit()
+       // requestPushKit()
     }
     
     //
@@ -897,22 +903,22 @@ import UserNotifications
     //
     @available(iOS 10.0, *)
     public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        log("PUSH IOS10 Perform with fetch userNotificationCenter")
         completionHandler([.alert, .badge, .sound])
-        
     }
     
     @available(iOS 10.0, *)
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        log("PUSH IOS10 Perform with fetch userNotificationCenter")
         if !messenger.isLoggedIn() {
             completionHandler(UIBackgroundFetchResult.noData)
             return
         }
-        
         self.completionHandler = completionHandler
     }
     
     open func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        //NSLog("Perform with fetch performFetchWithCompletionHandler")
+        log("PUSH Perform with fetch performFetchWithCompletionHandler")
         if !messenger.isLoggedIn() {
             completionHandler(UIBackgroundFetchResult.noData)
             return
