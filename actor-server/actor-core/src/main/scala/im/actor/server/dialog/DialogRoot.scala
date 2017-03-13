@@ -35,9 +35,29 @@ object DialogRoot {
       45014 → classOf[DialogRootEvents.Unarchived],
       45015 → classOf[DialogRootEvents.Unfavourited],
       45017 → classOf[DialogRootEvents.Initialized],
+
       45016 → classOf[DialogRootStateSnapshot],
+
       45018 → classOf[DialogRootEvents.Bumped],
-      45019 → classOf[DialogRootEvents.Deleted]
+      45019 → classOf[DialogRootEvents.Deleted],
+
+      45020 → classOf[DialogRootQueries.GetDialogGroupsResponse],
+      45021 → classOf[DialogRootQueries.GetCounter],
+      45022 → classOf[DialogRootQueries.GetCounterResponse],
+      45023 → classOf[DialogRootQueries.GetDialogGroups],
+      45024 → classOf[DialogRootQueries.GetDialogs],
+      45025 → classOf[DialogRootQueries.GetDialogsResponse],
+      45026 → classOf[DialogRootQueries.GetArchivedDialogs],
+      45027 → classOf[DialogRootQueries.GetArchivedDialogsResponse],
+
+      45028 → classOf[DialogRootCommands.Unarchive],
+      45029 → classOf[DialogRootCommands.CheckArchive],
+      45030 → classOf[DialogRootCommands.Archive],
+      45031 → classOf[DialogRootCommands.Favourite],
+      45032 → classOf[DialogRootCommands.Unfavourite],
+      45033 → classOf[DialogRootCommands.Delete],
+      45034 → classOf[DialogRootCommands.Bump],
+      45035 → classOf[DialogRootCommands.BumpAck]
     )
   }
 

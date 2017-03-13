@@ -30,7 +30,31 @@ object DialogProcessor {
       40012 → classOf[DialogEvents.NewMessage],
       40013 → classOf[DialogEvents.SetCounter],
       40015 → classOf[DialogEvents.Initialized],
-      40014 → classOf[DialogStateSnapshot]
+
+      40014 → classOf[DialogStateSnapshot],
+
+      40016 → classOf[DialogCommands.SendMessageAck],
+      40017 → classOf[DialogCommands.SendMessage],
+      40018 → classOf[DialogCommands.MessageReadAck],
+      40019 → classOf[DialogCommands.MessageReceivedAck],
+      40020 → classOf[DialogCommands.SetReaction],
+      40021 → classOf[DialogCommands.SetReactionAck],
+      40022 → classOf[DialogCommands.WriteMessage],
+      40023 → classOf[DialogCommands.WriteMessageAck],
+      40024 → classOf[DialogCommands.WriteMessageSelf],
+      40025 → classOf[DialogCommands.WriteMessageSelfAck],
+      40026 → classOf[DialogCommands.MessageReceived],
+      40027 → classOf[DialogCommands.MessageRead],
+      40028 → classOf[DialogCommands.RemoveReaction],
+      40029 → classOf[DialogCommands.RemoveReactionAck],
+
+      40030 → classOf[DialogQueries.GetCounter],
+      40031 → classOf[DialogQueries.GetCounterResponse],
+      40032 → classOf[DialogQueries.GetInfo],
+      40033 → classOf[DialogQueries.GetInfoResponse],
+
+      40035 → classOf[DialogGroup],
+      40036 → classOf[DialogInfo]
     )
   }
 

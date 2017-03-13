@@ -17,7 +17,7 @@ import im.actor.server.dialog._
 import im.actor.server.model.{ Peer, PeerType }
 import im.actor.server.names.GlobalNamesStorageKeyValueStorage
 import im.actor.server.office.{ PeerProcessor, StopOffice }
-import im.actor.server.sequence.SeqUpdatesExtension
+import im.actor.server.sequence.{ SeqUpdatesExtension, UserSequenceCommands, UserSequenceEvents }
 import im.actor.server.social.{ SocialExtension, SocialManagerRegion }
 import slick.driver.PostgresDriver.api._
 
@@ -139,7 +139,25 @@ object UserProcessor {
       12023 → classOf[UserEvents.ExtRemoved],
 
       13000 → classOf[UserState],
-      13001 → classOf[SocialContact]
+      13001 → classOf[SocialContact],
+
+      13002 → classOf[UserEnvelope],
+
+      13003 → classOf[UserSequenceCommands.Envelope],
+      13004 → classOf[UserSequenceCommands.AddOptimizations],
+      13005 → classOf[UserSequenceCommands.DeliverUpdate],
+      13006 → classOf[UserSequenceCommands.DeliverUpdateAck],
+      13007 → classOf[UserSequenceCommands.GetSeqState],
+      13008 → classOf[UserSequenceCommands.RegisterPushCredentials],
+      13009 → classOf[UserSequenceCommands.UnregisterPushCredentials],
+      13010 → classOf[UserSequenceCommands.UnregisterPushCredentialsAck],
+      13011 → classOf[UserSequenceCommands.RegisterAuthId],
+      13012 → classOf[UserSequenceCommands.UnregisterAuthId],
+      13013 → classOf[UserSequenceCommands.UnregisterAuthIdAck],
+      13014 → classOf[UserSequenceCommands.DeliverPush],
+      13015 → classOf[UserSequenceCommands.ReloadSettings],
+
+      13016 → classOf[UserSequenceEvents.NewUpdate]
     )
 
   def props: Props =
