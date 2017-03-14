@@ -6,8 +6,8 @@ import com.typesafe.sbt.packager.linux.LinuxPlugin.autoImport.packageMapping
 import sbt.Keys._
 import sbt._
 
-private[actor] trait Packaging {
-  lazy val packagingSettings = Seq(
+object Packaging {
+  val packagingSettings = Seq(
     scriptClasspath := Seq("*"),
 
     maintainer := "Actor LLC <oss@actor.im>",

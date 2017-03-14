@@ -10,7 +10,7 @@ import sbt._
 import sbtrelease.ReleasePlugin.autoImport._
 import sbtrelease.ReleaseStateTransformations._
 
-trait Releasing {
+object Releasing {
   private val publishDeb = taskKey[Unit]("Publish to debian repository")
 
   private val taskSetting = publishDeb := {

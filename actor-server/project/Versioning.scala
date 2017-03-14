@@ -1,7 +1,7 @@
 package im.actor
 
-private[actor] trait Versioning {
-  protected def getVersion: String = {
+object Versioning {
+  def getVersion: String = {
     val buildNumber = getBuildNumber
 
     if (buildNumber.contains(".")) { // already set by previous commands
@@ -17,7 +17,7 @@ private[actor] trait Versioning {
     }
   }
 
-  private def getBuildNumber: String =
+  def getBuildNumber: String =
     sys.env.get("VERSION_PATCH")
       .orElse(sys.env.get("BUILD_NUMBER"))
       .getOrElse("0")
