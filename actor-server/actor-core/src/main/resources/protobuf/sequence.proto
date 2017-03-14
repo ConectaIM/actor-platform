@@ -1,0 +1,143 @@
+syntax = "proto3";
+
+package im.actor.server;
+
+option (scalapb.options) = {
+    import: "im.actor.server.api.TypeMappers._"
+    import: "scala.collection.JavaConversions._"
+    primitive_wrappers: true
+};
+
+import "scalapb/scalapb.proto";
+import "google/protobuf/wrappers.proto";
+import "model/push.proto";
+import "model.proto";
+
+enum CommonStateVersion {
+    V1 = 0;
+}
+
+message CommonState {
+    CommonStateVersion version = 1;
+    int32 seq = 2;
+}
+
+message PushData {
+    string text = 1;
+    string censoredText = 3;
+    Peer peer = 2;
+    bool is_mentioned = 4;
+}
+
+message PushRules {
+    repeated int64 exclude_auth_ids = 1;
+    bool is_fat = 3;
+    PushData data = 2;
+}
+
+message UserSequenceEvents {
+    message NewUpdate {
+        SerializedUpdate update = 5;
+        int32 seq = 6;
+        bytes state = 3;
+        PushRules push_rules = 2;
+        google.protobuf.StringValue reduce_key = 4;
+    }
+}
+
+message UserSequenceCommands {
+    message Envelope {
+        int32 user_id = 1;
+        oneof payload {
+            DeliverUpdate deliverUpdate = 2;
+            GetSeqState getSeqState = 3;
+            RegisterPushCredentials registerPushCredentials = 4;
+            UnregisterPushCredentials unregisterPushCredentials = 5;
+            DeliverPush deliverPush = 6;
+            ReloadSettings reloadSettings = 7;
+            RegisterAuthId registerAuthId = 8;
+            UnregisterAuthId unregisterAuthId = 9;
+            AddOptimizations addOptimizations = 10;
+        }
+    }
+
+    message AddOptimizations {
+        int64 auth_id = 1;
+        repeated int32 optimizations = 2;
+    }
+
+    message DeliverUpdate {
+        int64 auth_id = 6;
+        UpdateMapping mapping = 1;
+        PushRules push_rules = 2;
+        google.protobuf.StringValue reduce_key = 5;
+        string delivery_id = 4;
+        google.protobuf.StringValue delivery_tag = 7;
+    }
+
+    message DeliverUpdateAck {
+        SeqState seq_state = 1;
+        string delivery_id = 2;
+    }
+
+    message GetSeqState {
+        int64 auth_id = 1;
+    }
+
+    message RegisterPushCredentials {
+        option (scalapb.message).extends = "im.actor.server.sequence.VendorPushCommand";
+
+        oneof creds {
+            GCMPushCredentials gcm = 1;
+            ApplePushCredentials apple = 2;
+            ActorPushCredentials actor = 3;
+            FirebasePushCredentials firebase = 4;
+        }
+    }
+
+    message UnregisterPushCredentials {
+        option (scalapb.message).extends = "im.actor.server.sequence.VendorPushCommand";
+
+        oneof creds {
+            GCMPushCredentials gcm = 1;
+            ApplePushCredentials apple = 2;
+            ActorPushCredentials actor = 3;
+            FirebasePushCredentials firebase = 4;
+        }
+    }
+
+    message UnregisterPushCredentialsAck {}
+
+    message RegisterAuthId {
+        int64 auth_id = 1;
+    }
+
+    message UnregisterAuthId {
+        int64 auth_id = 1;
+    }
+
+    message UnregisterAuthIdAck {}
+
+    message DeliverPush {
+        option (scalapb.message).extends = "im.actor.server.sequence.VendorPushCommand";
+
+        int64 authId = 3;
+        int32 seq = 1;
+        PushRules push_rules = 2;
+    }
+
+    message ReloadSettings {
+        option (scalapb.message).extends = "im.actor.server.sequence.VendorPushCommand";
+    }
+}
+
+message SeqState {
+    int32 seq = 1;
+    bytes state = 2;
+}
+
+message SeqStateDate {
+    int32 seq = 1;
+    bytes state = 2;
+    int64 date = 3;
+}

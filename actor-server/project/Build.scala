@@ -3,7 +3,7 @@ package im.actor
 import sbt.Keys._
 import sbt._
 import spray.revolver.RevolverPlugin._
-import com.trueaccord.scalapb.{ScalaPbPlugin => PB}
+import sbtprotoc.ProtocPlugin.autoImport.PB
 import com.typesafe.sbt.SbtMultiJvm
 import com.typesafe.sbt.SbtMultiJvm.MultiJvmKeys.MultiJvm
 import com.typesafe.sbt.packager.archetypes.JavaServerAppPackaging
@@ -66,31 +66,35 @@ object Build extends sbt.Build with Versioning with Releasing with Packaging {
         ActorHouseRules.actorDefaultSettings(
           "im.actor.server",
           ActorHouseRules.PublishType.PublishToSonatype,
-          pomExtraXml) ++
-      PB.protobufSettings ++ Seq(
-      PB.singleLineToString in PB.protobufConfig := true,
-      libraryDependencies += "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.5.32" % PB.protobufConfig,
-      dependencyOverrides ~= { overrides =>
-        overrides + "com.google.protobuf" % "protobuf-java" % "3.0.0-beta-2"
-      },
-      PB.includePaths in PB.protobufConfig ++= Seq(
-        file("actor-models/src/main/protobuf"),
-        file("actor-core/src/main/protobuf"),
-        file("actor-fs-adapters/src/main/protobuf")
-      ),
-      PB.runProtoc in PB.protobufConfig := (args =>
-        com.github.os72.protocjar.Protoc.runProtoc("-v300" +: args.toArray))
-    ) ++
-      Seq(
-        initialize ~= { _ =>
-          if (sys.props("java.specification.version") != "1.8")
-            sys.error("Java 8 is required for this project.")
-        },
-        resolvers ++= Resolvers.seq,
-        fork in Test := false,
-        updateOptions := updateOptions.value.withCachedResolution(true),
-        addCompilerPlugin("com.github.ghik" % "silencer-plugin" % "0.4")
-      )
+          pomExtraXml)// ++
+//      PB.protobufSettings ++ Seq(
+//      PB.singleLineToString in PB.protobufConfig := true,
+//      libraryDependencies += "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.5.47" % PB.protobufConfig,
+//      dependencyOverrides ~= { overrides =>
+//        overrides + "com.google.protobuf" % "protobuf-java" % "3.0.2"
+//      },
+//      PB.includePaths in PB.protobufConfig ++= Seq(
+//        file("actor-models/src/main/protobuf"),
+//        file("actor-core/src/main/resources/protobuf"),
+//        file("actor-fs-adapters/src/main/protobuf")
+//      ),
+//        PB.protoSources in PB.protobufConfig ++= Seq(
+//
+//        ),
+//      PB.runProtoc in PB.protobufConfig := (args =>
+//        com.github.os72.protocjar.Protoc.runProtoc("-v300" +: args.toArray))
+//    ) ++
+
+//      Seq(
+//        initialize ~= { _ =>
+//          if (sys.props("java.specification.version") != "1.8")
+//            sys.error("Java 8 is required for this project.")
+//        },
+//        resolvers ++= Resolvers.seq,
+//        fork in Test := false,
+//        updateOptions := updateOptions.value.withCachedResolution(true),
+//        addCompilerPlugin("com.github.ghik" % "silencer-plugin" % "0.4")
+//      )
 
   lazy val root = Project(
     "actor",
