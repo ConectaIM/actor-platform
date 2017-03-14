@@ -58,13 +58,19 @@ lazy val defaultSettingsServer =
         file("actor-fs-adapters/src/main/protobuf")),
 
         PB.includePaths in Compile := Seq(
+          file("target/protobuf_external"),
           file("actor-models/src/main/protobuf"),
           file("actor-core/src/main/protobuf"),
           file("actor-fs-adapters/src/main/protobuf")),
 
-        PB.targets in Compile := Seq(scalapb.gen(grpc=false) -> (sourceManaged in Compile).value),
+        PB.targets in Compile := Seq(
+          scalapb.gen() -> (sourceManaged in Compile).value
+        ),
 
-        libraryDependencies += "com.trueaccord.scalapb" %% "scalapb-runtime" % com.trueaccord.scalapb.compiler.Version.scalapbVersion % "protobuf",
+        libraryDependencies ++= Seq(
+          "com.google.protobuf" % "protobuf-java" % "3.0.2" % "protobuf",
+          "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.5.47" % "protobuf"
+        ),
 
         initialize ~= { _ =>
           if (sys.props("java.specification.version") != "1.8")
@@ -87,12 +93,9 @@ lazy val defaultSettingsServer =
 //        file("actor-core/src/main/resources/protobuf"),
 //        file("actor-fs-adapters/src/main/protobuf")
 //      ),
-//        PB.protoSources in PB.protobufConfig ++= Seq(
-//
-//        ),
 //      PB.runProtoc in PB.protobufConfig := (args =>
 //        com.github.os72.protocjar.Protoc.runProtoc("-v300" +: args.toArray))
-//    ) ++
+//    )
 
 
 lazy val root = Project(

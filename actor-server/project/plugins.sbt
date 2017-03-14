@@ -14,10 +14,6 @@ addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
 
 addSbtPlugin("im.actor" %% "sbt-actor-api" % "0.7.18")
 
-//addSbtPlugin("com.trueaccord.scalapb" % "sbt-scalapb" % "0.5.43")
-
-addSbtPlugin("com.thesamet" % "sbt-protoc" % "0.99.6")
-
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
 
 addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "0.5.1")
@@ -33,5 +29,3 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-aspectj" % "0.10.0")
 addSbtPlugin("im.actor" % "actor-sbt-houserules" % "0.1.9")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-multi-jvm" % "0.3.8")
-
-libraryDependencies += "com.trueaccord.scalapb" %% "compilerplugin" % "0.5.41"
