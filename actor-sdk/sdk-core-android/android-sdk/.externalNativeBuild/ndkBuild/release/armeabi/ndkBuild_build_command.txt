@@ -1,0 +1,19 @@
+Executable : /home/98379720172/Android/Sdk/ndk-bundle/ndk-build
+arguments : 
+NDK_PROJECT_PATH=null
+APP_BUILD_SCRIPT=/home/98379720172/Projetos/actor-platform/actor-sdk/sdk-core-android/android-sdk/jni/Android.mk
+NDK_APPLICATION_MK=/home/98379720172/Projetos/actor-platform/actor-sdk/sdk-core-android/android-sdk/jni/Application.mk
+APP_ABI=armeabi
+NDK_ALL_ABIS=armeabi
+NDK_DEBUG=0
+APP_PLATFORM=android-15
+NDK_OUT=/home/98379720172/Projetos/actor-platform/actor-sdk/sdk-core-android/android-sdk/build/intermediates/ndkBuild/release/obj
+NDK_LIBS_OUT=/home/98379720172/Projetos/actor-platform/actor-sdk/sdk-core-android/android-sdk/build/intermediates/ndkBuild/release/lib
+NDK_APPLICATION_MK:=jni/Application.mk
+APP_PLATFORM:=android-14
+APP_SHORT_COMMANDS=false
+LOCAL_SHORT_COMMANDS=false
+-B
+-n
+jvmArgs : 
+
