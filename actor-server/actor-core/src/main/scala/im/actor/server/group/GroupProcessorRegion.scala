@@ -15,9 +15,9 @@ object GroupProcessorRegion {
         groupId.toString,
         // payload
         if (query.isDefined) {
-          env.getField(GroupEnvelope.descriptor.findFieldByNumber(query.number))
+          env.getField(GroupEnvelope.javaDescriptor.findFieldByNumber(query.number))
         } else {
-          env.getField(GroupEnvelope.descriptor.findFieldByNumber(command.number))
+          env.getField(GroupEnvelope.javaDescriptor.findFieldByNumber(command.number))
         }
       )
   }

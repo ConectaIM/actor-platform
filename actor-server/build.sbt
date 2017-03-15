@@ -1,5 +1,6 @@
 import com.typesafe.sbt.SbtMultiJvm.MultiJvmKeys.MultiJvm
-import im.actor.{Configs, Dependencies, Resolvers, Testing, Versioning, Packaging, Releasing}
+import im.actor.{Configs, Dependencies, Packaging, Releasing, Resolvers, Testing, Versioning}
+import sbt.Keys.{baseDirectory, unmanagedResourceDirectories}
 
 val ScalaVersion = "2.11.8"
 val BotKitVersion = Versioning.getVersion
@@ -14,6 +15,13 @@ lazy val buildSettings =
       organization := "im.actor.server",
       organizationHomepage := Some(url("https://actor.im")),
       resolvers ++= Resolvers.seq,
+      //        scalacOptions ++= Seq(
+      //          "-Ywarn-unused",
+      //          "-Ywarn-adapted-args",
+      //          "-Ywarn-nullary-override",
+      //          "-Ywarn-nullary-unit",
+      //          "-Ywarn-value-discard"
+      //        ),
       parallelExecution := true
     ) ++ im.actor.Sonatype.sonatypeSettings
 
@@ -45,57 +53,44 @@ lazy val defaultSettingsBotkit =
       pomExtraXml
     )
 
+lazy val protobuffSettings = Seq(
+
+//  PB.protoSources in Compile := Seq(
+//    file("actor-models/src/main/protobuf"),
+//    file("actor-core/src/main/protobuf")
+//    file("actor-fs-adapters/src/main/protobuf")
+//  ),
+
+  PB.includePaths in Compile := Seq(
+    file("actor-core/target/protobuf_external"),
+    file("actor-models/src/main/protobuf"),
+    file("actor-core/src/main/protobuf"),
+    file("actor-fs-adapters/src/main/protobuf"),
+    file("actor-session-messages/src/main/protobuf"),
+    file("actor-bots/src/main/protobuf"),
+    file("actor-notify/src/main/protobuf")),
+
+    PB.targets in Compile := Seq(
+      scalapb.gen() -> (sourceManaged in Compile).value
+    ),
+
+    unmanagedResourceDirectories in Compile += baseDirectory.value / "src" / "main" / "protobuf"
+)
+
 lazy val defaultSettingsServer =
   buildSettings ++
     ActorHouseRules.actorDefaultSettings(
       "im.actor.server",
       ActorHouseRules.PublishType.PublishToSonatype,
       pomExtraXml) ++
-    Seq(
-        PB.protoSources in Compile := Seq(
-        file("actor-models/src/main/protobuf"),
-        file("actor-core/src/main/protobuf"),
-        file("actor-fs-adapters/src/main/protobuf")),
-
-        PB.includePaths in Compile := Seq(
-          file("target/protobuf_external"),
-          file("actor-models/src/main/protobuf"),
-          file("actor-core/src/main/protobuf"),
-          file("actor-fs-adapters/src/main/protobuf")),
-
-        PB.targets in Compile := Seq(
-          scalapb.gen() -> (sourceManaged in Compile).value
-        ),
-
-        libraryDependencies ++= Seq(
-          "com.google.protobuf" % "protobuf-java" % "3.0.2" % "protobuf",
-          "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.5.47" % "protobuf"
-        ),
-
-        initialize ~= { _ =>
-          if (sys.props("java.specification.version") != "1.8")
-            sys.error("Java 8 is required for this project.")
-        },
-        resolvers ++= Resolvers.seq,
-        fork in Test := false,
-        updateOptions := updateOptions.value.withCachedResolution(true),
-        addCompilerPlugin("com.github.ghik" % "silencer-plugin" % "0.4")
-      )
-
-//      PB.protobufSettings ++ Seq(
-//      PB.singleLineToString in PB.protobufConfig := true,
-//      libraryDependencies += "com.trueaccord.scalapb" %% "scalapb-runtime" % "0.5.47" % PB.protobufConfig,
-//      dependencyOverrides ~= { overrides =>
-//        overrides + "com.google.protobuf" % "protobuf-java" % "3.0.2"
-//      },
-//      PB.includePaths in PB.protobufConfig ++= Seq(
-//        file("actor-models/src/main/protobuf"),
-//        file("actor-core/src/main/resources/protobuf"),
-//        file("actor-fs-adapters/src/main/protobuf")
-//      ),
-//      PB.runProtoc in PB.protobufConfig := (args =>
-//        com.github.os72.protocjar.Protoc.runProtoc("-v300" +: args.toArray))
-//    )
+    Seq(initialize ~= { _ =>
+      if (sys.props("java.specification.version") != "1.8")
+        sys.error("Java 8 is required for this project.")
+      },
+      resolvers ++= Resolvers.seq,
+      fork in Test := false,
+      updateOptions := updateOptions.value.withCachedResolution(true),
+      addCompilerPlugin("com.github.ghik" % "silencer-plugin" % "0.4"))
 
 
 lazy val root = Project(
@@ -119,7 +114,7 @@ lazy val root = Project(
         )
       )
 )
-  .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
+  //.settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
   .settings(Releasing.releaseSettings)
   .dependsOn(actorServerSdk)
   .aggregate(
@@ -145,8 +140,13 @@ lazy val actorBots = Project(
   id = "actor-bots",
   base = file("actor-bots"),
   settings = defaultSettingsServer ++
-    Seq(libraryDependencies ++= Dependencies.bots)
-)
+    Seq(
+      PB.protoSources in Compile := Seq(
+        file("actor-bots/src/main/protobuf")
+      )
+    )
+    ++ protobuffSettings ++ Seq(libraryDependencies ++= Dependencies.bots)
+  )
   .dependsOn(actorCore, actorHttpApi, actorTestkit % "test")
 
 lazy val actorBotsShared = Project(
@@ -186,9 +186,17 @@ lazy val actorCli = Project(
 lazy val actorCore = Project(
   id = "actor-core",
   base = file("actor-core"),
-  settings = defaultSettingsServer ++ SbtActorApi.settings ++ Seq(
-    libraryDependencies ++= Dependencies.core
-  )
+  settings = defaultSettingsServer
+    ++ Seq(
+      PB.protoSources in Compile := Seq(
+        file("actor-core/src/main/protobuf")
+      )
+    )
+    ++ protobuffSettings
+    ++ SbtActorApi.settings
+    ++ Seq(
+      libraryDependencies ++= Dependencies.core
+    )
 )
   .dependsOn(actorCodecs, actorFileAdapter, actorModels, actorPersist, actorRuntime)
 
@@ -223,8 +231,15 @@ lazy val actorHttpApi = Project(
 lazy val actorNotify = Project(
   id = "actor-notify",
   base = file("actor-notify"),
-  settings = defaultSettingsServer ++
-    Seq(libraryDependencies ++= Dependencies.shared)
+  settings = defaultSettingsServer
+    ++ Seq(
+      PB.protoSources in Compile := Seq(
+        file("actor-notify/src/main/protobuf")
+      )
+    )
+    ++ protobuffSettings
+    ++ Seq(libraryDependencies ++= Dependencies.shared)
+    ++ Seq(libraryDependencies ++= Dependencies.protocScalaPbRuntime)
 )
   .dependsOn(actorCore, actorEmail)
 
@@ -250,7 +265,14 @@ lazy val actorSession = Project(
 lazy val actorSessionMessages = Project(
   id = "actor-session-messages",
   base = file("actor-session-messages"),
-  settings = defaultSettingsServer ++ Seq(libraryDependencies ++= Dependencies.sessionMessages)
+  settings = defaultSettingsServer
+    ++ Seq(
+      PB.protoSources in Compile := Seq(
+        file("actor-session-messages/src/main/protobuf")
+      )
+    )
+    ++ protobuffSettings
+    ++ Seq(libraryDependencies ++= Dependencies.sessionMessages)
 )
   .dependsOn(actorCore)
 
@@ -278,7 +300,14 @@ lazy val actorSms = Project(
 lazy val actorFileAdapter = Project(
   id = "actor-fs-adapters",
   base = file("actor-fs-adapters"),
-  settings = defaultSettingsServer ++ Seq(
+  settings = defaultSettingsServer
+    ++ protobuffSettings
+    ++ Seq(
+        PB.protoSources in Compile := Seq(
+          file("actor-fs-adapters/src/main/protobuf")
+        )
+      )
+    ++ Seq(
     libraryDependencies ++= Dependencies.fileAdapter
   )
 )
@@ -305,7 +334,13 @@ lazy val actorCodecs = Project(
 lazy val actorModels = Project(
   id = "actor-models",
   base = file("actor-models"),
-  settings = defaultSettingsServer ++ Seq(
+  settings = defaultSettingsServer
+    ++ Seq(
+    PB.protoSources in Compile := Seq(
+      file("actor-models/src/main/protobuf")
+    )
+  )
+    ++ protobuffSettings ++ Seq(
     libraryDependencies ++= Dependencies.models
   )
 )

@@ -16,7 +16,7 @@ object SeqUpdatesManagerRegion {
     val log = Logging(system, getClass)
 
     {
-      case e @ Envelope(userId, payload) ⇒ (userId.toString, Try(e.getField(Envelope.descriptor.findFieldByNumber(payload.number))) match {
+      case e @ Envelope(userId, payload) ⇒ (userId.toString, Try(e.getField(Envelope.javaDescriptor.findFieldByNumber(payload.number))) match {
         case Success(any) ⇒ any
         case _ ⇒
           val error = new RuntimeException(s"Payload not found for $e")

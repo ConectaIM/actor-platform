@@ -6,7 +6,7 @@ object Dependencies {
   object V {
     val actorCommons = "0.0.20"
     val actorBotkit = "1.0.108"
-    val akka = "2.4.10"
+    val akka = "2.4.7"
     val akkaHttpJson = "1.10.0"
     val cats = "0.7.2"
     val circe = "0.5.1"
@@ -14,8 +14,8 @@ object Dependencies {
     val slick = "3.1.1"
     val slickPg = "0.14.3"
     val scalatest = "2.2.4"
-    val shardakka = "0.1.24"
-    val scalapbSer = "0.1.14"
+    val shardakka = "0.1.21-SNAPSHOT"
+    val scalapbSer = "0.1.15-SNAPSHOT"
   }
 
   object Compile {
@@ -112,6 +112,11 @@ object Dependencies {
 
     val tcnative                = "io.netty"                      % "netty-tcnative-boringssl-static"  % "1.1.33.Fork25"
     val silencer                = "com.github.ghik"               % "silencer-lib"                   % "0.4"
+
+
+    val protobufJava            = "com.google.protobuf"           % "protobuf-java"                  % "3.1.0"  % "protobuf"
+    val scalaPbRuntime          = "com.trueaccord.scalapb"        %% "scalapb-runtime"               % "0.5.47" % "protobuf"
+
   }
 
   object Testing {
@@ -147,13 +152,15 @@ object Dependencies {
 
   val activation = shared ++ Seq(akkaActor, playJson, sprayClient)
 
-  val bots = shared ++ Seq(actorBotkit, upickle, shardakka)
+  val bots = shared ++ Seq(actorBotkit, upickle, shardakka, protobufJava, scalaPbRuntime)
 
   val botkit = Seq(actorConcurrent, akkaActor, akkaHttp, akkaSlf4j, javaCompat, sprayWebsocket, upickle)
 
   val botShared = Seq(upickle, javaCompat)
 
   val cli = Seq(akkaClusterTools, scopt)
+
+  val protocScalaPbRuntime = Seq(protobufJava, scalaPbRuntime)
 
   val core = shared ++ Seq(
     actorConcurrent,
@@ -168,7 +175,7 @@ object Dependencies {
     shardakka,
     scrImageCore,
     sprayClient
-  )
+  ) ++ protocScalaPbRuntime
 
   val enrich = shared ++ Seq(akkaActor, akkaHttp)
 
@@ -186,7 +193,7 @@ object Dependencies {
     akkaSlf4j, akkaActor, akkaStream, scodecCore
   )
 
-  val sessionMessages = Seq(akkaActor)
+  val sessionMessages = Seq(akkaActor) ++ protocScalaPbRuntime
 
   val persist = shared ++ Seq(akkaActor, akkaStream, actorCatsSlick, actorStorageSlick, apacheCommonsCodec, guava, postgresJdbc, slick, slickHikaricp, slickJoda, slickPg, slickPgDate2, slickTestkit, flywayCore, hikariCP, jodaTime, jodaConvert)
 
@@ -196,9 +203,9 @@ object Dependencies {
 
   val codecs = shared ++ Seq(scodecBits, scodecCore)
   
-  val models = shared ++ Seq(scodecBits, scodecCore, jodaTime, jodaConvert, slickPg)
+  val models = shared ++ Seq(scodecBits, scodecCore, jodaTime, jodaConvert, slickPg) ++ protocScalaPbRuntime
 
-  val fileAdapter = shared ++ Seq(amazonaws, apacheCommonsCodec, apacheCommonsIo, awsWrap, betterFiles)
+  val fileAdapter = shared ++ Seq(amazonaws, apacheCommonsCodec, apacheCommonsIo, awsWrap, betterFiles) ++ protocScalaPbRuntime
 
   val frontend = shared ++ Seq(
     akkaSlf4j, akkaActor, akkaStream,

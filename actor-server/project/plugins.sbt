@@ -8,11 +8,11 @@ resolvers ++= Seq(
   Classpaths.sbtPluginReleases
 )
 
-addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.5")
+addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.8.2")
 
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
 
-addSbtPlugin("im.actor" %% "sbt-actor-api" % "0.7.18")
+addSbtPlugin("im.actor" %% "sbt-actor-api" % "0.7.20-SNAPSHOT")
 
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
 
