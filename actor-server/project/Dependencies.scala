@@ -152,7 +152,7 @@ object Dependencies {
 
   val activation = shared ++ Seq(akkaActor, playJson, sprayClient)
 
-  val bots = shared ++ Seq(actorBotkit, upickle, shardakka, protobufJava, scalaPbRuntime)
+  val bots = shared ++ Seq(actorBotkit, upickle, shardakka)
 
   val botkit = Seq(actorConcurrent, akkaActor, akkaHttp, akkaSlf4j, javaCompat, sprayWebsocket, upickle)
 
@@ -175,7 +175,7 @@ object Dependencies {
     shardakka,
     scrImageCore,
     sprayClient
-  ) ++ protocScalaPbRuntime
+  )
 
   val enrich = shared ++ Seq(akkaActor, akkaHttp)
 
@@ -193,7 +193,7 @@ object Dependencies {
     akkaSlf4j, akkaActor, akkaStream, scodecCore
   )
 
-  val sessionMessages = Seq(akkaActor) ++ protocScalaPbRuntime
+  val sessionMessages = Seq(akkaActor)
 
   val persist = shared ++ Seq(akkaActor, akkaStream, actorCatsSlick, actorStorageSlick, apacheCommonsCodec, guava, postgresJdbc, slick, slickHikaricp, slickJoda, slickPg, slickPgDate2, slickTestkit, flywayCore, hikariCP, jodaTime, jodaConvert)
 
@@ -203,9 +203,9 @@ object Dependencies {
 
   val codecs = shared ++ Seq(scodecBits, scodecCore)
   
-  val models = shared ++ Seq(scodecBits, scodecCore, jodaTime, jodaConvert, slickPg) ++ protocScalaPbRuntime
+  val models = shared ++ Seq(scodecBits, scodecCore, jodaTime, jodaConvert, slickPg)
 
-  val fileAdapter = shared ++ Seq(amazonaws, apacheCommonsCodec, apacheCommonsIo, awsWrap, betterFiles) ++ protocScalaPbRuntime
+  val fileAdapter = shared ++ Seq(amazonaws, apacheCommonsCodec, apacheCommonsIo, awsWrap, betterFiles)
 
   val frontend = shared ++ Seq(
     akkaSlf4j, akkaActor, akkaStream,

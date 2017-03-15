@@ -1,6 +1,6 @@
 import com.typesafe.sbt.SbtMultiJvm.MultiJvmKeys.MultiJvm
 import im.actor.{Configs, Dependencies, Packaging, Releasing, Resolvers, Testing, Versioning}
-import sbt.Keys.{baseDirectory, unmanagedResourceDirectories}
+import sbt.Keys.{baseDirectory, libraryDependencies, unmanagedResourceDirectories}
 
 val ScalaVersion = "2.11.8"
 val BotKitVersion = Versioning.getVersion
@@ -68,13 +68,16 @@ lazy val protobuffSettings = Seq(
     file("actor-fs-adapters/src/main/protobuf"),
     file("actor-session-messages/src/main/protobuf"),
     file("actor-bots/src/main/protobuf"),
-    file("actor-notify/src/main/protobuf")),
+    file("actor-notify/src/main/protobuf")
+    ),
 
     PB.targets in Compile := Seq(
       scalapb.gen() -> (sourceManaged in Compile).value
     ),
 
-    unmanagedResourceDirectories in Compile += baseDirectory.value / "src" / "main" / "protobuf"
+  libraryDependencies ++= Dependencies.protocScalaPbRuntime,
+
+  unmanagedResourceDirectories in Compile += baseDirectory.value / "src" / "main" / "protobuf"
 )
 
 lazy val defaultSettingsServer =
@@ -83,6 +86,7 @@ lazy val defaultSettingsServer =
       "im.actor.server",
       ActorHouseRules.PublishType.PublishToSonatype,
       pomExtraXml) ++
+    protobuffSettings ++
     Seq(initialize ~= { _ =>
       if (sys.props("java.specification.version") != "1.8")
         sys.error("Java 8 is required for this project.")
@@ -139,13 +143,8 @@ lazy val actorActivation = Project(
 lazy val actorBots = Project(
   id = "actor-bots",
   base = file("actor-bots"),
-  settings = defaultSettingsServer ++
-    Seq(
-      PB.protoSources in Compile := Seq(
-        file("actor-bots/src/main/protobuf")
-      )
-    )
-    ++ protobuffSettings ++ Seq(libraryDependencies ++= Dependencies.bots)
+  settings = defaultSettingsServer
+    ++ Seq(libraryDependencies ++= Dependencies.bots)
   )
   .dependsOn(actorCore, actorHttpApi, actorTestkit % "test")
 
@@ -187,12 +186,6 @@ lazy val actorCore = Project(
   id = "actor-core",
   base = file("actor-core"),
   settings = defaultSettingsServer
-    ++ Seq(
-      PB.protoSources in Compile := Seq(
-        file("actor-core/src/main/protobuf")
-      )
-    )
-    ++ protobuffSettings
     ++ SbtActorApi.settings
     ++ Seq(
       libraryDependencies ++= Dependencies.core
@@ -232,14 +225,7 @@ lazy val actorNotify = Project(
   id = "actor-notify",
   base = file("actor-notify"),
   settings = defaultSettingsServer
-    ++ Seq(
-      PB.protoSources in Compile := Seq(
-        file("actor-notify/src/main/protobuf")
-      )
-    )
-    ++ protobuffSettings
     ++ Seq(libraryDependencies ++= Dependencies.shared)
-    ++ Seq(libraryDependencies ++= Dependencies.protocScalaPbRuntime)
 )
   .dependsOn(actorCore, actorEmail)
 
@@ -266,14 +252,8 @@ lazy val actorSessionMessages = Project(
   id = "actor-session-messages",
   base = file("actor-session-messages"),
   settings = defaultSettingsServer
-    ++ Seq(
-      PB.protoSources in Compile := Seq(
-        file("actor-session-messages/src/main/protobuf")
-      )
-    )
-    ++ protobuffSettings
     ++ Seq(libraryDependencies ++= Dependencies.sessionMessages)
-)
+  )
   .dependsOn(actorCore)
 
 lazy val actorRpcApi = Project(
@@ -301,12 +281,6 @@ lazy val actorFileAdapter = Project(
   id = "actor-fs-adapters",
   base = file("actor-fs-adapters"),
   settings = defaultSettingsServer
-    ++ protobuffSettings
-    ++ Seq(
-        PB.protoSources in Compile := Seq(
-          file("actor-fs-adapters/src/main/protobuf")
-        )
-      )
     ++ Seq(
     libraryDependencies ++= Dependencies.fileAdapter
   )
@@ -336,11 +310,6 @@ lazy val actorModels = Project(
   base = file("actor-models"),
   settings = defaultSettingsServer
     ++ Seq(
-    PB.protoSources in Compile := Seq(
-      file("actor-models/src/main/protobuf")
-    )
-  )
-    ++ protobuffSettings ++ Seq(
     libraryDependencies ++= Dependencies.models
   )
 )
