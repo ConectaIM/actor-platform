@@ -14,9 +14,9 @@ option (scalapb.options) = {
 
 import "scalapb/scalapb.proto";
 import "google/protobuf/wrappers.proto";
-import "file.proto";
-import "sequence.proto";
-import "dialog.proto";
+import "fsadapters/file.proto";
+import "core/sequence.proto";
+import "core/dialog.proto";
 
 // TODO: Can't share with UserExt: proto 2/3
 message GroupExt {

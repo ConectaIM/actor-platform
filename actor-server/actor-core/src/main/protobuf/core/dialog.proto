@@ -10,8 +10,8 @@ option (scalapb.options) = {
 
 import "scalapb/scalapb.proto";
 import "google/protobuf/wrappers.proto";
-import "model.proto";
-import "sequence.proto";
+import "model/model.proto";
+import "core/sequence.proto";
 
 enum DialogGroupType {
     Favourites = 0;

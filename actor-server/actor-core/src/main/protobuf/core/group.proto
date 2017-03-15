@@ -8,7 +8,7 @@ option (scalapb.options) = {
 };
 
 import "scalapb/scalapb.proto";
-import "file.proto";
+import "fsadapters/file.proto";
 
 enum GroupType {
     General = 1;

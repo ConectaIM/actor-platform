@@ -191,7 +191,7 @@ trait AuthHelpers extends Helpers {
     for {
       _ ← userExt.auth(userId, clientData.authId)
       _ ← sessionRegion.ref
-        .ask(SessionEnvelope(clientData.authId, clientData.sessionId).withAuthorizeUser(AuthorizeUser(userId, authSid)))
+        .ask(SessionEnvelope(clientData.authId, clientData.sessionId).withAuthorizeUser(AuthorizeUser(userId, authSid, 0)))
         .mapTo[AuthorizeUserAck]
     } yield ()
 

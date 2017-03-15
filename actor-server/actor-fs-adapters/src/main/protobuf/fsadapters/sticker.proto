@@ -2,7 +2,7 @@ syntax = "proto2";
 
 package im.actor.server;
 
-import "file.proto";
+import "fsadapters/file.proto";
 
 message StickerImage {
     required FileLocation file_location = 1;

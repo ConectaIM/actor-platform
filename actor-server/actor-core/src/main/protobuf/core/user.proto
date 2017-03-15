@@ -9,10 +9,10 @@ option (scalapb.options) = {
 
 import "scalapb/scalapb.proto";
 
-import "sequence.proto";
-import "file.proto";
-import "bots.proto";
-import "dialog.proto";
+import "core/sequence.proto";
+import "fsadapters/file.proto";
+import "core/bots.proto";
+import "core/dialog.proto";
 
 message UserExt {
     required string key = 1;

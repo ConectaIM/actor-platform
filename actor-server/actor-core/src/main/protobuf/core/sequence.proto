@@ -11,7 +11,7 @@ option (scalapb.options) = {
 import "scalapb/scalapb.proto";
 import "google/protobuf/wrappers.proto";
 import "model/push.proto";
-import "model.proto";
+import "model/model.proto";
 
 enum CommonStateVersion {
     V1 = 0;

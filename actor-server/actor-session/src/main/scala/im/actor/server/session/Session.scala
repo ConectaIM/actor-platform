@@ -45,7 +45,7 @@ object Session {
 
   private[this] val extractEntityId: ShardRegion.ExtractEntityId = {
     case env @ SessionEnvelope(authId, sessionId, payload) ⇒
-      Try(env.getField(SessionEnvelope.descriptor.findFieldByNumber(payload.number))) match {
+      Try(env.getField(SessionEnvelope.javaDescriptor.findFieldByNumber(payload.number))) match {
         case Success(any) ⇒ s"${authId}_${sessionId}" → any
         case _            ⇒ throw new RuntimeException(s"Empty payload $env")
       }
