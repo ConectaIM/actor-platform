@@ -1,7 +1,8 @@
 resolvers ++= Seq(
   "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-  "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases/",
-  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
+//  "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases/",
+//  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
+  "Nexus DiegoSilva" at "http://nexus.diegosilva.com.br:8081/nexus/",
   Resolver.url("actor-sbt-plugins", url("https://dl.bintray.com/actor/sbt-plugins"))(Resolver.ivyStylePatterns),
   "Flyway" at "http://flywaydb.org/repo",
   "Era7 maven releases" at "https://s3-eu-west-1.amazonaws.com/releases.era7.com",
@@ -26,6 +27,6 @@ addSbtPlugin("ohnosequences" % "sbt-github-release" % "0.3.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-aspectj" % "0.10.0")
 
-addSbtPlugin("im.actor" % "actor-sbt-houserules" % "0.1.9")
+//addSbtPlugin("im.actor" % "actor-sbt-houserules" % "0.1.11-SNAPSHOT")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-multi-jvm" % "0.3.8")

@@ -1,9 +1,26 @@
 import com.typesafe.sbt.SbtMultiJvm.MultiJvmKeys.MultiJvm
-import im.actor.{Configs, Dependencies, Packaging, Releasing, Resolvers, Testing, Versioning}
+import im.actor.{Configs, Dependencies, Versioning}
 import sbt.Keys.{baseDirectory, libraryDependencies, unmanagedResourceDirectories}
 
 val ScalaVersion = "2.11.8"
 val BotKitVersion = Versioning.getVersion
+
+//val publishToo = version { v: String =>
+//  val nexus = "http://nexus.diegosilva.com.br:8081/nexus/"
+//  if (v.trim.endsWith("SNAPSHOT"))
+//    Some("snapshots" at nexus + "content/repositories/snapshots")
+//  else
+//    Some("releases" at nexus + "content/repositories/releases")
+//}
+
+//  val nexus = "http://nexus.diegosilva.com.br:8081/nexus/"
+//
+//  val publishRepo:Def.Initialize[Some[Resolver]] = Def.setting {
+//    if (isSnapshot.value)
+//     Some("snapshots" at nexus + "content/repositories/snapshots")
+//    else
+//     Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+//  }
 
 lazy val buildSettings =
   Defaults.coreDefaultSettings ++
@@ -14,7 +31,7 @@ lazy val buildSettings =
       crossPaths := false,
       organization := "im.actor.server",
       organizationHomepage := Some(url("https://actor.im")),
-      resolvers ++= Resolvers.seq,
+      //resolvers ++= Resolvers.seq,
       //        scalacOptions ++= Seq(
       //          "-Ywarn-unused",
       //          "-Ywarn-adapted-args",
@@ -23,14 +40,14 @@ lazy val buildSettings =
       //          "-Ywarn-value-discard"
       //        ),
       parallelExecution := true
-    ) ++ im.actor.Sonatype.sonatypeSettings
+    ) //++ im.actor.Sonatype.sonatypeSettings
 
 lazy val pomExtraXml =
   <url>https://actor.im</url>
     <scm>
-      <connection>scm:git:github.com/actorapp/actor-platform.git</connection>
-      <developerConnection>scm:git:git@github.com:actorapp/actor-platform.git</developerConnection>
-      <url>github.com/(your repository url)</url>
+      <connection>scm:git:github.com/dfsilva/actor-platform.git</connection>
+      <developerConnection>scm:git:git@github.com:dfsilva/actor-platform.git</developerConnection>
+      <url>github.com/dfsilva</url>
     </scm>
     <developers>
       <developer>
@@ -43,15 +60,16 @@ lazy val pomExtraXml =
         <name>Nikolay Tatarinov</name>
         <url>https://github.com/rockjam</url>
       </developer>
+      <developer>
+        <id>dfsilva</id>
+        <name>Diego Silva</name>
+        <url>https://github.com/dfsilva</url>
+      </developer>
     </developers>
 
 lazy val defaultSettingsBotkit =
-  buildSettings ++
-    ActorHouseRules.actorDefaultSettings(
-      "im.actor",
-      ActorHouseRules.PublishType.PublishToSonatype,
-      pomExtraXml
-    )
+  buildSettings ++ Publishing.publishSettings(
+    pomExtraXml,"im.actor.server")
 
 lazy val protobuffSettings = Seq(
 
@@ -81,17 +99,14 @@ lazy val protobuffSettings = Seq(
 )
 
 lazy val defaultSettingsServer =
-  buildSettings ++
-    ActorHouseRules.actorDefaultSettings(
-      "im.actor.server",
-      ActorHouseRules.PublishType.PublishToSonatype,
-      pomExtraXml) ++
+  buildSettings ++ Publishing.publishSettings(
+    pomExtraXml,"im.actor.server") ++
     protobuffSettings ++
     Seq(initialize ~= { _ =>
       if (sys.props("java.specification.version") != "1.8")
         sys.error("Java 8 is required for this project.")
       },
-      resolvers ++= Resolvers.seq,
+     // resolvers ++= Resolvers.seq,
       fork in Test := false,
       updateOptions := updateOptions.value.withCachedResolution(true),
       addCompilerPlugin("com.github.ghik" % "silencer-plugin" % "0.4"))
@@ -101,9 +116,9 @@ lazy val root = Project(
   "actor",
   file("."),
   settings =
-    Packaging.packagingSettings ++
-      defaultSettingsServer ++
-      Revolver.settings ++
+//    Packaging.packagingSettings ++
+//      defaultSettingsServer ++
+//      Revolver.settings ++
       Seq(
         libraryDependencies ++= Dependencies.root,
         //Revolver.reStartArgs := Seq("im.actor.server.Main"),
@@ -119,7 +134,7 @@ lazy val root = Project(
       )
 )
   //.settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
-  .settings(Releasing.releaseSettings)
+//  .settings(Releasing.releaseSettings)
   .dependsOn(actorServerSdk)
   .aggregate(
     actorServerSdk,
@@ -188,7 +203,8 @@ lazy val actorCore = Project(
   settings = defaultSettingsServer
     ++ SbtActorApi.settings
     ++ Seq(
-      libraryDependencies ++= Dependencies.core
+      libraryDependencies ++= Dependencies.core,
+      unmanagedResourceDirectories in Compile += baseDirectory.value / "src" / "main" / "actor-api"
     )
 )
   .dependsOn(actorCodecs, actorFileAdapter, actorModels, actorPersist, actorRuntime)
@@ -387,7 +403,7 @@ lazy val actorServerSdk = Project(
 lazy val actorTests = Project(
   id = "actor-tests",
   base = file("actor-tests"),
-  settings = defaultSettingsServer ++ Testing.settings ++ Seq(
+  settings = defaultSettingsServer ++ /*Testing.settings ++ */Seq(
     libraryDependencies ++= Dependencies.tests,
     compile in MultiJvm <<= (compile in MultiJvm) triggeredBy (compile in Test),
     scalacOptions in Compile := (scalacOptions in Compile).value.filterNot(_ == "-Xfatal-warnings"),

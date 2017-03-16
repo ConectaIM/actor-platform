@@ -6,12 +6,12 @@ object Resolvers {
   lazy val seq = Seq(
     DefaultMavenRepository,
     Resolver.sonatypeRepo("releases"),
-    Resolver.bintrayRepo("dnvriend", "maven"),
-    Resolver.bintrayRepo("dwhjames", "maven"),
-    Resolver.bintrayRepo("krasserm", "maven"),
+//    Resolver.bintrayRepo("dnvriend", "maven"),
+//    Resolver.bintrayRepo("dwhjames", "maven"),
+//    Resolver.bintrayRepo("krasserm", "maven"),
 
     // FIXME: remove after slick/slick#1274 released
-    Resolver.bintrayRepo("kwark", "maven"),
+    //Resolver.bintrayRepo("kwark", "maven"),
 
     // for op-rabbit
     "The New Motion Public Repo" at "http://nexus.thenewmotion.com/content/groups/public/",

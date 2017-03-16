@@ -1,6 +1,6 @@
 package im.actor
 
-import bintray._
+//import bintray._
 import com.typesafe.sbt.packager.debian.DebianPlugin.autoImport._
 import com.typesafe.sbt.packager.universal.UniversalPlugin.autoImport._
 import com.typesafe.sbt.pgp.PgpKeys
@@ -22,11 +22,11 @@ object Releasing {
     val path = "pool/main/a/" + name.value + "/" + f.getName + ";deb_distribution=trusty;deb_component=main;deb_architecture=all"
     val log = streams.value.log
 
-    val creds = getCreds
+//    val creds = getCreds
 
-    val repo = BintrayRepo(creds, Some(btyOrg), repoName)
-    repo.upload(pkgName, vers, path, f, log)
-    repo.release(pkgName, vers, log)
+//    val repo = BintrayRepo(creds, Some(btyOrg), repoName)
+//    repo.upload(pkgName, vers, path, f, log)
+//    repo.release(pkgName, vers, log)
   }
 
   val releaseSettings = Seq(
@@ -83,12 +83,12 @@ object Releasing {
     )
   )
 
-  private def getCreds: BintrayCredentials = {
-    (for {
-      user <- sys.env.get("BINTRAY_USER")
-      key <- sys.env.get("BINTRAY_API_KEY")
-    } yield BintrayCredentials(user, key)) getOrElse {
-      throw new RuntimeException("BINTRAY_USER or BINTRAY_API_KEY is not defined")
-    }
-  }
+//  private def getCreds: BintrayCredentials = {
+//    (for {
+//      user <- sys.env.get("BINTRAY_USER")
+//      key <- sys.env.get("BINTRAY_API_KEY")
+//    } yield BintrayCredentials(user, key)) getOrElse {
+//      throw new RuntimeException("BINTRAY_USER or BINTRAY_API_KEY is not defined")
+//    }
+//  }
 }
