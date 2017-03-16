@@ -1,26 +1,12 @@
 import com.typesafe.sbt.SbtMultiJvm.MultiJvmKeys.MultiJvm
-import im.actor.{Configs, Dependencies, Versioning}
+import im.actor.{Configs, Dependencies, Versioning, SbtActorApi}
 import sbt.Keys.{baseDirectory, libraryDependencies, unmanagedResourceDirectories}
 
 val ScalaVersion = "2.11.8"
 val BotKitVersion = Versioning.getVersion
 
-//val publishToo = version { v: String =>
-//  val nexus = "http://nexus.diegosilva.com.br:8081/nexus/"
-//  if (v.trim.endsWith("SNAPSHOT"))
-//    Some("snapshots" at nexus + "content/repositories/snapshots")
-//  else
-//    Some("releases" at nexus + "content/repositories/releases")
-//}
-
-//  val nexus = "http://nexus.diegosilva.com.br:8081/nexus/"
-//
-//  val publishRepo:Def.Initialize[Some[Resolver]] = Def.setting {
-//    if (isSnapshot.value)
-//     Some("snapshots" at nexus + "content/repositories/snapshots")
-//    else
-//     Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-//  }
+//SbtActorApi.actorApiJsonFile := "actor.json"
+//SbtActorApi.jsonFile := ""
 
 lazy val buildSettings =
   Defaults.coreDefaultSettings ++
