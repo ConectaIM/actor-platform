@@ -1,5 +1,5 @@
 import com.typesafe.sbt.SbtMultiJvm.MultiJvmKeys.MultiJvm
-import im.actor.{Configs, Dependencies, Versioning, SbtActorApi}
+import im.actor.{Configs, Dependencies, Versioning, Resolvers, SbtActorApi}
 import sbt.Keys.{baseDirectory, libraryDependencies, unmanagedResourceDirectories}
 
 val ScalaVersion = "2.11.8"
@@ -55,7 +55,7 @@ lazy val pomExtraXml =
 
 lazy val defaultSettingsBotkit =
   buildSettings ++ Publishing.publishSettings(
-    pomExtraXml,"im.actor.server")
+    pomExtraXml,"im.actor.server") ++ Seq(resolvers ++= Resolvers.seq)
 
 lazy val protobuffSettings = Seq(
 
@@ -92,7 +92,7 @@ lazy val defaultSettingsServer =
       if (sys.props("java.specification.version") != "1.8")
         sys.error("Java 8 is required for this project.")
       },
-     // resolvers ++= Resolvers.seq,
+      resolvers ++= Resolvers.seq,
       fork in Test := false,
       updateOptions := updateOptions.value.withCachedResolution(true),
       addCompilerPlugin("com.github.ghik" % "silencer-plugin" % "0.4"))
