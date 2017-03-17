@@ -6,7 +6,7 @@ val ScalaVersion = "2.11.8"
 val BotKitVersion = Versioning.getVersion
 
 //SbtActorApi.actorApiJsonFile := "actor.json"
-//SbtActorApi.jsonFile := ""
+jsonFile := "actor.json"
 
 lazy val buildSettings =
   Defaults.coreDefaultSettings ++
