@@ -14,7 +14,7 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.8.2")
 
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
 
-addSbtPlugin("im.actor" %% "sbt-actor-api" % "0.7.29-SNAPSHOT")
+addSbtPlugin("im.actor" %% "sbt-actor-api" % "0.7.18")
 
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
 
