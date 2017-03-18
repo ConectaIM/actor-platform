@@ -5,9 +5,6 @@ import sbt.Keys.{baseDirectory, libraryDependencies, unmanagedResourceDirectorie
 val ScalaVersion = "2.11.8"
 val BotKitVersion = Versioning.getVersion
 
-//SbtActorApi.actorApiJsonFile := "actor.json"
-jsonFile := "actor.json"
-
 lazy val buildSettings =
   Defaults.coreDefaultSettings ++
     Seq(
@@ -189,8 +186,7 @@ lazy val actorCore = Project(
   settings = defaultSettingsServer
     ++ SbtActorApi.settings
     ++ Seq(
-      libraryDependencies ++= Dependencies.core,
-      unmanagedResourceDirectories in Compile += baseDirectory.value / "src" / "main" / "actor-api"
+      libraryDependencies ++= Dependencies.core
     )
 )
   .dependsOn(actorCodecs, actorFileAdapter, actorModels, actorPersist, actorRuntime)
