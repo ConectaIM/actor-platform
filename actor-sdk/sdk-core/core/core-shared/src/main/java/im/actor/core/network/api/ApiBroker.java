@@ -39,9 +39,11 @@ public class ApiBroker extends AskcableActor {
     public static ApiBrokerInt get(final Endpoints endpoints, final AuthKeyStorage keyStorage, final ActorApiCallback callback,
                                final boolean isEnableLog, int id, final int minDelay,
                                final int maxDelay,
-                               final int maxFailureCount) {
+                               final int maxFailureCount,
+                                   final RpcParser[] rpcParsers,
+                                   final UpdatesParser[] updatesParsers) {
 
-        return new ApiBrokerInt(endpoints, keyStorage, callback, isEnableLog, id, minDelay, maxDelay, maxFailureCount);
+        return new ApiBrokerInt(endpoints, keyStorage, callback, isEnableLog, id, minDelay, maxDelay, maxFailureCount, rpcParsers, updatesParsers);
     }
 
     private static final String TAG = "ApiBroker";
@@ -68,7 +70,12 @@ public class ApiBroker extends AskcableActor {
 
     public ApiBroker(Endpoints endpoints, AuthKeyStorage keyStorage,
                      ActorApiCallback callback,
-                     boolean isEnableLog, int minDelay, int maxDelay, int maxFailureCount) {
+                     boolean isEnableLog,
+                     int minDelay,
+                     int maxDelay,
+                     int maxFailureCount,
+                     RpcParser[] rpcParsers,
+                     UpdatesParser[] updatesParsers) {
         this.isEnableLog = isEnableLog;
         this.endpoints = endpoints;
         this.keyStorage = keyStorage;
@@ -78,6 +85,14 @@ public class ApiBroker extends AskcableActor {
         this.maxFailureCount = maxFailureCount;
         this.parserConfig = new ApiParserConfig();
         this.parserConfig.addExtension(new ParsingExtension(new RpcParser(), new UpdatesParser()));
+
+        //adding extra rpc parsers
+        if((rpcParsers != null && rpcParsers.length > 0) &&
+                (updatesParsers != null && updatesParsers.length == rpcParsers.length)){
+           for(int i = 0; i < rpcParsers.length; i++){
+               this.parserConfig.addExtension(new ParsingExtension(rpcParsers[i], updatesParsers[i]));
+           }
+        }
     }
 
     @Override

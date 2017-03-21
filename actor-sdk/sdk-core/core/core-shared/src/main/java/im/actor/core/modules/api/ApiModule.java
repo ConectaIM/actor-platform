@@ -53,7 +53,9 @@ public class ApiModule extends AbsModule implements BusSubscriber {
                 context().getConfiguration().isEnableNetworkLogging(),
                 context().getConfiguration().getMinDelay(),
                 context().getConfiguration().getMaxDelay(),
-                context().getConfiguration().getMaxFailureCount());
+                context().getConfiguration().getMaxFailureCount(),
+                context().getConfiguration().getRpcParses(),
+                context().getConfiguration().getUpdateParcers());
 
         context.getEvents().subscribe(this, AppVisibleChanged.EVENT);
 

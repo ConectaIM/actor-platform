@@ -6,6 +6,8 @@ package im.actor.core;
 
 import com.google.j2objc.annotations.Property;
 
+import im.actor.core.api.parser.RpcParser;
+import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.TrustedKey;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.providers.PhoneBookProvider;
@@ -67,6 +69,11 @@ public class Configuration {
     private final String[] autoJoinGroups;
     @Property("readonly, nonatomic")
     private final AutoJoinType autoJoinType;
+    @Property("readonly, nonatomic")
+    private final RpcParser[] rpcParses;
+    @Property("readonly, nonatomic")
+    private final UpdatesParser[] updateParcers;
+
 
     Configuration(ConnectionEndpoint[] endpoints,
                   PhoneBookProvider phoneBookProvider,
@@ -92,7 +99,9 @@ public class Configuration {
                   boolean videoCallsEnabled,
                   boolean isEnabledGroupedChatList,
                   String[] autoJoinGroups,
-                  AutoJoinType autoJoinType) {
+                  AutoJoinType autoJoinType,
+                  RpcParser[] rpcParsers,
+                  UpdatesParser[] updatesParser) {
         this.endpoints = endpoints;
         this.phoneBookProvider = phoneBookProvider;
         this.enableContactsLogging = enableContactsLogging;
@@ -118,6 +127,8 @@ public class Configuration {
         this.isEnabledGroupedChatList = isEnabledGroupedChatList;
         this.autoJoinGroups = autoJoinGroups;
         this.autoJoinType = autoJoinType;
+        this.rpcParses = rpcParsers;
+        this.updateParcers = updatesParser;
     }
 
     /**
@@ -343,5 +354,21 @@ public class Configuration {
      */
     public AutoJoinType getAutoJoinType() {
         return autoJoinType;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public RpcParser[] getRpcParses() {
+        return rpcParses;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public UpdatesParser[] getUpdateParcers() {
+        return updateParcers;
     }
 }

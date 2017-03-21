@@ -10,7 +10,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import im.actor.core.api.parser.RpcParser;
+import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.TrustedKey;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.providers.PhoneBookProvider;
@@ -67,6 +70,10 @@ public class ConfigurationBuilder {
 
     private ArrayList<String> autoJoinGroups = new ArrayList<>();
     private AutoJoinType autoJoinType = AutoJoinType.AFTER_INIT;
+
+    private List<RpcParser> extraRpcParsers = new ArrayList<>();
+    private List<UpdatesParser> extraUpdateParsers = new ArrayList<>();
+
 
     /**
      * Setting Auto Join to group type: when to join to your groups
@@ -398,6 +405,21 @@ public class ConfigurationBuilder {
         return this;
     }
 
+    @NotNull
+    @ObjectiveCName("addRpcParser:")
+    public ConfigurationBuilder addRpcParser(@NotNull RpcParser rpcParser) {
+        this.extraRpcParsers.add(rpcParser);
+        return this;
+    }
+
+    @NotNull
+    @ObjectiveCName("addUpdateParser:")
+    public ConfigurationBuilder addUpdateParser(@NotNull UpdatesParser updateParser) {
+        this.extraUpdateParsers.add(updateParser);
+        return this;
+    }
+
+
     /**
      * Build configuration
      *
@@ -440,6 +462,8 @@ public class ConfigurationBuilder {
                 videoCallsEnabled,
                 isEnabledGroupedChatList,
                 autoJoinGroups.toArray(new String[autoJoinGroups.size()]),
-                autoJoinType);
+                autoJoinType,
+                extraRpcParsers.toArray(new RpcParser[]{}),
+                extraUpdateParsers.toArray(new UpdatesParser[]{}));
     }
 }

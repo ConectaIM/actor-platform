@@ -24,6 +24,8 @@ import im.actor.core.AutoJoinType;
 import im.actor.core.ConfigurationBuilder;
 import im.actor.core.DeviceCategory;
 import im.actor.core.PlatformType;
+import im.actor.core.api.parser.RpcParser;
+import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.entity.Peer;
 import im.actor.runtime.Log;
 import im.actor.runtime.Runtime;
@@ -223,6 +225,9 @@ public class ActorSDK {
         };
     }
 
+    private RpcParser[] rpcParsers = new RpcParser[]{};
+    private UpdatesParser[] updateParsers = new UpdatesParser[]{};
+
     /**
      * Shared ActorSDK. Use this method to get instance of SDK for configuration and starting up
      *
@@ -265,6 +270,17 @@ public class ActorSDK {
             for (String t : trustedKeys) {
                 builder.addTrustedKey(t);
             }
+
+            //parsers
+
+            for(RpcParser r : rpcParsers){
+                builder.addRpcParser(r);
+            }
+
+            for(UpdatesParser u : updateParsers){
+                builder.addUpdateParser(u);
+            }
+
             builder.setPhoneBookProvider(new AndroidPhoneBook());
             builder.setVideoCallsEnabled(videoCallsEnabled);
             builder.setOnClientPrivacyEnabled(onClientPrivacyEnabled);
@@ -438,6 +454,22 @@ public class ActorSDK {
     public void setEndpoints(String[] endpoints) {
         this.endpoints = endpoints;
         this.trustedKeys = new String[0];
+    }
+
+    public RpcParser[] getRpcParsers() {
+        return rpcParsers;
+    }
+
+    public void setRpcParsers(RpcParser[] rpcParsers) {
+        this.rpcParsers = rpcParsers;
+    }
+
+    public UpdatesParser[] getUpdateParsers() {
+        return updateParsers;
+    }
+
+    public void setUpdateParsers(UpdatesParser[] updateParsers) {
+        this.updateParsers = updateParsers;
     }
 
     /**
