@@ -8,8 +8,9 @@ import akka.stream.actor._
 import cats.data.Xor
 import com.github.kxbmap.configs.Bytes
 import im.actor.api.rpc.codecs.RequestCodec
-import im.actor.api.rpc.{ClientData, Error, Ok, RpcError, RpcInternalError, RpcOk, RpcRequest, RpcResult}
+import im.actor.api.rpc.{ClientData, Error, Ok, RpcError, RpcInternalError, RpcOk, RpcResult}
 import im.actor.concurrent._
+import im.actor.config.ActorConfig
 import im.actor.server.api.rpc.RpcApiExtension
 import im.actor.util.cache.CacheHelpers._
 import scodec.codecs.DiscriminatorCodec
@@ -43,8 +44,6 @@ private[session] object RpcHandler {
     val InternalError = RpcInternalError(canTryAgain = true, tryAgainDelay = DefaultErrorDelay)
     val RequestNotSupported = RpcError(400, "REQUEST_NOT_SUPPORTED", "Request is not supported.", canTryAgain = true, data = None)
   }
-
-  private var requestsCoded = Seq(RequestCodec)
 
 }
 
@@ -87,8 +86,7 @@ private[session] class RpcHandler(authId: Long, sessionId: Long, config: RpcConf
           assert(requestQueue.size <= MaxRequestQueueSize, s"queued too many: ${requestQueue.size}")
 
 
-          val responseFuture1 = requestsCoded.map {v =>
-            v.decode(requestBytes) match {
+          val responseFuture = RequestCodec.decode(requestBytes) match {
               case Attempt.Successful(DecodeResult(request, _)) ⇒
                 log.debug("Request messageId {}: {}, userId: {}", messageId, request, userIdOpt)
 
@@ -99,46 +97,47 @@ private[session] class RpcHandler(authId: Long, sessionId: Long, config: RpcConf
 
                 resultFuture.map(_ map (Response(messageId, _, clientData)) fold (identity, identity))
               case Attempt.Failure(err) ⇒
-                log.warning("Failed to decode request: {}", err.messageWithContext)
-                FastFuture.successful(Response(messageId, RpcErrors.RequestNotSupported, clientData))
-            }
-          }
 
-          val responseFuture2 = (for {
-            v <- requestsCoded map(v=> v.decode(requestBytes))
-            r = v match {
-              case Attempt.Successful(DecodeResult(request, _)) ⇒
-                log.debug("Request messageId {}: {}, userId: {}", messageId, request, userIdOpt)
+                if(ExtraCodecs.extraRequestCoded != null){
+                  ExtraCodecs.extraRequestCoded.decode(requestBytes) match {
+                      case Attempt.Successful(DecodeResult(request, _)) ⇒
+                        log.debug("Request messageId {}: {}, userId: {}", messageId, request, userIdOpt)
 
-                val resultFuture = handleRequest(request, clientData) map Xor.right recover {
-                  case e: Throwable ⇒ Xor.left(ResponseFailure(messageId, request, e, clientData))
+                        val resultFuture = handleRequest(request, clientData) map Xor.right recover {
+                          case e: Throwable ⇒ Xor.left(ResponseFailure(messageId, request, e, clientData))
+                        }
+                        responseCache.put(messageId, resultFuture)
+
+                        resultFuture.map(_ map (Response(messageId, _, clientData)) fold (identity, identity))
+                      case Attempt.Failure(err) ⇒
+                        log.warning("Failed to decode request: {}", err.messageWithContext)
+                        FastFuture.successful(Response(messageId, RpcErrors.RequestNotSupported, clientData))
+                    }
+                }else{
+                  log.warning("Failed to decode request: {}", err.messageWithContext)
+                  FastFuture.successful(Response(messageId, RpcErrors.RequestNotSupported, clientData))
                 }
-                responseCache.put(messageId, resultFuture)
-
-                resultFuture.map(_ map (Response(messageId, _, clientData)) fold (identity, identity))
-              case Attempt.Failure(err) ⇒
-                log.warning("Failed to decode request: {}", err.messageWithContext)
-                FastFuture.successful(Response(messageId, RpcErrors.RequestNotSupported, clientData))
-            }
-          } yield r)
-
-          val responseFuture =
-            RequestCodec.decode(requestBytes) match {
-              case Attempt.Successful(DecodeResult(request, _)) ⇒
-                log.debug("Request messageId {}: {}, userId: {}", messageId, request, userIdOpt)
-
-                val resultFuture = handleRequest(request, clientData) map Xor.right recover {
-                  case e: Throwable ⇒ Xor.left(ResponseFailure(messageId, request, e, clientData))
-                }
-                responseCache.put(messageId, resultFuture)
-
-                resultFuture.map(_ map (Response(messageId, _, clientData)) fold (identity, identity))
-              case Attempt.Failure(err) ⇒
-                log.warning("Failed to decode request: {}", err.messageWithContext)
-                FastFuture.successful(Response(messageId, RpcErrors.RequestNotSupported, clientData))
             }
 
-          responseFuture.pipeTo(self)
+            responseFuture.pipeTo(self)
+
+//          val responseFuture =
+//            RequestCodec.decode(requestBytes) match {
+//              case Attempt.Successful(DecodeResult(request, _)) ⇒
+//                log.debug("Request messageId {}: {}, userId: {}", messageId, request, userIdOpt)
+//
+//                val resultFuture = handleRequest(request, clientData) map Xor.right recover {
+//                  case e: Throwable ⇒ Xor.left(ResponseFailure(messageId, request, e, clientData))
+//                }
+//                responseCache.put(messageId, resultFuture)
+//
+//                resultFuture.map(_ map (Response(messageId, _, clientData)) fold (identity, identity))
+//              case Attempt.Failure(err) ⇒
+//                log.warning("Failed to decode request: {}", err.messageWithContext)
+//                FastFuture.successful(Response(messageId, RpcErrors.RequestNotSupported, clientData))
+//            }
+//
+//          responseFuture.pipeTo(self)
       }
     case OnComplete ⇒
       context.stop(self)
