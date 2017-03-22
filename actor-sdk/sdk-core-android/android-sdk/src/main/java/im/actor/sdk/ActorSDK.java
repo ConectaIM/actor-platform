@@ -27,6 +27,7 @@ import im.actor.core.PlatformType;
 import im.actor.core.api.parser.RpcParser;
 import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.entity.Peer;
+import im.actor.core.network.parser.BaseParser;
 import im.actor.runtime.Log;
 import im.actor.runtime.Runtime;
 import im.actor.runtime.actors.ActorSystem;
@@ -225,8 +226,8 @@ public class ActorSDK {
         };
     }
 
-    private RpcParser[] rpcParsers = new RpcParser[]{};
-    private UpdatesParser[] updateParsers = new UpdatesParser[]{};
+    private BaseParser[] rpcParsers = new BaseParser[]{};
+    private BaseParser[] updateParsers = new BaseParser[]{};
 
     /**
      * Shared ActorSDK. Use this method to get instance of SDK for configuration and starting up
@@ -273,11 +274,11 @@ public class ActorSDK {
 
             //parsers
 
-            for(RpcParser r : rpcParsers){
+            for(BaseParser r : rpcParsers){
                 builder.addRpcParser(r);
             }
 
-            for(UpdatesParser u : updateParsers){
+            for(BaseParser u : updateParsers){
                 builder.addUpdateParser(u);
             }
 
@@ -456,19 +457,19 @@ public class ActorSDK {
         this.trustedKeys = new String[0];
     }
 
-    public RpcParser[] getRpcParsers() {
+    public BaseParser[] getRpcParsers() {
         return rpcParsers;
     }
 
-    public void setRpcParsers(RpcParser[] rpcParsers) {
+    public void setRpcParsers(BaseParser[] rpcParsers) {
         this.rpcParsers = rpcParsers;
     }
 
-    public UpdatesParser[] getUpdateParsers() {
+    public BaseParser[] getUpdateParsers() {
         return updateParsers;
     }
 
-    public void setUpdateParsers(UpdatesParser[] updateParsers) {
+    public void setUpdateParsers(BaseParser[] updateParsers) {
         this.updateParsers = updateParsers;
     }
 

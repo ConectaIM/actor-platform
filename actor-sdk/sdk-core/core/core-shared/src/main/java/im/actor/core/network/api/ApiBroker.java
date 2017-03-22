@@ -11,6 +11,7 @@ import im.actor.core.api.parser.RpcParser;
 import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.*;
 import im.actor.core.network.parser.ApiParserConfig;
+import im.actor.core.network.parser.BaseParser;
 import im.actor.core.network.parser.ParsingExtension;
 import im.actor.runtime.*;
 import im.actor.runtime.Runtime;
@@ -40,8 +41,8 @@ public class ApiBroker extends AskcableActor {
                                final boolean isEnableLog, int id, final int minDelay,
                                final int maxDelay,
                                final int maxFailureCount,
-                                   final RpcParser[] rpcParsers,
-                                   final UpdatesParser[] updatesParsers) {
+                                   final BaseParser[] rpcParsers,
+                                   final BaseParser[] updatesParsers) {
 
         return new ApiBrokerInt(endpoints, keyStorage, callback, isEnableLog, id, minDelay, maxDelay, maxFailureCount, rpcParsers, updatesParsers);
     }
@@ -74,8 +75,8 @@ public class ApiBroker extends AskcableActor {
                      int minDelay,
                      int maxDelay,
                      int maxFailureCount,
-                     RpcParser[] rpcParsers,
-                     UpdatesParser[] updatesParsers) {
+                     BaseParser[] rpcParsers,
+                     BaseParser[] updatesParsers) {
         this.isEnableLog = isEnableLog;
         this.endpoints = endpoints;
         this.keyStorage = keyStorage;

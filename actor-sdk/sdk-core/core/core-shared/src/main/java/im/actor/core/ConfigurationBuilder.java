@@ -15,6 +15,7 @@ import java.util.List;
 import im.actor.core.api.parser.RpcParser;
 import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.TrustedKey;
+import im.actor.core.network.parser.BaseParser;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.providers.PhoneBookProvider;
 import im.actor.core.providers.CallsProvider;
@@ -71,8 +72,8 @@ public class ConfigurationBuilder {
     private ArrayList<String> autoJoinGroups = new ArrayList<>();
     private AutoJoinType autoJoinType = AutoJoinType.AFTER_INIT;
 
-    private List<RpcParser> extraRpcParsers = new ArrayList<>();
-    private List<UpdatesParser> extraUpdateParsers = new ArrayList<>();
+    private List<BaseParser> extraRpcParsers = new ArrayList<>();
+    private List<BaseParser> extraUpdateParsers = new ArrayList<>();
 
 
     /**
@@ -407,14 +408,14 @@ public class ConfigurationBuilder {
 
     @NotNull
     @ObjectiveCName("addRpcParser:")
-    public ConfigurationBuilder addRpcParser(@NotNull RpcParser rpcParser) {
+    public ConfigurationBuilder addRpcParser(@NotNull BaseParser rpcParser) {
         this.extraRpcParsers.add(rpcParser);
         return this;
     }
 
     @NotNull
     @ObjectiveCName("addUpdateParser:")
-    public ConfigurationBuilder addUpdateParser(@NotNull UpdatesParser updateParser) {
+    public ConfigurationBuilder addUpdateParser(@NotNull BaseParser updateParser) {
         this.extraUpdateParsers.add(updateParser);
         return this;
     }
@@ -463,7 +464,7 @@ public class ConfigurationBuilder {
                 isEnabledGroupedChatList,
                 autoJoinGroups.toArray(new String[autoJoinGroups.size()]),
                 autoJoinType,
-                extraRpcParsers.toArray(new RpcParser[]{}),
-                extraUpdateParsers.toArray(new UpdatesParser[]{}));
+                extraRpcParsers.toArray(new BaseParser[]{}),
+                extraUpdateParsers.toArray(new BaseParser[]{}));
     }
 }

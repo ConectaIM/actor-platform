@@ -8,6 +8,7 @@ import im.actor.core.api.ApiVersion;
 import im.actor.core.api.parser.RpcParser;
 import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.api.ApiBrokerInt;
+import im.actor.core.network.parser.BaseParser;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.core.network.api.ApiBroker;
 import im.actor.core.network.parser.Request;
@@ -51,8 +52,8 @@ public class ActorApi {
                     boolean isEnableLog, int minDelay,
                     int maxDelay,
                     int maxFailureCount,
-                    RpcParser[] rpcParsers,
-                    UpdatesParser[] updatesParsers) {
+                    BaseParser[] rpcParsers,
+                    BaseParser[] updatesParsers) {
         this.endpoints = endpoints;
         this.defaultEndpoints = endpoints;
         this.keyStorage = keyStorage;

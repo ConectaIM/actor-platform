@@ -5,6 +5,7 @@ import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.ActorApiCallback;
 import im.actor.core.network.AuthKeyStorage;
 import im.actor.core.network.Endpoints;
+import im.actor.core.network.parser.BaseParser;
 import im.actor.runtime.actors.ActorInterface;
 import im.actor.runtime.promise.Promise;
 
@@ -15,8 +16,8 @@ public class ApiBrokerInt extends ActorInterface {
                         final boolean isEnableLog, int id, final int minDelay,
                         final int maxDelay,
                         final int maxFailureCount,
-                        RpcParser[] rpcParsers,
-                        UpdatesParser[] updatesParsers) {
+                        BaseParser[] rpcParsers,
+                        BaseParser[] updatesParsers) {
         setDest(system().actorOf("api/broker#" + id, () -> new ApiBroker(endpoints,
                 keyStorage,
                 callback,

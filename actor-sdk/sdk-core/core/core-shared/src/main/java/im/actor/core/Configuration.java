@@ -9,6 +9,7 @@ import com.google.j2objc.annotations.Property;
 import im.actor.core.api.parser.RpcParser;
 import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.TrustedKey;
+import im.actor.core.network.parser.BaseParser;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.providers.PhoneBookProvider;
 import im.actor.core.providers.CallsProvider;
@@ -70,9 +71,9 @@ public class Configuration {
     @Property("readonly, nonatomic")
     private final AutoJoinType autoJoinType;
     @Property("readonly, nonatomic")
-    private final RpcParser[] rpcParses;
+    private final BaseParser[] rpcParses;
     @Property("readonly, nonatomic")
-    private final UpdatesParser[] updateParcers;
+    private final BaseParser[] updateParcers;
 
 
     Configuration(ConnectionEndpoint[] endpoints,
@@ -100,8 +101,8 @@ public class Configuration {
                   boolean isEnabledGroupedChatList,
                   String[] autoJoinGroups,
                   AutoJoinType autoJoinType,
-                  RpcParser[] rpcParsers,
-                  UpdatesParser[] updatesParser) {
+                  BaseParser[] rpcParsers,
+                  BaseParser[] updatesParser) {
         this.endpoints = endpoints;
         this.phoneBookProvider = phoneBookProvider;
         this.enableContactsLogging = enableContactsLogging;
@@ -360,7 +361,7 @@ public class Configuration {
      *
      * @return
      */
-    public RpcParser[] getRpcParses() {
+    public BaseParser[] getRpcParses() {
         return rpcParses;
     }
 
@@ -368,7 +369,7 @@ public class Configuration {
      *
      * @return
      */
-    public UpdatesParser[] getUpdateParcers() {
+    public BaseParser[] getUpdateParcers() {
         return updateParcers;
     }
 }
