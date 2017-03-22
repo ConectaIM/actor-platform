@@ -5,6 +5,11 @@ import sbt.Keys.{baseDirectory, libraryDependencies, unmanagedResourceDirectorie
 val ScalaVersion = "2.11.8"
 val BotKitVersion = Versioning.getVersion
 
+resolvers ++= Seq(
+  "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/releases/",
+  "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/"
+)
+
 lazy val buildSettings =
   Defaults.coreDefaultSettings ++
     Seq(
@@ -22,7 +27,11 @@ lazy val buildSettings =
       //          "-Ywarn-nullary-unit",
       //          "-Ywarn-value-discard"
       //        ),
-      parallelExecution := true
+      parallelExecution := true,
+      resolvers ++= Seq(
+        "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/releases/",
+        "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/"
+      )
     ) //++ im.actor.Sonatype.sonatypeSettings
 
 lazy val pomExtraXml =
