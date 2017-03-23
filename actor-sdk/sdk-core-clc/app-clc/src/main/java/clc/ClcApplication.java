@@ -231,6 +231,7 @@ public class ClcApplication {
 
         ConfigurationBuilder builder = new ConfigurationBuilder();
 
+
         if (args.length > 0)
             builder.addEndpoint(args[0]);
         else

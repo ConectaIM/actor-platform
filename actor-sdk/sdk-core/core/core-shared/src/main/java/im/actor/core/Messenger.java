@@ -49,6 +49,7 @@ import im.actor.core.events.PeerInfoClosed;
 import im.actor.core.events.PeerInfoOpened;
 import im.actor.core.events.UserVisible;
 import im.actor.core.network.NetworkState;
+import im.actor.core.network.parser.BaseParser;
 import im.actor.core.util.ActorTrace;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.CallVM;
@@ -88,6 +89,8 @@ public class Messenger {
 
     protected Modules modules;
 
+    public static BaseParser[] extraRpcParsers;
+
     /**
      * Construct messenger
      *
@@ -120,6 +123,8 @@ public class Messenger {
 
         // timing.section("Modules:Run");
         this.modules.run();
+
+        extraRpcParsers = configuration.getRpcParses();
 
         // timing.end();
     }
