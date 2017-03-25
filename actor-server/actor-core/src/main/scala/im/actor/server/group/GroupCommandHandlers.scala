@@ -79,12 +79,12 @@ private[group] trait GroupCommandHandlers
 
         val dateMillis = createdAt.toEpochMilli
 
-        val updateObsolete = UpdateGroupInviteObsolete(
-          groupId,
-          inviteUserId = cmd.creatorUserId,
-          date = dateMillis,
-          randomId = cmd.randomId
-        )
+//        val updateObsolete = UpdateGroupInviteObsolete(
+//          groupId,
+//          inviteUserId = cmd.creatorUserId,
+//          date = dateMillis,
+//          randomId = cmd.randomId
+//        )
 
         val serviceMessage = GroupServiceMessages.groupCreated
 
@@ -114,13 +114,13 @@ private[group] trait GroupCommandHandlers
           // Groups V1 API updates //
           ///////////////////////////
 
-          _ ← seqUpdExt.deliverUserUpdate(
-            userId = cmd.creatorUserId,
-            update = updateObsolete,
-            pushRules = seqUpdExt.pushRules(isFat = true, None, excludeAuthIds = Seq(cmd.creatorAuthId)), //do we really need to remove self auth id here?
-            reduceKey = None,
-            deliveryId = s"creategroup_obsolete_${groupId}_${cmd.randomId}"
-          )
+//          _ ← seqUpdExt.deliverUserUpdate(
+//            userId = cmd.creatorUserId,
+//            update = updateObsolete,
+//            pushRules = seqUpdExt.pushRules(isFat = true, None, excludeAuthIds = Seq(cmd.creatorAuthId)), //do we really need to remove self auth id here?
+//            reduceKey = None,
+//            deliveryId = s"creategroup_obsolete_${groupId}_${cmd.randomId}"
+//          )
 
           ///////////////////////////
           // Groups V2 API updates //
