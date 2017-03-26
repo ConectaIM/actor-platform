@@ -232,6 +232,12 @@ object Build extends sbt.Build with Versioning with Releasing with Packaging {
   )
     .dependsOn(actorPersist)
 
+  lazy val actorSearch = Project(
+    id = "actor-search",
+    base = file("actor-search"),
+    settings = defaultSettingsServer ++ Seq(libraryDependencies ++= Dependencies.search)
+  ).dependsOn(actorRpcApi)
+
   lazy val actorSession = Project(
     id = "actor-session",
     base = file("actor-session"),
@@ -369,6 +375,7 @@ object Build extends sbt.Build with Versioning with Releasing with Packaging {
     actorPersist,
     actorRpcApi,
     actorRuntime,
+    actorSearch,
     actorSession,
     actorSessionMessages,
     actorSms

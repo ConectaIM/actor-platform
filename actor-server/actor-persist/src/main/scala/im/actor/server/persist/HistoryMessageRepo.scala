@@ -174,24 +174,36 @@ object HistoryMessageRepo {
       .map(m ⇒ (m.messageContentHeader, m.messageContentData))
       .update((messageContentHeader, messageContentData))
 
-  def uniqueAsc(fromTs: Long, limit: Int): SqlStreamingAction[Vector[HistoryMessage], HistoryMessage, Effect] = {
-    implicit val getMessageResult: GetResult[HistoryMessage] = GetResult(r ⇒
-      HistoryMessage(
-        userId = r.nextInt,
-        peer = Peer(PeerType.fromValue(r.nextInt), r.nextInt),
-        date = getDatetimeResult(r),
-        senderUserId = r.nextInt,
-        randomId = r.nextLong,
-        messageContentHeader = r.nextInt,
-        messageContentData = r.nextBytes,
-        deletedAt = getDatetimeOptionResult(r)
-      ))
+  private implicit val getMessageResult: GetResult[HistoryMessage] = GetResult(r ⇒
+    HistoryMessage(
+      userId = r.nextInt,
+      peer = Peer(PeerType.fromValue(r.nextInt), r.nextInt),
+      date = getDatetimeResult(r),
+      senderUserId = r.nextInt,
+      randomId = r.nextLong,
+      messageContentHeader = r.nextInt,
+      messageContentData = r.nextBytes,
+      deletedAt = getDatetimeOptionResult(r)
+    ))
+  private val ServiceHeader = 2
 
-    val serviceHeader = 2
+  def uniqueAsc(fromTs: Long, limit: Int): SqlStreamingAction[Vector[HistoryMessage], HistoryMessage, Effect] = {
+
     val date = new DateTime(fromTs)
     sql"""select distinct on (date, random_id) user_id, peer_type, peer_id, date, sender_user_id, random_id, message_content_header, message_content_data, deleted_at from history_messages
-         where message_content_header != $serviceHeader
+         where message_content_header != $ServiceHeader
          and date > $date
+         and deleted_at is null
+         order by date asc, random_id asc
+         limit $limit"""
+      .as[HistoryMessage]
+  }
+
+  def uniqueAsc(fromDate: DateTime, lastRandomId: Long, limit: Int): SqlStreamingAction[Vector[HistoryMessage], HistoryMessage, Effect] = {
+    sql"""select distinct on (date, random_id) user_id, peer_type, peer_id, date, sender_user_id, random_id, message_content_header, message_content_data, deleted_at from history_messages
+         where message_content_header != $ServiceHeader
+         and date >= $fromDate
+         and random_id != lastRandomId
          and deleted_at is null
          order by date asc, random_id asc
          limit $limit"""
