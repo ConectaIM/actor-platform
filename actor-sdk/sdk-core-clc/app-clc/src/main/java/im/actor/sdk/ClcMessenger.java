@@ -19,7 +19,7 @@ import java.util.prefs.Preferences;
 
 public class ClcMessenger extends Messenger {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClcMessenger.class);
+a    private static final Logger logger = LoggerFactory.getLogger(ClcMessenger.class);
     private HashMap<Peer, BindedDisplayList<Message>> messagesLists = new HashMap<Peer, BindedDisplayList<Message>>();
 
     /**

@@ -1,0 +1,1129 @@
+16:56:29.419UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Starting up...
+16:56:29.544UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Registered cluster JMX MBean [akka:type=Cluster]
+16:56:29.544UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Started up successfully
+16:56:29.581UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Metrics will be retreived from MBeans, and may be incorrect on some platforms. To increase metric accuracy add the 'sigar.jar' to the classpath and the appropriate platform-specific native libary to 'java.library.path'. Reason: java.lang.ClassNotFoundException: org.hyperic.sigar.Sigar
+16:56:29.585UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Metrics collection has started successfully
+16:56:29.620UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Node [akka.tcp://actor-server@192.168.1.3:2552] is JOINING, roles []
+16:56:29.668UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Leader is moving node [akka.tcp://actor-server@192.168.1.3:2552] to [Up]
+ [31mWARN [0;39m [36mo.f.core.internal.command.DbMigrate[0;39m [35m[0;39m 
+                 Schema "public" has a version (20161113105100) that is newer than the latest available migration (20160902182358) !
+16:56:30.867UTC [39mDEBUG[0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Creating singleton identification timer...
+16:56:30.878UTC [39mDEBUG[0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Trying to identify singleton at [akka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations/singleton]
+16:56:30.945UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/user/SimpleKeyValueRoot-Migrations/singleton]
+16:56:30.954UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:31.000UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/shardakka-kv-MigrationsCoordinator/singleton]
+16:56:31.000UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:31.055UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [53] home
+16:56:31.069UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [shardakka-kv-MigrationsCoordinatorState], local data [None]
+16:56:31.075UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:31.084UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:31.089UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.126UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector()),Set(),Set(),false))]
+16:56:31.149UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:31.157UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Retry request for shard [53] homes from coordinator at [Actor[akka://actor-server/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator#234457533]]. [1] buffered messages.
+16:56:31.174UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53)),Set(),Set(),false))]
+16:56:31.174UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(53,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:31.174UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [53] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.175UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [53] 
+16:56:31.180UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [53] in region
+16:56:31.185UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [53] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.190UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 53
+16:56:31.190UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [53]
+16:56:31.195UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/53[0;39m 
+                 Starting entity [2015-08-04-UsersMigration] in shard [53]
+16:56:31.873UTC [39mDEBUG[0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Trying to identify singleton at [akka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations/singleton]
+16:56:31.878UTC [34mINFO [0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Singleton identified at [akka://actor-server/user/SimpleKeyValueRoot-Migrations/singleton]
+16:56:31.878UTC [39mDEBUG[0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Sending buffered messages to current singleton instance
+16:56:31.937UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [74] home
+16:56:31.937UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74)),Set(),Set(),false))]
+16:56:31.937UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(74,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:31.938UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [74] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.938UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [74] 
+16:56:31.938UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [74] in region
+16:56:31.938UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [74] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.938UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 74
+16:56:31.938UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [74]
+16:56:31.939UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/74[0;39m 
+                 Starting entity [2015-08-04-GroupsMigration] in shard [74]
+16:56:31.951UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [67] home
+16:56:31.951UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67)),Set(),Set(),false))]
+16:56:31.952UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(67,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:31.952UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [67] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.952UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [67] 
+16:56:31.952UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [67] in region
+16:56:31.952UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [67] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.952UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 67
+16:56:31.952UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [67]
+16:56:31.953UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/67[0;39m 
+                 Starting entity [2015-08-20-LocalNamesMigration] in shard [67]
+16:56:31.966UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [24] home
+16:56:31.967UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24)),Set(),Set(),false))]
+16:56:31.967UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(24,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:31.967UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [24] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.967UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [24] 
+16:56:31.967UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [24] in region
+16:56:31.968UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [24] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.968UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 24
+16:56:31.968UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [24]
+16:56:31.968UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/24[0;39m 
+                 Starting entity [2015-08-29-GroupCreatorMemberMigration] in shard [24]
+16:56:31.980UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [63] home
+16:56:31.980UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63)),Set(),Set(),false))]
+16:56:31.981UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(63,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:31.981UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [63] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.981UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [63] 
+16:56:31.981UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [63] in region
+16:56:31.982UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [63] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.982UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 63
+16:56:31.982UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [63]
+16:56:31.982UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/63[0;39m 
+                 Starting entity [PutHiddenGroupsToSQL] in shard [63]
+16:56:31.996UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [93] home
+16:56:31.997UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63, 93)),Set(),Set(),false))]
+16:56:31.997UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(93,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:31.997UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [93] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.997UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [93] 
+16:56:31.997UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [93] in region
+16:56:31.998UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [93] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:31.998UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 93
+16:56:31.998UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [93]
+16:56:31.998UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/93[0;39m 
+                 Starting entity [2015-11-03-LocalNamesFromKVMigration] in shard [93]
+16:56:32.012UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [94] home
+16:56:32.013UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63, 93)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63, 93, 94)),Set(),Set(),false))]
+16:56:32.013UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(94,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:32.013UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [94] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:32.013UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [94] 
+16:56:32.013UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [94] in region
+16:56:32.014UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [94] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:32.014UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 94
+16:56:32.014UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [94]
+16:56:32.014UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/94[0;39m 
+                 Starting entity [2015-11-11-FillUserSequence] in shard [94]
+16:56:32.025UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [76] home
+16:56:32.025UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63, 93, 94)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 76 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63, 93, 94, 76)),Set(),Set(),false))]
+16:56:32.025UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(76,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:32.026UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [76] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:32.026UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [76] 
+16:56:32.026UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [76] in region
+16:56:32.026UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [76] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:32.026UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 76
+16:56:32.026UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [76]
+16:56:32.026UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/76[0;39m 
+                 Starting entity [2015-11-12-FixUserSequence] in shard [76]
+16:56:32.127UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:32.129UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/WeakUpdatesManagerCoordinator/singleton]
+16:56:32.129UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:32.130UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [WeakUpdatesManagerCoordinatorState], local data [None]
+16:56:32.130UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:32.139UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:32.141UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/PresenceManagerCoordinator/singleton]
+16:56:32.141UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:32.142UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [PresenceManagerCoordinatorState], local data [None]
+16:56:32.142UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:32.149UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:32.150UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/GroupPresenceManagerCoordinator/singleton]
+16:56:32.150UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:32.151UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [GroupPresenceManagerCoordinatorState], local data [None]
+16:56:32.151UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:32.259UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:32.260UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/SocialManagerCoordinator/singleton]
+16:56:32.260UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:32.261UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [SocialManagerCoordinatorState], local data [None]
+16:56:32.261UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:32.284UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:32.289UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/UserProcessorCoordinator/singleton]
+16:56:32.289UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:32.290UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [UserProcessorCoordinatorState], local data [None]
+16:56:32.290UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:32.713UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessor[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:32.714UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/GroupProcessorCoordinator/singleton]
+16:56:32.714UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:32.715UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [GroupProcessorCoordinatorState], local data [None]
+16:56:32.715UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:32.716UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [1] home
+16:56:32.717UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 76 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63, 93, 94, 76)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 76 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 1 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533] -> Vector(53, 74, 67, 24, 63, 93, 94, 76, 1)),Set(),Set(),false))]
+16:56:32.717UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(1,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533])
+16:56:32.717UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [1] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:32.717UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [1] 
+16:56:32.717UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [1] in region
+16:56:32.718UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [1] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#-729365533]]
+16:56:32.718UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 1
+16:56:32.718UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [1]
+16:56:32.718UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/1[0;39m 
+                 Starting entity [2015-08-21-IntegrationTokenMigration] in shard [1]
+16:56:32.727UTC [31mWARN [0;39m [36makka.actor.ActorSystemImpl[0;39m [35makka.actor.ActorSystemImpl(actor-server)[0;39m 
+                 Starting session region
+16:56:32.738UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:32.740UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/SessionCoordinator/singleton]
+16:56:32.740UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:32.741UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [SessionCoordinatorState], local data [None]
+16:56:32.741UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:33.988UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCall[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:33.989UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/WebrtcCallCoordinator/singleton]
+16:56:33.989UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:33.990UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [WebrtcCallCoordinatorState], local data [None]
+16:56:33.990UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:34.022UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediator[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+16:56:34.030UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/EventBusMediatorCoordinator/singleton]
+16:56:34.030UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:34.031UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [EventBusMediatorCoordinatorState], local data [None]
+16:56:34.031UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+16:56:34.033UTC [31mWARN [0;39m [36makka.actor.ActorSystemImpl[0;39m [35makka.actor.ActorSystemImpl(actor-server)[0;39m 
+                 Starting BotExtension
+16:56:34.038UTC [31mWARN [0;39m [36makka.actor.ActorSystemImpl[0;39m [35makka.actor.ActorSystemImpl(actor-server)[0;39m 
+                 Starting ActorBot
+16:56:34.051UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/user/$a/singleton]
+16:56:34.051UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+16:56:34.051UTC [31mWARN [0;39m [36mim.actor.server.bot.ActorBot[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a/singleton[0;39m 
+                 Initiating bot 10 actor Actor Bot
+16:56:34.052UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Request shard [10] home
+16:56:34.144UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070]]
+16:56:34.144UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [WeakUpdatesManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070] -> Vector()),Set(),Set(),false))]
+16:56:34.144UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070])
+16:56:34.154UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/PresenceManager#-2013799035]]
+16:56:34.155UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [PresenceManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/PresenceManager#-2013799035] -> Vector()),Set(),Set(),false))]
+16:56:34.155UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/PresenceManager#-2013799035])
+16:56:34.164UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/GroupPresenceManager#1984572626]]
+16:56:34.165UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [GroupPresenceManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/GroupPresenceManager#1984572626] -> Vector()),Set(),Set(),false))]
+16:56:34.165UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/GroupPresenceManager#1984572626])
+16:56:34.274UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/SocialManager#2065023246]]
+16:56:34.275UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SocialManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/SocialManager#2065023246] -> Vector()),Set(),Set(),false))]
+16:56:34.275UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/SocialManager#2065023246])
+16:56:34.304UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/UserProcessor#442617142]]
+16:56:34.305UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [UserProcessorCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/UserProcessor#442617142] -> Vector()),Set(),Set(),false))]
+16:56:34.305UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/UserProcessor#442617142])
+16:56:34.305UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Retry request for shard [10] homes from coordinator at [Actor[akka://actor-server/system/sharding/UserProcessorCoordinator/singleton/coordinator#-321202516]]. [1] buffered messages.
+16:56:34.306UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [UserProcessorCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/UserProcessor#442617142] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(10 -> Actor[akka://actor-server/system/sharding/UserProcessor#442617142]),Map(Actor[akka://actor-server/system/sharding/UserProcessor#442617142] -> Vector(10)),Set(),Set(),false))]
+16:56:34.306UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(10,Actor[akka://actor-server/system/sharding/UserProcessor#442617142])
+16:56:34.306UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 Shard [10] allocated at [Actor[akka://actor-server/system/sharding/UserProcessor#442617142]]
+16:56:34.306UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Host Shard [10] 
+16:56:34.306UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Starting shard [10] in region
+16:56:34.307UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Shard [10] located at [Actor[akka://actor-server/system/sharding/UserProcessor#442617142]]
+16:56:34.307UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Shard was initialized 10
+16:56:34.307UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Deliver [1] buffered messages for shard [10]
+16:56:34.307UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor/10[0;39m 
+                 Starting entity [10] in shard [10]
+16:56:34.422UTC [31mWARN [0;39m [36mim.actor.server.bot.ActorBot[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a/singleton[0;39m 
+                 Bot already exists
+16:56:34.557UTC [31mWARN [0;39m [36mim.actor.server.bot.ActorBot[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a/singleton[0;39m 
+                 Initialized bot 10 actor Actor Bot
+16:56:34.685UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Request shard [24] home
+16:56:34.686UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [WeakUpdatesManagerCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(24 -> Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070]),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070] -> Vector(24)),Set(),Set(),false))]
+16:56:34.686UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(24,Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070])
+16:56:34.686UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Shard [24] allocated at [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070]]
+16:56:34.686UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Host Shard [24] 
+16:56:34.686UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Starting shard [24] in region
+16:56:34.687UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Shard [24] located at [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070]]
+16:56:34.687UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Shard was initialized 24
+16:56:34.687UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Deliver [1] buffered messages for shard [24]
+16:56:34.687UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager/24[0;39m 
+                 Starting entity [3175226625488964280] in shard [24]
+16:56:34.724UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/GroupProcessor#-1722866844]]
+16:56:34.724UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [GroupProcessorCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/GroupProcessor#-1722866844] -> Vector()),Set(),Set(),false))]
+16:56:34.725UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/GroupProcessor#-1722866844])
+16:56:34.755UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/Session#-1589156154]]
+16:56:34.755UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SessionCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/Session#-1589156154] -> Vector()),Set(),Set(),false))]
+16:56:34.755UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/Session#-1589156154])
+16:56:36.005UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/WebrtcCall#89875243]]
+16:56:36.005UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [WebrtcCallCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/WebrtcCall#89875243] -> Vector()),Set(),Set(),false))]
+16:56:36.005UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/WebrtcCall#89875243])
+16:56:36.034UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/EventBusMediator#-58553358]]
+16:56:36.034UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [EventBusMediatorCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/EventBusMediator#-58553358] -> Vector()),Set(),Set(),false))]
+16:56:36.035UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/EventBusMediator#-58553358])
+17:01:31.928UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/53[0;39m 
+                 Entity stopped [2015-08-04-UsersMigration]
+17:01:31.965UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/74[0;39m 
+                 Entity stopped [2015-08-04-GroupsMigration]
+17:01:31.984UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/67[0;39m 
+                 Entity stopped [2015-08-20-LocalNamesMigration]
+17:01:31.994UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/24[0;39m 
+                 Entity stopped [2015-08-29-GroupCreatorMemberMigration]
+17:01:32.014UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/63[0;39m 
+                 Entity stopped [PutHiddenGroupsToSQL]
+17:01:32.024UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/93[0;39m 
+                 Entity stopped [2015-11-03-LocalNamesFromKVMigration]
+17:01:32.034UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/94[0;39m 
+                 Entity stopped [2015-11-11-FillUserSequence]
+17:01:32.055UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/76[0;39m 
+                 Entity stopped [2015-11-12-FixUserSequence]
+17:01:32.745UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/1[0;39m 
+                 Entity stopped [2015-08-21-IntegrationTokenMigration]
+17:37:40.103UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Request shard [8] home
+17:37:40.106UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SessionCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/Session#-1589156154] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(8 -> Actor[akka://actor-server/system/sharding/Session#-1589156154]),Map(Actor[akka://actor-server/system/sharding/Session#-1589156154] -> Vector(8)),Set(),Set(),false))]
+17:37:40.106UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(8,Actor[akka://actor-server/system/sharding/Session#-1589156154])
+17:37:40.106UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 Shard [8] allocated at [Actor[akka://actor-server/system/sharding/Session#-1589156154]]
+17:37:40.106UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Host Shard [8] 
+17:37:40.107UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Starting shard [8] in region
+17:37:40.107UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Shard [8] located at [Actor[akka://actor-server/system/sharding/Session#-1589156154]]
+17:37:40.108UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Shard was initialized 8
+17:37:40.108UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Deliver [1] buffered messages for shard [8]
+17:37:40.506UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/8[0;39m 
+                 Starting entity [5376498629573702238_-1601419457163652902] in shard [8]
+17:39:24.285UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/8[0;39m 
+                 Starting entity [5376498629573702238_1117013262916044862] in shard [8]
+17:39:44.333UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/8[0;39m 
+                 Starting entity [5376498629573702238_3720846041767636281] in shard [8]
+17:46:31.055UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/8[0;39m 
+                 Starting entity [5376498629573702238_-8950617219426516946] in shard [8]
+17:46:42.034UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Request shard [21] home
+17:46:42.035UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [UserProcessorCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(10 -> Actor[akka://actor-server/system/sharding/UserProcessor#442617142]),Map(Actor[akka://actor-server/system/sharding/UserProcessor#442617142] -> Vector(10)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(10 -> Actor[akka://actor-server/system/sharding/UserProcessor#442617142], 21 -> Actor[akka://actor-server/system/sharding/UserProcessor#442617142]),Map(Actor[akka://actor-server/system/sharding/UserProcessor#442617142] -> Vector(10, 21)),Set(),Set(),false))]
+17:46:42.035UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(21,Actor[akka://actor-server/system/sharding/UserProcessor#442617142])
+17:46:42.035UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 Shard [21] allocated at [Actor[akka://actor-server/system/sharding/UserProcessor#442617142]]
+17:46:42.036UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Host Shard [21] 
+17:46:42.036UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Starting shard [21] in region
+17:46:42.036UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Shard [21] located at [Actor[akka://actor-server/system/sharding/UserProcessor#442617142]]
+17:46:42.036UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Shard was initialized 21
+17:46:42.036UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Deliver [1] buffered messages for shard [21]
+17:46:42.036UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor/21[0;39m 
+                 Starting entity [490070421] in shard [21]
+17:46:42.422UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Request shard [30] home
+17:46:42.422UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+17:46:42.422UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [WeakUpdatesManagerCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(24 -> Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070]),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070] -> Vector(24)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(24 -> Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070], 30 -> Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070]),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070] -> Vector(24, 30)),Set(),Set(),false))]
+17:46:42.422UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(30,Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070])
+17:46:42.422UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Shard [30] allocated at [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070]]
+17:46:42.423UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Host Shard [30] 
+17:46:42.423UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Starting shard [30] in region
+17:46:42.423UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Shard [30] located at [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-960754070]]
+17:46:42.423UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Shard was initialized 30
+17:46:42.423UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Deliver [1] buffered messages for shard [30]
+17:46:42.423UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager/30[0;39m 
+                 Starting entity [5376498629573702238] in shard [30]
+17:46:42.426UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/SeqUpdatesManagerCoordinator/singleton]
+17:46:42.426UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+17:46:42.427UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [SeqUpdatesManagerCoordinatorState], local data [None]
+17:46:42.428UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+17:46:42.444UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Request shard [1] home
+17:46:44.434UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768]]
+17:46:44.434UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SeqUpdatesManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768] -> Vector()),Set(),Set(),false))]
+17:46:44.434UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768])
+17:46:44.434UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Retry request for shard [1] homes from coordinator at [Actor[akka://actor-server/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator#1383412102]]. [1] buffered messages.
+17:46:44.434UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SeqUpdatesManagerCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(1 -> Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768]),Map(Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768] -> Vector(1)),Set(),Set(),false))]
+17:46:44.435UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(1,Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768])
+17:46:44.435UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Shard [1] allocated at [Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768]]
+17:46:44.435UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Host Shard [1] 
+17:46:44.435UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Starting shard [1] in region
+17:46:44.435UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Shard [1] located at [Actor[akka://actor-server/system/sharding/SeqUpdatesManager#639645768]]
+17:46:44.435UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Shard was initialized 1
+17:46:44.435UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Deliver [1] buffered messages for shard [1]
+17:46:44.454UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager/1[0;39m 
+                 Starting entity [490070421] in shard [1]
+17:53:48.946UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/8[0;39m 
+                 Starting entity [5376498629573702238_6338050953384483797] in shard [8]
+17:53:49.137UTC [1;31mERROR[0;39m [36mi.a.server.session.UpdatesHandler[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/8/5376498629573702238_6338050953384483797/updatesHandler[0;39m 
+                 Unmatched msg: Authorize(490070421)
+17:54:23.619UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/8[0;39m 
+                 Starting entity [5376498629573702238_-8341003580349074546] in shard [8]
+17:54:33.138UTC [1;31mERROR[0;39m [36mi.a.server.session.UpdatesHandler[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/8/5376498629573702238_-8341003580349074546/updatesHandler[0;39m 
+                 Unmatched msg: Authorize(490070421)
+17:56:34.416UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor/10[0;39m 
+                 Passivating started on entity 10
+17:56:34.416UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor/10[0;39m 
+                 Entity stopped [10]
+20:37:36.805UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Starting up...
+20:37:36.906UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Registered cluster JMX MBean [akka:type=Cluster]
+20:37:36.906UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Started up successfully
+20:37:36.940UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Metrics will be retreived from MBeans, and may be incorrect on some platforms. To increase metric accuracy add the 'sigar.jar' to the classpath and the appropriate platform-specific native libary to 'java.library.path'. Reason: java.lang.ClassNotFoundException: org.hyperic.sigar.Sigar
+20:37:36.946UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Metrics collection has started successfully
+20:37:36.973UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Node [akka.tcp://actor-server@192.168.1.3:2552] is JOINING, roles []
+20:37:37.011UTC [34mINFO [0;39m [36ma.c.Cluster(akka://actor-server)[0;39m [35makka.cluster.Cluster(akka://actor-server)[0;39m 
+                 Cluster Node [akka.tcp://actor-server@192.168.1.3:2552] - Leader is moving node [akka.tcp://actor-server@192.168.1.3:2552] to [Up]
+ [31mWARN [0;39m [36mo.f.core.internal.command.DbMigrate[0;39m [35m[0;39m 
+                 Schema "public" has a version (20161113105100) that is newer than the latest available migration (20160902182358) !
+20:37:37.958UTC [39mDEBUG[0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Creating singleton identification timer...
+20:37:37.966UTC [39mDEBUG[0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Trying to identify singleton at [akka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations/singleton]
+20:37:38.017UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/user/SimpleKeyValueRoot-Migrations/singleton]
+20:37:38.023UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:38.048UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/shardakka-kv-MigrationsCoordinator/singleton]
+20:37:38.048UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:38.092UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [53] home
+20:37:38.097UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [shardakka-kv-MigrationsCoordinatorState], local data [None]
+20:37:38.103UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:38.107UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:38.115UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.140UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector()),Set(),Set(),false))]
+20:37:38.151UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.160UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Retry request for shard [53] homes from coordinator at [Actor[akka://actor-server/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator#-1609400927]]. [1] buffered messages.
+20:37:38.175UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53)),Set(),Set(),false))]
+20:37:38.175UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(53,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.175UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [53] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.176UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [53] 
+20:37:38.182UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [53] in region
+20:37:38.190UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [53] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.194UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 53
+20:37:38.194UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [53]
+20:37:38.202UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/53[0;39m 
+                 Starting entity [2015-08-04-UsersMigration] in shard [53]
+20:37:38.819UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [74] home
+20:37:38.820UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74)),Set(),Set(),false))]
+20:37:38.820UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(74,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.820UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [74] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.820UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [74] 
+20:37:38.820UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [74] in region
+20:37:38.821UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [74] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.821UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 74
+20:37:38.821UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [74]
+20:37:38.821UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/74[0;39m 
+                 Starting entity [2015-08-04-GroupsMigration] in shard [74]
+20:37:38.842UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [67] home
+20:37:38.842UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67)),Set(),Set(),false))]
+20:37:38.842UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(67,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.843UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [67] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.843UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [67] 
+20:37:38.843UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [67] in region
+20:37:38.843UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [67] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.843UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 67
+20:37:38.843UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [67]
+20:37:38.844UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/67[0;39m 
+                 Starting entity [2015-08-20-LocalNamesMigration] in shard [67]
+20:37:38.856UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [24] home
+20:37:38.856UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24)),Set(),Set(),false))]
+20:37:38.857UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(24,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.857UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [24] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.857UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [24] 
+20:37:38.857UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [24] in region
+20:37:38.857UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [24] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.857UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 24
+20:37:38.857UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [24]
+20:37:38.857UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/24[0;39m 
+                 Starting entity [2015-08-29-GroupCreatorMemberMigration] in shard [24]
+20:37:38.871UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [63] home
+20:37:38.872UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63)),Set(),Set(),false))]
+20:37:38.872UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(63,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.872UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [63] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.872UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [63] 
+20:37:38.872UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [63] in region
+20:37:38.873UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [63] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.873UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 63
+20:37:38.873UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [63]
+20:37:38.873UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/63[0;39m 
+                 Starting entity [PutHiddenGroupsToSQL] in shard [63]
+20:37:38.886UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [93] home
+20:37:38.887UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63, 93)),Set(),Set(),false))]
+20:37:38.887UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(93,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.887UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [93] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.887UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [93] 
+20:37:38.887UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [93] in region
+20:37:38.888UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [93] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.888UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 93
+20:37:38.888UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [93]
+20:37:38.888UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/93[0;39m 
+                 Starting entity [2015-11-03-LocalNamesFromKVMigration] in shard [93]
+20:37:38.900UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [94] home
+20:37:38.900UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63, 93)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63, 93, 94)),Set(),Set(),false))]
+20:37:38.900UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(94,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.900UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [94] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.900UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [94] 
+20:37:38.901UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [94] in region
+20:37:38.901UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [94] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.901UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 94
+20:37:38.901UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [94]
+20:37:38.901UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/94[0;39m 
+                 Starting entity [2015-11-11-FillUserSequence] in shard [94]
+20:37:38.911UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [76] home
+20:37:38.912UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63, 93, 94)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 76 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63, 93, 94, 76)),Set(),Set(),false))]
+20:37:38.912UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(76,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:38.912UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [76] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.913UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [76] 
+20:37:38.913UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [76] in region
+20:37:38.913UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [76] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:38.913UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 76
+20:37:38.913UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [76]
+20:37:38.913UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/76[0;39m 
+                 Starting entity [2015-11-12-FixUserSequence] in shard [76]
+20:37:38.966UTC [39mDEBUG[0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Trying to identify singleton at [akka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations/singleton]
+20:37:38.970UTC [34mINFO [0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Singleton identified at [akka://actor-server/user/SimpleKeyValueRoot-Migrations/singleton]
+20:37:38.971UTC [39mDEBUG[0;39m [36ma.c.singleton.ClusterSingletonProxy[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/SimpleKeyValueRoot-Migrations-Proxy[0;39m 
+                 Sending buffered messages to current singleton instance
+20:37:38.989UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:38.991UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/WeakUpdatesManagerCoordinator/singleton]
+20:37:38.991UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:38.992UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [WeakUpdatesManagerCoordinatorState], local data [None]
+20:37:38.992UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:39.000UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:39.002UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/PresenceManagerCoordinator/singleton]
+20:37:39.002UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:39.003UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [PresenceManagerCoordinatorState], local data [None]
+20:37:39.003UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:39.008UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:39.009UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/GroupPresenceManagerCoordinator/singleton]
+20:37:39.010UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:39.010UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [GroupPresenceManagerCoordinatorState], local data [None]
+20:37:39.010UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:39.103UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:39.104UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/SocialManagerCoordinator/singleton]
+20:37:39.104UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:39.105UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [SocialManagerCoordinatorState], local data [None]
+20:37:39.105UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:39.131UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:39.132UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/UserProcessorCoordinator/singleton]
+20:37:39.132UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:39.133UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [UserProcessorCoordinatorState], local data [None]
+20:37:39.133UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:39.464UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessor[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:39.466UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/GroupProcessorCoordinator/singleton]
+20:37:39.466UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:39.466UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [GroupProcessorCoordinatorState], local data [None]
+20:37:39.467UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:39.467UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Request shard [1] home
+20:37:39.468UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [shardakka-kv-MigrationsCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 76 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63, 93, 94, 76)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(67 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 93 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 24 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 94 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 76 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 1 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 53 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 63 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193], 74 -> Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]),Map(Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193] -> Vector(53, 74, 67, 24, 63, 93, 94, 76, 1)),Set(),Set(),false))]
+20:37:39.468UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(1,Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193])
+20:37:39.468UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-MigrationsCoordinator/singleton/coordinator[0;39m 
+                 Shard [1] allocated at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:39.468UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Host Shard [1] 
+20:37:39.468UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Starting shard [1] in region
+20:37:39.469UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard [1] located at [Actor[akka://actor-server/system/sharding/shardakka-kv-Migrations#1378381193]]
+20:37:39.469UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Shard was initialized 1
+20:37:39.469UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations[0;39m 
+                 Deliver [1] buffered messages for shard [1]
+20:37:39.469UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/1[0;39m 
+                 Starting entity [2015-08-21-IntegrationTokenMigration] in shard [1]
+20:37:39.479UTC [31mWARN [0;39m [36makka.actor.ActorSystemImpl[0;39m [35makka.actor.ActorSystemImpl(actor-server)[0;39m 
+                 Starting session region
+20:37:39.487UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:39.489UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/SessionCoordinator/singleton]
+20:37:39.489UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:39.489UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [SessionCoordinatorState], local data [None]
+20:37:39.489UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:40.569UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCall[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:40.571UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/WebrtcCallCoordinator/singleton]
+20:37:40.571UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:40.571UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [WebrtcCallCoordinatorState], local data [None]
+20:37:40.572UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:40.596UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediator[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:37:40.598UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/EventBusMediatorCoordinator/singleton]
+20:37:40.598UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:40.599UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [EventBusMediatorCoordinatorState], local data [None]
+20:37:40.599UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:37:40.600UTC [31mWARN [0;39m [36makka.actor.ActorSystemImpl[0;39m [35makka.actor.ActorSystemImpl(actor-server)[0;39m 
+                 Starting BotExtension
+20:37:40.604UTC [31mWARN [0;39m [36makka.actor.ActorSystemImpl[0;39m [35makka.actor.ActorSystemImpl(actor-server)[0;39m 
+                 Starting ActorBot
+20:37:40.616UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/user/$a/singleton]
+20:37:40.616UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:37:40.617UTC [31mWARN [0;39m [36mim.actor.server.bot.ActorBot[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a/singleton[0;39m 
+                 Initiating bot 10 actor Actor Bot
+20:37:40.617UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Request shard [10] home
+20:37:41.007UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371]]
+20:37:41.007UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [WeakUpdatesManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371] -> Vector()),Set(),Set(),false))]
+20:37:41.007UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371])
+20:37:41.016UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/PresenceManager#-1059558517]]
+20:37:41.016UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [PresenceManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/PresenceManager#-1059558517] -> Vector()),Set(),Set(),false))]
+20:37:41.016UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/PresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/PresenceManager#-1059558517])
+20:37:41.026UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/GroupPresenceManager#746683375]]
+20:37:41.026UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [GroupPresenceManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/GroupPresenceManager#746683375] -> Vector()),Set(),Set(),false))]
+20:37:41.027UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupPresenceManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/GroupPresenceManager#746683375])
+20:37:41.117UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/SocialManager#-1593647001]]
+20:37:41.117UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SocialManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/SocialManager#-1593647001] -> Vector()),Set(),Set(),false))]
+20:37:41.117UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SocialManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/SocialManager#-1593647001])
+20:37:41.146UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/UserProcessor#157644936]]
+20:37:41.146UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [UserProcessorCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/UserProcessor#157644936] -> Vector()),Set(),Set(),false))]
+20:37:41.146UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/UserProcessor#157644936])
+20:37:41.147UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Retry request for shard [10] homes from coordinator at [Actor[akka://actor-server/system/sharding/UserProcessorCoordinator/singleton/coordinator#-1848851584]]. [1] buffered messages.
+20:37:41.147UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [UserProcessorCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/UserProcessor#157644936] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(10 -> Actor[akka://actor-server/system/sharding/UserProcessor#157644936]),Map(Actor[akka://actor-server/system/sharding/UserProcessor#157644936] -> Vector(10)),Set(),Set(),false))]
+20:37:41.147UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(10,Actor[akka://actor-server/system/sharding/UserProcessor#157644936])
+20:37:41.147UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 Shard [10] allocated at [Actor[akka://actor-server/system/sharding/UserProcessor#157644936]]
+20:37:41.147UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Host Shard [10] 
+20:37:41.148UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Starting shard [10] in region
+20:37:41.148UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Shard [10] located at [Actor[akka://actor-server/system/sharding/UserProcessor#157644936]]
+20:37:41.148UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Shard was initialized 10
+20:37:41.148UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Deliver [1] buffered messages for shard [10]
+20:37:41.148UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor/10[0;39m 
+                 Starting entity [10] in shard [10]
+20:37:41.215UTC [31mWARN [0;39m [36mim.actor.server.bot.ActorBot[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a/singleton[0;39m 
+                 Bot already exists
+20:37:41.284UTC [31mWARN [0;39m [36mim.actor.server.bot.ActorBot[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/user/$a/singleton[0;39m 
+                 Initialized bot 10 actor Actor Bot
+20:37:41.364UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Request shard [24] home
+20:37:41.364UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [WeakUpdatesManagerCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(24 -> Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371]),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371] -> Vector(24)),Set(),Set(),false))]
+20:37:41.364UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(24,Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371])
+20:37:41.365UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Shard [24] allocated at [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371]]
+20:37:41.365UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Host Shard [24] 
+20:37:41.365UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Starting shard [24] in region
+20:37:41.365UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Shard [24] located at [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371]]
+20:37:41.365UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Shard was initialized 24
+20:37:41.365UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Deliver [1] buffered messages for shard [24]
+20:37:41.365UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager/24[0;39m 
+                 Starting entity [3175226625488964280] in shard [24]
+20:37:41.476UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/GroupProcessor#-1237569724]]
+20:37:41.476UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [GroupProcessorCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/GroupProcessor#-1237569724] -> Vector()),Set(),Set(),false))]
+20:37:41.476UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/GroupProcessorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/GroupProcessor#-1237569724])
+20:37:41.507UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/Session#-731585757]]
+20:37:41.507UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SessionCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/Session#-731585757] -> Vector()),Set(),Set(),false))]
+20:37:41.507UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/Session#-731585757])
+20:37:42.587UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/WebrtcCall#167790992]]
+20:37:42.588UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [WebrtcCallCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/WebrtcCall#167790992] -> Vector()),Set(),Set(),false))]
+20:37:42.588UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WebrtcCallCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/WebrtcCall#167790992])
+20:37:42.606UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/EventBusMediator#-923936291]]
+20:37:42.606UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [EventBusMediatorCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/EventBusMediator#-923936291] -> Vector()),Set(),Set(),false))]
+20:37:42.606UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/EventBusMediatorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/EventBusMediator#-923936291])
+20:41:28.750UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Request shard [-1] home
+20:41:28.751UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SessionCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/Session#-731585757] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(-1 -> Actor[akka://actor-server/system/sharding/Session#-731585757]),Map(Actor[akka://actor-server/system/sharding/Session#-731585757] -> Vector(-1)),Set(),Set(),false))]
+20:41:28.751UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(-1,Actor[akka://actor-server/system/sharding/Session#-731585757])
+20:41:28.751UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SessionCoordinator/singleton/coordinator[0;39m 
+                 Shard [-1] allocated at [Actor[akka://actor-server/system/sharding/Session#-731585757]]
+20:41:28.751UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Host Shard [-1] 
+20:41:28.751UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Starting shard [-1] in region
+20:41:28.751UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Shard [-1] located at [Actor[akka://actor-server/system/sharding/Session#-731585757]]
+20:41:28.751UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Shard was initialized -1
+20:41:28.751UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session[0;39m 
+                 Deliver [1] buffered messages for shard [-1]
+20:41:28.899UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/-1[0;39m 
+                 Starting entity [-4215965806433398231_7237862270604043341] in shard [-1]
+20:41:39.437UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Request shard [50] home
+20:41:39.437UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [UserProcessorCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(10 -> Actor[akka://actor-server/system/sharding/UserProcessor#157644936]),Map(Actor[akka://actor-server/system/sharding/UserProcessor#157644936] -> Vector(10)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(10 -> Actor[akka://actor-server/system/sharding/UserProcessor#157644936], 50 -> Actor[akka://actor-server/system/sharding/UserProcessor#157644936]),Map(Actor[akka://actor-server/system/sharding/UserProcessor#157644936] -> Vector(10, 50)),Set(),Set(),false))]
+20:41:39.437UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(50,Actor[akka://actor-server/system/sharding/UserProcessor#157644936])
+20:41:39.437UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessorCoordinator/singleton/coordinator[0;39m 
+                 Shard [50] allocated at [Actor[akka://actor-server/system/sharding/UserProcessor#157644936]]
+20:41:39.437UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Host Shard [50] 
+20:41:39.438UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Starting shard [50] in region
+20:41:39.438UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Shard [50] located at [Actor[akka://actor-server/system/sharding/UserProcessor#157644936]]
+20:41:39.438UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Shard was initialized 50
+20:41:39.438UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor[0;39m 
+                 Deliver [1] buffered messages for shard [50]
+20:41:39.438UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor/50[0;39m 
+                 Starting entity [2102841450] in shard [50]
+20:41:39.686UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Coordinator moved from [] to [akka.tcp://actor-server@192.168.1.3:2552]
+20:41:39.687UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator[0;39m 
+                 Singleton manager starting singleton actor [akka://actor-server/system/sharding/SeqUpdatesManagerCoordinator/singleton]
+20:41:39.687UTC [34mINFO [0;39m [36ma.c.s.ClusterSingletonManager[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator[0;39m 
+                 ClusterSingletonManager state change [Start -> Oldest]
+20:41:39.688UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Get for key [SeqUpdatesManagerCoordinatorState], local data [None]
+20:41:39.690UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Request shard [-23] home
+20:41:39.690UTC [34mINFO [0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Sharding Coordinator was moved to the active state State(Map(),Map(),Set(),Set(),false)
+20:41:39.691UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [WeakUpdatesManagerCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(24 -> Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371]),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371] -> Vector(24)),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(24 -> Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371], -23 -> Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371]),Map(Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371] -> Vector(24, -23)),Set(),Set(),false))]
+20:41:39.691UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(-23,Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371])
+20:41:39.691UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Shard [-23] allocated at [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371]]
+20:41:39.691UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Host Shard [-23] 
+20:41:39.691UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Starting shard [-23] in region
+20:41:39.691UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Shard [-23] located at [Actor[akka://actor-server/system/sharding/WeakUpdatesManager#-900869371]]
+20:41:39.691UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Shard was initialized -23
+20:41:39.691UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager[0;39m 
+                 Deliver [1] buffered messages for shard [-23]
+20:41:39.691UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/WeakUpdatesManager/-23[0;39m 
+                 Starting entity [-4215965806433398231] in shard [-23]
+20:41:39.694UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Request shard [0] home
+20:41:41.697UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 ShardRegion registered: [Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880]]
+20:41:41.697UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SeqUpdatesManagerCoordinatorState], old data [None], new data [LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880] -> Vector()),Set(),Set(),false))]
+20:41:41.697UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardRegionRegistered(Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880])
+20:41:41.698UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Retry request for shard [0] homes from coordinator at [Actor[akka://actor-server/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator#589595800]]. [3] buffered messages.
+20:41:41.698UTC [39mDEBUG[0;39m [36makka.cluster.ddata.Replicator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/ddataReplicator[0;39m 
+                 Received Update for key [SeqUpdatesManagerCoordinatorState], old data [Some(DataEnvelope(LWWRegister(State(Map(),Map(Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880] -> Vector()),Set(),Set(),false)),Map()))], new data [LWWRegister(State(Map(0 -> Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880]),Map(Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880] -> Vector(0)),Set(),Set(),false))]
+20:41:41.699UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 The coordinator state was successfully updated with ShardHomeAllocated(0,Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880])
+20:41:41.699UTC [39mDEBUG[0;39m [36ma.c.sharding.DDataShardCoordinator[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManagerCoordinator/singleton/coordinator[0;39m 
+                 Shard [0] allocated at [Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880]]
+20:41:41.699UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Host Shard [0] 
+20:41:41.699UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Starting shard [0] in region
+20:41:41.700UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Shard [0] located at [Actor[akka://actor-server/system/sharding/SeqUpdatesManager#794585880]]
+20:41:41.700UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Shard was initialized 0
+20:41:41.700UTC [39mDEBUG[0;39m [36makka.cluster.sharding.ShardRegion[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager[0;39m 
+                 Deliver [3] buffered messages for shard [0]
+20:41:41.706UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/SeqUpdatesManager/0[0;39m 
+                 Starting entity [2102841450] in shard [0]
+20:42:38.817UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/53[0;39m 
+                 Entity stopped [2015-08-04-UsersMigration]
+20:42:38.857UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/74[0;39m 
+                 Entity stopped [2015-08-04-GroupsMigration]
+20:42:38.867UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/67[0;39m 
+                 Entity stopped [2015-08-20-LocalNamesMigration]
+20:42:38.886UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/24[0;39m 
+                 Entity stopped [2015-08-29-GroupCreatorMemberMigration]
+20:42:38.896UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/63[0;39m 
+                 Entity stopped [PutHiddenGroupsToSQL]
+20:42:38.916UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/93[0;39m 
+                 Entity stopped [2015-11-03-LocalNamesFromKVMigration]
+20:42:38.926UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/94[0;39m 
+                 Entity stopped [2015-11-11-FillUserSequence]
+20:42:38.937UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/76[0;39m 
+                 Entity stopped [2015-11-12-FixUserSequence]
+20:42:39.496UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/shardakka-kv-Migrations/1[0;39m 
+                 Entity stopped [2015-08-21-IntegrationTokenMigration]
+21:21:40.350UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/-1[0;39m 
+                 Passivating started on entity -4215965806433398231_7237862270604043341
+21:21:40.389UTC [1;31mERROR[0;39m [36mim.actor.server.session.Session[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/-1/-4215965806433398231_7237862270604043341[0;39m 
+                 Dying due to stream error
+akka.stream.AbruptTerminationException: Processor actor [Actor[akka://actor-server/system/sharding/Session/-1/-4215965806433398231_7237862270604043341/StreamSupervisor-16/flow-19-2-onCompleteSink-onCompleteSink#1602422862]] terminated abruptly
+21:21:40.391UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/-1[0;39m 
+                 Entity stopped [-4215965806433398231_7237862270604043341]
+21:33:50.188UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/-1[0;39m 
+                 Starting entity [-4215965806433398231_5071969371749746737] in shard [-1]
+21:33:50.307UTC [1;31mERROR[0;39m [36mi.a.server.session.UpdatesHandler[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/-1/-4215965806433398231_5071969371749746737/updatesHandler[0;39m 
+                 Unmatched msg: Authorize(2102841450)
+21:34:19.344UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/-1[0;39m 
+                 Starting entity [-4215965806433398231_2149553351274339055] in shard [-1]
+21:34:19.458UTC [1;31mERROR[0;39m [36mi.a.server.session.UpdatesHandler[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/Session/-1/-4215965806433398231_2149553351274339055/updatesHandler[0;39m 
+                 Unmatched msg: Authorize(2102841450)
+21:37:41.217UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor/10[0;39m 
+                 Passivating started on entity 10
+21:37:41.218UTC [39mDEBUG[0;39m [36makka.cluster.sharding.Shard[0;39m [35makka.tcp://actor-server@192.168.1.3:2552/system/sharding/UserProcessor/10[0;39m 
+                 Entity stopped [10]
