@@ -8,7 +8,6 @@ import im.actor.core.entity.content.internal.ContentLocalContainer;
 import im.actor.core.entity.content.internal.ContentRemoteContainer;
 import im.actor.core.entity.content.internal.LocalAnimation;
 import im.actor.core.entity.content.internal.LocalFastThumb;
-import im.actor.core.entity.content.internal.LocalVideo;
 
 public class AnimationContent extends DocumentContent {
 

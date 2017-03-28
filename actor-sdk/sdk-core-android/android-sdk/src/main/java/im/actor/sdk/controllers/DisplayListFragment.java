@@ -1,7 +1,6 @@
 package im.actor.sdk.controllers;
 
 import android.app.Activity;
-import android.support.v7.widget.CustomItemAnimator;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import im.actor.runtime.generic.mvvm.BindedDisplayList;
-import im.actor.runtime.generic.mvvm.DisplayList;
-import im.actor.sdk.R;
-import im.actor.sdk.view.adapters.HeaderViewRecyclerAdapter;
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.bser.BserObject;
+import im.actor.runtime.generic.mvvm.BindedDisplayList;
+import im.actor.runtime.generic.mvvm.DisplayList;
 import im.actor.runtime.storage.ListEngineItem;
+import im.actor.sdk.R;
+import im.actor.sdk.view.adapters.HeaderViewRecyclerAdapter;
 
 public abstract class DisplayListFragment<T extends BserObject & ListEngineItem,
         V extends RecyclerView.ViewHolder> extends BaseFragment implements DisplayList.Listener {

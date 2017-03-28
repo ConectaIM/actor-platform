@@ -4,19 +4,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import im.actor.core.entity.Peer;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.calls.peers.AbsCallActor;
-import im.actor.core.modules.ModuleActor;
 import im.actor.core.providers.CallsProvider;
 import im.actor.core.util.RandomUtils;
 import im.actor.core.viewmodel.CommandCallback;
-import im.actor.runtime.*;
+import im.actor.runtime.Log;
 import im.actor.runtime.Runtime;
-import im.actor.runtime.actors.Actor;
 import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.messages.PoisonPill;
-import im.actor.runtime.function.Constructor;
 import im.actor.runtime.power.WakeLock;
 
 public class CallManagerActor extends ModuleActor {

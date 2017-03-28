@@ -10,7 +10,7 @@ public class StickersVM {
     private ValueModel<ArrayList<StickerPack>> ownStickerPacks;
 
     public StickersVM() {
-        ownStickerPacks = new ValueModel<>("stickers.own",new ArrayList<StickerPack>());
+        ownStickerPacks = new ValueModel<>("stickers.own", new ArrayList<StickerPack>());
     }
 
     public ValueModel<ArrayList<StickerPack>> getOwnStickerPacks() {

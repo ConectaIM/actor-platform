@@ -1,10 +1,9 @@
 package im.actor.sdk.controllers.pickers.file.items;
 
-import im.actor.sdk.controllers.pickers.file.ExploreItemViewHolder;
-
 import java.io.File;
 
 import im.actor.sdk.R;
+import im.actor.sdk.controllers.pickers.file.ExploreItemViewHolder;
 
 /**
  * Created by kiolt_000 on 01/10/2014.

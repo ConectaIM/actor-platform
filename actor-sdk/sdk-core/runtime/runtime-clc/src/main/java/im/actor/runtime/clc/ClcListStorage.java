@@ -1,16 +1,14 @@
 package im.actor.runtime.clc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import im.actor.runtime.Log;
-import im.actor.runtime.generic.mvvm.DisplayList;
 import im.actor.runtime.storage.ListEngineRecord;
-import im.actor.runtime.storage.ListStorage;
 import im.actor.runtime.storage.ListStorageDisplayEx;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by mohammad on 11/18/15.
@@ -27,7 +25,7 @@ public class ClcListStorage implements ListStorageDisplayEx {
         this.database = new DBWrapper(database);
         this.tableName = tableName;
         this.context = context;
-        if(context == null){
+        if (context == null) {
             logger.warn("context is not set");
             this.context = "";
         }
@@ -97,7 +95,7 @@ public class ClcListStorage implements ListStorageDisplayEx {
     public void clear() {
         checkTable();
 
-        database.execSQL("DELETE FROM \"" + tableName + "\" WHERE \"CONTEXT\"=?",new Object[]{this.context});
+        database.execSQL("DELETE FROM \"" + tableName + "\" WHERE \"CONTEXT\"=?", new Object[]{this.context});
     }
 
     @Override
@@ -311,7 +309,7 @@ public class ClcListStorage implements ListStorageDisplayEx {
     }
 
     //Just for unit test
-    public int countAll(){
+    public int countAll() {
         checkTable();
 
         Cursor mCount = null;
@@ -329,12 +327,12 @@ public class ClcListStorage implements ListStorageDisplayEx {
     }
 
     //Just for unit test
-    public void clearAll(){
+    public void clearAll() {
         checkTable();
         database.execSQL("DELETE FROM \"" + tableName + "\"");
     }
 
-    public String getContext(){
+    public String getContext() {
         return this.context;
     }
 }

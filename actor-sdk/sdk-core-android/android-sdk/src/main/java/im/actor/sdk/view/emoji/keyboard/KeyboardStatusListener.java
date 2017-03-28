@@ -5,5 +5,6 @@ package im.actor.sdk.view.emoji.keyboard;
  */
 public interface KeyboardStatusListener {
     public void onDismiss();
+
     public void onShow();
 }

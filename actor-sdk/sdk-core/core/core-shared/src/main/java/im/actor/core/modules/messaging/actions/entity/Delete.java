@@ -7,10 +7,10 @@ package im.actor.core.modules.messaging.actions.entity;
 import java.io.IOException;
 import java.util.List;
 
+import im.actor.core.entity.Peer;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserValues;
 import im.actor.runtime.bser.BserWriter;
-import im.actor.core.entity.Peer;
 
 public class Delete extends BserObject {
 

@@ -17,11 +17,11 @@ import im.actor.core.entity.FileReference;
 import im.actor.core.entity.Peer;
 import im.actor.core.utils.IOUtils;
 import im.actor.sdk.controllers.contacts.AddContactActivity;
-import im.actor.sdk.controllers.pickers.TakePhotoActivity;
 import im.actor.sdk.controllers.conversation.ChatActivity;
+import im.actor.sdk.controllers.fragment.preview.PictureActivity;
 import im.actor.sdk.controllers.group.GroupInfoActivity;
 import im.actor.sdk.controllers.group.InviteLinkActivity;
-import im.actor.sdk.controllers.fragment.preview.PictureActivity;
+import im.actor.sdk.controllers.pickers.TakePhotoActivity;
 import im.actor.sdk.controllers.settings.EditAboutActivity;
 import im.actor.sdk.controllers.settings.EditNameActivity;
 

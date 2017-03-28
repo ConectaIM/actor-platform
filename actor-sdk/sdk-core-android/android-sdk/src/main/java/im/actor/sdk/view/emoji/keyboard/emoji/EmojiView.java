@@ -58,12 +58,16 @@ public class EmojiView extends FrameLayout {
 
     public interface Listener {
         boolean onBackspace();
+
         void onEmojiSelected(String emoji);
+
         void onClearEmojiRecent();
+
         void onStickerSelected(Sticker sticker);
     }
 
     private static final Field superListenerField;
+
     static {
         Field f = null;
         try {
@@ -286,7 +290,6 @@ public class EmojiView extends FrameLayout {
             return super.onTouchEvent(event);
         }
     }
-
 
 
     private class EmojiPopupWindow extends PopupWindow {
@@ -578,7 +581,7 @@ public class EmojiView extends FrameLayout {
             views.add(frameLayout);
         }
 
-        if(needStickers){
+        if (needStickers) {
 
             stickerIndicatorContainer = new LinearLayout(context);
             stickerIndicatorContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Screen.dp(48)));
@@ -587,7 +590,7 @@ public class EmojiView extends FrameLayout {
 
             ImageView backToSmiles = new ImageView(context);
             backToSmiles.setId(R.id.back_to_smiles);
-            backToSmiles.setPadding(Screen.dp(8),Screen.dp(8),Screen.dp(8),Screen.dp(8));
+            backToSmiles.setPadding(Screen.dp(8), Screen.dp(8), Screen.dp(8), Screen.dp(8));
             backToSmiles.setLayoutParams(new ViewGroup.LayoutParams(Screen.dp(48), Screen.dp(48)));
             backToSmiles.setImageResource(R.drawable.ic_smiles_smile);
 
@@ -836,7 +839,6 @@ public class EmojiView extends FrameLayout {
     }
 
 
-
     private void sortEmoji() {
         recentEmoji.clear();
         for (HashMap.Entry<String, Integer> entry : emojiUseHistory.entrySet()) {
@@ -865,7 +867,6 @@ public class EmojiView extends FrameLayout {
             recentEmoji.remove(recentEmoji.size() - 1);
         }
     }
-
 
 
     public void loadRecents() {

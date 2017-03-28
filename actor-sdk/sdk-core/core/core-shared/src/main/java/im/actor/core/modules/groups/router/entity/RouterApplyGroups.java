@@ -7,7 +7,7 @@ import im.actor.runtime.actors.ask.AskMessage;
 import im.actor.runtime.actors.messages.Void;
 
 public class RouterApplyGroups implements AskMessage<Void> {
-    
+
     private List<ApiGroup> groups;
 
     public RouterApplyGroups(List<ApiGroup> groups) {

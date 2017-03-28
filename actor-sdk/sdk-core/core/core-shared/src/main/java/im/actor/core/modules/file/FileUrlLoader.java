@@ -1,20 +1,16 @@
 package im.actor.core.modules.file;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import im.actor.core.api.ApiFileLocation;
 import im.actor.core.api.ApiFileUrlDescription;
 import im.actor.core.api.rpc.RequestGetFileUrls;
-import im.actor.core.api.rpc.ResponseGetFileUrls;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.ModuleActor;
+import im.actor.core.modules.ModuleContext;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.ActorCancellable;
 import im.actor.runtime.actors.ask.AskMessage;
-import im.actor.runtime.function.Consumer;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.PromiseFunc;
 import im.actor.runtime.promise.PromiseResolver;

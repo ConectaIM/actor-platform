@@ -6,7 +6,6 @@ package im.actor.core.modules.notifications.entity;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import im.actor.core.modules.notifications.NotificationsQueue;
 import im.actor.runtime.bser.Bser;

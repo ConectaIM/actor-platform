@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
 import android.text.TextPaint;
 import android.text.style.URLSpan;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
-import im.actor.sdk.controllers.conversation.ChatActivity;
 import im.actor.sdk.receivers.ChromeCustomTabReceiver;
 
 public class BaseUrlSpan extends URLSpan {

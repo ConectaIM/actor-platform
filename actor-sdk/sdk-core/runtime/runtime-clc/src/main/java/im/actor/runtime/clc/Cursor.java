@@ -27,13 +27,14 @@ public class Cursor {
 
     /**
      * We can't use this method in sqlite jdbc driver
+     *
      * @return
      */
     public boolean moveToFirst() {
         try {
             return resultSet.first();
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return false;
     }
@@ -42,7 +43,7 @@ public class Cursor {
         try {
             return resultSet.getLong(i);
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return 0L;
     }
@@ -51,7 +52,7 @@ public class Cursor {
         try {
             resultSet.close();
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -59,7 +60,7 @@ public class Cursor {
         try {
             return resultSet.next();
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return false;
     }
@@ -68,7 +69,7 @@ public class Cursor {
         try {
             return resultSet.getInt(i);
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return 0;
     }
@@ -77,7 +78,7 @@ public class Cursor {
         try {
             resultSet.getString(queryColumn);
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
@@ -87,7 +88,7 @@ public class Cursor {
         try {
             return resultSet.getLong(col);
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return 0;
     }
@@ -96,7 +97,7 @@ public class Cursor {
         try {
             return resultSet.getString(col);
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return col;
     }
@@ -105,7 +106,7 @@ public class Cursor {
         try {
             return resultSet.getBytes(col);
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
@@ -114,7 +115,7 @@ public class Cursor {
         try {
             return resultSet.getBytes(1);
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return null;
     }

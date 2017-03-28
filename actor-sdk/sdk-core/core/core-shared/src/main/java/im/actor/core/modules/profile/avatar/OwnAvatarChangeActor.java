@@ -12,13 +12,13 @@ import im.actor.core.api.rpc.ResponseEditAvatar;
 import im.actor.core.api.rpc.ResponseSeq;
 import im.actor.core.api.updates.UpdateUserAvatarChanged;
 import im.actor.core.entity.FileReference;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.Modules;
 import im.actor.core.modules.file.UploadManager;
 import im.actor.core.modules.sequence.internal.ExecuteAfter;
-import im.actor.core.modules.ModuleActor;
-import im.actor.core.util.RandomUtils;
 import im.actor.core.network.RpcCallback;
 import im.actor.core.network.RpcException;
+import im.actor.core.util.RandomUtils;
 import im.actor.core.viewmodel.AvatarUploadState;
 
 public class OwnAvatarChangeActor extends ModuleActor {

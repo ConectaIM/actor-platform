@@ -4,27 +4,9 @@
 
 package im.actor.runtime.android;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Environment;
 import android.util.Log;
 
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.SimpleFormatter;
-
 import im.actor.runtime.LogRuntime;
-import im.actor.runtime.json.JSONException;
-import im.actor.runtime.json.JSONObject;
 
 public class AndroidLogProvider implements LogRuntime {
 

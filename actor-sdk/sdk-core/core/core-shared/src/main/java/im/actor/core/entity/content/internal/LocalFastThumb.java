@@ -6,10 +6,10 @@ package im.actor.core.entity.content.internal;
 
 import java.io.IOException;
 
+import im.actor.core.entity.content.FastThumb;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserValues;
 import im.actor.runtime.bser.BserWriter;
-import im.actor.core.entity.content.FastThumb;
 
 public class LocalFastThumb extends BserObject {
 

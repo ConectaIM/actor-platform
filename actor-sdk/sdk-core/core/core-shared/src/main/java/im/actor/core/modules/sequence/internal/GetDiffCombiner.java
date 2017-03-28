@@ -11,10 +11,6 @@ import im.actor.core.api.updates.UpdateMessage;
 import im.actor.core.api.updates.UpdateMessageRead;
 import im.actor.core.api.updates.UpdateMessageReadByMe;
 import im.actor.core.api.updates.UpdateMessageReceived;
-import im.actor.core.api.updates.UpdateUserAboutChanged;
-import im.actor.core.api.updates.UpdateUserLocalNameChanged;
-import im.actor.core.api.updates.UpdateUserNameChanged;
-import im.actor.core.api.updates.UpdateUserNickChanged;
 import im.actor.core.network.parser.Update;
 
 import static im.actor.core.entity.EntityConverter.convert;

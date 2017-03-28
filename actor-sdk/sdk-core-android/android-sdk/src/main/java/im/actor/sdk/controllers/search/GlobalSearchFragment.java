@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import im.actor.core.entity.Peer;
 
 public class GlobalSearchFragment extends GlobalSearchBaseFragment {
-    
+
     @Override
     protected void onPeerPicked(Peer peer) {
         Fragment parent = getParentFragment();

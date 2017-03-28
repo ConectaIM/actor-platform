@@ -2,8 +2,6 @@ package im.actor.runtime.js.webrtc.js;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-import im.actor.runtime.webrtc.WebRTCMediaTrack;
-
 public class JsMediaStreamTrack extends JavaScriptObject {
 
     protected JsMediaStreamTrack() {

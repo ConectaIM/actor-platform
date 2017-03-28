@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import im.actor.core.entity.BotCommand;
-import im.actor.core.entity.ContactRecord;
 
 public class ArrayListBotCommands extends ArrayList<BotCommand> {
 

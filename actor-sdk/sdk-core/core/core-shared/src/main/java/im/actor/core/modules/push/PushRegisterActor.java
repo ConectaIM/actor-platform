@@ -11,10 +11,8 @@ import im.actor.core.api.rpc.RequestRegisterApplePush;
 import im.actor.core.api.rpc.RequestRegisterApplePushKit;
 import im.actor.core.api.rpc.RequestRegisterGooglePush;
 import im.actor.core.api.rpc.ResponseVoid;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.ModuleActor;
-import im.actor.core.network.RpcCallback;
-import im.actor.core.network.RpcException;
+import im.actor.core.modules.ModuleContext;
 
 public class PushRegisterActor extends ModuleActor {
 

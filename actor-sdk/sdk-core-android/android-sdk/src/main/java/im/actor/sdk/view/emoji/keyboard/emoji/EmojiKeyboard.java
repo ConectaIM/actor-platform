@@ -28,7 +28,7 @@ import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.MaterialInterpolator;
 import im.actor.sdk.view.emoji.keyboard.BaseKeyboard;
 
-public class EmojiKeyboard extends BaseKeyboard  {
+public class EmojiKeyboard extends BaseKeyboard {
 
     private static final String TAG = "EmojiKeyboard";
     private OnStickerClickListener onStickerClickListener;
@@ -77,8 +77,8 @@ public class EmojiKeyboard extends BaseKeyboard  {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(ActorSDK.sharedActor().getAppName());
                 builder.setMessage("Remover emojis recentes");
-                builder.setPositiveButton("Confirmar", (dialogInterface, i)-> {
-                        emojiView.clearRecentEmoji();
+                builder.setPositiveButton("Confirmar", (dialogInterface, i) -> {
+                    emojiView.clearRecentEmoji();
                 });
                 builder.setNegativeButton("Cancelar", null);
                 builder.create().show();
@@ -86,7 +86,7 @@ public class EmojiKeyboard extends BaseKeyboard  {
 
             @Override
             public void onStickerSelected(Sticker sticker) {
-                if(getOnStickerClickListener() != null){
+                if (getOnStickerClickListener() != null) {
                     getOnStickerClickListener().onStickerClicked(sticker);
                 }
             }

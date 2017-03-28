@@ -3,7 +3,6 @@ package im.actor.runtime.crypto.box;
 
 import im.actor.runtime.Crypto;
 import im.actor.runtime.crypto.IntegrityException;
-import im.actor.runtime.crypto.primitives.aes.AESFastEngine;
 import im.actor.runtime.crypto.primitives.kuznechik.KuznechikFastEngine;
 import im.actor.runtime.crypto.primitives.padding.PKCS7Padding;
 import im.actor.runtime.crypto.primitives.streebog.Streebog256;

@@ -5,7 +5,7 @@ public class RTCNeedOffer {
     private final long deviceId;
     private final long sessionId;
 
-    public RTCNeedOffer(long deviceId,long sessionId) {
+    public RTCNeedOffer(long deviceId, long sessionId) {
         this.deviceId = deviceId;
         this.sessionId = sessionId;
     }

@@ -4,7 +4,6 @@
 
 package im.actor.runtime.js;
 
-import im.actor.runtime.CryptoRuntime;
 import im.actor.runtime.DefaultCryptoRuntime;
 import im.actor.runtime.crypto.primitives.kuznechik.KuznechikFastEngine;
 

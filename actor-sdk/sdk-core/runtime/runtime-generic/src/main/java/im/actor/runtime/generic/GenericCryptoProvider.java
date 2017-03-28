@@ -1,6 +1,7 @@
 package im.actor.runtime.generic;
 
-import im.actor.runtime.*;
+import im.actor.runtime.Assets;
+import im.actor.runtime.DefaultCryptoRuntime;
 import im.actor.runtime.Runtime;
 import im.actor.runtime.crypto.primitives.kuznechik.KuznechikFastEngine;
 

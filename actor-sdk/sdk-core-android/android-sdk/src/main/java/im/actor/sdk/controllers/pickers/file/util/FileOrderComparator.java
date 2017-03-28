@@ -1,8 +1,8 @@
 package im.actor.sdk.controllers.pickers.file.util;
 
-import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
-
 import java.util.Comparator;
+
+import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 
 /**
  * Created by kiolt_000 on 14/09/2014.

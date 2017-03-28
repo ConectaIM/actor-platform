@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 import im.actor.core.api.ApiMapValue;
-import im.actor.core.api.ApiMapValueItem;
 import im.actor.core.api.ApiRawValue;
 import im.actor.core.api.rpc.RequestCompleteWebaction;
 import im.actor.core.api.rpc.RequestInitWebaction;
@@ -25,7 +24,6 @@ import im.actor.core.network.RpcException;
 import im.actor.core.network.parser.Request;
 import im.actor.core.network.parser.Response;
 import im.actor.core.viewmodel.Command;
-import im.actor.core.viewmodel.CommandCallback;
 
 public class ExternalModule extends AbsModule {
 

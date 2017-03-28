@@ -19,7 +19,6 @@ import java.io.File;
 
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.controllers.settings.BaseActorSettingsFragment;
-import im.actor.sdk.util.Screen;
 
 public class BackgroundPreviewView extends SimpleDraweeView {
 

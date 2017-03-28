@@ -10,7 +10,6 @@ import com.google.j2objc.annotations.Property;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 
 import im.actor.core.api.ApiMapValue;

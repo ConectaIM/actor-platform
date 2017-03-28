@@ -1,13 +1,10 @@
 package im.actor.core.modules.calls;
 
 import im.actor.core.entity.Peer;
-import im.actor.core.viewmodel.CallVM;
-import im.actor.core.viewmodel.CommandCallback;
-import im.actor.core.providers.CallsProvider;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
+import im.actor.core.viewmodel.CallVM;
 import im.actor.core.viewmodel.Command;
-import im.actor.runtime.*;
 import im.actor.runtime.actors.ActorRef;
 
 import static im.actor.runtime.actors.ActorSystem.system;

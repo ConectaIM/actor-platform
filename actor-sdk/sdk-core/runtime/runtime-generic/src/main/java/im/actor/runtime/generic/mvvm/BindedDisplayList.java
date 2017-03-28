@@ -9,11 +9,10 @@ import com.google.j2objc.annotations.ObjectiveCName;
 import java.util.ArrayList;
 import java.util.List;
 
-import im.actor.runtime.generic.mvvm.alg.Modification;
-import im.actor.runtime.generic.mvvm.alg.Modifications;
-import im.actor.runtime.Log;
 import im.actor.runtime.annotations.MainThread;
 import im.actor.runtime.bser.BserObject;
+import im.actor.runtime.generic.mvvm.alg.Modification;
+import im.actor.runtime.generic.mvvm.alg.Modifications;
 import im.actor.runtime.mvvm.ValueModel;
 import im.actor.runtime.storage.ListEngineDisplayExt;
 import im.actor.runtime.storage.ListEngineDisplayListener;

@@ -5,7 +5,6 @@ import com.google.j2objc.annotations.ObjectiveCName;
 import java.util.List;
 
 import im.actor.runtime.Log;
-import im.actor.runtime.function.Consumer;
 import im.actor.runtime.function.Supplier;
 import im.actor.runtime.function.Tuple2;
 import im.actor.runtime.function.Tuple3;

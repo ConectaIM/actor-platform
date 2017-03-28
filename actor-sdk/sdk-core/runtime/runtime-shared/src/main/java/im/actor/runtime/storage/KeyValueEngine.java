@@ -8,7 +8,6 @@ import com.google.j2objc.annotations.ObjectiveCName;
 
 import java.util.List;
 
-import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.promise.Promise;
 
 public interface KeyValueEngine<V extends KeyValueItem> {

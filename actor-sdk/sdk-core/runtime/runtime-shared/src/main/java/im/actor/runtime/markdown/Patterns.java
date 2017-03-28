@@ -63,9 +63,9 @@ public class Patterns {
     public static final String WEB_URL_START_CHAR = "^" + WEB_URL_CHAR;
 
     /**
-     *  Regular expression pattern to isMatch most part of RFC 3987
-     *  Internationalized URLs, aka IRIs.  Commonly used Unicode characters are
-     *  added.
+     * Regular expression pattern to isMatch most part of RFC 3987
+     * Internationalized URLs, aka IRIs.  Commonly used Unicode characters are
+     * added.
      */
     public static final PatternCompat WEB_URL = regExpProvider.getPattern(WEB_URL_CHAR);
     public static final PatternCompat WEB_URL_START = regExpProvider.getPattern(WEB_URL_START_CHAR);
@@ -87,7 +87,7 @@ public class Patterns {
      * might be phone numbers in arbitrary text, not for validating whether
      * something is in fact a phone number.  It will miss many things that
      * are legitimate phone numbers.
-     *
+     * <p>
      * <p> The pattern matches the following:
      * <ul>
      * <li>Optionally, a + sign followed immediately by one or more digits. Spaces, dots, or dashes
@@ -101,15 +101,15 @@ public class Patterns {
             "(\\+[0-9]+[\\- \\.]*)?"        // +<digits><sdd>*
                     + "(\\([0-9]+\\)[\\- \\.]*)?"   // (<digits>)<sdd>*
                     + "([0-9][0-9\\- \\.]+[0-9])"); // <digit><digit|sdd>+<digit>
+
     /**
-     *  Convenience method to take all of the non-null matching groups in a
-     *  regex Matcher and return them as a concatenated string.
+     * Convenience method to take all of the non-null matching groups in a
+     * regex Matcher and return them as a concatenated string.
      *
-     *  @param matcher      The Matcher object from which grouped text will
-     *                      be extracted
-     *
-     *  @return             A String comprising all of the non-null matched
-     *                      groups concatenated together
+     * @param matcher The Matcher object from which grouped text will
+     *                be extracted
+     * @return A String comprising all of the non-null matched
+     * groups concatenated together
      */
     public static final String concatGroups(MatcherCompat matcher) {
         StringBuilder b = new StringBuilder();
@@ -122,15 +122,15 @@ public class Patterns {
         }
         return b.toString();
     }
+
     /**
      * Convenience method to return only the digits and plus signs
      * in the matching string.
      *
-     * @param matcher      The Matcher object from which digits and plus will
-     *                     be extracted
-     *
-     * @return             A String comprising all of the digits and plus in
-     *                     the isMatch
+     * @param matcher The Matcher object from which digits and plus will
+     *                be extracted
+     * @return A String comprising all of the digits and plus in
+     * the isMatch
      */
     public static final String digitsAndPlusOnly(MatcherCompat matcher) {
         StringBuilder buffer = new StringBuilder();
@@ -143,8 +143,10 @@ public class Patterns {
         }
         return buffer.toString();
     }
+
     /**
      * Do not create this static utility class.
      */
-    private Patterns() {}
+    private Patterns() {
+    }
 }

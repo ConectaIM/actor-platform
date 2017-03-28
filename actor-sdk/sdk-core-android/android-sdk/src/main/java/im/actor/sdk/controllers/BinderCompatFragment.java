@@ -7,13 +7,13 @@ import im.actor.core.entity.Avatar;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.mvvm.Value;
+import im.actor.runtime.mvvm.ValueChangedListener;
 import im.actor.runtime.mvvm.ValueDoubleChangedListener;
 import im.actor.runtime.mvvm.ValueDoubleListener;
 import im.actor.runtime.mvvm.ValueListener;
+import im.actor.runtime.mvvm.ValueModel;
 import im.actor.sdk.view.avatar.AvatarView;
 import im.actor.sdk.view.avatar.CoverAvatarView;
-import im.actor.runtime.mvvm.ValueChangedListener;
-import im.actor.runtime.mvvm.ValueModel;
 
 public class BinderCompatFragment extends android.support.v4.app.Fragment {
 

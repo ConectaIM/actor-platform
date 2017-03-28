@@ -1,11 +1,12 @@
 package im.actor.runtime;
 
+import org.jetbrains.annotations.NotNull;
+
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.webrtc.WebRTCIceServer;
 import im.actor.runtime.webrtc.WebRTCMediaStream;
 import im.actor.runtime.webrtc.WebRTCPeerConnection;
 import im.actor.runtime.webrtc.WebRTCSettings;
-import org.jetbrains.annotations.NotNull;
 
 public class WebRTCRuntimeProvider implements WebRTCRuntime {
 

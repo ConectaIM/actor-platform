@@ -5,14 +5,12 @@
 package im.actor.core.network;
 
 import im.actor.core.api.ApiVersion;
-import im.actor.core.api.parser.RpcParser;
-import im.actor.core.api.parser.UpdatesParser;
+import im.actor.core.network.api.ApiBroker;
 import im.actor.core.network.api.ApiBrokerInt;
 import im.actor.core.network.parser.BaseParser;
-import im.actor.runtime.actors.ActorRef;
-import im.actor.core.network.api.ApiBroker;
 import im.actor.core.network.parser.Request;
 import im.actor.core.network.parser.Response;
+import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.threading.AtomicIntegerCompat;
 import im.actor.runtime.threading.AtomicLongCompat;
@@ -73,7 +71,7 @@ public class ActorApi {
      * @param request  request body
      * @param callback request callback
      * @param <T>      type of response
-     * @param timeout   timeout of rpc
+     * @param timeout  timeout of rpc
      * @return rid of request
      */
     public synchronized <T extends Response> long request(Request<T> request, RpcCallback<T> callback, long timeout) {

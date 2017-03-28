@@ -1,6 +1,5 @@
 package im.actor.sdk;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 
@@ -113,8 +112,8 @@ public interface ActorSDKDelegate {
     /**
      * If Not null returned, overrides chat autocomplete fragment
      *
-     * @return Custom chat autocomplete fragment
      * @param peer peer
+     * @return Custom chat autocomplete fragment
      */
     AutocompleteFragment fragmentForAutocomplete(Peer peer);
 

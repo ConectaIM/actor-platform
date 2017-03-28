@@ -2,16 +2,12 @@ package im.actor.core.modules.calls.peers;
 
 import org.jetbrains.annotations.NotNull;
 
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.calls.CallViewModels;
-import im.actor.core.modules.ModuleActor;
 import im.actor.runtime.WebRTC;
-import im.actor.runtime.actors.Actor;
-import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.webrtc.WebRTCMediaStream;
 import im.actor.runtime.webrtc.WebRTCMediaTrack;
-import im.actor.runtime.webrtc.WebRTCPeerConnection;
 
 public abstract class AbsCallActor extends ModuleActor implements CallBusCallback {
 

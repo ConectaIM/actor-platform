@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
 import android.widget.Toast;
+
 import com.droidkit.progress.CircularView;
 
 import im.actor.core.entity.FileReference;
@@ -24,6 +24,7 @@ import im.actor.core.viewmodel.FileVMCallback;
 import im.actor.core.viewmodel.UploadFileCallback;
 import im.actor.core.viewmodel.UploadFileVM;
 import im.actor.core.viewmodel.UploadFileVMCallback;
+import im.actor.runtime.files.FileSystemReference;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.Intents;
@@ -33,12 +34,11 @@ import im.actor.sdk.util.FileTypes;
 import im.actor.sdk.util.images.common.ImageLoadException;
 import im.actor.sdk.util.images.ops.ImageLoading;
 import im.actor.sdk.view.TintImageView;
-import im.actor.runtime.files.FileSystemReference;
 
+import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 import static im.actor.sdk.util.ViewUtils.goneView;
 import static im.actor.sdk.util.ViewUtils.showView;
-import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 public class DocHolder extends MessageHolder {
 

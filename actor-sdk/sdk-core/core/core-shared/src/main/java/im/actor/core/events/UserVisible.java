@@ -3,7 +3,7 @@ package im.actor.core.events;
 import im.actor.runtime.eventbus.Event;
 
 public class UserVisible extends Event {
-    
+
     public static final String EVENT = "user_visible";
 
     private int uid;

@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 
 import im.actor.runtime.Log;
 import im.actor.runtime.android.AndroidContext;
-import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 
 /**

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import im.actor.core.api.ApiICEServer;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.calls.peers.messages.RTCAdvertised;
 import im.actor.core.modules.calls.peers.messages.RTCAnswer;
@@ -15,7 +16,6 @@ import im.actor.core.modules.calls.peers.messages.RTCMediaStateUpdated;
 import im.actor.core.modules.calls.peers.messages.RTCNeedOffer;
 import im.actor.core.modules.calls.peers.messages.RTCOffer;
 import im.actor.core.modules.calls.peers.messages.RTCStart;
-import im.actor.core.modules.ModuleActor;
 import im.actor.runtime.actors.ask.AskMessage;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.function.CountedReference;

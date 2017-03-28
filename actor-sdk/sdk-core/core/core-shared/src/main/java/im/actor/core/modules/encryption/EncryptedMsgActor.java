@@ -3,20 +3,15 @@ package im.actor.core.modules.encryption;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import im.actor.core.api.ApiEncryptedBox;
-import im.actor.core.api.ApiEncryptedBoxSignature;
 import im.actor.core.api.ApiEncryptedMessage;
 import im.actor.core.api.ApiEncyptedBoxKey;
 import im.actor.core.api.ApiMessage;
 import im.actor.core.entity.Peer;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.encryption.entity.EncryptedBox;
 import im.actor.core.modules.encryption.entity.EncryptedBoxKey;
-import im.actor.core.modules.ModuleActor;
-import im.actor.runtime.*;
-import im.actor.runtime.Runtime;
-import im.actor.runtime.actors.ask.AskCallback;
-import im.actor.runtime.function.Function;
+import im.actor.runtime.Log;
 import im.actor.runtime.promise.Promise;
 
 public class EncryptedMsgActor extends ModuleActor {

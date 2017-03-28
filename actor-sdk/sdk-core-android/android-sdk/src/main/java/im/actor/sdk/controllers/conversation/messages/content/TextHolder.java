@@ -1,6 +1,5 @@
 package im.actor.sdk.controllers.conversation.messages.content;
 
-import android.graphics.Paint;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;

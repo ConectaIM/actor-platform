@@ -4,10 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 
 import im.actor.core.api.ApiAdvertiseMaster;
 import im.actor.core.api.ApiAdvertiseSelf;
@@ -26,7 +22,6 @@ import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.eventbus.EventBusActor;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.webrtc.WebRTCMediaStream;
 import im.actor.runtime.webrtc.WebRTCMediaTrack;
 
 /*-[

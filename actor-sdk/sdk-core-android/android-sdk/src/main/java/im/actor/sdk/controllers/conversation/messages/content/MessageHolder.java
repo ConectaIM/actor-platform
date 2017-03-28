@@ -6,15 +6,15 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import im.actor.core.entity.Message;
+import im.actor.core.entity.Peer;
+import im.actor.core.entity.PeerType;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.controllers.conversation.messages.MessagesAdapter;
 import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedData;
 import im.actor.sdk.controllers.conversation.view.BubbleContainer;
 import im.actor.sdk.controllers.conversation.view.ReactionSpan;
 import im.actor.sdk.util.DateFormatting;
-import im.actor.core.entity.Message;
-import im.actor.core.entity.Peer;
-import im.actor.core.entity.PeerType;
 
 import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 import static im.actor.sdk.util.ActorSDKMessenger.users;

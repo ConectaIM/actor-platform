@@ -43,18 +43,19 @@ public class StoredRequest extends BserObject {
         try {
             // Parsing request
             request = (Request) PARSER.read(headerKey, requestData);
-        }catch (IOException ioe){
+        } catch (IOException ioe) {
             boolean error = true;
-            if(Messenger.extraRpcParsers != null
-                    && Messenger.extraRpcParsers.length > 0){
-                for (BaseParser bp : Messenger.extraRpcParsers){
-                  try {
-                      request = (Request) bp.read(headerKey, requestData);
-                      error = false;
-                  }catch (IOException ioe2){}
+            if (Messenger.extraRpcParsers != null
+                    && Messenger.extraRpcParsers.length > 0) {
+                for (BaseParser bp : Messenger.extraRpcParsers) {
+                    try {
+                        request = (Request) bp.read(headerKey, requestData);
+                        error = false;
+                    } catch (IOException ioe2) {
+                    }
                 }
             }
-            if(error){
+            if (error) {
                 throw ioe;
             }
         }

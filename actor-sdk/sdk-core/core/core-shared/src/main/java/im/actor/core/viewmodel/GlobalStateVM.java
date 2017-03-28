@@ -7,8 +7,6 @@ import im.actor.core.events.ConnectingStateChanged;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.viewmodel.generics.BooleanValueModel;
 import im.actor.core.viewmodel.generics.IntValueModel;
-import im.actor.runtime.eventbus.BusSubscriber;
-import im.actor.runtime.eventbus.Event;
 
 public class GlobalStateVM {
 

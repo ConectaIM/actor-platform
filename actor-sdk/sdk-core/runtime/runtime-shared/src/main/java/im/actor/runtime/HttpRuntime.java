@@ -6,7 +6,6 @@ package im.actor.runtime;
 
 import com.google.j2objc.annotations.ObjectiveCName;
 
-import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.http.HTTPResponse;
 import im.actor.runtime.promise.Promise;
 

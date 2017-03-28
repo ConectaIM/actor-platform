@@ -20,31 +20,22 @@ import android.widget.AbsListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber;
-
 import java.util.ArrayList;
 
 import im.actor.core.entity.GroupMember;
 import im.actor.core.entity.GroupType;
 import im.actor.core.entity.Peer;
-import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.GroupVM;
-import im.actor.core.viewmodel.UserPhone;
 import im.actor.core.viewmodel.UserVM;
-import im.actor.runtime.actors.messages.Void;
 import im.actor.sdk.ActorSDK;
-import im.actor.sdk.ActorSDKLauncher;
 import im.actor.sdk.ActorStyle;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.ActorBinder;
+import im.actor.sdk.controllers.BaseFragment;
 import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.activity.BaseActivity;
-import im.actor.sdk.controllers.BaseFragment;
-import im.actor.sdk.controllers.group.view.MembersAdapter;
 import im.actor.sdk.controllers.fragment.preview.ViewAvatarActivity;
-import im.actor.sdk.util.AlertListBuilder;
+import im.actor.sdk.controllers.group.view.MembersAdapter;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
 import im.actor.sdk.view.adapters.RecyclerListView;

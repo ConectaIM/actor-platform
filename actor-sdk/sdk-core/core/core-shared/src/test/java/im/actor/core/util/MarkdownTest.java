@@ -2,9 +2,6 @@ package im.actor.core.util;
 
 import org.junit.Test;
 
-import im.actor.runtime.markdown.MDDocument;
-import im.actor.runtime.markdown.MarkdownParser;
-
 public class MarkdownTest {
 
     @Test

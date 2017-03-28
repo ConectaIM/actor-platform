@@ -11,7 +11,18 @@ import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.i18n.client.TimeZone;
 import com.google.gwt.user.client.Event;
 
-import im.actor.core.*;
+import org.timepedia.exporter.client.Export;
+import org.timepedia.exporter.client.ExportPackage;
+import org.timepedia.exporter.client.Exportable;
+
+import java.util.Date;
+import java.util.List;
+
+import im.actor.core.ApiConfiguration;
+import im.actor.core.AuthState;
+import im.actor.core.ConfigurationBuilder;
+import im.actor.core.DeviceCategory;
+import im.actor.core.PlatformType;
 import im.actor.core.api.ApiAuthSession;
 import im.actor.core.api.ApiDialog;
 import im.actor.core.api.rpc.ResponseLoadArchived;
@@ -20,16 +31,35 @@ import im.actor.core.entity.EntityConverter;
 import im.actor.core.entity.MentionFilterResult;
 import im.actor.core.entity.MessageSearchEntity;
 import im.actor.core.entity.Peer;
-import im.actor.core.entity.PeerSearchEntity;
-import im.actor.core.entity.PeerSearchType;
 import im.actor.core.entity.PeerType;
 import im.actor.core.entity.User;
 import im.actor.core.js.annotations.UsedByApp;
-import im.actor.core.js.entity.*;
+import im.actor.core.js.entity.Enums;
+import im.actor.core.js.entity.JsAuthErrorClosure;
+import im.actor.core.js.entity.JsAuthSession;
+import im.actor.core.js.entity.JsAuthSuccessClosure;
+import im.actor.core.js.entity.JsBotCommand;
+import im.actor.core.js.entity.JsConfig;
+import im.actor.core.js.entity.JsContact;
+import im.actor.core.js.entity.JsContent;
+import im.actor.core.js.entity.JsDialog;
+import im.actor.core.js.entity.JsDialogShort;
+import im.actor.core.js.entity.JsEventBusCallback;
+import im.actor.core.js.entity.JsGroup;
+import im.actor.core.js.entity.JsLogCallback;
+import im.actor.core.js.entity.JsMentionFilterResult;
+import im.actor.core.js.entity.JsMessageSearchEntity;
+import im.actor.core.js.entity.JsMessagesBind;
+import im.actor.core.js.entity.JsMessagesBindClosure;
+import im.actor.core.js.entity.JsPeer;
+import im.actor.core.js.entity.JsSearchEntity;
+import im.actor.core.js.entity.JsSticker;
+import im.actor.core.js.entity.JsTyping;
+import im.actor.core.js.entity.JsUser;
 import im.actor.core.js.modules.JsBindedValueCallback;
+import im.actor.core.js.providers.JsCallsProvider;
 import im.actor.core.js.providers.JsNotificationsProvider;
 import im.actor.core.js.providers.JsPhoneBookProvider;
-import im.actor.core.js.providers.JsCallsProvider;
 import im.actor.core.js.providers.electron.JsElectronApp;
 import im.actor.core.js.utils.HtmlMarkdownUtils;
 import im.actor.core.js.utils.IdentityUtils;
@@ -39,26 +69,15 @@ import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.Log;
 import im.actor.runtime.Storage;
-import im.actor.runtime.actors.messages.*;
 import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Consumer;
 import im.actor.runtime.js.JsFileSystemProvider;
 import im.actor.runtime.js.JsLogProvider;
 import im.actor.runtime.js.fs.JsBlob;
 import im.actor.runtime.js.fs.JsFile;
 import im.actor.runtime.js.mvvm.JsDisplayListCallback;
 import im.actor.runtime.js.utils.JsPromise;
-import im.actor.runtime.js.utils.JsPromiseDispatcher;
 import im.actor.runtime.js.utils.JsPromiseExecutor;
 import im.actor.runtime.markdown.MarkdownParser;
-
-import org.timepedia.exporter.client.Export;
-import org.timepedia.exporter.client.ExportPackage;
-import org.timepedia.exporter.client.Exportable;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @ExportPackage("actor")
 @Export("ActorApp")

@@ -1,7 +1,5 @@
 package im.actor.core.network.api;
 
-import im.actor.core.api.parser.RpcParser;
-import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.ActorApiCallback;
 import im.actor.core.network.AuthKeyStorage;
 import im.actor.core.network.Endpoints;

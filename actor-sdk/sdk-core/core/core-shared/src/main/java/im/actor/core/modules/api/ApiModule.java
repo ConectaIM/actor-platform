@@ -2,11 +2,11 @@ package im.actor.core.modules.api;
 
 import java.io.IOException;
 
-import im.actor.core.modules.AbsModule;
-import im.actor.core.modules.Modules;
 import im.actor.core.events.AppVisibleChanged;
 import im.actor.core.events.ConnectingStateChanged;
 import im.actor.core.events.NewSessionCreated;
+import im.actor.core.modules.AbsModule;
+import im.actor.core.modules.Modules;
 import im.actor.core.network.ActorApi;
 import im.actor.core.network.ActorApiCallback;
 import im.actor.core.network.AuthKeyStorage;

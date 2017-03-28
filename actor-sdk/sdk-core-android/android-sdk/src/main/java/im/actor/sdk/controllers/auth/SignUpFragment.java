@@ -1,32 +1,23 @@
 package im.actor.sdk.controllers.auth;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import im.actor.core.entity.Sex;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
-import im.actor.sdk.controllers.Intents;
-import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.SelectorFactory;
 import im.actor.sdk.util.Fonts;
 import im.actor.sdk.util.KeyboardHelper;
-
-import static im.actor.sdk.util.ActorSDKMessenger.messenger;
+import im.actor.sdk.view.SelectorFactory;
 
 public class SignUpFragment extends BaseAuthFragment {
-
 
 
     private EditText firstNameEditText;

@@ -12,7 +12,6 @@ import im.actor.core.viewmodel.ConversationVM;
 import im.actor.runtime.js.mvvm.JsDisplayList;
 import im.actor.runtime.js.mvvm.JsDisplayListBind;
 import im.actor.runtime.js.mvvm.JsDisplayListCallback;
-import im.actor.runtime.mvvm.Value;
 import im.actor.runtime.mvvm.ValueChangedListener;
 
 @Export

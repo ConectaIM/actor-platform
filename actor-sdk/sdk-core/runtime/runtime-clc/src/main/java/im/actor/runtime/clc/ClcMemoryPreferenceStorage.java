@@ -3,8 +3,6 @@ package im.actor.runtime.clc;
 import im.actor.runtime.storage.PreferencesStorage;
 import im.actor.runtime.storage.memory.MemoryPreferencesStorage;
 
-import java.util.prefs.Preferences;
-
 /**
  * Created by mohammad on 11/23/15.
  */
@@ -14,7 +12,7 @@ public class ClcMemoryPreferenceStorage implements PreferencesStorage {
 
     @Override
     public void putLong(String key, long v) {
-        memStoragePref.putLong(key,v);
+        memStoragePref.putLong(key, v);
     }
 
     @Override

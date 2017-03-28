@@ -1,6 +1,7 @@
 package im.actor.sdk.util.images.sources;
 
 import android.graphics.Bitmap;
+
 import im.actor.sdk.util.images.common.ImageLoadException;
 import im.actor.sdk.util.images.common.ImageMetadata;
 import im.actor.sdk.util.images.common.ReuseResult;

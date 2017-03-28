@@ -22,10 +22,8 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.util.Collection;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 
 import im.actor.runtime.HttpRuntime;

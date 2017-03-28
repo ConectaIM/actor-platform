@@ -7,12 +7,7 @@ package im.actor.core.viewmodel;
 import com.google.j2objc.annotations.Property;
 
 import im.actor.core.modules.ModuleContext;
-import im.actor.core.events.AppVisibleChanged;
-import im.actor.core.events.ConnectingStateChanged;
 import im.actor.core.viewmodel.generics.BooleanValueModel;
-import im.actor.core.viewmodel.generics.IntValueModel;
-import im.actor.runtime.eventbus.BusSubscriber;
-import im.actor.runtime.eventbus.Event;
 
 /**
  * Application initialization View Model

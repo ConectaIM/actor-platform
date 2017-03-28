@@ -103,9 +103,9 @@ public class Dialog extends BserObject implements ListEngineItem {
                   long date,
                   int relatedUid,
                   @Nullable
-                  Long knownReadDate,
+                          Long knownReadDate,
                   @Nullable
-                  Long knownReceiveDate) {
+                          Long knownReceiveDate) {
         this.peer = peer;
         this.dialogTitle = StringUtil.ellipsize(dialogTitle, MAX_LENGTH);
         this.dialogAvatar = dialogAvatar;

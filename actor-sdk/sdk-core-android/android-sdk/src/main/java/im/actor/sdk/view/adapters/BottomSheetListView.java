@@ -9,12 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.util.Screen;
 

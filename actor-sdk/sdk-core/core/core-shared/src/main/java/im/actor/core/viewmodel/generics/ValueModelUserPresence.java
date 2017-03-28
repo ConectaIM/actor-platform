@@ -4,8 +4,8 @@
 
 package im.actor.core.viewmodel.generics;
 
-import im.actor.runtime.mvvm.ValueModel;
 import im.actor.core.viewmodel.UserPresence;
+import im.actor.runtime.mvvm.ValueModel;
 
 public class ValueModelUserPresence extends ValueModel<UserPresence> {
     /**

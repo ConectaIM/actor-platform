@@ -1,9 +1,14 @@
 package im.actor.sdk.util.images.ops;
 
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+
 import im.actor.sdk.util.images.common.WorkCache;
 
-import static im.actor.sdk.util.images.ops.ImageDrawing.*;
+import static im.actor.sdk.util.images.ops.ImageDrawing.CLEAR_COLOR;
+import static im.actor.sdk.util.images.ops.ImageDrawing.clearBitmap;
 
 /**
  * Scaling images effectively with keeping good quality.

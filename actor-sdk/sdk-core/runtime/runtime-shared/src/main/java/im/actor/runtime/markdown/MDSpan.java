@@ -29,7 +29,8 @@ public class MDSpan extends MDText {
             res += "*";
         } else if (spanType == TYPE_ITALIC) {
             res += "_";
-        } if (spanType == TYPE_URL) {
+        }
+        if (spanType == TYPE_URL) {
 
         } else {
             throw new RuntimeException("Unknown type");

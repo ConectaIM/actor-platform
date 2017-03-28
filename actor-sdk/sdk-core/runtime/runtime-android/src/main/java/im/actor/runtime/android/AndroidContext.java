@@ -16,8 +16,8 @@ public final class AndroidContext {
         AndroidContext.context = context;
     }
 
-    public static Handler applicationHandler(){
-        if(applicationHandler == null)
+    public static Handler applicationHandler() {
+        if (applicationHandler == null)
             applicationHandler = new Handler(getContext().getMainLooper());
 
         return applicationHandler;

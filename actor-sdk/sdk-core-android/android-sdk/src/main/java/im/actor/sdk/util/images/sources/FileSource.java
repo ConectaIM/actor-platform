@@ -4,10 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
 import android.os.Build;
-import im.actor.sdk.util.images.common.*;
 
 import java.io.File;
 import java.io.IOException;
+
+import im.actor.sdk.util.images.common.ImageFormat;
+import im.actor.sdk.util.images.common.ImageLoadException;
+import im.actor.sdk.util.images.common.ImageMetadata;
+import im.actor.sdk.util.images.common.ReuseResult;
+import im.actor.sdk.util.images.common.WorkCache;
 
 /**
  * File source

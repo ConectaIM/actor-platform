@@ -9,14 +9,12 @@ import im.actor.core.api.ApiTypingType;
 import im.actor.core.api.rpc.RequestStopTyping;
 import im.actor.core.api.rpc.RequestTyping;
 import im.actor.core.entity.Peer;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.ModuleActor;
-import im.actor.runtime.actors.ActorCreator;
+import im.actor.core.modules.ModuleContext;
+import im.actor.runtime.actors.ActorCancellable;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.ActorSystem;
 import im.actor.runtime.actors.ActorTime;
-import im.actor.runtime.actors.ActorCancellable;
-import im.actor.runtime.actors.Props;
 import im.actor.runtime.annotations.Verified;
 
 @Verified

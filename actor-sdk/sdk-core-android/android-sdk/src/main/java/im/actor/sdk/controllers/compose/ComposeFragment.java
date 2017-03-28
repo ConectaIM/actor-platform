@@ -2,11 +2,11 @@ package im.actor.sdk.controllers.compose;
 
 import android.content.Intent;
 
+import im.actor.core.entity.Contact;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.contacts.BaseContactFragment;
-import im.actor.core.entity.Contact;
 
 public class ComposeFragment extends BaseContactFragment {
 

@@ -19,7 +19,7 @@ public class ActorSDKLauncher {
     public static void startProfileActivity(Context context, int uid) {
         // Ignore call if context is empty, simple work-around when fragment was disconnected from
         // activity
-        
+
         if (context == null) {
             return;
         }

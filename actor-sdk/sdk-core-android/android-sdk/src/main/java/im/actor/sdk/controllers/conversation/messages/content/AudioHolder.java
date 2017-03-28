@@ -408,7 +408,7 @@ public class AudioHolder extends MessageHolder {
 
     private void keepScreenOn(boolean on) {
         if (context != null) {
-            Window window =  ((FragmentActivity) context).getWindow();
+            Window window = ((FragmentActivity) context).getWindow();
             if (on == true)
                 window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             else

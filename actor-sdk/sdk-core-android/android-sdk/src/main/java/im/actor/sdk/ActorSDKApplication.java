@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.res.Configuration;
 
 import im.actor.runtime.android.AndroidContext;
-import im.actor.sdk.util.AndroidUtils;
 import im.actor.sdk.util.Screen;
 
 /**

@@ -4,8 +4,6 @@ import com.google.j2objc.annotations.ObjectiveCName;
 
 import org.jetbrains.annotations.NotNull;
 
-import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Closable;
 import im.actor.runtime.function.CountedReference;
 import im.actor.runtime.promise.Promise;
 

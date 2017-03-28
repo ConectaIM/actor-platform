@@ -11,7 +11,7 @@ import android.widget.EditText;
  */
 public abstract class Mask {
 
-    private static int positioning[] = { 1, 2, 3, 6, 7, 8, 9, 11, 12, 13, 14, 15 };
+    private static int positioning[] = {1, 2, 3, 6, 7, 8, 9, 11, 12, 13, 14, 15};
 
     private final static KeylistenerNumber keylistenerNumber = new KeylistenerNumber();
 
@@ -21,9 +21,10 @@ public abstract class Mask {
                     | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
 
         }
+
         @Override
         protected char[] getAcceptedChars() {
-            return new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            return new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
         }
     }
 
@@ -34,9 +35,9 @@ public abstract class Mask {
         ediTxt.setKeyListener(keylistenerNumber);
         ediTxt.setText("(--) ----- ----");
 
-        ediTxt.postDelayed(()->{
+        ediTxt.postDelayed(() -> {
             ediTxt.setSelection(1);
-        },50);
+        }, 50);
 
         return new TextWatcher() {
             boolean isUpdating;
@@ -72,11 +73,11 @@ public abstract class Mask {
                 String part2 = "";
                 String phone = "";
 
-                if(length < 11){
+                if (length < 11) {
                     ddd = paddedNumber.substring(0, 2);
                     part1 = paddedNumber.substring(2, 6);
                     part2 = paddedNumber.substring(6, paddedNumber.length()).trim();
-                }else{
+                } else {
                     ddd = paddedNumber.substring(0, 2);
                     part1 = paddedNumber.substring(2, 7);
                     part2 = paddedNumber.substring(7, paddedNumber.length()).trim();

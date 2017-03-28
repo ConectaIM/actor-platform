@@ -3,7 +3,6 @@ package im.actor.sdk.controllers.pickers;
 import android.content.Context;
 import android.content.Intent;
 
-import im.actor.sdk.BuildConfig;
 import im.actor.sdk.controllers.pickers.file.FilePickerActivity;
 
 

@@ -9,16 +9,13 @@ import im.actor.core.api.rpc.RequestCreateNewEventBus;
 import im.actor.core.api.rpc.RequestJoinEventBus;
 import im.actor.core.api.rpc.RequestKeepAliveEventBus;
 import im.actor.core.api.rpc.RequestPostToEventBus;
-import im.actor.core.api.rpc.ResponseCreateNewEventBus;
-import im.actor.core.api.rpc.ResponseJoinEventBus;
 import im.actor.core.api.rpc.ResponseVoid;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.network.RpcCallback;
 import im.actor.core.network.RpcException;
-import im.actor.core.modules.ModuleActor;
 import im.actor.runtime.actors.ActorCancellable;
 import im.actor.runtime.actors.messages.PoisonPill;
-import im.actor.runtime.function.Consumer;
 
 public class EventBusActor extends ModuleActor {
 

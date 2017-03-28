@@ -1,6 +1,7 @@
 package im.actor.runtime.js.regexp;
 
 import com.google.gwt.regexp.shared.RegExp;
+
 import im.actor.runtime.regexp.MatcherCompat;
 import im.actor.runtime.regexp.PatternCompat;
 

@@ -4,8 +4,6 @@
 
 package im.actor.core.entity;
 
-import com.google.j2objc.annotations.Property;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

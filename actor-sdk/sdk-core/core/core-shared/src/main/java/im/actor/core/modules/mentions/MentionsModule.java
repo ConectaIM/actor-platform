@@ -6,7 +6,6 @@ package im.actor.core.modules.mentions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 import im.actor.core.entity.Group;

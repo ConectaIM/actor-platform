@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
-import im.actor.sdk.util.country.Country;
 import im.actor.sdk.util.country.Countries;
+import im.actor.sdk.util.country.Country;
 import im.actor.sdk.view.adapters.ViewHolder;
 
 public class PickCountryFragment extends BaseFragment {

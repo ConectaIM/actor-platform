@@ -11,7 +11,8 @@ public class ReuseResult {
 
     /**
      * Creating ReuseResult
-     * @param res loaded image
+     *
+     * @param res      loaded image
      * @param isReused is image reused
      */
     public ReuseResult(Bitmap res, boolean isReused) {

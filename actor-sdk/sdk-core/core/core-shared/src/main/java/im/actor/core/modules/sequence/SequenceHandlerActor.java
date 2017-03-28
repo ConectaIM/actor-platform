@@ -3,32 +3,23 @@ package im.actor.core.modules.sequence;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import im.actor.core.api.ApiGroup;
 import im.actor.core.api.ApiGroupOutPeer;
 import im.actor.core.api.ApiUser;
 import im.actor.core.api.ApiUserOutPeer;
-import im.actor.core.api.rpc.RequestGetReferencedEntitites;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.sequence.internal.HandlerDifferenceUpdates;
 import im.actor.core.modules.sequence.internal.HandlerSeqUpdate;
 import im.actor.core.modules.sequence.internal.HandlerWeakUpdate;
-import im.actor.core.modules.sequence.internal.HandlerRelatedResponse;
-import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.sequence.processor.UpdateProcessor;
 import im.actor.core.network.parser.Update;
 import im.actor.runtime.Log;
-import im.actor.runtime.Runtime;
 import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Constructor;
-import im.actor.runtime.function.Function;
 import im.actor.runtime.promise.Promise;
-import im.actor.runtime.promise.PromiseFunc;
-import im.actor.runtime.promise.Promises;
-import im.actor.runtime.promise.PromisesArray;
 
 /*-[
 #pragma clang diagnostic ignored "-Wnullability-completeness"

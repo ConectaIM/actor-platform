@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.List;
 
-import im.actor.runtime.collections.SparseArray;
 import im.actor.runtime.collections.SparseBooleanArray;
 
 // Disabling Bounds checks for speeding up calculations

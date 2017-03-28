@@ -6,7 +6,6 @@ import java.util.List;
 
 import im.actor.core.api.ApiGroup;
 import im.actor.core.api.ApiGroupOutPeer;
-import im.actor.core.api.ApiMessageContainer;
 import im.actor.core.api.ApiUser;
 import im.actor.core.api.ApiUserOutPeer;
 import im.actor.core.network.parser.Update;

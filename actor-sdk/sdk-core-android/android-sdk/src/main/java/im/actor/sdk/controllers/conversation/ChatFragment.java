@@ -1,7 +1,6 @@
 package im.actor.sdk.controllers.conversation;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,15 +18,12 @@ import im.actor.core.network.RpcException;
 import im.actor.core.viewmodel.ConversationVM;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserVM;
-import im.actor.runtime.mvvm.Value;
-import im.actor.runtime.mvvm.ValueChangedListener;
-import im.actor.runtime.mvvm.ValueDoubleChangedListener;
-import im.actor.runtime.mvvm.ValueListener;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorSDKLauncher;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
 import im.actor.sdk.controllers.conversation.attach.AbsAttachFragment;
+import im.actor.sdk.controllers.conversation.attach.AttachFragment;
 import im.actor.sdk.controllers.conversation.inputbar.InputBarCallback;
 import im.actor.sdk.controllers.conversation.inputbar.InputBarFragment;
 import im.actor.sdk.controllers.conversation.mentions.AutocompleteCallback;
@@ -37,7 +33,6 @@ import im.actor.sdk.controllers.conversation.messages.MessagesFragmentCallback;
 import im.actor.sdk.controllers.conversation.placeholder.EmptyChatPlaceholder;
 import im.actor.sdk.controllers.conversation.quote.QuoteCallback;
 import im.actor.sdk.controllers.conversation.quote.QuoteFragment;
-import im.actor.sdk.controllers.conversation.attach.AttachFragment;
 import im.actor.sdk.controllers.conversation.toolbar.ChatToolbarFragment;
 
 import static im.actor.sdk.util.ActorSDKMessenger.groups;

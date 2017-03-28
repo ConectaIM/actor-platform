@@ -9,7 +9,7 @@ public class JsContentText extends JsContent {
         return {content: "text", text: text};
     }-*/;
 
-    protected JsContentText(){
+    protected JsContentText() {
 
     }
 }

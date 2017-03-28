@@ -9,7 +9,6 @@ import com.google.gwt.typedarrays.shared.ArrayBuffer;
 import com.google.gwt.typedarrays.shared.TypedArrays;
 import com.google.gwt.typedarrays.shared.Uint8Array;
 
-import im.actor.runtime.Log;
 import im.actor.runtime.js.utils.Conversion;
 import im.actor.runtime.mtproto.AsyncConnection;
 import im.actor.runtime.mtproto.AsyncConnectionInterface;

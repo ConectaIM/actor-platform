@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import im.actor.core.entity.FileReference;
 import im.actor.core.entity.Sticker;
 import im.actor.core.entity.StickerPack;
 import im.actor.runtime.mvvm.Value;

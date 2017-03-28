@@ -7,5 +7,6 @@ package im.actor.sdk.controllers.tools;
 public interface AttachOpenCloseCallback {
 
     void onAttachOpen();
+
     void onAttachHide();
 }

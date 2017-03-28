@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 
+import im.actor.core.entity.Peer;
 import im.actor.runtime.bser.Bser;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserValues;
 import im.actor.runtime.bser.BserWriter;
-import im.actor.core.entity.Peer;
 
 public class PlainCursorsStorage extends BserObject {
 

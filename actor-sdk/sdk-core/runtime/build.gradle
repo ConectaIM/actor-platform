@@ -12,7 +12,7 @@ task assembleMainDist(dependsOn: ['copyMainJar', 'assembleMainSourcesJar']) {
 task copyMainJar(type: Copy, dependsOn: 'main:jar') {
     from file('shared/build/libs/main.jar')
     into file('build/dist/')
-    rename ('main.jar', 'runtime.jar')
+    rename('main.jar', 'runtime.jar')
 }
 
 task assembleMainSourcesJar(type: Zip) {
@@ -72,6 +72,6 @@ task copyAndroidLib(type: Copy, dependsOn: ['android:assemble']) {
     from file('android/build/outputs/aar/android-release.aar')
     from file('android/build/outputs/aar/android-debug.aar')
     into file('build/dist/android')
-    rename ('android-release.aar', 'runtime-release.aar')
-    rename ('android-debug.aar', 'runtime-debug.aar')
+    rename('android-release.aar', 'runtime-release.aar')
+    rename('android-debug.aar', 'runtime-debug.aar')
 }

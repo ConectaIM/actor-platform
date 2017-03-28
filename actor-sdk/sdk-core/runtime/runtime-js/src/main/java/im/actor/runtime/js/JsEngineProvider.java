@@ -29,8 +29,8 @@ public class JsEngineProvider implements EnginesRuntime {
 
     @Override
     public <T extends BserObject & ListEngineItem> PlatformDisplayList<T> createDisplayList(ListEngine<T> listEngine,
-                                                                                    boolean isSharedInstance,
-                                                                                    String clazz) {
+                                                                                            boolean isSharedInstance,
+                                                                                            String clazz) {
         JsEntityConverter converter = converters.get(clazz);
         if (converter == null) {
             throw new RuntimeException("Unsupported entity type: " + clazz);

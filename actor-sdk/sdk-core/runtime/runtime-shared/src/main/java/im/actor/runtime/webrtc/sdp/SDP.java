@@ -3,11 +3,11 @@ package im.actor.runtime.webrtc.sdp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import im.actor.runtime.webrtc.sdp.entities.SDPCodec;
 import im.actor.runtime.webrtc.sdp.entities.SDPMedia;
 import im.actor.runtime.webrtc.sdp.entities.SDPMediaMode;
 import im.actor.runtime.webrtc.sdp.entities.SDPRawRecord;
 import im.actor.runtime.webrtc.sdp.entities.SDPSession;
-import im.actor.runtime.webrtc.sdp.entities.SDPCodec;
 
 public abstract class SDP {
 

@@ -237,7 +237,7 @@ public class DialogView extends ListItemBackgroundView<Dialog, DialogView.Dialog
                 isTyping = val.length > 0;
                 if (val.length == 1) {
                     typingText = messenger().getFormatter().formatTyping(users().get(val[0]).getName().get());
-                } else if(val.length > 1) {
+                } else if (val.length > 1) {
                     typingText = messenger().getFormatter().formatTyping(val.length);
                 }
                 invalidate();

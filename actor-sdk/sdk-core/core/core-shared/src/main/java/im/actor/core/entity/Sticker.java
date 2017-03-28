@@ -13,11 +13,7 @@ import java.io.IOException;
 import im.actor.core.api.ApiImageLocation;
 import im.actor.core.api.ApiStickerDescriptor;
 import im.actor.core.api.ApiStickerMessage;
-import im.actor.core.entity.content.internal.AbsLocalContent;
 import im.actor.runtime.bser.BserCreator;
-import im.actor.runtime.bser.BserValues;
-import im.actor.runtime.bser.BserWriter;
-import im.actor.runtime.storage.ListEngineItem;
 
 public class Sticker extends WrapperEntity<ApiStickerDescriptor> {
 

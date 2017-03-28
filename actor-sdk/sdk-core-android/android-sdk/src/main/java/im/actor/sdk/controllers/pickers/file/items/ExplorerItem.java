@@ -5,11 +5,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import im.actor.sdk.controllers.pickers.file.ExploreItemViewHolder;
-
 import java.io.File;
 
 import im.actor.sdk.R;
+import im.actor.sdk.controllers.pickers.file.ExploreItemViewHolder;
 
 /**
  * Created by kiolt_000 on 14/09/2014.

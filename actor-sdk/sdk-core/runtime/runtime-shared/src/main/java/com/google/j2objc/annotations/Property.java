@@ -21,17 +21,17 @@ import java.lang.annotation.Target;
 
 /**
  * Adds property declarations to generated Objective-C for annotated fields.
- *
+ * <p>
  * See <a
  * href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/EncapsulatingData/EncapsulatingData.html"
  * >Apple's &#64;property documentation</a>.
  * <p>
  * Notes:
  * <ul>
- *   <li>Invalid attributes are reported as errors.</li>
- *   <li><b>readwrite</b>, <b>strong</b>, and <b>atomic</b> attributes are removed
- *     since they are defaults.</li>
- *   <li>Strings will include the <b>copy</b> attribute.</li>
+ * <li>Invalid attributes are reported as errors.</li>
+ * <li><b>readwrite</b>, <b>strong</b>, and <b>atomic</b> attributes are removed
+ * since they are defaults.</li>
+ * <li>Strings will include the <b>copy</b> attribute.</li>
  * </ul>
  * <p>
  * Example:
@@ -49,5 +49,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.FIELD)
 public @interface Property {
-  String value() default "";
+    String value() default "";
 }

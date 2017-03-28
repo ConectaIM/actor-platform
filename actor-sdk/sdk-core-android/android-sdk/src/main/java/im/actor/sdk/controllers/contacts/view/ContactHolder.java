@@ -10,15 +10,15 @@ import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import im.actor.core.entity.Contact;
 import im.actor.runtime.android.view.BindedViewHolder;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
-import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.avatar.AvatarView;
 import im.actor.sdk.util.Fonts;
-import im.actor.sdk.view.adapters.OnItemClickedListener;
+import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.SearchHighlight;
-import im.actor.core.entity.Contact;
+import im.actor.sdk.view.adapters.OnItemClickedListener;
+import im.actor.sdk.view.avatar.AvatarView;
 
 /**
  * Created by ex3ndr on 15.03.15.

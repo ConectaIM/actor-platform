@@ -4,8 +4,8 @@
 
 package im.actor.core.util;
 
-import im.actor.runtime.actors.ActorTime;
 import im.actor.runtime.Log;
+import im.actor.runtime.actors.ActorTime;
 
 /**
  * Calculation of execution duration

@@ -6,12 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
-import android.widget.AbsListView;
 import android.widget.FrameLayout;
 
 import im.actor.core.entity.BotCommand;
@@ -20,10 +16,8 @@ import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
 import im.actor.sdk.controllers.BaseFragment;
 import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.MaterialInterpolator;
 import im.actor.sdk.view.adapters.BottomSheetListView;
 import im.actor.sdk.view.adapters.HolderAdapter;
-import im.actor.sdk.view.adapters.RecyclerListView;
 
 import static im.actor.sdk.util.ActorSDKMessenger.users;
 

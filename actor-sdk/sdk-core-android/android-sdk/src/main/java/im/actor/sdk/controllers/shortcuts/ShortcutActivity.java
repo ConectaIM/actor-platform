@@ -1,16 +1,13 @@
 package im.actor.sdk.controllers.shortcuts;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -18,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import im.actor.core.entity.Peer;
-import im.actor.runtime.Log;
 import im.actor.sdk.R;
 import im.actor.sdk.util.Screen;
 

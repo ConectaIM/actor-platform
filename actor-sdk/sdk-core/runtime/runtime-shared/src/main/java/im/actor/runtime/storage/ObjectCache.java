@@ -44,11 +44,11 @@ public class ObjectCache<K, V> {
         removedItems.clear();
     }
 
-    public synchronized void startLock(){
+    public synchronized void startLock() {
         lockLoading = true;
     }
 
-    public synchronized void stopLock(){
+    public synchronized void stopLock() {
         lockLoading = false;
     }
 }

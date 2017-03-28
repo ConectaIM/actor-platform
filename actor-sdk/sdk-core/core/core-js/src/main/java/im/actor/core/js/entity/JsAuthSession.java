@@ -2,6 +2,7 @@ package im.actor.core.js.entity;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsDate;
+
 import im.actor.core.api.ApiAuthHolder;
 import im.actor.core.api.ApiAuthSession;
 

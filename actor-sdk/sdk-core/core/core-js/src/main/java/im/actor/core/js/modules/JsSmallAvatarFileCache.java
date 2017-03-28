@@ -1,8 +1,5 @@
 package im.actor.core.js.modules;
 
-import com.google.gwt.typedarrays.shared.TypedArrays;
-import com.google.gwt.typedarrays.shared.Uint8Array;
-
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -74,6 +71,6 @@ public class JsSmallAvatarFileCache extends AbsModule {
     }
 
     private void onAvatarDownloaded(long id, JsBlob blob) {
-        
+
     }
 }

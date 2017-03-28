@@ -8,10 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import im.actor.core.api.ApiJsonMessage;
-import im.actor.core.entity.Contact;
 import im.actor.core.entity.content.internal.ContentRemoteContainer;
 import im.actor.runtime.json.JSONArray;
 import im.actor.runtime.json.JSONException;

@@ -5,11 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
-
 import java.util.ArrayList;
 
 import im.actor.sdk.R;
+import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 
 /**
  * Created by kiolt_000 on 14/09/2014.

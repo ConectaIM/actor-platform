@@ -12,26 +12,19 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
 import im.actor.core.entity.AuthRes;
 import im.actor.core.entity.Sex;
-import im.actor.runtime.mtproto.ConnectionEndpointArray;
 import im.actor.runtime.promise.Promise;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
-import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.BaseUrlSpan;
 import im.actor.sdk.view.CustomClicableSpan;
 

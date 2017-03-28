@@ -52,6 +52,7 @@ public class ChatBackgroundView extends View {
         background = getResources().getDrawable(BackgroundPreviewView.getBackground(i));
         invalidate();
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
         if (background != null) {

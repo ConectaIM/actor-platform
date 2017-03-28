@@ -10,15 +10,15 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import im.actor.core.entity.Dialog;
+import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
+import im.actor.sdk.controllers.DisplayListFragment;
 import im.actor.sdk.controllers.dialogs.view.DialogHolder;
 import im.actor.sdk.controllers.dialogs.view.DialogsAdapter;
-import im.actor.sdk.controllers.DisplayListFragment;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.adapters.OnItemClickedListener;
-import im.actor.runtime.android.view.BindedListAdapter;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 import static im.actor.sdk.util.ActorSDKMessenger.users;

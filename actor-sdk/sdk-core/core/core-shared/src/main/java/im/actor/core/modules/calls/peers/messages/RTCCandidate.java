@@ -8,7 +8,7 @@ public class RTCCandidate {
     private final String id;
     private final String sdp;
 
-    public RTCCandidate(long deviceId,long sessionId, int mdpIndex, String id, String sdp) {
+    public RTCCandidate(long deviceId, long sessionId, int mdpIndex, String id, String sdp) {
         this.deviceId = deviceId;
         this.sessionId = sessionId;
         this.mdpIndex = mdpIndex;

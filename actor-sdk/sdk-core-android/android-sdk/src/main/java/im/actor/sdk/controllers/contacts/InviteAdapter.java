@@ -1,24 +1,15 @@
 package im.actor.sdk.controllers.contacts;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
 import im.actor.core.entity.PhoneBookContact;
-import im.actor.core.entity.PhoneBookIds;
-import im.actor.runtime.android.AndroidContext;
-import im.actor.runtime.android.view.BindedListAdapter;
-import im.actor.runtime.bser.Bser;
-import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.view.adapters.HolderAdapter;
 import im.actor.sdk.view.adapters.OnItemClickedListener;
-import im.actor.sdk.view.adapters.RecyclerListView;
 import im.actor.sdk.view.adapters.ViewHolder;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
@@ -59,7 +50,6 @@ public class InviteAdapter extends HolderAdapter<PhoneBookContact> {
         Integer type = selectedContactType.get(item);
         ((InviteContactHolder) holder).bind(item, fastName, "", selectedUsers.contains(item), type == null ? -1 : type, index == getCount() - 1);
     }
-
 
 
     public void select(PhoneBookContact contact, int type) {

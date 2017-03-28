@@ -29,11 +29,9 @@ import im.actor.core.events.PeerInfoOpened;
 import im.actor.core.events.UserVisible;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
-import im.actor.core.modules.users.router.UserRouter;
 import im.actor.core.modules.users.router.UserRouterInt;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.Storage;
-import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.eventbus.BusSubscriber;
 import im.actor.runtime.eventbus.Event;
@@ -41,8 +39,6 @@ import im.actor.runtime.mvvm.MVVMCollection;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.PromisesArray;
 import im.actor.runtime.storage.KeyValueEngine;
-
-import static im.actor.runtime.actors.ActorSystem.system;
 
 public class UsersModule extends AbsModule implements BusSubscriber {
 

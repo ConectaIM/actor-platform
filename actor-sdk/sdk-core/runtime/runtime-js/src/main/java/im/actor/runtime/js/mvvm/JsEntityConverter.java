@@ -6,8 +6,6 @@ package im.actor.runtime.js.mvvm;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-import java.util.ArrayList;
-
 public interface JsEntityConverter<F, T extends JavaScriptObject> {
 
     boolean isSupportOverlays();

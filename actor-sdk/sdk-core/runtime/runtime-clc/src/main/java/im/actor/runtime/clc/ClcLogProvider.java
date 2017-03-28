@@ -1,8 +1,9 @@
 package im.actor.runtime.clc;
 
-import im.actor.runtime.LogRuntime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import im.actor.runtime.LogRuntime;
 
 /**
  * Created by amir on 3/12/16.
@@ -17,7 +18,7 @@ public class ClcLogProvider implements LogRuntime {
 
     @Override
     public void e(String tag, Throwable throwable) {
-        logger.error(tag,throwable);
+        logger.error(tag, throwable);
     }
 
     @Override

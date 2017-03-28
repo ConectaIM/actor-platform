@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import im.actor.sdk.util.Devices;
-import im.actor.core.providers.PhoneBookProvider;
 import im.actor.core.entity.PhoneBookContact;
 import im.actor.core.entity.PhoneBookEmail;
 import im.actor.core.entity.PhoneBookPhone;
+import im.actor.core.providers.PhoneBookProvider;
 import im.actor.runtime.Log;
 import im.actor.runtime.android.AndroidContext;
+import im.actor.sdk.util.Devices;
 
 public class AndroidPhoneBook implements PhoneBookProvider {
 

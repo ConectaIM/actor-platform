@@ -2,7 +2,6 @@ package im.actor.core.entity.signals;
 
 import java.io.IOException;
 
-import im.actor.runtime.Log;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserParser;
 import im.actor.runtime.bser.BserValues;

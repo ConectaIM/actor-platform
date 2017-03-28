@@ -9,8 +9,6 @@ import java.util.HashMap;
 import im.actor.core.entity.Peer;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
-import im.actor.core.modules.typing.OwnTypingActor;
-import im.actor.core.modules.typing.TypingActor;
 import im.actor.core.viewmodel.GroupTypingVM;
 import im.actor.core.viewmodel.UserTypingVM;
 import im.actor.runtime.actors.ActorRef;

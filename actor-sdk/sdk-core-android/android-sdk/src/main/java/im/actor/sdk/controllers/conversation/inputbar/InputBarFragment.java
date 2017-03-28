@@ -649,7 +649,7 @@ public class InputBarFragment extends BaseFragment implements MessagesDefaultFra
 
     @Override
     public void onAttachOpen() {
-        if(emojiKeyboard.isShowing()) {
+        if (emojiKeyboard.isShowing()) {
             emojiKeyboard.dismiss(true);
         }
     }

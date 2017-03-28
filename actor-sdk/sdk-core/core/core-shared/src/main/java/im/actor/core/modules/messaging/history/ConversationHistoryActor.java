@@ -11,20 +11,18 @@ import im.actor.core.api.ApiMessageContainer;
 import im.actor.core.api.ApiMessageReaction;
 import im.actor.core.api.ApiMessageState;
 import im.actor.core.api.rpc.RequestLoadHistory;
-import im.actor.core.api.rpc.ResponseLoadHistory;
 import im.actor.core.entity.EntityConverter;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.MessageState;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.Reaction;
 import im.actor.core.entity.content.AbsContent;
-import im.actor.core.modules.api.ApiSupportConfiguration;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.ModuleActor;
+import im.actor.core.modules.ModuleContext;
+import im.actor.core.modules.api.ApiSupportConfiguration;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.ask.AskMessage;
 import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Consumer;
 import im.actor.runtime.promise.Promise;
 
 public class ConversationHistoryActor extends ModuleActor {

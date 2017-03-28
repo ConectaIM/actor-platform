@@ -10,10 +10,7 @@ import im.actor.core.js.JsMessenger;
 import im.actor.core.viewmodel.CallMember;
 import im.actor.core.viewmodel.CallVM;
 import im.actor.runtime.js.webrtc.MediaTrack;
-import im.actor.runtime.js.webrtc.js.JsMediaStream;
-import im.actor.runtime.js.webrtc.MediaStream;
 import im.actor.runtime.js.webrtc.js.JsMediaStreamTrack;
-import im.actor.runtime.webrtc.WebRTCMediaStream;
 import im.actor.runtime.webrtc.WebRTCMediaTrack;
 
 public class JsCall extends JavaScriptObject {

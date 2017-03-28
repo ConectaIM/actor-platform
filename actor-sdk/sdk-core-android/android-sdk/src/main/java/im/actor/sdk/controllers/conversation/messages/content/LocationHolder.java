@@ -34,7 +34,6 @@ import im.actor.core.entity.content.LocationContent;
 import im.actor.core.viewmodel.FileVM;
 import im.actor.core.viewmodel.UploadFileVM;
 import im.actor.sdk.ActorSDK;
-
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.conversation.messages.MessagesAdapter;
 import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedData;

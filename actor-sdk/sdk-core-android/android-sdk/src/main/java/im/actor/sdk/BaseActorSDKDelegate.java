@@ -1,6 +1,5 @@
 package im.actor.sdk;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -17,8 +16,8 @@ import im.actor.sdk.controllers.conversation.inputbar.InputBarFragment;
 import im.actor.sdk.controllers.conversation.mentions.AutocompleteFragment;
 import im.actor.sdk.controllers.conversation.messages.BubbleLayouter;
 import im.actor.sdk.controllers.conversation.quote.QuoteFragment;
-import im.actor.sdk.controllers.root.RootActivity;
 import im.actor.sdk.controllers.dialogs.DialogsDefaultFragment;
+import im.actor.sdk.controllers.root.RootActivity;
 import im.actor.sdk.intents.ActorIntent;
 import im.actor.sdk.intents.ActorIntentFragmentActivity;
 

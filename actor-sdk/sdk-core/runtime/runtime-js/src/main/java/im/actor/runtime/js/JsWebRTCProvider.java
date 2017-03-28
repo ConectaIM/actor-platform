@@ -5,12 +5,12 @@ import com.google.gwt.core.client.JsArray;
 import org.jetbrains.annotations.NotNull;
 
 import im.actor.runtime.WebRTCRuntime;
+import im.actor.runtime.js.webrtc.MediaStream;
+import im.actor.runtime.js.webrtc.PeerConnection;
 import im.actor.runtime.js.webrtc.js.JsIceServer;
 import im.actor.runtime.js.webrtc.js.JsPeerConnection;
 import im.actor.runtime.js.webrtc.js.JsPeerConnectionConfig;
 import im.actor.runtime.js.webrtc.js.JsStreaming;
-import im.actor.runtime.js.webrtc.MediaStream;
-import im.actor.runtime.js.webrtc.PeerConnection;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.PromiseFunc;
 import im.actor.runtime.webrtc.WebRTCIceServer;

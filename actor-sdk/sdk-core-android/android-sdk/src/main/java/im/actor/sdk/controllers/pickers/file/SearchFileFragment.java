@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,19 +19,17 @@ import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.support.v7.widget.SearchView;
 import android.widget.TextView;
-
-import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
-import im.actor.sdk.controllers.pickers.file.search.IndexTask;
-import im.actor.sdk.controllers.pickers.file.search.SearchTask;
-import im.actor.sdk.controllers.pickers.file.view.MaterialInterpolator;
-import im.actor.sdk.view.SearchViewHacker;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import im.actor.sdk.R;
+import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
+import im.actor.sdk.controllers.pickers.file.search.IndexTask;
+import im.actor.sdk.controllers.pickers.file.search.SearchTask;
+import im.actor.sdk.controllers.pickers.file.view.MaterialInterpolator;
+import im.actor.sdk.view.SearchViewHacker;
 
 
 public class SearchFileFragment extends Fragment implements AbsListView.OnScrollListener {

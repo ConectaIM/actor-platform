@@ -10,8 +10,6 @@ import android.widget.LinearLayout;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.emoji.keyboard.emoji.EmojiView;
 
-import static im.actor.sdk.util.ActorSDKMessenger.messenger;
-
 public class StickersView extends RecyclerView {
     boolean disableWhileFastScroll = false;
     EmojiView keyboard;

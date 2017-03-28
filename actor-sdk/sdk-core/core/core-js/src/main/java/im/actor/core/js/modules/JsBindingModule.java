@@ -42,7 +42,6 @@ import im.actor.core.js.entity.JsTyping;
 import im.actor.core.js.entity.JsUser;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.Modules;
-import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.CallMember;
 import im.actor.core.viewmodel.CallState;
 import im.actor.core.viewmodel.CallVM;
@@ -61,7 +60,6 @@ import im.actor.runtime.mvvm.ModelChangedListener;
 import im.actor.runtime.mvvm.Value;
 import im.actor.runtime.mvvm.ValueChangedListener;
 import im.actor.runtime.mvvm.ValueModel;
-import im.actor.runtime.webrtc.WebRTCMediaStream;
 
 public class JsBindingModule extends AbsModule implements JsFileLoadedListener {
 

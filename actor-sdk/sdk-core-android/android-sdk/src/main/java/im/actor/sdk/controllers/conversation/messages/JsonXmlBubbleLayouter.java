@@ -6,10 +6,6 @@ import android.view.ViewGroup;
 import org.jetbrains.annotations.NotNull;
 
 import im.actor.core.entity.Peer;
-import im.actor.core.entity.content.AbsContent;
-import im.actor.core.entity.content.JsonContent;
-import im.actor.runtime.json.JSONException;
-import im.actor.runtime.json.JSONObject;
 import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
 import im.actor.sdk.controllers.conversation.view.BubbleContainer;
 import im.actor.sdk.util.ViewUtils;

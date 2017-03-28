@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import im.actor.core.entity.FileReference;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.file.entity.Downloaded;
-import im.actor.core.modules.ModuleActor;
 import im.actor.core.util.RandomUtils;
 import im.actor.core.viewmodel.UploadFileCallback;
 import im.actor.runtime.Log;

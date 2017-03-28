@@ -7,24 +7,22 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import im.actor.core.entity.Avatar;
-import im.actor.core.entity.GroupMember;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserPresence;
 import im.actor.core.viewmodel.UserVM;
+import im.actor.runtime.mvvm.Value;
+import im.actor.runtime.mvvm.ValueChangedListener;
+import im.actor.runtime.mvvm.ValueDoubleChangedListener;
 import im.actor.runtime.mvvm.ValueDoubleListener;
 import im.actor.runtime.mvvm.ValueListener;
 import im.actor.runtime.mvvm.ValueModel;
+import im.actor.runtime.mvvm.ValueTripleChangedListener;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.view.avatar.AvatarView;
 import im.actor.sdk.view.avatar.CoverAvatarView;
-import im.actor.runtime.mvvm.Value;
-import im.actor.runtime.mvvm.ValueChangedListener;
-import im.actor.runtime.mvvm.ValueDoubleChangedListener;
-import im.actor.runtime.mvvm.ValueTripleChangedListener;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 import static im.actor.sdk.util.ActorSDKMessenger.users;
@@ -258,7 +256,7 @@ public class ActorBinder {
     }
 
     public <T, V> Binding[] bind(final Value<T> value1, final Value<V> value2,
-                            final ValueDoubleChangedListener<T, V> listener) {
+                                 final ValueDoubleChangedListener<T, V> listener) {
 
         Binding[] bindings = new Binding[2];
         bindings[0] = bind(value1, false, new ValueChangedListener<T>() {

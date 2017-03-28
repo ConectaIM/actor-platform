@@ -1,12 +1,10 @@
 package im.actor.runtime.clc;
 
-import im.actor.runtime.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class SQLiteStatementWrapper {
     private static final Logger logger = LoggerFactory.getLogger(SQLiteStatementWrapper.class);
@@ -31,6 +29,7 @@ public class SQLiteStatementWrapper {
             logger.error(e.getMessage(), e);
         }
     }
+
     public void bindBlob(int i, byte[] key) {
         try {
             statement.setBytes(i, key);
@@ -38,6 +37,7 @@ public class SQLiteStatementWrapper {
             logger.error(e.getMessage(), e);
         }
     }
+
     public void bindInteger(int i, int key) {
         try {
             statement.setInt(i, key);

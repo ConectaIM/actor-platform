@@ -8,8 +8,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import im.actor.core.api.ApiICEServer;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.ModuleActor;
+import im.actor.core.modules.ModuleContext;
 import im.actor.runtime.Log;
 import im.actor.runtime.WebRTC;
 import im.actor.runtime.actors.ActorCreator;

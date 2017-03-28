@@ -5,7 +5,7 @@ import im.actor.runtime.actors.ask.AskMessage;
 import im.actor.runtime.actors.messages.Void;
 
 public class RouterResetChat implements AskMessage<Void> {
-    
+
     private Peer peer;
 
     public RouterResetChat(Peer peer) {

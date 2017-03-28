@@ -6,14 +6,12 @@ package im.actor.core.modules.messaging.history;
 
 import im.actor.core.api.rpc.RequestLoadArchived;
 import im.actor.core.api.rpc.ResponseLoadArchived;
-import im.actor.core.modules.api.ApiSupportConfiguration;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
+import im.actor.core.modules.api.ApiSupportConfiguration;
 import im.actor.core.network.RpcCallback;
 import im.actor.core.network.RpcException;
-import im.actor.core.modules.ModuleActor;
 import im.actor.runtime.Log;
-import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Consumer;
 
 public class ArchivedDialogsActor extends ModuleActor {
 

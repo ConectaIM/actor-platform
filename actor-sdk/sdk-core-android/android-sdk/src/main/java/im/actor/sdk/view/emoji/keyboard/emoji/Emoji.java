@@ -5,14 +5,6 @@ package im.actor.sdk.view.emoji.keyboard.emoji;
  */
 
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -34,11 +26,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import im.actor.runtime.Log;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.util.AndroidUtils;
 import im.actor.sdk.util.Screen;
-import im.actor.sdk.util.Utilities;
 import im.actor.sdk.view.emoji.keyboard.emoji.smiles.SmilesListener;
 
 public class Emoji {
@@ -102,7 +101,7 @@ public class Emoji {
         loadAllEmojis();
     }
 
-    public static void loadAllEmojis(){
+    public static void loadAllEmojis() {
 
         if (isLoaded) {
             return;
@@ -124,7 +123,7 @@ public class Emoji {
                 Iterator<Map.Entry<CharSequence, DrawableInfo>> entry = rects.entrySet().iterator();
                 while (entry.hasNext()) {
                     DrawableInfo info = entry.next().getValue();
-                    if(!loadingEmoji[info.page][info.page2]
+                    if (!loadingEmoji[info.page][info.page2]
                             && (emojiBmp[info.page][info.page2] == null)) {
                         loadEmoji(info.page, info.page2);
                     }

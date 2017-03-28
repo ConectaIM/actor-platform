@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,15 +19,15 @@ import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.function.BiFunction;
 import im.actor.runtime.function.Function;
+import im.actor.runtime.mvvm.Value;
+import im.actor.runtime.mvvm.ValueChangedListener;
+import im.actor.runtime.mvvm.ValueDoubleChangedListener;
 import im.actor.runtime.promise.Promise;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorStyle;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.ActorBinder;
 import im.actor.sdk.view.avatar.AvatarView;
-import im.actor.runtime.mvvm.ValueChangedListener;
-import im.actor.runtime.mvvm.ValueDoubleChangedListener;
-import im.actor.runtime.mvvm.Value;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
@@ -55,7 +54,7 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void changeStatusBarColor(){
+    public void changeStatusBarColor() {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

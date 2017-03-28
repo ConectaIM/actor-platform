@@ -22,10 +22,8 @@ import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.sdk.ActorSDK;
-import im.actor.sdk.ActorSDKLauncher;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.Intents;
-import im.actor.sdk.controllers.conversation.ChatActivity;
 import im.actor.sdk.controllers.share.ShareActivity;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;

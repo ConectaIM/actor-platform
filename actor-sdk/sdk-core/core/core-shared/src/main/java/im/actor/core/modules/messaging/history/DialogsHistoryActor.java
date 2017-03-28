@@ -11,10 +11,10 @@ import im.actor.core.api.ApiDialog;
 import im.actor.core.api.ApiMessageState;
 import im.actor.core.api.rpc.RequestLoadDialogs;
 import im.actor.core.entity.content.AbsContent;
-import im.actor.core.modules.api.ApiSupportConfiguration;
-import im.actor.core.modules.ModuleContext;
-import im.actor.core.modules.messaging.history.entity.DialogHistory;
 import im.actor.core.modules.ModuleActor;
+import im.actor.core.modules.ModuleContext;
+import im.actor.core.modules.api.ApiSupportConfiguration;
+import im.actor.core.modules.messaging.history.entity.DialogHistory;
 import im.actor.runtime.actors.messages.Void;
 
 import static im.actor.core.entity.EntityConverter.convert;

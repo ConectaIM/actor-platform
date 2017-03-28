@@ -230,7 +230,7 @@ public class Promise<T> {
             });
         }
     }
-    
+
     protected void invokeDeliver() {
         if (exception != null) {
             for (PromiseCallback<T> callback : callbacks) {

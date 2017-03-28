@@ -2,10 +2,6 @@ package im.actor.core.providers;
 
 import com.google.j2objc.annotations.ObjectiveCName;
 
-import org.jetbrains.annotations.NotNull;
-
-import im.actor.core.Messenger;
-
 /**
  * WebRTC provider. Used for providing Calls support.
  * All methods except init are called in background call management actor.

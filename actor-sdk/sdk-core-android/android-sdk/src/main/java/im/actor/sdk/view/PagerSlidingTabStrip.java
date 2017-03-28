@@ -26,6 +26,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     public interface IconTabProvider {
         int getPageIconResId(int position);
+
         void customOnDraw(Canvas canvas, int position);
     }
 

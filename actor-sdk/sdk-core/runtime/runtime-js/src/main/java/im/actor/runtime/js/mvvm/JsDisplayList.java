@@ -5,17 +5,11 @@
 package im.actor.runtime.js.mvvm;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-import im.actor.runtime.Log;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.js.storage.JsListEngine;
-import im.actor.runtime.js.storage.JsListEngineCallback;
-import im.actor.runtime.js.utils.JsModernArray;
 import im.actor.runtime.mvvm.PlatformDisplayList;
 import im.actor.runtime.storage.ListEngineItem;
 

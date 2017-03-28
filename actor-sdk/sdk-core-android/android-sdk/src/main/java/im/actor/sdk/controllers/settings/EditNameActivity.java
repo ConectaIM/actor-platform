@@ -3,8 +3,8 @@ package im.actor.sdk.controllers.settings;
 import android.os.Bundle;
 
 import im.actor.sdk.R;
-import im.actor.sdk.controllers.activity.BaseFragmentActivity;
 import im.actor.sdk.controllers.Intents;
+import im.actor.sdk.controllers.activity.BaseFragmentActivity;
 
 public class EditNameActivity extends BaseFragmentActivity {
 

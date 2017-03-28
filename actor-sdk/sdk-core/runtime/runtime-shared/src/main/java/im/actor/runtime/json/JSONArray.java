@@ -29,16 +29,16 @@ import java.util.List;
  * Booleans, Integers, Longs, Doubles, {@code null} or {@link JSONObject#NULL}.
  * Values may not be {@link Double#isNaN() NaNs}, {@link Double#isInfinite()
  * infinities}, or of any type not listed here.
- *
+ * <p>
  * <p>{@code JSONArray} has the same type coercion behavior and
  * optional/mandatory accessors as {@link JSONObject}. See that class'
  * documentation for details.
- *
+ * <p>
  * <p><strong>Warning:</strong> this class represents null in two incompatible
  * ways: the standard Java {@code null} reference, and the sentinel value {@link
  * JSONObject#NULL}. In particular, {@code get} fails if the requested index
  * holds the null reference, but succeeds if it holds {@code JSONObject.NULL}.
- *
+ * <p>
  * <p>Instances of this class are not thread safe. Although this class is
  * nonfinal, it was not designed for inheritance and should not be subclassed.
  * In particular, self-use by overridable methods is not specified. See
@@ -61,14 +61,14 @@ public class JSONArray {
      * collection.
      *
      * @param copyFrom a collection whose values are of supported types.
-     *     Unsupported values are not permitted and will yield an array in an
-     *     inconsistent state.
+     *                 Unsupported values are not permitted and will yield an array in an
+     *                 inconsistent state.
      */
     /* Accept a raw type for API compatibility */
     public JSONArray(Collection copyFrom) {
         this();
         if (copyFrom != null) {
-            for (Iterator it = copyFrom.iterator(); it.hasNext();) {
+            for (Iterator it = copyFrom.iterator(); it.hasNext(); ) {
                 put(JSONObject.wrap(it.next()));
             }
         }
@@ -79,9 +79,9 @@ public class JSONArray {
      * tokener.
      *
      * @param readFrom a tokener whose nextValue() method will yield a
-     *     {@code JSONArray}.
+     *                 {@code JSONArray}.
      * @throws JSONException if the parse fails or doesn't yield a
-     *     {@code JSONArray}.
+     *                       {@code JSONArray}.
      */
     public JSONArray(JSONTokener readFrom) throws JSONException {
         /*
@@ -101,7 +101,7 @@ public class JSONArray {
      *
      * @param json a JSON-encoded string containing an array.
      * @throws JSONException if the parse fails or doesn't yield a {@code
-     *     JSONArray}.
+     *                       JSONArray}.
      */
     public JSONArray(String json) throws JSONException {
         this(new JSONTokener(json));
@@ -142,7 +142,7 @@ public class JSONArray {
      * Appends {@code value} to the end of this array.
      *
      * @param value a finite value. May not be {@link Double#isNaN() NaNs} or
-     *     {@link Double#isInfinite() infinities}.
+     *              {@link Double#isInfinite() infinities}.
      * @return this array.
      */
     public JSONArray put(double value) throws JSONException {
@@ -174,10 +174,10 @@ public class JSONArray {
      * Appends {@code value} to the end of this array.
      *
      * @param value a {@link JSONObject}, {@link JSONArray}, String, Boolean,
-     *     Integer, Long, Double, {@link JSONObject#NULL}, or {@code null}. May
-     *     not be {@link Double#isNaN() NaNs} or {@link Double#isInfinite()
-     *     infinities}. Unsupported values are not permitted and will cause the
-     *     array to be in an inconsistent state.
+     *              Integer, Long, Double, {@link JSONObject#NULL}, or {@code null}. May
+     *              not be {@link Double#isNaN() NaNs} or {@link Double#isInfinite()
+     *              infinities}. Unsupported values are not permitted and will cause the
+     *              array to be in an inconsistent state.
      * @return this array.
      */
     public JSONArray put(Object value) {
@@ -213,7 +213,7 @@ public class JSONArray {
      * index}, it will be replaced.
      *
      * @param value a finite value. May not be {@link Double#isNaN() NaNs} or
-     *     {@link Double#isInfinite() infinities}.
+     *              {@link Double#isInfinite() infinities}.
      * @return this array.
      */
     public JSONArray put(int index, double value) throws JSONException {
@@ -248,9 +248,9 @@ public class JSONArray {
      * index}, it will be replaced.
      *
      * @param value a {@link JSONObject}, {@link JSONArray}, String, Boolean,
-     *     Integer, Long, Double, {@link JSONObject#NULL}, or {@code null}. May
-     *     not be {@link Double#isNaN() NaNs} or {@link Double#isInfinite()
-     *     infinities}.
+     *              Integer, Long, Double, {@link JSONObject#NULL}, or {@code null}. May
+     *              not be {@link Double#isNaN() NaNs} or {@link Double#isInfinite()
+     *              infinities}.
      * @return this array.
      */
     public JSONArray put(int index, Object value) throws JSONException {
@@ -278,8 +278,8 @@ public class JSONArray {
      * Returns the value at {@code index}.
      *
      * @throws JSONException if this array has no value at {@code index}, or if
-     *     that value is the {@code null} reference. This method returns
-     *     normally if the value is {@code JSONObject#NULL}.
+     *                       that value is the {@code null} reference. This method returns
+     *                       normally if the value is {@code JSONObject#NULL}.
      */
     public Object get(int index) throws JSONException {
         try {
@@ -320,7 +320,7 @@ public class JSONArray {
      * be coerced to a boolean.
      *
      * @throws JSONException if the value at {@code index} doesn't exist or
-     *     cannot be coerced to a boolean.
+     *                       cannot be coerced to a boolean.
      */
     public boolean getBoolean(int index) throws JSONException {
         Object object = get(index);
@@ -354,7 +354,7 @@ public class JSONArray {
      * be coerced to a double.
      *
      * @throws JSONException if the value at {@code index} doesn't exist or
-     *     cannot be coerced to a double.
+     *                       cannot be coerced to a double.
      */
     public double getDouble(int index) throws JSONException {
         Object object = get(index);
@@ -388,7 +388,7 @@ public class JSONArray {
      * can be coerced to an int.
      *
      * @throws JSONException if the value at {@code index} doesn't exist or
-     *     cannot be coerced to a int.
+     *                       cannot be coerced to a int.
      */
     public int getInt(int index) throws JSONException {
         Object object = get(index);
@@ -422,7 +422,7 @@ public class JSONArray {
      * can be coerced to a long.
      *
      * @throws JSONException if the value at {@code index} doesn't exist or
-     *     cannot be coerced to a long.
+     *                       cannot be coerced to a long.
      */
     public long getLong(int index) throws JSONException {
         Object object = get(index);
@@ -489,7 +489,7 @@ public class JSONArray {
      * JSONArray}.
      *
      * @throws JSONException if the value doesn't exist or is not a {@code
-     *     JSONArray}.
+     *                       JSONArray}.
      */
     public JSONArray getJSONArray(int index) throws JSONException {
         Object object = get(index);
@@ -514,7 +514,7 @@ public class JSONArray {
      * JSONObject}.
      *
      * @throws JSONException if the value doesn't exist or is not a {@code
-     *     JSONObject}.
+     *                       JSONObject}.
      */
     public JSONObject getJSONObject(int index) throws JSONException {
         Object object = get(index);
@@ -578,7 +578,8 @@ public class JSONArray {
      * Encodes this array as a compact JSON string, such as:
      * <pre>[94043,90210]</pre>
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         try {
             JSONStringer stringer = new JSONStringer();
             writeTo(stringer);
@@ -598,7 +599,7 @@ public class JSONArray {
      * ]</pre>
      *
      * @param indentSpaces the number of spaces to indent for each level of
-     *     nesting.
+     *                     nesting.
      */
     public String toString(int indentSpaces) throws JSONException {
         JSONStringer stringer = new JSONStringer(indentSpaces);
@@ -614,11 +615,13 @@ public class JSONArray {
         stringer.endArray();
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         return o instanceof JSONArray && ((JSONArray) o).values.equals(values);
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         // diverge from the original, which doesn't implement hashCode
         return values.hashCode();
     }

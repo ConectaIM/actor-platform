@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import im.actor.runtime.generic.mvvm.alg.ChangeBuilder;
-import im.actor.runtime.generic.mvvm.alg.Modification;
 import im.actor.runtime.actors.Actor;
 import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.Props;
+import im.actor.runtime.generic.mvvm.alg.ChangeBuilder;
+import im.actor.runtime.generic.mvvm.alg.Modification;
 import im.actor.runtime.generic.mvvm.alg.Modifications;
 
 import static im.actor.runtime.actors.ActorSystem.system;

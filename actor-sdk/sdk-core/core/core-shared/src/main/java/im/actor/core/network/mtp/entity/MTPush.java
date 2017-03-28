@@ -4,10 +4,10 @@
 
 package im.actor.core.network.mtp.entity;
 
+import java.io.IOException;
+
 import im.actor.runtime.bser.DataInput;
 import im.actor.runtime.bser.DataOutput;
-
-import java.io.IOException;
 
 // Disabling Bounds checks for speeding up calculations
 

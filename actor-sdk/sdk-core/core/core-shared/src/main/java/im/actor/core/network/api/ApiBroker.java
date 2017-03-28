@@ -9,15 +9,14 @@ import java.util.HashMap;
 
 import im.actor.core.api.parser.RpcParser;
 import im.actor.core.api.parser.UpdatesParser;
-import im.actor.core.network.*;
-import im.actor.core.network.parser.ApiParserConfig;
-import im.actor.core.network.parser.BaseParser;
-import im.actor.core.network.parser.ParsingExtension;
-import im.actor.runtime.*;
-import im.actor.runtime.Runtime;
-import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.actors.AskcableActor;
-import im.actor.core.util.RandomUtils;
+import im.actor.core.network.ActorApiCallback;
+import im.actor.core.network.AuthKeyStorage;
+import im.actor.core.network.Endpoints;
+import im.actor.core.network.NetworkState;
+import im.actor.core.network.RpcCallback;
+import im.actor.core.network.RpcException;
+import im.actor.core.network.RpcInternalException;
+import im.actor.core.network.RpcTimeoutException;
 import im.actor.core.network.mtp.MTProto;
 import im.actor.core.network.mtp.MTProtoCallback;
 import im.actor.core.network.mtp.entity.ProtoSerializer;
@@ -28,9 +27,17 @@ import im.actor.core.network.mtp.entity.rpc.RpcFloodWait;
 import im.actor.core.network.mtp.entity.rpc.RpcInternalError;
 import im.actor.core.network.mtp.entity.rpc.RpcOk;
 import im.actor.core.network.mtp.entity.rpc.RpcRequest;
+import im.actor.core.network.parser.ApiParserConfig;
+import im.actor.core.network.parser.BaseParser;
+import im.actor.core.network.parser.ParsingExtension;
 import im.actor.core.network.parser.Request;
 import im.actor.core.network.parser.Response;
 import im.actor.core.network.parser.RpcScope;
+import im.actor.core.util.RandomUtils;
+import im.actor.runtime.Log;
+import im.actor.runtime.Runtime;
+import im.actor.runtime.actors.ActorRef;
+import im.actor.runtime.actors.AskcableActor;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.threading.AtomicIntegerCompat;
 import im.actor.runtime.threading.CommonTimer;
@@ -38,9 +45,9 @@ import im.actor.runtime.threading.CommonTimer;
 public class ApiBroker extends AskcableActor {
 
     public static ApiBrokerInt get(final Endpoints endpoints, final AuthKeyStorage keyStorage, final ActorApiCallback callback,
-                               final boolean isEnableLog, int id, final int minDelay,
-                               final int maxDelay,
-                               final int maxFailureCount,
+                                   final boolean isEnableLog, int id, final int minDelay,
+                                   final int maxDelay,
+                                   final int maxFailureCount,
                                    final BaseParser[] rpcParsers,
                                    final BaseParser[] updatesParsers) {
 
@@ -88,11 +95,11 @@ public class ApiBroker extends AskcableActor {
         this.parserConfig.addExtension(new ParsingExtension(new RpcParser(), new UpdatesParser()));
 
         //adding extra rpc parsers
-        if((rpcParsers != null && rpcParsers.length > 0) &&
-                (updatesParsers != null && updatesParsers.length == rpcParsers.length)){
-           for(int i = 0; i < rpcParsers.length; i++){
-               this.parserConfig.addExtension(new ParsingExtension(rpcParsers[i], updatesParsers[i]));
-           }
+        if ((rpcParsers != null && rpcParsers.length > 0) &&
+                (updatesParsers != null && updatesParsers.length == rpcParsers.length)) {
+            for (int i = 0; i < rpcParsers.length; i++) {
+                this.parserConfig.addExtension(new ParsingExtension(rpcParsers[i], updatesParsers[i]));
+            }
         }
     }
 

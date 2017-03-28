@@ -1,9 +1,6 @@
 package im.actor.sdk.view.avatar;
 
 import android.content.Context;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.util.AttributeSet;
 
@@ -30,7 +27,6 @@ import im.actor.core.viewmodel.FileVMCallback;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.files.FileSystemReference;
-import im.actor.sdk.ActorSDK;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 

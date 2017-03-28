@@ -1,17 +1,12 @@
 package im.actor.sdk.controllers.conversation.view;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.view.View;
 
 import im.actor.core.entity.Peer;
 import im.actor.core.viewmodel.CommandCallback;
 import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.ActorSDK;
-import im.actor.sdk.R;
-import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.view.BaseUrlSpan;
 
 public class ReactionSpan extends BaseUrlSpan {

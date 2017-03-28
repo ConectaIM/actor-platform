@@ -2,7 +2,6 @@ package im.actor.sdk.controllers.conversation.toolbar;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -18,17 +17,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import im.actor.core.entity.GroupType;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
 import im.actor.core.viewmodel.Command;
-import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.Log;
-import im.actor.runtime.actors.messages.Void;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorSDKLauncher;
 import im.actor.sdk.ActorStyle;
@@ -41,7 +37,6 @@ import im.actor.sdk.view.avatar.AvatarView;
 
 import static im.actor.sdk.util.ActorSDKMessenger.groups;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
-import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 import static im.actor.sdk.util.ActorSDKMessenger.users;
 
 public class ChatToolbarFragment extends BaseFragment {
@@ -207,7 +202,7 @@ public class ChatToolbarFragment extends BaseFragment {
                 bindGroupTyping(barTyping, barTypingContainer, barSubtitle, messenger().getGroupTyping(group.getId()));
             }
         }
-        
+
         // Global Counter
         bind(messenger().getGlobalState().getGlobalCounter(), (val, valueModel) -> {
             if (val != null && val > 0) {

@@ -47,7 +47,7 @@ public class Utilities {
                 val = Long.parseLong(num);
             }
         } catch (Exception e) {
-           Log.e(TAG, e);
+            Log.e(TAG, e);
         }
         return val;
     }

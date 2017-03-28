@@ -6,12 +6,10 @@ import java.util.List;
 
 import im.actor.core.api.ApiStickerCollection;
 import im.actor.core.api.rpc.RequestLoadOwnStickers;
-import im.actor.core.api.rpc.ResponseLoadOwnStickers;
 import im.actor.core.entity.StickerPack;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.stickers.entity.StickersStorage;
-import im.actor.core.modules.ModuleActor;
-import im.actor.runtime.function.Consumer;
 
 public class StickersActor extends ModuleActor {
 

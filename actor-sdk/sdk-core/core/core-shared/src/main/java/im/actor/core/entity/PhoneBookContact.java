@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import im.actor.core.api.ApiTextExMarkdown;
 import im.actor.runtime.bser.Bser;
 import im.actor.runtime.bser.BserCreator;
 import im.actor.runtime.bser.BserObject;

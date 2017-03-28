@@ -9,10 +9,6 @@ import im.actor.core.api.ApiGroup;
 import im.actor.core.api.ApiMessageState;
 import im.actor.core.api.ApiPeer;
 import im.actor.core.api.ApiPeerType;
-import im.actor.core.entity.Group;
-import im.actor.core.entity.MessageState;
-import im.actor.core.entity.Peer;
-import im.actor.core.entity.PeerType;
 import im.actor.core.entity.content.FastThumb;
 
 public class EntityConverter {

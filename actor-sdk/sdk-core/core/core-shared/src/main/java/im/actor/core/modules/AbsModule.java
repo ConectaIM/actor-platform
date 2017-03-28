@@ -4,19 +4,9 @@
 
 package im.actor.core.modules;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import im.actor.core.api.ApiGroupOutPeer;
 import im.actor.core.api.ApiOutPeer;
 import im.actor.core.api.ApiPeer;
 import im.actor.core.api.ApiPeerType;
-import im.actor.core.api.ApiUserOutPeer;
-import im.actor.core.api.rpc.RequestEditUserLocalName;
-import im.actor.core.api.rpc.RequestGetReferencedEntitites;
-import im.actor.core.api.rpc.ResponseSeq;
 import im.actor.core.entity.Group;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
@@ -27,17 +17,10 @@ import im.actor.core.network.RpcException;
 import im.actor.core.network.parser.Request;
 import im.actor.core.network.parser.Response;
 import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Function;
-import im.actor.runtime.function.Tuple2;
 import im.actor.runtime.mtproto.ManagedConnection;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.PromiseFunc;
-import im.actor.runtime.promise.PromiseResolver;
-import im.actor.runtime.promise.Promises;
-import im.actor.runtime.promise.PromisesArray;
 import im.actor.runtime.storage.KeyValueEngine;
-import im.actor.runtime.storage.KeyValueStorage;
 import im.actor.runtime.storage.PreferencesStorage;
 
 public abstract class AbsModule {

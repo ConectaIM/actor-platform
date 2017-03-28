@@ -32,6 +32,7 @@ public interface ActorApiCallback {
 
     /**
      * Called when connections count changed
+     *
      * @param count connections changed
      */
     @ObjectiveCName("onConnectionsChanged:")

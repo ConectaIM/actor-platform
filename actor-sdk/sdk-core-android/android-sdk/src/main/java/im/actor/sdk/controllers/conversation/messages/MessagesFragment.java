@@ -19,16 +19,16 @@ import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.viewmodel.ConversationVM;
 import im.actor.runtime.Log;
-import im.actor.sdk.ActorSDK;
-import im.actor.sdk.R;
-import im.actor.sdk.controllers.conversation.messages.content.AudioHolder;
-import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
-import im.actor.sdk.controllers.conversation.messages.content.preprocessor.ChatListProcessor;
-import im.actor.sdk.controllers.DisplayListFragment;
-import im.actor.sdk.controllers.settings.BaseActorSettingsFragment;
-import im.actor.sdk.util.Screen;
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
+import im.actor.sdk.ActorSDK;
+import im.actor.sdk.R;
+import im.actor.sdk.controllers.DisplayListFragment;
+import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
+import im.actor.sdk.controllers.conversation.messages.content.AudioHolder;
+import im.actor.sdk.controllers.conversation.messages.content.preprocessor.ChatListProcessor;
+import im.actor.sdk.controllers.settings.BaseActorSettingsFragment;
+import im.actor.sdk.util.Screen;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 

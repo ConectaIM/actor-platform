@@ -4,15 +4,10 @@
 
 package im.actor.core.modules;
 
-import java.util.List;
-
 import im.actor.core.Configuration;
-import im.actor.core.api.ApiGroupOutPeer;
+import im.actor.core.api.ApiOutPeer;
 import im.actor.core.api.ApiPeer;
 import im.actor.core.api.ApiPeerType;
-import im.actor.core.api.ApiOutPeer;
-import im.actor.core.api.ApiUserOutPeer;
-import im.actor.core.api.rpc.RequestGetReferencedEntitites;
 import im.actor.core.entity.Group;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
@@ -25,15 +20,10 @@ import im.actor.core.network.parser.Response;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.actors.AskcableActor;
-import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Function;
-import im.actor.runtime.promise.Promise;
-import im.actor.runtime.promise.PromiseFunc;
-import im.actor.runtime.promise.PromiseResolver;
 import im.actor.runtime.eventbus.BusSubscriber;
 import im.actor.runtime.eventbus.Event;
-import im.actor.runtime.promise.Promises;
-import im.actor.runtime.promise.PromisesArray;
+import im.actor.runtime.promise.Promise;
+import im.actor.runtime.promise.PromiseFunc;
 import im.actor.runtime.storage.KeyValueEngine;
 import im.actor.runtime.storage.PreferencesStorage;
 

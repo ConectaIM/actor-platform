@@ -7,13 +7,13 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.ReplacementSpan;
 
+import im.actor.core.viewmodel.UserVM;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.util.Screen;
-import im.actor.core.viewmodel.UserVM;
 
 /**
-* Created by ex3ndr on 26.03.15.
-*/
+ * Created by ex3ndr on 26.03.15.
+ */
 public class UserSpan extends ReplacementSpan {
 
     private UserVM user;

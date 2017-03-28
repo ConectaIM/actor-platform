@@ -4,16 +4,21 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import im.actor.sdk.util.images.common.*;
-import im.actor.sdk.util.images.sources.FileSource;
-import im.actor.sdk.util.images.sources.ImageSource;
-import im.actor.sdk.util.images.sources.MemorySource;
-import im.actor.sdk.util.images.sources.UriSource;
-import im.actor.sdk.util.images.BitmapUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import im.actor.sdk.util.images.BitmapUtil;
+import im.actor.sdk.util.images.common.ImageFormat;
+import im.actor.sdk.util.images.common.ImageLoadException;
+import im.actor.sdk.util.images.common.ImageMetadata;
+import im.actor.sdk.util.images.common.ImageSaveException;
+import im.actor.sdk.util.images.common.ReuseResult;
+import im.actor.sdk.util.images.sources.FileSource;
+import im.actor.sdk.util.images.sources.ImageSource;
+import im.actor.sdk.util.images.sources.MemorySource;
+import im.actor.sdk.util.images.sources.UriSource;
 
 /**
  * Image loading

@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import im.actor.runtime.AssetsRuntime;
-import im.actor.runtime.Log;
-import im.actor.runtime.Runtime;
 
 public class GenericAssetsProvider implements AssetsRuntime {
 

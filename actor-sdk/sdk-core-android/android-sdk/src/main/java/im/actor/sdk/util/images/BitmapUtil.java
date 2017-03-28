@@ -423,6 +423,6 @@ public class BitmapUtil {
     }
 
     public static Bitmap fromBytes(byte[] bytes) {
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 }

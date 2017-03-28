@@ -2,11 +2,10 @@ package im.actor.sdk.controllers.pickers.file.items;
 
 import android.content.Context;
 
-import im.actor.sdk.controllers.pickers.file.util.TimeUtils;
-
 import java.io.File;
 
 import im.actor.sdk.R;
+import im.actor.sdk.controllers.pickers.file.util.TimeUtils;
 
 /**
  * Created by kiolt_000 on 15/09/2014.

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.bser.BserCreator;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserParser;

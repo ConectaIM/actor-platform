@@ -2,9 +2,7 @@ package im.actor.core.modules.calls.peers;
 
 import org.jetbrains.annotations.NotNull;
 
-import im.actor.runtime.webrtc.WebRTCMediaStream;
 import im.actor.runtime.webrtc.WebRTCMediaTrack;
-import im.actor.runtime.webrtc.WebRTCPeerConnection;
 
 public interface CallBusCallback {
 

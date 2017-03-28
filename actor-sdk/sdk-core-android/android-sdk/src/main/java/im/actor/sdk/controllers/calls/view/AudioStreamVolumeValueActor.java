@@ -1,17 +1,13 @@
 package im.actor.sdk.controllers.calls.view;
 
 import android.media.AudioFormat;
-import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import im.actor.runtime.Log;
 import im.actor.runtime.actors.Actor;
 import im.actor.runtime.actors.messages.PoisonPill;
-import im.actor.sdk.core.audio.OpusEncoderActor;
 import im.actor.sdk.core.audio.VoiceBuffers;
 
 public class AudioStreamVolumeValueActor extends Actor {
@@ -30,8 +26,8 @@ public class AudioStreamVolumeValueActor extends Actor {
         delay = 10;
     }
 
-    private void subscribeForVolume(VolumeValueListener callback){
-        if(audioRecord == null){
+    private void subscribeForVolume(VolumeValueListener callback) {
+        if (audioRecord == null) {
             int minBufferSize = AudioRecord.getMinBufferSize(16000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
             int bufferSize = 16 * minBufferSize;
             audioRecord = new AudioRecord(MediaRecorder.AudioSource.DEFAULT, 16000, AudioFormat.CHANNEL_IN_MONO,
@@ -39,13 +35,13 @@ public class AudioStreamVolumeValueActor extends Actor {
             audioRecord.startRecording();
         }
         callbacks.add(callback);
-        if(!inited){
+        if (!inited) {
             inited = true;
             schedule(new Check(), delay);
         }
     }
 
-    private void unsubscribeFromVolume(VolumeValueListener callback){
+    private void unsubscribeFromVolume(VolumeValueListener callback) {
         callbacks.remove(callback);
         audioRecord.stop();
         audioRecord.release();
@@ -53,14 +49,14 @@ public class AudioStreamVolumeValueActor extends Actor {
         self().send(PoisonPill.INSTANCE);
     }
 
-    private void check(){
+    private void check() {
 
-        if(audioRecord!=null){
+        if (audioRecord != null) {
             byte[] buffer = VoiceBuffers.getInstance().obtainBuffer(BUFFER_SIZE);
             int len = audioRecord.read(buffer, 0, buffer.length);
             if (len > 0) {
                 int i = getMax(buffer) - getMin(buffer);
-                for (VolumeValueListener c:callbacks) {
+                for (VolumeValueListener c : callbacks) {
                     c.onVolumeValue(i);
                 }
             } else {
@@ -73,7 +69,7 @@ public class AudioStreamVolumeValueActor extends Actor {
         self().send(new Check());
     }
 
-    byte getMax(byte[] array){
+    byte getMax(byte[] array) {
         byte max = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
@@ -84,7 +80,7 @@ public class AudioStreamVolumeValueActor extends Actor {
         return max;
     }
 
-    byte getMin(byte[] array){
+    byte getMin(byte[] array) {
         byte min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
@@ -98,20 +94,20 @@ public class AudioStreamVolumeValueActor extends Actor {
 
     @Override
     public void onReceive(Object message) {
-        if(message instanceof Check){
+        if (message instanceof Check) {
             check();
-        }else if(message instanceof Subscribe){
+        } else if (message instanceof Subscribe) {
             subscribeForVolume(((Subscribe) message).getCallback());
-        }else if(message instanceof Unsubscribe){
+        } else if (message instanceof Unsubscribe) {
             unsubscribeFromVolume(((Unsubscribe) message).getCallback());
         }
     }
 
-    interface VolumeValueListener{
+    interface VolumeValueListener {
         void onVolumeValue(int val);
     }
-    
-    public static class Subscribe{
+
+    public static class Subscribe {
         VolumeValueListener callback;
 
         public Subscribe(VolumeValueListener callback) {
@@ -123,7 +119,7 @@ public class AudioStreamVolumeValueActor extends Actor {
         }
     }
 
-    public static class Unsubscribe{
+    public static class Unsubscribe {
         VolumeValueListener callback;
 
         public Unsubscribe(VolumeValueListener callback) {
@@ -134,6 +130,7 @@ public class AudioStreamVolumeValueActor extends Actor {
             return callback;
         }
     }
-    
-    private static class Check{}
+
+    private static class Check {
+    }
 }

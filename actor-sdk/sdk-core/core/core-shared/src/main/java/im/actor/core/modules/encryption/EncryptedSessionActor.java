@@ -3,18 +3,19 @@ package im.actor.core.modules.encryption;
 import java.util.ArrayList;
 
 import im.actor.core.entity.encryption.PeerSession;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.encryption.session.EncryptedSessionChain;
-import im.actor.core.modules.ModuleActor;
-import im.actor.runtime.*;
+import im.actor.runtime.Crypto;
+import im.actor.runtime.Log;
 import im.actor.runtime.actors.ask.AskMessage;
 import im.actor.runtime.actors.ask.AskResult;
-import im.actor.runtime.function.Consumer;
-import im.actor.runtime.function.Function;
-import im.actor.runtime.promise.Promise;
 import im.actor.runtime.crypto.Curve25519;
 import im.actor.runtime.crypto.IntegrityException;
 import im.actor.runtime.crypto.primitives.util.ByteStrings;
+import im.actor.runtime.function.Consumer;
+import im.actor.runtime.function.Function;
+import im.actor.runtime.promise.Promise;
 
 import static im.actor.runtime.promise.Promise.success;
 

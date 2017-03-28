@@ -10,7 +10,7 @@ import java.util.Random;
 import im.actor.runtime.RandomRuntime;
 
 public class JsRandomProvider implements RandomRuntime {
-    
+
     private Random random = new Random();
 
     @Override

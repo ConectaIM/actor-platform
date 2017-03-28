@@ -6,9 +6,9 @@ package im.actor.core.network.mtp.entity.rpc;
 
 import java.io.IOException;
 
+import im.actor.core.network.mtp.entity.ProtoStruct;
 import im.actor.runtime.bser.DataInput;
 import im.actor.runtime.bser.DataOutput;
-import im.actor.core.network.mtp.entity.ProtoStruct;
 
 public class RpcInternalError extends ProtoStruct {
     public static final byte HEADER = (byte) 0x04;

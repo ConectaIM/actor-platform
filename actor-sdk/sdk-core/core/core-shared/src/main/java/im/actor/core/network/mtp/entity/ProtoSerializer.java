@@ -6,13 +6,13 @@ package im.actor.core.network.mtp.entity;
 
 import java.io.IOException;
 
-import im.actor.runtime.bser.DataInput;
 import im.actor.core.network.mtp.entity.rpc.Push;
 import im.actor.core.network.mtp.entity.rpc.RpcError;
 import im.actor.core.network.mtp.entity.rpc.RpcFloodWait;
 import im.actor.core.network.mtp.entity.rpc.RpcInternalError;
 import im.actor.core.network.mtp.entity.rpc.RpcOk;
 import im.actor.core.network.mtp.entity.rpc.RpcRequest;
+import im.actor.runtime.bser.DataInput;
 
 // Disabling Bounds checks for speeding up calculations
 

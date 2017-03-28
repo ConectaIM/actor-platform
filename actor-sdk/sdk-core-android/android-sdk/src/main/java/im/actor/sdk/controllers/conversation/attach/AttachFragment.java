@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -24,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,12 +37,10 @@ import im.actor.core.utils.GalleryScannerActor;
 import im.actor.runtime.collections.ManagedList;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
-import im.actor.sdk.controllers.tools.AttachOpenCloseCallback;
 import im.actor.sdk.controllers.tools.MediaPickerCallback;
 import im.actor.sdk.controllers.tools.MediaPickerFragment;
 import im.actor.sdk.util.SDKFeatures;
 import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.MaterialInterpolator;
 import im.actor.sdk.view.ShareMenuButtonFactory;
 import im.actor.sdk.view.adapters.HeaderViewRecyclerAdapter;
 
@@ -76,7 +71,6 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
     private int spanCount;
 
 
-
     public AttachFragment(Peer peer) {
         super(peer);
     }
@@ -100,7 +94,6 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup fcontainer, @Nullable Bundle savedInstanceState) {
@@ -116,7 +109,7 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
             protected void onSizeChanged(int w, int h, int oldw, int oldh) {
                 super.onSizeChanged(w, h, oldw, oldh);
 //                if (h != oldh && shareButtons != null) {
-                   // shareButtons.getLayoutParams().height = root.getHeight() - Screen.dp(135);
+                // shareButtons.getLayoutParams().height = root.getHeight() - Screen.dp(135);
 //                    shareButtons.requestLayout();
 //                }
             }
@@ -248,7 +241,7 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
 
         //adapter.addHeaderView(shareButtons);
         //adapter.addFooterView(shareButtons);
-       // layoutManager = getGridLayoutManager();
+        // layoutManager = getGridLayoutManager();
         layoutManager = getLinearLayoutManager();
         fastShare.setAdapter(adapter);
         fastShare.setLayoutManager(layoutManager);
@@ -297,7 +290,7 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
 
         shareButtons.getLayoutParams().height = root.getHeight() - Screen.dp(135);
 
-        bottomBackground =  new FrameLayout(getContext());
+        bottomBackground = new FrameLayout(getContext());
         bottomBackground.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
 
         FrameLayout.LayoutParams paramsFastShare = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Screen.dp(90));
@@ -316,7 +309,7 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
 //        root.addView(hideClone, params2);
     }
 
-    private LinearLayoutManager getLinearLayoutManager(){
+    private LinearLayoutManager getLinearLayoutManager() {
         spanCount = Screen.getWidth() / Screen.dp(88);
         fastShareWidth = Screen.getWidth() / spanCount;
         return new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -363,7 +356,7 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
     @Override
     public void show() {
 
-        if(attachListener != null){
+        if (attachListener != null) {
             attachListener.onAttachOpen();
         }
 
@@ -413,7 +406,7 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
 
     @Override
     public void hide() {
-        if(attachListener != null){
+        if (attachListener != null) {
             attachListener.onAttachHide();
         }
         if (root != null && root.getVisibility() == View.VISIBLE) {

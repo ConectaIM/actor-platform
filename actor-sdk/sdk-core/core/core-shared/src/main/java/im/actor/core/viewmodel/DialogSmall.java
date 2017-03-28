@@ -11,7 +11,7 @@ import im.actor.runtime.bser.BserValues;
 import im.actor.runtime.bser.BserWriter;
 import im.actor.runtime.storage.ListEngineItem;
 
-public class DialogSmall extends BserObject implements ListEngineItem{
+public class DialogSmall extends BserObject implements ListEngineItem {
 
     @Property("readonly, nonatomic")
     private Peer peer;

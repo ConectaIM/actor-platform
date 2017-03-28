@@ -7,8 +7,6 @@ import android.media.MediaRecorder;
 import android.os.SystemClock;
 import android.os.Vibrator;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import im.actor.runtime.actors.Actor;
 import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.ActorRef;

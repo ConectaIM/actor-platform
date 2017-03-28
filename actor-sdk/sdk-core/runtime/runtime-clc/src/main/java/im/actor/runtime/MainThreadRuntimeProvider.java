@@ -3,7 +3,8 @@ package im.actor.runtime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import im.actor.runtime.os.OSType;
 
@@ -17,18 +18,17 @@ public class MainThreadRuntimeProvider implements MainThreadRuntime {
 
 
     public static final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
-    public  Thread main;
+    public Thread main;
 
     public MainThreadRuntimeProvider() {
         main = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true)
-                {
+                while (true) {
                     try {
                         queue.take().run();
                     } catch (InterruptedException e) {
-                        logger.error(e.getMessage(),e);
+                        logger.error(e.getMessage(), e);
                     }
                 }
             }

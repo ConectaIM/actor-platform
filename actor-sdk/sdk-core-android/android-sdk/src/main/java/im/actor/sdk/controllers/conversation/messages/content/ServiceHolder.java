@@ -4,12 +4,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import im.actor.core.entity.GroupType;
+import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
+import im.actor.core.entity.content.ServiceContent;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
-import im.actor.core.entity.Message;
-import im.actor.core.entity.content.ServiceContent;
 import im.actor.sdk.controllers.conversation.messages.MessagesAdapter;
 import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedData;
 

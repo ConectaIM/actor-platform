@@ -1,9 +1,6 @@
 package im.actor.sdk.controllers.settings;
 
-import android.content.Context;
 import android.view.View;
-
-import java.util.ArrayList;
 
 /**
  * Created by root on 11/11/15.

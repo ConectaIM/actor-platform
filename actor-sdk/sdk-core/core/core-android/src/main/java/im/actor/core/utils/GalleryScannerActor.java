@@ -5,15 +5,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import im.actor.core.viewmodel.GalleryVM;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.Actor;
-import im.actor.runtime.collections.SparseArray;
 
 public class GalleryScannerActor extends Actor {
 

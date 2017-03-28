@@ -8,13 +8,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import im.actor.core.api.ApiUserOutPeer;
-import im.actor.core.entity.PhoneBookIds;
-import im.actor.core.modules.api.ApiSupportConfiguration;
-import im.actor.core.modules.contacts.entity.BookImportStorage;
 import im.actor.core.api.ApiEmailToImport;
 import im.actor.core.api.ApiPhoneToImport;
 import im.actor.core.api.ApiUser;
+import im.actor.core.api.ApiUserOutPeer;
 import im.actor.core.api.base.FatSeqUpdate;
 import im.actor.core.api.rpc.RequestImportContacts;
 import im.actor.core.api.rpc.ResponseImportContacts;
@@ -22,13 +19,14 @@ import im.actor.core.api.updates.UpdateContactsAdded;
 import im.actor.core.entity.PhoneBookContact;
 import im.actor.core.entity.PhoneBookEmail;
 import im.actor.core.entity.PhoneBookPhone;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.ModuleActor;
+import im.actor.core.modules.ModuleContext;
+import im.actor.core.modules.api.ApiSupportConfiguration;
+import im.actor.core.modules.contacts.entity.BookImportStorage;
 import im.actor.core.network.RpcCallback;
 import im.actor.core.network.RpcException;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.bser.Bser;
 
 public class BookImportActor extends ModuleActor {
 

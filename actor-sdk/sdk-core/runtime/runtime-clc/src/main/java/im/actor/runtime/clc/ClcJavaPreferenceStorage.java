@@ -1,6 +1,5 @@
 package im.actor.runtime.clc;
 
-import im.actor.runtime.storage.PreferencesStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +86,7 @@ public class ClcJavaPreferenceStorage implements ClcPreferencesStorage {
         if (context == null) {
             logger.warn("context is not set");
             this.context = "";
-        }else{
+        } else {
             this.context = context;
         }
     }

@@ -46,7 +46,7 @@ public class ConductorActor extends ModuleActor {
         }
         isStarted = true;
         unstashAll();
-        
+
         if (appStateVM.isDialogsLoaded() && appStateVM.isContactsLoaded() && appStateVM.isSettingsLoaded()) {
             onInitialDataDownloaded();
         }

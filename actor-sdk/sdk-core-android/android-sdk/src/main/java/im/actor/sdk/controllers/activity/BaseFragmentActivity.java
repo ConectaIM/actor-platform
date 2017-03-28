@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import im.actor.sdk.R;
 
 public class BaseFragmentActivity extends BaseActivity {
 
-    public static class CompleteCustonAnimation{
+    public static class CompleteCustonAnimation {
         int enter;
         int exit;
         int popEnter;
@@ -64,7 +63,7 @@ public class BaseFragmentActivity extends BaseActivity {
         changeStatusBarColor();
     }
 
-    public void changeStatusBarColor(){
+    public void changeStatusBarColor() {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -93,7 +92,7 @@ public class BaseFragmentActivity extends BaseActivity {
 
     public void showNextFragment(Fragment fragment, boolean addToBackStack, CompleteCustonAnimation cca) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if(cca != null)
+        if (cca != null)
             transaction.setCustomAnimations(cca.enter, cca.exit, cca.popEnter, cca.popExit);
 
         transaction.replace(R.id.content_frame, fragment);

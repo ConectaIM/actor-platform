@@ -4,16 +4,16 @@
 
 package im.actor.core.network.mtp;
 
-import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.actors.messages.PoisonPill;
 import im.actor.core.network.Endpoints;
 import im.actor.core.network.NetworkState;
 import im.actor.core.network.mtp.actors.ManagerActor;
-import im.actor.core.network.mtp.actors.ReceiverActor;
 import im.actor.core.network.mtp.actors.PusherActor;
+import im.actor.core.network.mtp.actors.ReceiverActor;
 import im.actor.core.network.mtp.entity.MTRpcRequest;
 import im.actor.core.network.mtp.entity.ProtoStruct;
 import im.actor.core.network.util.MTUids;
+import im.actor.runtime.actors.ActorRef;
+import im.actor.runtime.actors.messages.PoisonPill;
 
 public class MTProto {
     private final long authId;

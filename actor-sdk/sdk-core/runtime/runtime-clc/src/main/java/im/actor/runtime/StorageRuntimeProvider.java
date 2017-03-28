@@ -1,18 +1,21 @@
 package im.actor.runtime;
 
-import im.actor.runtime.clc.*;
-import im.actor.runtime.storage.PreferencesStorage;
-import im.actor.runtime.storage.KeyValueStorage;
-import im.actor.runtime.storage.ListStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+
+import im.actor.runtime.clc.ClcContext;
+import im.actor.runtime.clc.ClcJavaPreferenceStorage;
+import im.actor.runtime.clc.ClcKeyValueStorage;
+import im.actor.runtime.clc.ClcListStorage;
+import im.actor.runtime.storage.KeyValueStorage;
+import im.actor.runtime.storage.ListStorage;
+import im.actor.runtime.storage.PreferencesStorage;
 
 public class StorageRuntimeProvider implements StorageRuntime, ClcContext {
     private static final Logger logger = LoggerFactory.getLogger(StorageRuntimeProvider.class);

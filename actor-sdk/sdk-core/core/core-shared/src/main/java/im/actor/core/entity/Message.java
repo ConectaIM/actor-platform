@@ -10,13 +10,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import im.actor.core.entity.content.AbsContent;
 import im.actor.runtime.bser.Bser;
 import im.actor.runtime.bser.BserCreator;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserValues;
 import im.actor.runtime.bser.BserWriter;
 import im.actor.runtime.storage.ListEngineItem;
-import im.actor.core.entity.content.AbsContent;
 
 public class Message extends BserObject implements ListEngineItem {
 

@@ -7,9 +7,9 @@ package im.actor.runtime;
 import com.google.j2objc.annotations.ObjectiveCName;
 
 import im.actor.runtime.actors.ThreadPriority;
-import im.actor.runtime.threading.Dispatcher;
 import im.actor.runtime.threading.AtomicIntegerCompat;
 import im.actor.runtime.threading.AtomicLongCompat;
+import im.actor.runtime.threading.Dispatcher;
 import im.actor.runtime.threading.ImmediateDispatcher;
 import im.actor.runtime.threading.ThreadLocalCompat;
 import im.actor.runtime.threading.WeakReferenceCompat;

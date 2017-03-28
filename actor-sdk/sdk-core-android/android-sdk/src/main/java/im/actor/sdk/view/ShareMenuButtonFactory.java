@@ -1,19 +1,13 @@
 package im.actor.sdk.view;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.Rect;
-import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.util.StateSet;
 
-import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorStyle;
-import im.actor.sdk.R;
 import im.actor.sdk.util.Screen;
 
 public class ShareMenuButtonFactory {

@@ -1,19 +1,13 @@
 package im.actor.sdk.view.markdown;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.customtabs.CustomTabsIntent;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -25,12 +19,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import im.actor.core.entity.Peer;
-import im.actor.runtime.actors.ActorContext;
-import im.actor.sdk.ActorSDK;
-import im.actor.sdk.R;
-import im.actor.sdk.controllers.activity.BaseActivity;
-import im.actor.sdk.controllers.conversation.ChatActivity;
-import im.actor.sdk.controllers.fragment.preview.CodePreviewActivity;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.runtime.markdown.MDDocument;
 import im.actor.runtime.markdown.MDRawText;
@@ -39,9 +27,10 @@ import im.actor.runtime.markdown.MDSpan;
 import im.actor.runtime.markdown.MDText;
 import im.actor.runtime.markdown.MDUrl;
 import im.actor.runtime.markdown.MarkdownParser;
+import im.actor.sdk.ActorSDK;
+import im.actor.sdk.R;
+import im.actor.sdk.controllers.fragment.preview.CodePreviewActivity;
 import im.actor.sdk.receivers.ChromeCustomTabReceiver;
-
-import android.support.customtabs.CustomTabsIntent;
 
 
 public class AndroidMarkdown {

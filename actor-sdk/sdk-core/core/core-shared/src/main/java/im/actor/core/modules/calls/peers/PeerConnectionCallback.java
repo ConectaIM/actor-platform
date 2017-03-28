@@ -1,7 +1,6 @@
 package im.actor.core.modules.calls.peers;
 
 import im.actor.runtime.webrtc.WebRTCMediaStream;
-import im.actor.runtime.webrtc.WebRTCPeerConnection;
 
 /**
  * Peer Connection Callback

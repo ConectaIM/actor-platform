@@ -6,9 +6,9 @@ package im.actor.sdk.controllers.conversation.messages.content;
 
 import android.view.View;
 
+import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.sdk.R;
-import im.actor.core.entity.Message;
 import im.actor.sdk.controllers.conversation.messages.MessagesAdapter;
 import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedData;
 

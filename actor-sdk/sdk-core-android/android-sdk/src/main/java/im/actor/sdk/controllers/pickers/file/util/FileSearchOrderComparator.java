@@ -1,8 +1,8 @@
 package im.actor.sdk.controllers.pickers.file.util;
 
-import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
-
 import java.util.ArrayList;
+
+import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 
 /**
  * Created by kiolt_000 on 07/10/2014.

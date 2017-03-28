@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import im.actor.core.viewmodel.UserEmail;
-import im.actor.core.viewmodel.UserPhone;
 
 /**
  * Created by ex3ndr on 22.05.15.

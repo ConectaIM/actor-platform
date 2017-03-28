@@ -7,17 +7,16 @@ package im.actor.core.js.entity;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+
 import im.actor.core.entity.Avatar;
 import im.actor.core.entity.GroupMember;
 import im.actor.core.entity.Peer;
 import im.actor.core.js.JsMessenger;
 import im.actor.core.viewmodel.GroupVM;
-import im.actor.runtime.Log;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
 
 public class JsGroup extends JavaScriptObject {
     public static JsGroup fromGroupVM(GroupVM groupVM, JsMessenger messenger) {

@@ -4,7 +4,6 @@
 
 package im.actor.runtime.actors;
 
-import im.actor.runtime.actors.dispatch.ActorDispatcher;
 import im.actor.runtime.actors.dispatch.ActorEndpoint;
 import im.actor.runtime.actors.dispatch.Envelope;
 

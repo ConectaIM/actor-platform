@@ -10,12 +10,12 @@ public class SMSActivationObservable extends Observable {
 
     private static SMSActivationObservable instance = new SMSActivationObservable();
 
-    public static SMSActivationObservable getInstance(){
-        return  instance;
+    public static SMSActivationObservable getInstance() {
+        return instance;
     }
 
-    public void updateValue(Object data){
-        synchronized (this){
+    public void updateValue(Object data) {
+        synchronized (this) {
             setChanged();
             notifyObservers(data);
         }

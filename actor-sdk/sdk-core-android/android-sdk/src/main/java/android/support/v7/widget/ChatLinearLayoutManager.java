@@ -127,9 +127,9 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
     SavedState mPendingSavedState = null;
 
     /**
-     *  Re-used variable to keep anchor information on re-layout.
-     *  Anchor position and coordinate defines the reference point for LLM while doing a layout.
-     * */
+     * Re-used variable to keep anchor information on re-layout.
+     * Anchor position and coordinate defines the reference point for LLM while doing a layout.
+     */
     final AnchorInfo mAnchorInfo;
 
     private boolean scrollToPositionWithOffsetCalled;
@@ -342,12 +342,12 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
      * Used to reverse item traversal and layout order.
      * This behaves similar to the layout change for RTL views. When set to true, first item is
      * laid out at the end of the UI, second item is laid out before it etc.
-     *
+     * <p>
      * For horizontal layouts, it depends on the layout direction.
      * When set to true, If {@link RecyclerView} is LTR, than it will
      * layout from RTL, if {@link RecyclerView}} is RTL, it will layout
      * from LTR.
-     *
+     * <p>
      * If you are looking for the exact same behavior of
      * {@link android.widget.AbsListView#setStackFromBottom(boolean)}, use
      * {@link #setStackFromEnd(boolean)}
@@ -606,12 +606,12 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
      * If necessary, layouts new items for predictive animations
      */
     private void layoutForPredictiveAnimations(RecyclerView.Recycler recycler,
-                                               RecyclerView.State state, int startOffset,  int endOffset) {
+                                               RecyclerView.State state, int startOffset, int endOffset) {
         // If there are scrap children that we did not layout, we need to find where they did go
         // and layout them accordingly so that animations can work as expected.
         // This case may happen if new views are added or an existing view expands and pushes
         // another view out of bounds.
-        if (!state.willRunPredictiveAnimations() ||  getChildCount() == 0 || state.isPreLayout()
+        if (!state.willRunPredictiveAnimations() || getChildCount() == 0 || state.isPreLayout()
                 || !supportsPredictiveItemAnimations()) {
             return;
         }
@@ -800,15 +800,15 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
         }
         // override layout from end values for consistency
         //Act like not reversed if scrollToPositionWithOffset called
-        anchorInfo.mLayoutFromEnd = scrollToPositionWithOffsetCalled?false:mShouldReverseLayout;
-        if(scrollToPositionWithOffsetCalled){
+        anchorInfo.mLayoutFromEnd = scrollToPositionWithOffsetCalled ? false : mShouldReverseLayout;
+        if (scrollToPositionWithOffsetCalled) {
             //Act like not reversed if scrollToPositionWithOffset called
             anchorInfo.mLayoutFromEnd = false;
             anchorInfo.mCoordinate = mOrientationHelper.getStartAfterPadding() +
                     mPendingScrollPositionOffset;
             scrollToPositionWithOffsetCalled = false;
 
-        }else if (mShouldReverseLayout) {
+        } else if (mShouldReverseLayout) {
             anchorInfo.mCoordinate = mOrientationHelper.getEndAfterPadding() -
                     mPendingScrollPositionOffset;
         } else {
@@ -923,13 +923,13 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
 
     /**
      * <p>Scroll the RecyclerView to make the position visible.</p>
-     *
+     * <p>
      * <p>RecyclerView will scroll the minimum amount that is necessary to make the
      * target position visible. If you are looking for a similar behavior to
      * {@link android.widget.ListView#setSelection(int)} or
      * {@link android.widget.ListView#setSelectionFromTop(int, int)}, use
      * {@link #scrollToPositionWithOffset(int, int)}.</p>
-     *
+     * <p>
      * <p>Note that scroll position change will not be reflected until the next layout call.</p>
      *
      * @param position Scroll to this adapter position
@@ -955,7 +955,7 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
      * <code>item[10]</code>'s bottom is 20 pixels above the RecyclerView's bottom.
      * <p>
      * Note that scroll position change will not be reflected until the next layout call.
-     *
+     * <p>
      * <p>
      * If you are just trying to make a position visible, use {@link #scrollToPosition(int)}.
      *
@@ -1049,7 +1049,7 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
         return ScrollbarHelper.computeScrollExtent(state, mOrientationHelper,
                 findFirstVisibleChildClosestToStart(!mSmoothScrollbarEnabled, true),
                 findFirstVisibleChildClosestToEnd(!mSmoothScrollbarEnabled, true),
-                this,  mSmoothScrollbarEnabled);
+                this, mSmoothScrollbarEnabled);
     }
 
     private int computeScrollRange(RecyclerView.State state) {
@@ -1070,14 +1070,13 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
      * If you use a list in which items have different dimensions, the scrollbar will change
      * appearance as the user scrolls through the list. To avoid this issue,  you need to disable
      * this property.
-     *
+     * <p>
      * When smooth scrollbar is disabled, the position and size of the scrollbar thumb is based
      * solely on the number of items in the adapter and the position of the visible items inside
      * the adapter. This provides a stable scrollbar as the user navigates through a list of items
      * with varying widths / heights.
      *
      * @param enabled Whether or not to enable smooth scrollbar.
-     *
      * @see #setSmoothScrollbarEnabled(boolean)
      */
     public void setSmoothScrollbarEnabled(boolean enabled) {
@@ -1088,7 +1087,6 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
      * Returns the current state of the smooth scrollbar feature. It is enabled by default.
      *
      * @return True if smooth scrollbar is enabled, false otherwise.
-     *
      * @see #setSmoothScrollbarEnabled(boolean)
      */
     public boolean isSmoothScrollbarEnabled() {
@@ -1524,6 +1522,7 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
      * invalid. This method is a best effort to find a position within adapter bounds if possible.
      * <p>
      * It also prioritizes children that are within the visible bounds.
+     *
      * @return A View that can be used an an anchor View.
      */
     private View findReferenceChildClosestToEnd(RecyclerView.State state) {
@@ -1671,7 +1670,7 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
         final int end = mOrientationHelper.getEndAfterPadding();
         final int next = toIndex > fromIndex ? 1 : -1;
         View partiallyVisible = null;
-        for (int i = fromIndex; i != toIndex; i+=next) {
+        for (int i = fromIndex; i != toIndex; i += next) {
             final View child = getChildAt(i);
             final int childStart = mOrientationHelper.getDecoratedStart(child);
             final int childEnd = mOrientationHelper.getDecoratedEnd(child);
@@ -1752,7 +1751,7 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
      * Used for debugging.
      * Validates that child views are laid out in correct order. This is important because rest of
      * the algorithm relies on this constraint.
-     *
+     * <p>
      * In default layout, child 0 should be closest to screen position 0 and last child should be
      * closest to position WIDTH or HEIGHT.
      * In reverse layout, last child should be closes to screen position 0 and first child should
@@ -2037,6 +2036,7 @@ public class ChatLinearLayoutManager extends RecyclerView.LayoutManager {
         int mPosition;
         int mCoordinate;
         boolean mLayoutFromEnd;
+
         void reset() {
             mPosition = NO_POSITION;
             mCoordinate = INVALID_OFFSET;

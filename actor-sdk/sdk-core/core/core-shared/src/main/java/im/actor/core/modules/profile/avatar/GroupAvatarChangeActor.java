@@ -8,26 +8,19 @@ import java.util.HashMap;
 
 import im.actor.core.api.ApiFileLocation;
 import im.actor.core.api.ApiGroupOutPeer;
-import im.actor.core.api.base.SeqUpdate;
 import im.actor.core.api.rpc.RequestEditGroupAvatar;
 import im.actor.core.api.rpc.RequestRemoveGroupAvatar;
-import im.actor.core.api.rpc.ResponseEditGroupAvatar;
-import im.actor.core.api.rpc.ResponseSeqDate;
 import im.actor.core.api.updates.UpdateGroupAvatarChanged;
 import im.actor.core.api.updates.UpdateGroupAvatarChangedObsolete;
 import im.actor.core.entity.FileReference;
 import im.actor.core.entity.Group;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.api.ApiSupportConfiguration;
 import im.actor.core.modules.file.UploadManager;
-import im.actor.core.modules.sequence.internal.ExecuteAfter;
-import im.actor.core.modules.ModuleActor;
 import im.actor.core.util.RandomUtils;
-import im.actor.core.network.RpcCallback;
-import im.actor.core.network.RpcException;
 import im.actor.core.viewmodel.AvatarUploadState;
 import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Consumer;
 
 public class GroupAvatarChangeActor extends ModuleActor {
 

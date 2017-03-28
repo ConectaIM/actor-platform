@@ -8,11 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -33,6 +31,10 @@ import im.actor.core.viewmodel.AvatarUploadState;
 import im.actor.core.viewmodel.FileVM;
 import im.actor.core.viewmodel.FileVMCallback;
 import im.actor.runtime.Log;
+import im.actor.runtime.files.FileSystemReference;
+import im.actor.runtime.mvvm.Value;
+import im.actor.runtime.mvvm.ValueChangedListener;
+import im.actor.runtime.mvvm.ValueDoubleChangedListener;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.Intents;
@@ -40,18 +42,14 @@ import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.util.Files;
 import im.actor.sdk.util.images.common.ImageLoadException;
 import im.actor.sdk.util.images.ops.ImageLoading;
-import im.actor.runtime.files.FileSystemReference;
-import im.actor.runtime.mvvm.ValueChangedListener;
-import im.actor.runtime.mvvm.ValueDoubleChangedListener;
-import im.actor.runtime.mvvm.Value;
 import uk.co.senab.photoview.PhotoView;
 
-import static im.actor.sdk.util.ViewUtils.goneView;
-import static im.actor.sdk.util.ViewUtils.showView;
 import static im.actor.sdk.util.ActorSDKMessenger.groups;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 import static im.actor.sdk.util.ActorSDKMessenger.users;
+import static im.actor.sdk.util.ViewUtils.goneView;
+import static im.actor.sdk.util.ViewUtils.showView;
 
 public class ViewAvatarActivity extends BaseActivity {
 

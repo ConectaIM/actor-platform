@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
-import im.actor.sdk.controllers.pickers.file.items.HeaderItem;
-
 import java.util.ArrayList;
 
 import im.actor.sdk.R;
+import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
+import im.actor.sdk.controllers.pickers.file.items.HeaderItem;
 
 /**
  * Created by kiolt_000 on 14/09/2014.

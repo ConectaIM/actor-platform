@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
+import im.actor.sdk.R;
 import im.actor.sdk.controllers.pickers.file.items.BackItem;
 import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 import im.actor.sdk.controllers.pickers.file.util.HistoryDatabase;
-
-import im.actor.sdk.R;
 
 public class FilePickerActivity extends BasePickerActivity {
 

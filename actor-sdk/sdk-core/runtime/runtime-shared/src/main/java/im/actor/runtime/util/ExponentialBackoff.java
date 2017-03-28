@@ -6,8 +6,6 @@ package im.actor.runtime.util;
 
 import java.util.Random;
 
-import im.actor.runtime.threading.AtomicIntegerCompat;
-
 /**
  * Helper for calculation of exponential backoff delays
  */

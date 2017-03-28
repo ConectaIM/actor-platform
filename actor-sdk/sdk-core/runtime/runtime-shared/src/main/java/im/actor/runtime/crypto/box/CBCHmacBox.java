@@ -1,8 +1,8 @@
 package im.actor.runtime.crypto.box;
 
-import im.actor.runtime.crypto.IntegrityException;
 import im.actor.runtime.crypto.BlockCipher;
 import im.actor.runtime.crypto.Digest;
+import im.actor.runtime.crypto.IntegrityException;
 import im.actor.runtime.crypto.primitives.Padding;
 import im.actor.runtime.crypto.primitives.hmac.HMAC;
 import im.actor.runtime.crypto.primitives.modes.CBCBlockCipher;

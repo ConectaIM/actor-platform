@@ -13,12 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
 import android.widget.Toast;
 
 import im.actor.core.entity.Contact;
-import im.actor.core.viewmodel.CommandCallback;
-import im.actor.runtime.function.Consumer;
 import im.actor.runtime.promise.Promise;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;

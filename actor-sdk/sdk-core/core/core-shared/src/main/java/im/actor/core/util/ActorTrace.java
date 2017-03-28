@@ -7,7 +7,6 @@ package im.actor.core.util;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.Actor;
 import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.actors.ActorTime;
 import im.actor.runtime.actors.TraceInterface;
 import im.actor.runtime.actors.dispatch.Envelope;
 

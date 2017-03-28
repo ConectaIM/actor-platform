@@ -20,7 +20,7 @@ public class AndroidWakeLock implements WakeLock {
 
     @Override
     public void releaseLock() {
-        if (wakeLock!=null && wakeLock.isHeld()){
+        if (wakeLock != null && wakeLock.isHeld()) {
             wakeLock.release();
         }
     }

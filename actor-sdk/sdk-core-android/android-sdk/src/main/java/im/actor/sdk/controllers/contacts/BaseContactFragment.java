@@ -19,20 +19,20 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import im.actor.core.entity.Contact;
+import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
+import im.actor.runtime.mvvm.Value;
+import im.actor.runtime.mvvm.ValueChangedListener;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.DisplayListFragment;
 import im.actor.sdk.controllers.contacts.view.ContactHolder;
 import im.actor.sdk.controllers.contacts.view.ContactsAdapter;
 import im.actor.sdk.controllers.fragment.help.HelpActivity;
-import im.actor.sdk.util.Screen;
 import im.actor.sdk.util.Fonts;
-import im.actor.sdk.view.adapters.OnItemClickedListener;
+import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
-import im.actor.runtime.android.view.BindedListAdapter;
-import im.actor.runtime.mvvm.ValueChangedListener;
-import im.actor.runtime.mvvm.Value;
+import im.actor.sdk.view.adapters.OnItemClickedListener;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 

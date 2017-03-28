@@ -4,8 +4,6 @@
 
 package im.actor.core.modules.sequence;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +25,7 @@ import im.actor.runtime.eventbus.BusSubscriber;
 import im.actor.runtime.eventbus.Event;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.PromiseFunc;
-import im.actor.runtime.promise.PromiseResolver;
 import im.actor.runtime.promise.Promises;
-import im.actor.runtime.promise.PromisesArray;
 
 import static im.actor.runtime.actors.ActorSystem.system;
 

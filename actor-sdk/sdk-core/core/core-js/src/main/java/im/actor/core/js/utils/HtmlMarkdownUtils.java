@@ -3,9 +3,16 @@ package im.actor.core.js.utils;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.safehtml.shared.UriUtils;
 
-import im.actor.runtime.markdown.*;
-
 import java.util.ArrayList;
+
+import im.actor.runtime.markdown.MDCode;
+import im.actor.runtime.markdown.MDDocument;
+import im.actor.runtime.markdown.MDRawText;
+import im.actor.runtime.markdown.MDSection;
+import im.actor.runtime.markdown.MDSpan;
+import im.actor.runtime.markdown.MDText;
+import im.actor.runtime.markdown.MDUrl;
+import im.actor.runtime.markdown.MarkdownParser;
 
 public class HtmlMarkdownUtils {
     public static String processText(String markdown, int mode) {

@@ -2,14 +2,13 @@ package im.actor.sdk.controllers.pickers.file.util;
 
 import android.os.Environment;
 
+import java.io.File;
+
+import im.actor.sdk.R;
 import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 import im.actor.sdk.controllers.pickers.file.items.FileItem;
 import im.actor.sdk.controllers.pickers.file.items.FolderItem;
 import im.actor.sdk.controllers.pickers.file.items.PictureItem;
-
-import java.io.File;
-
-import im.actor.sdk.R;
 
 public class Converter {
 

@@ -1,9 +1,8 @@
 package im.actor.runtime.markdown;
 
-import im.actor.runtime.Log;
-import im.actor.runtime.regexp.MatcherCompat;
-
 import java.util.ArrayList;
+
+import im.actor.runtime.regexp.MatcherCompat;
 
 public class MarkdownParser {
 

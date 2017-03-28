@@ -18,23 +18,25 @@ package org.jetbrains.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
 import java.lang.annotation.RetentionPolicy;
-import static java.lang.annotation.ElementType.METHOD;
+import java.lang.annotation.Target;
+
 import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
 
 /**
  * An element annotated with Nullable claims <code>null</code> value is perfectly <em>valid</em>
  * to return (for methods), pass to (parameters) and hold (local variables and fields).
  * Apart from documentation purposes this annotation is intended to be used by static analysis tools
  * to validate against probable runtime errors and element contract violations.
+ *
  * @author max
  */
 @Documented
 @Retention(RetentionPolicy.CLASS)
 @Target({METHOD, FIELD, PARAMETER, LOCAL_VARIABLE})
 public @interface Nullable {
-  String value() default "";
+    String value() default "";
 }

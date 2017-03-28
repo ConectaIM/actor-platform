@@ -35,17 +35,17 @@ public class SMSActivationReceiver extends BroadcastReceiver {
                         String format = bundle.getString("format");
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i], format);
-                        }else{
+                        } else {
                             msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                         }
 
                         String msgFrom = msgs[i].getOriginatingAddress();
-                        String msgStr =  msgs[i].getMessageBody();
+                        String msgStr = msgs[i].getMessageBody();
 
                         String arrAppName[] = msgStr.split(":");
                         String arr[] = msgStr.split("\\s+");
 
-                        if(arrAppName[0].equalsIgnoreCase(ActorSDK.sharedActor().getAppName())){
+                        if (arrAppName[0].equalsIgnoreCase(ActorSDK.sharedActor().getAppName())) {
                             Integer codigoAtivacao = Integer.parseInt(arr[ActorSDK.sharedActor().getSmsCodePosition()]);
                             SMSActivationObservable.getInstance().updateValue(codigoAtivacao.toString());
                         }

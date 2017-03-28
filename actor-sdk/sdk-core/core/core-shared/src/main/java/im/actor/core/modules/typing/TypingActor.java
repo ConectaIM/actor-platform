@@ -8,13 +8,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import im.actor.core.api.ApiTypingType;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.ModuleActor;
-import im.actor.runtime.actors.ActorCreator;
+import im.actor.core.modules.ModuleContext;
+import im.actor.runtime.actors.ActorCancellable;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.ActorSystem;
-import im.actor.runtime.actors.ActorCancellable;
-import im.actor.runtime.actors.Props;
 import im.actor.runtime.annotations.Verified;
 
 @Verified

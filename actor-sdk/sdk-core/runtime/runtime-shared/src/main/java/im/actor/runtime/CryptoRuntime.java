@@ -4,8 +4,8 @@
 
 package im.actor.runtime;
 
-import im.actor.runtime.crypto.Digest;
 import im.actor.runtime.crypto.BlockCipher;
+import im.actor.runtime.crypto.Digest;
 
 /**
  * Provider for Cryptography support

@@ -14,10 +14,10 @@ import im.actor.core.viewmodel.UserVM;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.avatar.AvatarView;
-import im.actor.sdk.view.adapters.HolderAdapter;
 import im.actor.sdk.view.SearchHighlight;
+import im.actor.sdk.view.adapters.HolderAdapter;
 import im.actor.sdk.view.adapters.ViewHolder;
+import im.actor.sdk.view.avatar.AvatarView;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 import static im.actor.sdk.util.ActorSDKMessenger.users;

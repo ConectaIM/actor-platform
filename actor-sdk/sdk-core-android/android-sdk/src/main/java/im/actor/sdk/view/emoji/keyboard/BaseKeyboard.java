@@ -2,10 +2,8 @@ package im.actor.sdk.view.emoji.keyboard;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
-import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +15,14 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
-
-import im.actor.sdk.R;
 import im.actor.runtime.Log;
+import im.actor.sdk.R;
 import im.actor.sdk.controllers.conversation.KeyboardLayout;
-import im.actor.sdk.controllers.tools.AttachOpenCloseCallback;
 import im.actor.sdk.util.KeyboardHelper;
 import im.actor.sdk.util.Screen;
 
 public class BaseKeyboard implements
-        ViewTreeObserver.OnGlobalLayoutListener{
+        ViewTreeObserver.OnGlobalLayoutListener {
 
 
     private static final String TAG = "BaseKeyboard";

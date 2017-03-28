@@ -5,7 +5,6 @@ import java.io.IOException;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserValues;
 import im.actor.runtime.bser.BserWriter;
-import im.actor.runtime.crypto.Curve25519KeyPair;
 
 public class PublicKey extends BserObject {
 

@@ -4,12 +4,12 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 import im.actor.sdk.controllers.pickers.file.util.Converter;
 import im.actor.sdk.controllers.pickers.file.util.FileSearchOrderComparator;
-
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * Created by kiolt_000 on 07/10/2014.

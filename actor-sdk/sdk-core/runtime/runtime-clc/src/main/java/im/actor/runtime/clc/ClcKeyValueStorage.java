@@ -1,12 +1,13 @@
 package im.actor.runtime.clc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.util.List;
 
 import im.actor.runtime.storage.KeyValueRecord;
 import im.actor.runtime.storage.KeyValueStorage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by mohammad on 11/18/15.

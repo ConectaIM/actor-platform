@@ -21,6 +21,11 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import im.actor.sdk.R;
 import im.actor.sdk.controllers.pickers.file.items.BackItem;
 import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 import im.actor.sdk.controllers.pickers.file.items.ExternalStorageItem;
@@ -31,12 +36,6 @@ import im.actor.sdk.controllers.pickers.file.util.FileDateOrderComparator;
 import im.actor.sdk.controllers.pickers.file.util.FileNameOrderComparator;
 import im.actor.sdk.controllers.pickers.file.util.HistoryDatabase;
 import im.actor.sdk.controllers.pickers.file.view.MaterialInterpolator;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import im.actor.sdk.R;
 
 public class ExplorerFragment extends Fragment {
 

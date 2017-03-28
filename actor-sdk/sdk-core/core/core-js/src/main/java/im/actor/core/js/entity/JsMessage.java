@@ -7,27 +7,15 @@ package im.actor.core.js.entity;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayInteger;
-import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 
 import java.util.Date;
 
-import im.actor.core.api.ApiTextExMarkdown;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.Reaction;
-import im.actor.core.entity.content.ContactContent;
-import im.actor.core.entity.content.DocumentContent;
-import im.actor.core.entity.content.FileLocalSource;
-import im.actor.core.entity.content.FileRemoteSource;
-import im.actor.core.entity.content.LocationContent;
-import im.actor.core.entity.content.PhotoContent;
-import im.actor.core.entity.content.ServiceContent;
-import im.actor.core.entity.content.TextContent;
-import im.actor.core.entity.content.VoiceContent;
 import im.actor.core.js.JsMessenger;
-import im.actor.runtime.crypto.Base64Utils;
 import im.actor.runtime.js.mvvm.JsEntityConverter;
 
 public class JsMessage extends JavaScriptObject {

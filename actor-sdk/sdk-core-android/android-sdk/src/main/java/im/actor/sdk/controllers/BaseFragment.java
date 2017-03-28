@@ -17,18 +17,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import im.actor.core.viewmodel.Command;
 import im.actor.core.viewmodel.CommandCallback;
 import im.actor.runtime.function.Consumer;
-import im.actor.runtime.function.Function;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.PromiseFunc;
-import im.actor.runtime.promise.PromiseResolver;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorStyle;
 import im.actor.sdk.R;

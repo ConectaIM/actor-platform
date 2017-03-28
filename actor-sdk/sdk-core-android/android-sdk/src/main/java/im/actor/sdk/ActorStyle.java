@@ -53,7 +53,6 @@ public class ActorStyle {
     private int mainColor = 0xff4d74a6;
 
 
-
     public int getMainColor() {
         return mainColor;
     }

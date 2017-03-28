@@ -8,17 +8,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import im.actor.core.api.ApiPeer;
 import im.actor.core.api.ApiOutPeer;
+import im.actor.core.api.ApiPeer;
 import im.actor.core.api.base.SeqUpdate;
 import im.actor.core.api.rpc.RequestDeleteMessage;
 import im.actor.core.api.rpc.ResponseSeq;
 import im.actor.core.api.updates.UpdateMessageDelete;
 import im.actor.core.entity.Peer;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.messaging.actions.entity.Delete;
 import im.actor.core.modules.messaging.actions.entity.DeleteStorage;
-import im.actor.core.modules.ModuleActor;
 import im.actor.core.network.RpcCallback;
 import im.actor.core.network.RpcException;
 import im.actor.runtime.storage.SyncKeyValue;
@@ -72,8 +72,8 @@ public class MessageDeleteActor extends ModuleActor {
                     saveStorage();
                 }
 
-                updates().onUpdateReceived(new SeqUpdate(response.getSeq(),response.getState(),
-                        UpdateMessageDelete.HEADER,new UpdateMessageDelete(apiPeer, rids).toByteArray()));
+                updates().onUpdateReceived(new SeqUpdate(response.getSeq(), response.getState(),
+                        UpdateMessageDelete.HEADER, new UpdateMessageDelete(apiPeer, rids).toByteArray()));
             }
 
             @Override
@@ -86,7 +86,7 @@ public class MessageDeleteActor extends ModuleActor {
     public void onDeleteMessage(Peer peer, List<Long> rids) {
         // Add to storage
         if (!deleteStorage.getPendingDeletions().containsKey(peer)) {
-            deleteStorage.getPendingDeletions().put(peer, new Delete(peer,new ArrayList<Long>()));
+            deleteStorage.getPendingDeletions().put(peer, new Delete(peer, new ArrayList<Long>()));
         }
         deleteStorage.getPendingDeletions().get(peer).getRids().addAll(rids);
         saveStorage();

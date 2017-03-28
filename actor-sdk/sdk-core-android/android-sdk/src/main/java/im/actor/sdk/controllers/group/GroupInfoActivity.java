@@ -12,7 +12,7 @@ public class GroupInfoActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         if (savedInstanceState == null) {
             int groupId = getIntent().getIntExtra(Intents.EXTRA_GROUP_ID, 0);
             Fragment profileIntent = ActorSDK.sharedActor().getDelegate().fragmentForGroupInfo(groupId);

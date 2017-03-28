@@ -1,7 +1,7 @@
 package im.actor.core.modules.calls.peers.messages;
 
 public class RTCMediaStateUpdated {
-    
+
     private long deviceId;
     private boolean isAudioEnabled;
     private boolean isVideoEnabled;

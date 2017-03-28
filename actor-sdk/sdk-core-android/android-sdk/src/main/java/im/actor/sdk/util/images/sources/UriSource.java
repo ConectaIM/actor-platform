@@ -5,11 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import im.actor.sdk.util.images.common.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
+import im.actor.sdk.util.images.common.ImageFormat;
+import im.actor.sdk.util.images.common.ImageLoadException;
+import im.actor.sdk.util.images.common.ImageMetadata;
+import im.actor.sdk.util.images.common.ReuseResult;
+import im.actor.sdk.util.images.common.WorkCache;
 
 /**
  * Created by ex3ndr on 20.09.14.

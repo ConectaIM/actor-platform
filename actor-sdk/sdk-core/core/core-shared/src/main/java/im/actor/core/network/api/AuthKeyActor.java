@@ -16,13 +16,12 @@ import im.actor.core.network.mtp.entity.RequestStartAuth;
 import im.actor.core.network.mtp.entity.ResponseDoDH;
 import im.actor.core.network.mtp.entity.ResponseGetServerKey;
 import im.actor.core.network.mtp.entity.ResponseStartAuth;
-import im.actor.runtime.util.ExponentialBackoff;
 import im.actor.runtime.Crypto;
 import im.actor.runtime.Log;
 import im.actor.runtime.Network;
 import im.actor.runtime.actors.Actor;
-import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.ActorCancellable;
+import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.bser.DataInput;
 import im.actor.runtime.crypto.Cryptos;
 import im.actor.runtime.crypto.Curve25519;
@@ -33,6 +32,7 @@ import im.actor.runtime.crypto.primitives.util.ByteStrings;
 import im.actor.runtime.mtproto.Connection;
 import im.actor.runtime.mtproto.ConnectionCallback;
 import im.actor.runtime.mtproto.CreateConnectionCallback;
+import im.actor.runtime.util.ExponentialBackoff;
 
 // Disabling Bounds checks for speeding up calculations
 

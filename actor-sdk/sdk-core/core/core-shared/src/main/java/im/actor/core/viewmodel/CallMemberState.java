@@ -1,6 +1,5 @@
 package im.actor.core.viewmodel;
 
-import im.actor.core.api.ApiCallMemberState;
 import im.actor.core.api.ApiCallMemberStateHolder;
 
 public enum CallMemberState {

@@ -3,15 +3,12 @@ package im.actor.runtime.android.webrtc;
 import android.support.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
-
-
 import org.webrtc.DataChannel;
 import org.webrtc.IceCandidate;
 import org.webrtc.Logging;
 import org.webrtc.MediaConstraints;
 import org.webrtc.MediaStream;
 import org.webrtc.PeerConnection;
-import org.webrtc.RtpSender;
 import org.webrtc.SdpObserver;
 import org.webrtc.SessionDescription;
 
@@ -19,7 +16,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
 
-import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.android.AndroidWebRTCRuntimeProvider;
 import im.actor.runtime.function.CountedReference;
 import im.actor.runtime.promise.Promise;

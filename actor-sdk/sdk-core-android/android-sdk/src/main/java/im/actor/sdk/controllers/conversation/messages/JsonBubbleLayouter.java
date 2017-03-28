@@ -1,15 +1,11 @@
 package im.actor.sdk.controllers.conversation.messages;
 
-import android.view.ViewGroup;
-
 import org.jetbrains.annotations.NotNull;
 
-import im.actor.core.entity.Peer;
 import im.actor.core.entity.content.AbsContent;
 import im.actor.core.entity.content.JsonContent;
 import im.actor.runtime.json.JSONException;
 import im.actor.runtime.json.JSONObject;
-import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
 
 public class JsonBubbleLayouter extends LambdaBubbleLayouter {
 

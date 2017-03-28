@@ -43,6 +43,7 @@ import im.actor.core.viewmodel.UploadFileCallback;
 import im.actor.core.viewmodel.UploadFileVM;
 import im.actor.core.viewmodel.UploadFileVMCallback;
 import im.actor.runtime.Log;
+import im.actor.runtime.files.FileSystemReference;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.Intents;
@@ -52,12 +53,11 @@ import im.actor.sdk.controllers.conversation.view.FastBitmapDrawable;
 import im.actor.sdk.controllers.conversation.view.FastThumbLoader;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
-import im.actor.runtime.files.FileSystemReference;
 
-import static im.actor.sdk.util.ViewUtils.goneView;
-import static im.actor.sdk.util.ViewUtils.showView;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 import static im.actor.sdk.util.ActorSDKMessenger.myUid;
+import static im.actor.sdk.util.ViewUtils.goneView;
+import static im.actor.sdk.util.ViewUtils.showView;
 
 public class PhotoHolder extends MessageHolder {
 

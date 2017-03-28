@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.KeyValueEngine;
 import im.actor.runtime.storage.KeyValueItem;

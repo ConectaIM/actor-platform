@@ -5,5 +5,6 @@ package im.actor.runtime.clc;
  */
 public interface ClcContext {
     void setContext(String context);
+
     String getContext();
 }

@@ -6,13 +6,11 @@ package im.actor.core;
 
 import com.google.j2objc.annotations.Property;
 
-import im.actor.core.api.parser.RpcParser;
-import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.TrustedKey;
 import im.actor.core.network.parser.BaseParser;
+import im.actor.core.providers.CallsProvider;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.providers.PhoneBookProvider;
-import im.actor.core.providers.CallsProvider;
 import im.actor.runtime.mtproto.ConnectionEndpoint;
 
 /**
@@ -358,7 +356,6 @@ public class Configuration {
     }
 
     /**
-     *
      * @return
      */
     public BaseParser[] getRpcParses() {
@@ -366,7 +363,6 @@ public class Configuration {
     }
 
     /**
-     *
      * @return
      */
     public BaseParser[] getUpdateParcers() {

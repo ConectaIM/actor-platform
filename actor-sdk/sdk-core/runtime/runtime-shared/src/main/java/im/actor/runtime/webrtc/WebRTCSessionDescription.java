@@ -10,7 +10,6 @@ import com.google.j2objc.annotations.Property;
 import org.jetbrains.annotations.NotNull;
 
 import im.actor.runtime.annotations.Stable;
-import im.actor.runtime.annotations.Verified;
 
 /**
  * WebRTC Session description

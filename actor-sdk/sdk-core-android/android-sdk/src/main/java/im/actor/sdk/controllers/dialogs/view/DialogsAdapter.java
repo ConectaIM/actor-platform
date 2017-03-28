@@ -4,9 +4,9 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import im.actor.core.entity.Dialog;
+import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.view.adapters.OnItemClickedListener;
-import im.actor.runtime.android.view.BindedListAdapter;
 
 public class DialogsAdapter extends BindedListAdapter<Dialog, DialogHolder> {
 

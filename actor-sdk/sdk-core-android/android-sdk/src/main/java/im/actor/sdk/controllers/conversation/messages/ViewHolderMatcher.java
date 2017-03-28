@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.content.AbsContent;
+import im.actor.sdk.R;
 import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
 import im.actor.sdk.controllers.conversation.messages.content.UnsupportedHolder;
 import im.actor.sdk.util.ViewUtils;
-import im.actor.sdk.R;
 
 public class ViewHolderMatcher {
     ArrayList<BubbleLayouter> layouters = new ArrayList<>();

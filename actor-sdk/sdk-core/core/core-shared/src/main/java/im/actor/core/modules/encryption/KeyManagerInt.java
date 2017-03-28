@@ -8,7 +8,6 @@ import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.function.Function;
 import im.actor.runtime.function.Supplier;
 import im.actor.runtime.promise.Promise;
-import im.actor.runtime.promise.Promises;
 
 public class KeyManagerInt extends ActorInterface {
 

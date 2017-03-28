@@ -22,19 +22,18 @@ import java.util.List;
 
 import im.actor.core.AndroidMessenger;
 import im.actor.core.Messenger;
-import im.actor.core.providers.NotificationProvider;
 import im.actor.core.entity.Avatar;
 import im.actor.core.entity.Notification;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
+import im.actor.core.providers.NotificationProvider;
 import im.actor.core.viewmodel.FileVMCallback;
-import im.actor.sdk.R;
-import im.actor.sdk.controllers.Intents;
-import im.actor.sdk.controllers.root.RootActivity;
-import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.avatar.AvatarPlaceholderDrawable;
 import im.actor.runtime.files.FileSystemReference;
 import im.actor.sdk.ActorSDK;
+import im.actor.sdk.R;
+import im.actor.sdk.controllers.Intents;
+import im.actor.sdk.util.Screen;
+import im.actor.sdk.view.avatar.AvatarPlaceholderDrawable;
 
 public class AndroidNotifications implements NotificationProvider {
 

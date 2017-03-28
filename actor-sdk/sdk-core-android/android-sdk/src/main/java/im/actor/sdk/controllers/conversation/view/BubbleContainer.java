@@ -9,14 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import im.actor.core.viewmodel.UserVM;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.util.DateFormatting;
-import im.actor.sdk.util.Screen;
-import im.actor.sdk.util.Strings;
-import im.actor.sdk.view.avatar.AvatarView;
 import im.actor.sdk.util.Fonts;
-import im.actor.core.viewmodel.UserVM;
+import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.avatar.AvatarViewWithOnline;
 
 import static im.actor.sdk.util.ActorSDKMessenger.groups;
@@ -43,6 +41,7 @@ public class BubbleContainer extends ViewGroup {
         super(context);
         init();
     }
+
     public BubbleContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();

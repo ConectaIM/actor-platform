@@ -7,13 +7,10 @@ package im.actor.core.modules.sequence.processor;
 import java.util.ArrayList;
 import java.util.List;
 
-import im.actor.core.api.ApiGroup;
-import im.actor.core.api.ApiUser;
 import im.actor.core.api.updates.UpdateMessage;
 import im.actor.core.api.updates.UpdateMessageRead;
 import im.actor.core.api.updates.UpdateMessageReadByMe;
 import im.actor.core.api.updates.UpdateMessageReceived;
-import im.actor.core.entity.Group;
 import im.actor.core.entity.Peer;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
@@ -22,24 +19,20 @@ import im.actor.core.modules.contacts.ContactsProcessor;
 import im.actor.core.modules.encryption.EncryptedProcessor;
 import im.actor.core.modules.eventbus.EventBusProcessor;
 import im.actor.core.modules.groups.GroupsProcessor;
+import im.actor.core.modules.messaging.MessagesProcessor;
 import im.actor.core.modules.presence.PresenceProcessor;
 import im.actor.core.modules.raw.RawProcessor;
+import im.actor.core.modules.sequence.internal.CombinedDifference;
+import im.actor.core.modules.sequence.internal.GetDiffCombiner;
 import im.actor.core.modules.settings.SettingsProcessor;
 import im.actor.core.modules.stickers.StickersProcessor;
 import im.actor.core.modules.typing.TypingProcessor;
-import im.actor.core.modules.messaging.MessagesProcessor;
-import im.actor.core.modules.sequence.internal.CombinedDifference;
-import im.actor.core.modules.sequence.internal.GetDiffCombiner;
 import im.actor.core.modules.users.UsersProcessor;
 import im.actor.core.network.parser.Update;
 import im.actor.runtime.actors.messages.Void;
-import im.actor.runtime.function.Function;
-import im.actor.runtime.function.Predicate;
 import im.actor.runtime.function.Supplier;
-import im.actor.runtime.function.Tuple2;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.Promises;
-import im.actor.runtime.promise.PromisesArray;
 
 public class UpdateProcessor extends AbsModule {
 

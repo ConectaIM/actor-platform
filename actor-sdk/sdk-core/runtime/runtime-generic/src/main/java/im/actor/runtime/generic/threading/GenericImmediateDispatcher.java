@@ -3,7 +3,6 @@ package im.actor.runtime.generic.threading;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import im.actor.runtime.Runtime;
 import im.actor.runtime.actors.ThreadPriority;
 import im.actor.runtime.threading.ImmediateDispatcher;
 

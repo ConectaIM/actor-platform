@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v13.app.ActivityCompat;
@@ -33,12 +32,11 @@ import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.PreferencesStorage;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
-import im.actor.sdk.controllers.root.RootActivity;
 import im.actor.sdk.controllers.activity.BaseFragmentActivity;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
-public class AuthActivity extends BaseFragmentActivity implements Observer{
+public class AuthActivity extends BaseFragmentActivity implements Observer {
 
     private static final int PERMISSIONS_REQUEST_READ_SMS = 1;
 
@@ -380,7 +378,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer{
                                                     break;
 
                                                 case SIGN_UP:
-                                                    signUp(messenger().doSignup(currentName, currentSex!=null?currentSex:Sex.UNKNOWN, transactionHash), currentName, currentSex);
+                                                    signUp(messenger().doSignup(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
                                                     break;
                                             }
 
@@ -498,7 +496,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer{
 
     @Override
     public void update(Observable o, Object data) {
-        if(data instanceof String){
+        if (data instanceof String) {
             validateCode(messenger().doValidateCode(data.toString(), getTransactionHash()), data.toString());
         }
     }

@@ -78,8 +78,6 @@ public class BlockedAdapter extends RecyclerView.Adapter<BlockedAdapter.BlockedU
         }
 
 
-
-
     }
 
 

@@ -6,8 +6,6 @@ package im.actor.core.modules.contacts;
 
 import java.util.ArrayList;
 
-import im.actor.core.api.ApiOutPeer;
-import im.actor.core.api.ApiUser;
 import im.actor.core.api.ApiUserOutPeer;
 import im.actor.core.api.base.SeqUpdate;
 import im.actor.core.api.rpc.RequestAddContact;
@@ -16,21 +14,21 @@ import im.actor.core.api.rpc.RequestSearchContacts;
 import im.actor.core.api.rpc.ResponseSeq;
 import im.actor.core.api.updates.UpdateContactsAdded;
 import im.actor.core.api.updates.UpdateContactsRemoved;
+import im.actor.core.entity.Contact;
 import im.actor.core.entity.User;
 import im.actor.core.modules.AbsModule;
-import im.actor.core.modules.api.ApiSupportConfiguration;
 import im.actor.core.modules.Modules;
+import im.actor.core.modules.api.ApiSupportConfiguration;
+import im.actor.core.network.RpcCallback;
+import im.actor.core.network.RpcException;
+import im.actor.core.network.RpcInternalException;
 import im.actor.core.viewmodel.Command;
+import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.Storage;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.Props;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.ListEngine;
-import im.actor.core.entity.Contact;
-import im.actor.core.network.RpcCallback;
-import im.actor.core.network.RpcException;
-import im.actor.core.network.RpcInternalException;
-import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.storage.SyncKeyValue;
 
 import static im.actor.runtime.actors.ActorSystem.system;

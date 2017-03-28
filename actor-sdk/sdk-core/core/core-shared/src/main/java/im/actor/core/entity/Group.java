@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import im.actor.core.api.ApiAvatar;
-import im.actor.core.api.ApiFullUser;
 import im.actor.core.api.ApiGroup;
 import im.actor.core.api.ApiGroupFull;
 import im.actor.core.api.ApiGroupFullPermissions;
@@ -23,8 +22,6 @@ import im.actor.core.api.ApiMapValue;
 import im.actor.core.api.ApiMember;
 import im.actor.core.util.BitMaskUtil;
 import im.actor.runtime.bser.BserCreator;
-import im.actor.runtime.bser.BserValues;
-import im.actor.runtime.bser.BserWriter;
 import im.actor.runtime.storage.KeyValueItem;
 
 public class Group extends WrapperExtEntity<ApiGroupFull, ApiGroup> implements KeyValueItem {

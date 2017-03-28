@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.util.HashSet;
 
 import im.actor.core.entity.Peer;
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.messaging.actions.entity.PlainCursor;
 import im.actor.core.modules.messaging.actions.entity.PlainCursorsStorage;
-import im.actor.core.modules.ModuleActor;
 import im.actor.runtime.storage.SyncKeyValue;
 
 public abstract class CursorActor extends ModuleActor {

@@ -15,12 +15,12 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Optional;
 
+import im.actor.core.entity.GroupMember;
 import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserPhone;
-import im.actor.runtime.actors.messages.*;
+import im.actor.core.viewmodel.UserVM;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorSDKLauncher;
@@ -30,11 +30,9 @@ import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.util.AlertListBuilder;
 import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.avatar.AvatarView;
 import im.actor.sdk.view.adapters.HolderAdapter;
 import im.actor.sdk.view.adapters.ViewHolder;
-import im.actor.core.entity.GroupMember;
-import im.actor.core.viewmodel.UserVM;
+import im.actor.sdk.view.avatar.AvatarView;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 import static im.actor.sdk.util.ActorSDKMessenger.users;

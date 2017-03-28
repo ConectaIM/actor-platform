@@ -1,11 +1,11 @@
 package im.actor.runtime.generic;
 
+import im.actor.runtime.ThreadingRuntime;
+import im.actor.runtime.actors.ThreadPriority;
 import im.actor.runtime.generic.threading.GenericAtomicInteger;
 import im.actor.runtime.generic.threading.GenericAtomicLong;
 import im.actor.runtime.generic.threading.GenericImmediateDispatcher;
 import im.actor.runtime.generic.threading.GenericThreadLocal;
-import im.actor.runtime.ThreadingRuntime;
-import im.actor.runtime.actors.ThreadPriority;
 import im.actor.runtime.generic.threading.GenericWeakReference;
 import im.actor.runtime.threading.AtomicIntegerCompat;
 import im.actor.runtime.threading.AtomicLongCompat;

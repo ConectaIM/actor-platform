@@ -11,7 +11,7 @@ public class LocaleRuntimeProvider implements LocaleRuntime {
     public String getCurrentLocale() {
         String lang = Locale.getDefault().getLanguage();
         if (lang != null && lang.length() > 1)
-            lang = lang.substring(0,1).toUpperCase() + lang.substring(1,2);
+            lang = lang.substring(0, 1).toUpperCase() + lang.substring(1, 2);
         return lang;
     }
 

@@ -3,12 +3,9 @@ package im.actor.sdk.controllers.auth;
 import android.app.AlertDialog;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -16,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import im.actor.core.AuthState;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorStyle;
 import im.actor.sdk.R;
@@ -141,10 +137,10 @@ public class SignInFragment extends BaseAuthFragment {
             startEmailAuth(rawId);
         } else {
             try {
-                String numero = "55"+rawId.replaceAll("[^0-9]*", "");
-                if(numero.length() < 12){
-                   throw new Exception("Numero invalido");
-                }else{
+                String numero = "55" + rawId.replaceAll("[^0-9]*", "");
+                if (numero.length() < 12) {
+                    throw new Exception("Numero invalido");
+                } else {
                     startPhoneAuth(Long.parseLong(numero));
                 }
             } catch (Exception e) {
@@ -161,7 +157,7 @@ public class SignInFragment extends BaseAuthFragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.clear();
-       // getActivity().getMenuInflater().inflate(R.menu.sign_in, menu);
+        // getActivity().getMenuInflater().inflate(R.menu.sign_in, menu);
 //        MenuItem item = menu.findItem(R.id.change_endpoint);
 //        if (item != null) {
 //            item.setVisible(ActorSDK.sharedActor().isUseAlternateEndpointsEnabled());

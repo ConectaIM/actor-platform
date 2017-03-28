@@ -3,9 +3,7 @@ package im.actor.sdk.controllers.contacts;
 import android.os.Bundle;
 
 import im.actor.sdk.R;
-import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.activity.BaseFragmentActivity;
-import im.actor.sdk.controllers.group.InviteLinkFragment;
 
 public class InviteActivity extends BaseFragmentActivity {
 

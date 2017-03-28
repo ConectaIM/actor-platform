@@ -1,7 +1,6 @@
 package im.actor.runtime.js.mvvm;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
 
 import java.util.ArrayList;
 import java.util.List;

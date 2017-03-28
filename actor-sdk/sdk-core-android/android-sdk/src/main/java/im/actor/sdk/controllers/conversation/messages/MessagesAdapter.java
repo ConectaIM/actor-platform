@@ -9,22 +9,22 @@ import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.content.AbsContent;
 import im.actor.core.viewmodel.ConversationVM;
+import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.runtime.mvvm.Value;
 import im.actor.runtime.mvvm.ValueChangedListener;
 import im.actor.sdk.ActorSDK;
-import im.actor.runtime.android.view.BindedListAdapter;
+import im.actor.sdk.controllers.ActorBinder;
+import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
 import im.actor.sdk.controllers.conversation.messages.content.AudioHolder;
 import im.actor.sdk.controllers.conversation.messages.content.ContactHolder;
 import im.actor.sdk.controllers.conversation.messages.content.DocHolder;
 import im.actor.sdk.controllers.conversation.messages.content.LocationHolder;
-import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
 import im.actor.sdk.controllers.conversation.messages.content.PhotoHolder;
-import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedList;
 import im.actor.sdk.controllers.conversation.messages.content.ServiceHolder;
 import im.actor.sdk.controllers.conversation.messages.content.StickerHolder;
 import im.actor.sdk.controllers.conversation.messages.content.TextHolder;
-import im.actor.sdk.controllers.ActorBinder;
+import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedList;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
@@ -41,7 +41,6 @@ public class MessagesAdapter extends BindedListAdapter<Message, AbsMessageViewHo
     private ViewHolderMatcher matcher;
 
     private HashMap<Long, Message> selected = new HashMap<>();
-
 
 
     public MessagesAdapter(final BindedDisplayList<Message> displayList,

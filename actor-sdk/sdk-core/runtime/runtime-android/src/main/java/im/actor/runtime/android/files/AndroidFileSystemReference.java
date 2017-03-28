@@ -5,7 +5,6 @@
 package im.actor.runtime.android.files;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import im.actor.runtime.files.FileSystemReference;

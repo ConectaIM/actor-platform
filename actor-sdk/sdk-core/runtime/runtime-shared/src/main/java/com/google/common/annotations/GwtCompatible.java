@@ -29,32 +29,32 @@ import java.lang.annotation.Target;
  * When applied to a method, the return type of the method is GWT compatible.
  * It's useful to indicate that an instance created by factory methods has a GWT
  * serializable type.  In the following example,
- *
+ * <p>
  * <pre style="code">
  * {@literal @}GwtCompatible
  * class Lists {
- *   ...
- *   {@literal @}GwtCompatible(serializable = true)
- *   static &lt;E> List&lt;E> newArrayList(E... elements) {
- *     ...
- *   }
+ * ...
+ * {@literal @}GwtCompatible(serializable = true)
+ * static &lt;E> List&lt;E> newArrayList(E... elements) {
+ * ...
+ * }
  * }
  * </pre>
  * <p>The return value of {@code Lists.newArrayList(E[])} has GWT
  * serializable type.  It is also useful in specifying contracts of interface
  * methods.  In the following example,
- *
+ * <p>
  * <pre style="code">
  * {@literal @}GwtCompatible
  * interface ListFactory {
- *   ...
- *   {@literal @}GwtCompatible(serializable = true)
- *   &lt;E> List&lt;E> newArrayList(E... elements);
+ * ...
+ * {@literal @}GwtCompatible(serializable = true)
+ * &lt;E> List&lt;E> newArrayList(E... elements);
  * }
  * </pre>
  * <p>The {@code newArrayList(E[])} method of all implementations of {@code
  * ListFactory} is expected to return a value with a GWT serializable type.
- *
+ * <p>
  * <p>Note that a {@code GwtCompatible} type may have some {@link
  * GwtIncompatible} methods.
  *
@@ -62,28 +62,28 @@ import java.lang.annotation.Target;
  * @author Hayward Chan
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
 @GwtCompatible
 public @interface GwtCompatible {
 
-  /**
-   * When {@code true}, the annotated type or the type of the method return
-   * value is GWT serializable.
-   *
-   * @see <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideServerCommunication.html#DevGuideSerializableTypes">
-   *     Documentation about GWT serialization</a>
-   */
-  boolean serializable() default false;
+    /**
+     * When {@code true}, the annotated type or the type of the method return
+     * value is GWT serializable.
+     *
+     * @see <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideServerCommunication.html#DevGuideSerializableTypes">
+     * Documentation about GWT serialization</a>
+     */
+    boolean serializable() default false;
 
-  /**
-   * When {@code true}, the annotated type is emulated in GWT. The emulated
-   * source (also known as super-source) is different from the implementation
-   * used by the JVM.
-   *
-   * @see <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideOrganizingProjects.html#DevGuideModules">
-   *     Documentation about GWT emulated source</a>
-   */
-  boolean emulated() default false;
+    /**
+     * When {@code true}, the annotated type is emulated in GWT. The emulated
+     * source (also known as super-source) is different from the implementation
+     * used by the JVM.
+     *
+     * @see <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideOrganizingProjects.html#DevGuideModules">
+     * Documentation about GWT emulated source</a>
+     */
+    boolean emulated() default false;
 }
 

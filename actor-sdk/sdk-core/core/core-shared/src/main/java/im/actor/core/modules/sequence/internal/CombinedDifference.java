@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import im.actor.core.api.ApiAppCounters;
 import im.actor.core.api.updates.UpdateMessage;
-import im.actor.core.entity.Peer;
 import im.actor.core.entity.EntityConverter;
+import im.actor.core.entity.Peer;
 import im.actor.core.network.parser.Update;
 
 public class CombinedDifference {

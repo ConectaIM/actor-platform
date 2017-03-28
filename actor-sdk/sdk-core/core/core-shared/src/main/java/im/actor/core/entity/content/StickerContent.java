@@ -9,13 +9,10 @@ import com.google.j2objc.annotations.Property;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import im.actor.core.api.ApiImageLocation;
 import im.actor.core.api.ApiStickerMessage;
-import im.actor.core.entity.FileReference;
 import im.actor.core.entity.ImageLocation;
-import im.actor.core.entity.content.internal.ContentLocalContainer;
-import im.actor.core.entity.content.internal.ContentRemoteContainer;
 import im.actor.core.entity.Sticker;
+import im.actor.core.entity.content.internal.ContentRemoteContainer;
 
 public class StickerContent extends AbsContent {
 

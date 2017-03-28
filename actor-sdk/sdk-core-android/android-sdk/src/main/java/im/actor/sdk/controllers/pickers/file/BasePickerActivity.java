@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,14 +13,12 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.app.AppCompatActivity;
-
-import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import im.actor.sdk.R;
+import im.actor.sdk.controllers.pickers.file.items.ExplorerItem;
 
 /**
  * Created by kiolt_000 on 15/09/2014.

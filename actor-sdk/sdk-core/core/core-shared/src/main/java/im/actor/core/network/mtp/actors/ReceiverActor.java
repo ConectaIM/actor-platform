@@ -7,13 +7,6 @@ package im.actor.core.network.mtp.actors;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import im.actor.runtime.actors.Actor;
-import im.actor.runtime.actors.ActorCreator;
-import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.actors.ActorSelection;
-import im.actor.runtime.actors.ActorSystem;
-import im.actor.runtime.actors.Props;
-import im.actor.runtime.Log;
 import im.actor.core.network.mtp.MTProto;
 import im.actor.core.network.mtp.entity.AuthIdInvalid;
 import im.actor.core.network.mtp.entity.Container;
@@ -29,6 +22,11 @@ import im.actor.core.network.mtp.entity.SessionLost;
 import im.actor.core.network.mtp.entity.UnsentMessage;
 import im.actor.core.network.mtp.entity.UnsentResponse;
 import im.actor.core.network.util.MTUids;
+import im.actor.runtime.Log;
+import im.actor.runtime.actors.Actor;
+import im.actor.runtime.actors.ActorRef;
+import im.actor.runtime.actors.ActorSystem;
+import im.actor.runtime.actors.Props;
 
 public class ReceiverActor extends Actor {
 

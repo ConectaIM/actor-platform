@@ -33,9 +33,9 @@ import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.SearchEntity;
 import im.actor.core.entity.content.FastThumb;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.network.NetworkState;
 import im.actor.core.utils.AppStateActor;
+import im.actor.core.utils.GalleryScannerActor;
 import im.actor.core.utils.IOUtils;
 import im.actor.core.utils.ImageHelper;
 import im.actor.core.viewmodel.AppStateVM;
@@ -51,7 +51,6 @@ import im.actor.runtime.actors.Props;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.runtime.eventbus.EventBus;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
-import im.actor.core.utils.GalleryScannerActor;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static im.actor.runtime.actors.ActorSystem.system;
@@ -286,7 +285,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         File f = new File(fullFilePath);
         sendAudio(peer, f.getName(), duration, fullFilePath);
     }
-    
+
     public void sendVideo(Peer peer, String fullFilePath) {
         sendVideo(peer, fullFilePath, new File(fullFilePath).getName());
     }
@@ -484,9 +483,9 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
                 @Override
                 public void onItemTouched(Dialog item) {
-                    Log.d(AndroidMessenger.class.getName(), "Title"+item.getDialogTitle());
-                    Log.d(AndroidMessenger.class.getName(), "IsBot"+item.isBot());
-                    Log.d(AndroidMessenger.class.getName(), "IsChannel"+item.isChannel());
+                    Log.d(AndroidMessenger.class.getName(), "Title" + item.getDialogTitle());
+                    Log.d(AndroidMessenger.class.getName(), "IsBot" + item.isBot());
+                    Log.d(AndroidMessenger.class.getName(), "IsChannel" + item.isChannel());
                 }
             });
         }

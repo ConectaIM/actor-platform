@@ -24,32 +24,30 @@ import im.actor.core.AutoJoinType;
 import im.actor.core.ConfigurationBuilder;
 import im.actor.core.DeviceCategory;
 import im.actor.core.PlatformType;
-import im.actor.core.api.parser.RpcParser;
-import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.entity.Peer;
 import im.actor.core.network.parser.BaseParser;
 import im.actor.runtime.Log;
 import im.actor.runtime.Runtime;
 import im.actor.runtime.actors.ActorSystem;
+import im.actor.runtime.android.AndroidContext;
 import im.actor.runtime.threading.ThreadDispatcher;
 import im.actor.sdk.controllers.Intents;
-import im.actor.sdk.controllers.root.RootActivity;
-import im.actor.sdk.controllers.conversation.ChatActivity;
 import im.actor.sdk.controllers.auth.AuthActivity;
+import im.actor.sdk.controllers.conversation.ChatActivity;
 import im.actor.sdk.controllers.group.GroupInfoActivity;
+import im.actor.sdk.controllers.root.RootActivity;
 import im.actor.sdk.controllers.settings.MyProfileActivity;
 import im.actor.sdk.controllers.settings.SecuritySettingsActivity;
+import im.actor.sdk.core.ActorPushManager;
 import im.actor.sdk.core.AndroidCallProvider;
 import im.actor.sdk.core.AndroidNotifications;
 import im.actor.sdk.core.AndroidPhoneBook;
-import im.actor.sdk.core.ActorPushManager;
 import im.actor.sdk.intents.ActorIntent;
 import im.actor.sdk.intents.ActorIntentActivity;
 import im.actor.sdk.intents.ActorIntentFragmentActivity;
 import im.actor.sdk.push.ActorPushRegister;
 import im.actor.sdk.services.KeepAliveService;
 import im.actor.sdk.util.Devices;
-import im.actor.runtime.android.AndroidContext;
 
 
 public class ActorSDK {
@@ -274,11 +272,11 @@ public class ActorSDK {
 
             //parsers
 
-            for(BaseParser r : rpcParsers){
+            for (BaseParser r : rpcParsers) {
                 builder.addRpcParser(r);
             }
 
-            for(BaseParser u : updateParsers){
+            for (BaseParser u : updateParsers) {
                 builder.addUpdateParser(u);
             }
 

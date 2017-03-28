@@ -6,9 +6,9 @@ package im.actor.core.network.mtp.entity;
 
 import java.io.IOException;
 
+import im.actor.runtime.Log;
 import im.actor.runtime.bser.DataInput;
 import im.actor.runtime.bser.DataOutput;
-import im.actor.runtime.Log;
 
 // Disabling Bounds checks for speeding up calculations
 

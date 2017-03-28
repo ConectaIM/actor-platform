@@ -5,11 +5,9 @@ import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.view.View;
 
+import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorSDKLauncher;
-import im.actor.sdk.R;
-import im.actor.sdk.controllers.Intents;
-import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.view.BaseUrlSpan;
 
 public class MentionSpan extends BaseUrlSpan {

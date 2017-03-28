@@ -7,5 +7,6 @@ import im.actor.runtime.storage.PreferencesStorage;
  */
 public interface ClcPreferencesStorage extends PreferencesStorage {
     void setContext(String context);
+
     String getContext();
 }

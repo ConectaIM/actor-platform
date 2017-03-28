@@ -5,7 +5,6 @@ import com.google.gwt.media.client.Audio;
 
 import im.actor.core.js.JsMessenger;
 import im.actor.core.providers.CallsProvider;
-import im.actor.core.viewmodel.CallState;
 
 public class JsCallsProvider implements CallsProvider {
 

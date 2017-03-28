@@ -63,7 +63,6 @@ import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.eventbus.BusSubscriber;
 import im.actor.runtime.eventbus.Event;
-import im.actor.runtime.function.Consumer;
 import im.actor.runtime.function.Function;
 import im.actor.runtime.mvvm.MVVMCollection;
 import im.actor.runtime.promise.Promise;

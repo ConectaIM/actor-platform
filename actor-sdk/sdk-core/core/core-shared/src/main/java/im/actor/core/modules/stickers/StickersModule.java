@@ -6,11 +6,8 @@ package im.actor.core.modules.stickers;
 
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
-import im.actor.core.modules.stickers.StickersActor;
 import im.actor.core.viewmodel.StickersVM;
-import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.actors.Props;
 
 import static im.actor.runtime.actors.ActorSystem.system;
 

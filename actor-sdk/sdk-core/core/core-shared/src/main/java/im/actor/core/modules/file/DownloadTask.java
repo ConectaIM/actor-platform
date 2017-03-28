@@ -5,13 +5,13 @@
 package im.actor.core.modules.file;
 
 import im.actor.core.entity.FileReference;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.ModuleActor;
+import im.actor.core.modules.ModuleContext;
 import im.actor.runtime.HTTP;
 import im.actor.runtime.Log;
 import im.actor.runtime.Storage;
-import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.ActorCancellable;
+import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.files.FileSystemReference;
 import im.actor.runtime.files.OutputFile;
 import im.actor.runtime.http.HTTPError;

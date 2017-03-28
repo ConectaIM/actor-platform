@@ -6,12 +6,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import im.actor.core.entity.SearchEntity;
+import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.adapters.OnItemClickedListener;
-import im.actor.runtime.android.view.BindedListAdapter;
 
 public class SearchAdapter extends BindedListAdapter<SearchEntity, SearchHolder> {
 

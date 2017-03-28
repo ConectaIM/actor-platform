@@ -5,21 +5,22 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import me.leolin.shortcutbadger.ShortcutBadgeException;
-import me.leolin.shortcutbadger.ShortcutBadger;
-import me.leolin.shortcutbadger.util.CloseHelper;
 
 import java.util.Arrays;
 import java.util.List;
 
+import me.leolin.shortcutbadger.ShortcutBadgeException;
+import me.leolin.shortcutbadger.ShortcutBadger;
+import me.leolin.shortcutbadger.util.CloseHelper;
+
 /**
  * @author Leo Lin
- * Deprecated, Samesung devices will use DefaultBadger
+ *         Deprecated, Samesung devices will use DefaultBadger
  */
 @Deprecated
 public class SamsungHomeBadger extends ShortcutBadger {
     private static final String CONTENT_URI = "content://com.sec.badge/apps?notify=true";
-    private static final String[] CONTENT_PROJECTION = new String[]{"_id","class"};
+    private static final String[] CONTENT_PROJECTION = new String[]{"_id", "class"};
 
     public SamsungHomeBadger(Context context) {
         super(context);

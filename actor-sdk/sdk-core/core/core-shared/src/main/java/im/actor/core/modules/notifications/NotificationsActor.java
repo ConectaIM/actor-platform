@@ -7,7 +7,6 @@ package im.actor.core.modules.notifications;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import im.actor.core.PlatformType;
@@ -16,19 +15,17 @@ import im.actor.core.entity.GroupType;
 import im.actor.core.entity.Notification;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
-import im.actor.core.modules.ModuleContext;
 import im.actor.core.events.AppVisibleChanged;
 import im.actor.core.events.PeerChatClosed;
 import im.actor.core.events.PeerChatOpened;
+import im.actor.core.modules.ModuleActor;
+import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.notifications.entity.PendingNotification;
 import im.actor.core.modules.notifications.entity.PendingStorage;
 import im.actor.core.modules.notifications.entity.ReadState;
-import im.actor.core.modules.ModuleActor;
 import im.actor.runtime.Storage;
 import im.actor.runtime.eventbus.Event;
 import im.actor.runtime.storage.SyncKeyValue;
-
-import static im.actor.core.util.JavaUtil.last;
 
 /**
  * Actor that controls all notifications in application

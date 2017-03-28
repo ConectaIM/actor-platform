@@ -8,9 +8,9 @@ import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.sequence.processor.SequenceProcessor;
 import im.actor.core.network.parser.Update;
 import im.actor.runtime.Log;
+import im.actor.runtime.Runtime;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.promise.Promise;
-import im.actor.runtime.Runtime;
 
 public class RawProcessor extends AbsModule implements SequenceProcessor {
 
