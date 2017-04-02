@@ -38,6 +38,7 @@ import im.actor.runtime.Log;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.util.AndroidUtils;
 import im.actor.sdk.util.Screen;
+import im.actor.sdk.view.emoji.EmojiData;
 import im.actor.sdk.view.emoji.keyboard.emoji.smiles.SmilesListener;
 
 public class Emoji {
@@ -219,7 +220,7 @@ public class Emoji {
             }
             Bitmap bitmap = null;
             try {
-                InputStream is = AndroidContext.getContext().getAssets().open("emoji/" + String.format(Locale.US, "v10_emoji%.01fx_%d_%d.png", scale, page, page2));
+                InputStream is = AndroidContext.getContext().getAssets().open("emoji/" + String.format(Locale.US, "v11_emoji%.01fx_%d_%d.png", scale, page, page2));
                 BitmapFactory.Options opts = new BitmapFactory.Options();
                 opts.inJustDecodeBounds = false;
                 opts.inSampleSize = imageResize;

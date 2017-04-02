@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
@@ -99,7 +100,7 @@ public class EmojiView extends FrameLayout {
         return code;
     }
 
-    private class ImageViewEmoji extends ImageView {
+    private class ImageViewEmoji extends AppCompatImageView {
 
         private boolean touched;
         private float lastX;
@@ -678,7 +679,7 @@ public class EmojiView extends FrameLayout {
         FrameLayout frameLayout = new FrameLayout(context);
         emojiTab.addView(frameLayout, LayoutHelper.createLinear(52, 48));
 
-        backspaceButton = new ImageView(context) {
+        backspaceButton = new AppCompatImageView(context) {
             @Override
             public boolean onTouchEvent(MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
