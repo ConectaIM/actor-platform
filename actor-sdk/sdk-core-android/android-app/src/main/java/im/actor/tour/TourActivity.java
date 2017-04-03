@@ -13,8 +13,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import im.actor.develop.R;
 import im.actor.sdk.ActorSDK;
-import im.actor.sdk.R;
 import im.actor.sdk.controllers.auth.AuthActivity;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.util.Fonts;
