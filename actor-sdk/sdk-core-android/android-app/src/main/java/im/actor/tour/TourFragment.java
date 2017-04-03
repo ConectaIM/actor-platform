@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import im.actor.develop.R;
 import im.actor.sdk.ActorSDK;
-import im.actor.sdk.R;
 import im.actor.sdk.util.Fonts;
 
 /**
