@@ -87,18 +87,18 @@ private[group] trait InfoCommandHandlers {
         val memberIds = newState.memberIds
 
         val updateNew = UpdateGroupTitleChanged(groupId, title)
-        val updateObsolete = UpdateGroupTitleChangedObsolete(
-          groupId,
-          userId = cmd.clientUserId,
-          title = title,
-          date = dateMillis,
-          randomId = cmd.randomId
-        )
+//        val updateObsolete = UpdateGroupTitleChangedObsolete(
+//          groupId,
+//          userId = cmd.clientUserId,
+//          title = title,
+//          date = dateMillis,
+//          randomId = cmd.randomId
+//        )
         val serviceMessage = GroupServiceMessages.changedTitle(title)
         val pushRules = seqUpdExt.pushRules(isFat = false, Some(PushTexts.titleChanged(newState.groupType)))
 
         //TODO: remove deprecated
-        db.run(GroupRepo.updateTitle(groupId, title, cmd.clientUserId, cmd.randomId, date = evt.ts): @silent)
+        //db.run(GroupRepo.updateTitle(groupId, title, cmd.clientUserId, cmd.randomId, date = evt.ts): @silent)
 
         val result: Future[SeqStateDate] = for {
 
@@ -106,13 +106,13 @@ private[group] trait InfoCommandHandlers {
           // Groups V1 API updates //
           ///////////////////////////
 
-          _ ← seqUpdExt.broadcastClientUpdate(
-            cmd.clientUserId,
-            cmd.clientAuthId,
-            memberIds - cmd.clientUserId,
-            updateObsolete,
-            pushRules
-          )
+//          _ ← seqUpdExt.broadcastClientUpdate(
+//            cmd.clientUserId,
+//            cmd.clientAuthId,
+//            memberIds - cmd.clientUserId,
+//            updateObsolete,
+//            pushRules
+//          )
 
           ///////////////////////////
           // Groups V2 API updates //
