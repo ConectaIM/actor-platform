@@ -4,12 +4,13 @@ import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.analyzers._
 
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 
 trait ElasticSearchIndexer {
 
   val client: ElasticClient
   val indexName: String
+  implicit val ec: ExecutionContext
 
   def create(): Future[Unit] = {
     for {

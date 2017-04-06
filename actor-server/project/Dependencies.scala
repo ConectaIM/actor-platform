@@ -41,6 +41,7 @@ object Dependencies {
     val autolink                = "org.nibor.autolink"            %  "autolink"                      % "0.6.0"
 //    val elastic4sCirce          = "com.sksamuel.elastic4s"        %% "elastic4s-circe"               % V.elastic4s
     val elastic4sCore           = "com.sksamuel.elastic4s"        %% "elastic4s-core"                % V.elastic4s
+    val languageDetector        = "com.optimaize.languagedetector" % "language-detector"             % "0.6"
 
     val sprayClient             = "io.spray"                      %% "spray-client"                  % "1.3.3"
     val sprayWebsocket          = "com.wandoulabs.akka"           %% "spray-websocket"               % "0.1.4"
@@ -187,7 +188,8 @@ object Dependencies {
   val search = shared ++ Seq(
     autolink,
 //    elastic4sCirce,
-    elastic4sCore
+    elastic4sCore,
+    languageDetector
   )
 
   val session = shared ++ Seq(

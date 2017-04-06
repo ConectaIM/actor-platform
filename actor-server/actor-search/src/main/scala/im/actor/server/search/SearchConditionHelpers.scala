@@ -20,7 +20,7 @@ import im.actor.server.search.SearchErrors.SearchError
 import im.actor.server.search.index.IndexedMessage
 import im.actor.util.log.AnyRefLogSource
 import org.elasticsearch.index.query.MatchQueryBuilder
-import org.elasticsearch.index.query.MultiMatchQueryBuilder.Type.{ BEST_FIELDS, PHRASE }
+import org.elasticsearch.index.query.MultiMatchQueryBuilder.Type.BEST_FIELDS
 import org.elasticsearch.search.sort.SortOrder.DESC
 import slick.driver.PostgresDriver.api._
 
@@ -65,25 +65,24 @@ trait SearchConditionHelpers extends PeersImplicits
   }
 
   private def messagesSearch(cond: ApiSearchCondition, optTs: Option[Long], clientId: Int, clientAuthId: Long, langFields: Vector[String]): Future[ResponseMessageSearchResponse] = {
-    val filters = optTs match {
-      case Some(ts) ⇒
-        bool(
-          must(
-            userQuery(clientId),
-            rangeQuery("ts").lte(ts)
-          )
+    val filters = optTs.fold(userQuery(clientId)) { ts ⇒
+      bool(
+        must(
+          userQuery(clientId),
+          rangeQuery("ts").lte(ts.toDouble)
         )
-      case None ⇒ userQuery(clientId)
+      )
     }
+
     val messageQuery = searchCondition(cond, clientId)(clientExt.searchQueryConfig, langFields) match {
-      case Left(qry)  ⇒
-
-
-        filteredQuery query qry filter filters
-      case Right(flt) ⇒ filteredQuery filter and(flt, filters)
+      case Left(qry) ⇒
+        must(qry).filter(filters)
+      case Right(flt) ⇒
+        filter(flt, filters)
     }
+
     val searchQuery =
-      search in clientExt.indexName / "messages" query messageQuery sort (
+      search in clientExt.indexerConfig.indexName / "messages" query messageQuery sort (
         scoreSort order DESC,
         field sort "ts" order DESC
       ) size 30
@@ -91,23 +90,7 @@ trait SearchConditionHelpers extends PeersImplicits
     for {
       searchResp ← clientExt.client execute searchQuery
       _ = log.debug("Search request: {}, response: {}", cond, searchResp)
-      (optLastTs, searchItems) = (searchResp.as[Message] foldLeft Option.empty[Long] → Future.successful(Vector.empty[ApiMessageSearchItem])) {
-        case ((_, messFu), mess) ⇒
-          log.debug("Parsed messages from search: {}", mess)
-          val searchResults = for {
-            messages ← messFu
-            optItem ← db.run(HistoryMessageRepo.findBySender(mess.senderId, mess.peer, mess.randomId).headOption) map { optHm ⇒
-              for {
-                hm ← optHm
-                message ← Xor.fromEither(parseMessage(hm.messageContentData)).toOption
-              } yield apiSearchItem(mess, message)
-            }
-          } yield optItem match {
-            case Some(item) ⇒ messages :+ item
-            case None       ⇒ messages
-          }
-          Some(mess.ts) → searchResults
-      }
+      (optLastTs, searchItems) = extractMessages(searchResp.as[IndexedMessage])
       found ← searchItems
       (groupIds, userIds) = found.view.map(_.result.peer).foldLeft(Vector.empty[Int], Vector.empty[Int]) {
         case ((gids, uids), ApiPeer(pt, pid)) ⇒
@@ -118,7 +101,28 @@ trait SearchConditionHelpers extends PeersImplicits
       }
       (groups, users) ← GroupUtils.getGroupsUsers(groupIds, userIds, clientId, clientAuthId)
       optLoadMore = optLastTs map { lastTs ⇒ LoadMoreState(lastTs, ByteString.copyFrom(cond.toByteArray), langFields).toByteArray }
-    } yield ResponseMessageSearchResponse(found, users.toVector, groups.toVector, optLoadMore)
+    } yield ResponseMessageSearchResponse(found, users.toVector, groups.toVector, optLoadMore, Vector.empty, Vector.empty)
+  }
+
+  private def extractMessages(messages: Array[IndexedMessage]) = {
+    val acc = Option.empty[Long] → Future.successful(Vector.empty[ApiMessageSearchItem])
+    (messages foldLeft acc) {
+      case ((_, messFu), mess) ⇒
+        log.debug("Parsed messages from search: {}", mess)
+        val searchResults = for {
+          messages ← messFu
+          optItem ← db.run(HistoryMessageRepo.findBySender(mess.senderId, mess.peer, mess.randomId).headOption) map { optHm ⇒
+            for {
+              hm ← optHm
+              message ← Xor.fromEither(parseMessage(hm.messageContentData)).toOption
+            } yield apiSearchItem(mess, message)
+          }
+        } yield optItem match {
+          case Some(item) ⇒ messages :+ item
+          case None       ⇒ messages
+        }
+        Some(mess.ts) → searchResults
+    }
   }
 
   private def apiSearchItem(mess: IndexedMessage, apiMess: ApiMessage) =
@@ -144,74 +148,70 @@ trait SearchConditionHelpers extends PeersImplicits
       termQuery("isPublic", true)
     )
 
-  private def searchCondition(searchCondition: ApiSearchCondition, clientId: Int)(implicit config: SearchQueryConfig, langFields: Vector[String]): Either[QueryDefinition, FilterDefinition] = searchCondition match {
-    case ApiSearchPeerCondition(apiPeer) ⇒
-      val peer = apiPeer.asModel
-      val peerFilter = peer match {
-        case Peer(Group, groupId) ⇒
-          and(
-            termFilter("peerType", Group.value),
-            termFilter("peerId", peer.id)
-          )
-        case Peer(Private, peerUserId) ⇒
-          or(
-            and(
-              termFilter("peerType", Private.value),
-              termFilter("peerId", peerUserId),
-              termFilter("users", clientId)
-            ),
-            and(
-              termFilter("peerType", Private.value),
-              termFilter("peerId", clientId),
-              termFilter("users", peerUserId)
+  private def searchCondition(searchCondition: ApiSearchCondition, clientId: Int)(implicit config: SearchQueryConfig, langFields: Vector[String]): Either[QueryDefinition, QueryDefinition] =
+    searchCondition match {
+      case ApiSearchPeerCondition(apiPeer) ⇒
+        val peer = apiPeer.asModel
+        val peerFilter = peer match {
+          case Peer(Group, groupId) ⇒
+            must(
+              termQuery("peerType", Group.value),
+              termQuery("peerId", peer.id)
             )
-          )
-      }
-      Right(peerFilter)
-    case ApiSearchPieceText(text) ⇒
-      val contentFields = (langFields map (l ⇒ s"content.$l")) :+ "content.raw"
-      Left(bool(
-        //        should(
-        must(
-          multiMatchQuery(text)
-            fields contentFields
-            matchType BEST_FIELDS
-            cutoffFrequency 2.0 //config.cutoffFrequency
-            operator MatchQueryBuilder.Operator.AND
-            minimumShouldMatch config.minContentMatch
-        ) should (matchPhraseQuery("content", text) slop config.sloppiness)
-      //          ,must(text.split(" ").filter(_.nonEmpty) map { w ⇒ should(prefixQuery("content.raw", w)) })
-      //        )
-      ))
-    case ApiSearchSenderIdConfition(senderId) ⇒
-      Right(termFilter("senderId", senderId))
-    case ApiSearchPeerContentType(ct) ⇒
-      Right(termFilter("contentType", ct.id))
-    case ApiSearchAndCondition(conds) ⇒
-      val (qs, fs) = splitQueriesAndFilters(conds, clientId)
-      Left(filteredQuery query {
-        must(qs)
-      } filter {
-        and(fs)
-      })
-    case ApiSearchOrCondition(conds) ⇒
-      val (qs, fs) = splitQueriesAndFilters(conds, clientId)
-      Left(filteredQuery query {
-        should(qs :+ matchAllQuery)
-      } filter {
-        or(fs)
-      })
-    case ApiSearchPeerTypeCondition(_) ⇒
-      Left(matchAllQuery)
-  }
+          case Peer(Private, peerUserId) ⇒
+            should(
+              must(
+                termQuery("peerType", Private.value),
+                termQuery("peerId", peerUserId),
+                termQuery("users", clientId)
+              ),
+              must(
+                termQuery("peerType", Private.value),
+                termQuery("peerId", clientId),
+                termQuery("users", peerUserId)
+              )
+            )
+        }
+        Right(peerFilter)
+      case ApiSearchPieceText(text) ⇒
+        val contentFields = (langFields map (l ⇒ s"content.$l")) :+ "content.raw"
+        Left(bool(
+          //        should(
+          must(
+            multiMatchQuery(text)
+              fields contentFields
+              matchType BEST_FIELDS
+              cutoffFrequency 2.0 //config.cutoffFrequency
+              operator MatchQueryBuilder.Operator.AND
+              minimumShouldMatch config.minContentMatch
+          ) should (matchPhraseQuery("content", text) slop config.sloppiness)
+        //          ,must(text.split(" ").filter(_.nonEmpty) map { w ⇒ should(prefixQuery("content.raw", w)) })
+        //        )
+        ))
+      case ApiSearchSenderIdConfition(senderId) ⇒
+        Right(termQuery("senderId", senderId))
+      case ApiSearchPeerContentType(ct) ⇒
+        Right(termQuery("contentType", ct.id))
+      case ApiSearchAndCondition(conds) ⇒
+        val (qs, fs) = splitQueriesAndFilters(conds, clientId)
+        Left(must(qs).filter(fs))
+      case ApiSearchOrCondition(conds) ⇒
+        val (qs, fs) = splitQueriesAndFilters(conds, clientId)
+        Left(should(qs :+ matchAllQuery).filter(fs))
+      case ApiSearchPeerTypeCondition(_) ⇒
+        Left(matchAllQuery)
+    }
 
-  private def splitQueriesAndFilters(conds: IndexedSeq[ApiSearchCondition], clientId: Int)(implicit config: SearchQueryConfig, langFields: Vector[String]): (Vector[QueryDefinition], Vector[FilterDefinition]) =
-    (conds foldLeft Vector.empty[QueryDefinition] → Vector.empty[FilterDefinition]) { (acc, el) ⇒
+  // queries - first, filters - second
+  private def splitQueriesAndFilters(conds: IndexedSeq[ApiSearchCondition], clientId: Int)(implicit config: SearchQueryConfig, langFields: Vector[String]): (Vector[QueryDefinition], Vector[QueryDefinition]) = {
+    val acc = Vector.empty[QueryDefinition] → Vector.empty[QueryDefinition]
+    (conds foldLeft acc) { (acc, el) ⇒
       searchCondition(el, clientId) match {
         case Left(query)   ⇒ acc.copy(_1 = acc._1 :+ query)
         case Right(filter) ⇒ acc.copy(_2 = acc._2 :+ filter)
       }
     }
+  }
 
   private def validateCondition(cond: ApiSearchCondition): String Xor Unit = {
     def validateSubConds(subconds: IndexedSeq[ApiSearchCondition]) =

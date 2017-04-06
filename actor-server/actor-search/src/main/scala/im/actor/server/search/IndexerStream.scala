@@ -16,7 +16,7 @@ import im.actor.server.persist.HistoryMessageRepo
 import im.actor.server.search.index.{ ContentType, ElasticSearchIndexer, IndexedMessage }
 import org.joda.time.DateTime
 
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 
@@ -25,7 +25,7 @@ object IndexerStream {
 }
 
 final class IndexerStream(val client: ElasticClient, val indexName: String)(implicit system: ActorSystem, mat: Materializer) extends MessageParsing with ElasticSearchIndexer {
-  import system.dispatcher
+  implicit val ec: ExecutionContext = system.dispatcher
 
   private val log = Logging(system, getClass)
 
@@ -70,6 +70,7 @@ final class IndexerStream(val client: ElasticClient, val indexName: String)(impl
               }).toVector
             case ApiDocumentMessage(_, _, _, name, _, _, _) ⇒
               Vector(toIndex(ContentType.Document, name, userIds)) // TODO: take real content type from extension
+            case _ ⇒ Vector.empty // ???
           }
       }
       .groupedWithin(1000, 1.second)

@@ -1,6 +1,9 @@
 package im.actor.server.search.index
 
+import com.sksamuel.elastic4s.source.Indexable
+import com.sksamuel.elastic4s.{ HitAs, RichSearchHit }
 import im.actor.server.model.Peer
+import play.api.libs.json.Json
 
 sealed trait ContentType
 
@@ -24,6 +27,29 @@ object ContentType {
     case 4 ⇒ Photo
   }
 
+}
+
+object IndexedMessage {
+  import io.circe._
+  import io.circe.syntax._
+  import io.circe.parser
+  import io.circe.generic.auto._
+
+  implicit val contentTypeEncoder: Encoder[ContentType] = Encoder.instance { ct ⇒ ContentType.toInt(ct).asJson }
+  implicit val contentTypeDecoder: Decoder[ContentType] = Decoder.instance { cursor ⇒ cursor.as[Int].map(ContentType.fromInt) }
+
+  implicit val messageHitAs: HitAs[IndexedMessage] = new HitAs[IndexedMessage] {
+    override def as(hit: RichSearchHit): IndexedMessage = {
+      parser.decode[IndexedMessage](hit.sourceAsString).fold(
+        err ⇒ sys.error("Failed to parse response from elasticsearch, cause: " + err),
+        mess ⇒ mess
+      )
+    }
+  }
+
+  implicit val messageIndexable = new Indexable[IndexedMessage] {
+    override def json(m: IndexedMessage): String = m.asJson.noSpaces
+  }
 }
 
 final case class IndexedMessage(
