@@ -116,6 +116,8 @@ object UserProcessor {
       11015 → classOf[UserQueries.GetLocalNameResponse],
       11016 → classOf[UserQueries.GetName],
       11017 → classOf[UserQueries.GetNameResponse],
+      11018 → classOf[UserQueries.GetApiFullStruct],
+      11019 → classOf[UserQueries.GetApiFullStructResponse],
 
       12001 → classOf[UserEvents.AuthAdded],
       12002 → classOf[UserEvents.AuthRemoved],
