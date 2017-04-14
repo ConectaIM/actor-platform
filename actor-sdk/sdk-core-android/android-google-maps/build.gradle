@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'com.github.dcendents:android-maven-plugin:1.2'
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
         classpath 'me.tatarka:gradle-retrolambda:3.5.0'
@@ -141,7 +141,7 @@ project.afterEvaluate {
                 mavenDeployer {
 //                    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                    repository(url: "http://104.233.107.117:8081/nexus/content/repositories/snapshots/") {
+                    repository(url: "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/") {
                         authentication(userName: ossrhUsername, password: ossrhPassword)
                     }
 
