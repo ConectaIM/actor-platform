@@ -88,8 +88,8 @@ public class Application extends ActorSDKApplication {
         });
 
 //        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://192.168.1.3:9070"});
-        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://api-mtproto.im.xloto.com.br:9070"});
-//        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://api-mtproto.actor.diegosilva.com.br:443"});
+//        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://api-mtproto.im.xloto.com.br:9070"});
+        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://api-mtproto.actor.diegosilva.com.br:9070"});
         ActorSDK.sharedActor().setAuthType(AuthActivity.AUTH_TYPE_PHONE);
 
         ActorSDK.sharedActor().setStickersEnabled(false);
