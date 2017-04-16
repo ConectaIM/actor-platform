@@ -75,6 +75,7 @@ public class ProfileFragment extends BaseFragment {
 
     private AvatarView avatarView;
     private int uid;
+    private UserVM user;
 
     public ProfileFragment() {
         setRootFragment(true);
@@ -93,7 +94,7 @@ public class ProfileFragment extends BaseFragment {
 
         uid = getArguments().getInt(EXTRA_UID);
 
-        final UserVM user = users().get(uid);
+        user = users().get(uid);
         ArrayList<UserPhone> phones = user.getPhones().get();
         ArrayList<UserEmail> emails = user.getEmails().get();
         String about = user.getAbout().get();
@@ -116,7 +117,7 @@ public class ProfileFragment extends BaseFragment {
 
         avatarView = (AvatarView) res.findViewById(R.id.avatar);
         avatarView.init(Screen.dp(48), 22);
-        avatarView.bind(user.getAvatar().get(), user.getName().get(), user.getId());
+
         avatarView.setOnClickListener(v -> {
             startActivity(ViewAvatarActivity.viewAvatar(user.getId(), getActivity()));
         });
@@ -587,6 +588,7 @@ public class ProfileFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         messenger().onProfileOpen(uid);
+        bind(avatarView, user.getId(), user.getAvatar(), user.getName());
     }
 
     @Override
