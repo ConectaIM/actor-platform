@@ -95,7 +95,6 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                 .getGlobalCounter()
                 .subscribe((val, valueModel) -> {
                     if (val != null) {
-                        //ShortcutBadger.with(AndroidContext.getContext()).count(val);
                         ShortcutBadger.applyCount(AndroidContext.getContext(), val);
                     }
                 });
