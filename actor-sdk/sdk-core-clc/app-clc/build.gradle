@@ -53,7 +53,7 @@ allprojects {
 
 buildscript {
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.3.1'
+		classpath 'com.android.tools.build:gradle:2.3.2'
 		classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
 		classpath 'me.tatarka:gradle-retrolambda:3.5.0'
 	}
