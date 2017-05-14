@@ -522,7 +522,7 @@ public class AttachFragment extends AbsAttachFragment implements MediaPickerCall
 
     @Override
     public void onVideoPicked(String path) {
-        messenger().sendVideo(getPeer(), path);
+        messenger().sendVideo(getPeer(), path, true);
     }
 
     @Override

@@ -102,6 +102,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     compile 'com.android.support:customtabs:25.2.0'
+
+    //Video Compressor
+    compile 'br.com.diegosilva:vclibrary:1.0.03-SNAPSHOT'
+
 }
 
 //

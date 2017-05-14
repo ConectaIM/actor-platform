@@ -28,7 +28,7 @@ public class ImageHelper {
     private static final int JPEG_QUALITY_LOW = 55;
 
     public static void save(Bitmap bitmap, String fileName) throws IOException {
-        save(bitmap, fileName, Bitmap.CompressFormat.JPEG, JPEG_QUALITY_HQ);
+        save(bitmap, fileName, Bitmap.CompressFormat.JPEG, JPEG_QUALITY);
     }
 
     public static byte[] save(Bitmap bitmap) {

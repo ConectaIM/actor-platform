@@ -51,6 +51,8 @@ public class Application extends ActorSDKApplication {
     public void onCreate() {
         MultiDex.install(this);
         super.onCreate();
+
+        System.loadLibrary("vclibrary");
     }
 
     @Override
@@ -76,7 +78,7 @@ public class Application extends ActorSDKApplication {
 
         ActorSDK.sharedActor().setCallsEnabled(true);
 
-        ActorSDK.sharedActor().setAppName("XLoto Mensageiro");
+        ActorSDK.sharedActor().setAppName(getApplicationContext().getString(R.string.app_name));
 
         ActorSDK.sharedActor().setTosUrl("http://actor.im");
         ActorSDK.sharedActor().setPrivacyText("bla bla bla");
@@ -87,7 +89,7 @@ public class Application extends ActorSDKApplication {
                 "canalxloto"
         });
 
-        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://192.168.1.3:9070"});
+        ActorSDK.sharedActor().setEndpoints(new String[]{getApplicationContext().getString(R.string.app_endpoint)});
 //        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://api-mtproto.im.xloto.com.br:9070"});
 //        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://api-mtproto.actor.diegosilva.com.br:9070"});
         ActorSDK.sharedActor().setAuthType(AuthActivity.AUTH_TYPE_PHONE);

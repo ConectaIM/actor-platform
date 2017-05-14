@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">Actor</string>
-    <string name="title_activity_main">MainActivity</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!--<string name="app_name">Actor App</string>-->
+    <!--<string name="title_activity_main">MainActivity</string>-->
+    <!--<string name="hello_world">Hello world!</string>-->
+    <!--<string name="action_settings">Settings</string>-->
 </resources>

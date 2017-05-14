@@ -4,7 +4,7 @@
   -->
 
 <resources>
-    <string name="app_name">优聆</string>
+    <!--<string name="app_name">优聆</string>-->
     <string name="app_locale">Cn</string>
 
     <string name="dialog_ok">确定</string>

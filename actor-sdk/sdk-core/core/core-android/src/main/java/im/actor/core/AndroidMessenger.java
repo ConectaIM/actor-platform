@@ -14,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
@@ -27,6 +28,7 @@ import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import br.com.diegosilva.vo.vclibrary.video.MediaController;
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
 import im.actor.core.entity.Message;
@@ -38,6 +40,7 @@ import im.actor.core.utils.AppStateActor;
 import im.actor.core.utils.GalleryScannerActor;
 import im.actor.core.utils.IOUtils;
 import im.actor.core.utils.ImageHelper;
+import im.actor.core.utils.VideoHelper;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.Command;
 import im.actor.core.viewmodel.GalleryVM;
@@ -51,11 +54,14 @@ import im.actor.runtime.actors.Props;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.runtime.eventbus.EventBus;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
+import im.actor.sdk.ActorSDK;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static im.actor.runtime.actors.ActorSystem.system;
 
 public class AndroidMessenger extends im.actor.core.Messenger {
+
+    private final static String TAG = AndroidMessenger.class.getName();
 
     private final Executor fileDownloader = Executors.newSingleThreadExecutor();
 
@@ -277,7 +283,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
             }
 
         } catch (Throwable t) {
-            t.printStackTrace();
+            Log.e(TAG, t);
         }
     }
 
@@ -286,26 +292,42 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         sendAudio(peer, f.getName(), duration, fullFilePath);
     }
 
-    public void sendVideo(Peer peer, String fullFilePath) {
-        sendVideo(peer, fullFilePath, new File(fullFilePath).getName());
+    public void sendVideo(Peer peer, String fullFilePath, boolean deleteOriginal) {
+        sendVideo(peer, fullFilePath, new File(fullFilePath).getName(), deleteOriginal);
     }
 
-    public void sendVideo(Peer peer, String fullFilePath, String fileName) {
+    public void sendVideo(final Peer peer, final String fullFilePath, final String fileName, boolean deleteOriginal) {
         try {
-            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-            retriever.setDataSource(fullFilePath);
-            int duration = (int) (Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) / 1000L);
-            Bitmap img = retriever.getFrameAtTime(0);
-            int width = img.getWidth();
-            int height = img.getHeight();
-            Bitmap smallThumb = ImageHelper.scaleFit(img, 90, 90);
-            byte[] smallThumbData = ImageHelper.save(smallThumb);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
 
-            FastThumb thumb = new FastThumb(smallThumb.getWidth(), smallThumb.getHeight(), smallThumbData);
+                    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 
-            sendVideo(peer, fileName, width, height, duration, thumb, fullFilePath);
+                    retriever.setDataSource(fullFilePath);
+                    int duration = (int) (Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) / 1000L);
+                    Bitmap img = retriever.getFrameAtTime(0);
+                    int width = img.getWidth();
+                    int height = img.getHeight();
+                    Bitmap smallThumb = ImageHelper.scaleFit(img, 90, 90);
+                    byte[] smallThumbData = ImageHelper.save(smallThumb);
+
+                    FastThumb thumb = new FastThumb(smallThumb.getWidth(), smallThumb.getHeight(), smallThumbData);
+
+                    //compress video
+                    String resultFileName = getExternalUploadTempFile("video", "mp4");
+                    File compressedVideo = VideoHelper.compressVideo(fullFilePath, resultFileName, deleteOriginal);
+
+                    //if video was compressed, send, if not, send the original
+                    if(compressedVideo == null){
+                        return;
+                    }
+
+                    sendVideo(peer, compressedVideo.getName(), width, height, duration, thumb, compressedVideo.getAbsolutePath());
+                }
+            }).start();
         } catch (Throwable e) {
-            e.printStackTrace();
+            Log.e(TAG, e);
         }
     }
 
@@ -382,16 +404,12 @@ public class AndroidMessenger extends im.actor.core.Messenger {
             if (!ext.isEmpty() && !fileName.endsWith(ext))
                 fileName += "." + ext;
             if (mimeType.startsWith("video/")) {
-                sendVideo(peer, picturePath, fileName);
-//                            trackVideoSend(peer);
+                sendVideo(peer, picturePath, fileName, false);
             } else if (mimeType.startsWith("image/")) {
                 sendPhoto(peer, picturePath, new File(fileName).getName());
-//                            trackPhotoSend(peer);
             } else {
                 sendDocument(peer, picturePath, new File(fileName).getName());
-//                            trackDocumentSend(peer);
             }
-
             callback.onResult(true);
         });
     }
@@ -436,7 +454,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         }
         String externalPath = externalFile.getAbsolutePath();
 
-        File dest = new File(externalPath + "/actor/tmp/");
+        File dest = new File(externalPath + "/"+ActorSDK.sharedActor().getAppName()+"/tmp/");
         dest.mkdirs();
 
         File outputFile = new File(dest, prefix + "_" + random.nextLong() + "." + postfix);
@@ -451,7 +469,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         }
         String externalPath = externalFile.getAbsolutePath();
 
-        File dest = new File(externalPath + "/actor/upload_tmp/");
+        File dest = new File(externalPath + "/"+ActorSDK.sharedActor().getAppName()+"/upload_tmp/");
         dest.mkdirs();
 
         File outputFile = new File(dest, prefix + "_" + random.nextLong() + "." + postfix);
@@ -465,7 +483,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         }
         String externalPath = externalFile.getAbsolutePath();
 
-        File dest = new File(externalPath + "/actor/tmp/");
+        File dest = new File(externalPath + "/"+ActorSDK.sharedActor().getAppName()+"/tmp/");
         dest.mkdirs();
 
         File outputFile = new File(dest, prefix + "_" + random.nextLong() + "." + postfix);
