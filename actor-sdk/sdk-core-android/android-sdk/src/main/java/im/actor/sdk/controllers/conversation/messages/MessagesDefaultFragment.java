@@ -20,6 +20,7 @@ import im.actor.core.entity.content.TextContent;
 import im.actor.core.entity.content.UnsupportedContent;
 import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.UserVM;
+import im.actor.runtime.Log;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
@@ -31,6 +32,8 @@ import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 import static im.actor.sdk.util.ActorSDKMessenger.users;
 
 public class MessagesDefaultFragment extends MessagesFragment {
+
+    private static final String TAG = MessagesDefaultFragment.class.getName();
 
     public static MessagesDefaultFragment create(Peer peer) {
         MessagesDefaultFragment res = new MessagesDefaultFragment();
@@ -226,7 +229,7 @@ public class MessagesDefaultFragment extends MessagesFragment {
                                 try {
                                     i.putExtra(Intents.EXTRA_FORWARD_CONTENT, AbsContent.serialize(fileMessage));
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Log.e(TAG, e);
                                 }
                             }
                         } else {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import im.actor.develop.R;
 import im.actor.sdk.controllers.dialogs.DialogsDefaultFragment;
 import im.actor.sdk.controllers.BaseFragment;
 import im.actor.sdk.controllers.placeholder.GlobalPlaceholderFragment;
@@ -19,7 +20,7 @@ public class CustomRootFragment extends BaseFragment implements GlobalSearchStat
     public CustomRootFragment() {
         setRootFragment(true);
         setUnbindOnPause(true);
-        setTitle(im.actor.sdk.R.string.app_name);
+        setTitle(R.string.app_name);
     }
 
     @Nullable
@@ -82,7 +83,7 @@ public class CustomRootFragment extends BaseFragment implements GlobalSearchStat
         DialogsDefaultFragment res = new DialogsDefaultFragment();
         res.setRootFragment(true);
         res.setHasOptionsMenu(false);
-        res.setTitle(im.actor.sdk.R.string.app_name);
+        res.setTitle(R.string.app_name);
         return res;
     }
 

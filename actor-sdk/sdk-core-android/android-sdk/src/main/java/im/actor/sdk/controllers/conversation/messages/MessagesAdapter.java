@@ -156,9 +156,7 @@ public class MessagesAdapter extends BindedListAdapter<Message, AbsMessageViewHo
     public int getItemViewType(int position) {
         AbsContent content = getItem(position).getContent();
         return matcher.getMatchId(content);
-
     }
-
 
     @Override
     public AbsMessageViewHolder onCreateViewHolder(final ViewGroup viewGroup, int viewType) {

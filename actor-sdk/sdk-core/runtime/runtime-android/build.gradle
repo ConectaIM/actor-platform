@@ -51,4 +51,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.0.0'
     compile 'com.squareup.okhttp:okhttp:2+'
     compile 'io.pristine:libjingle:11139@aar'
+
+    //Video Compressor
+    compile 'br.com.diegosilva:vclibrary:1.0.06-SNAPSHOT'
+
 }

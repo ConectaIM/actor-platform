@@ -893,8 +893,10 @@ public class Messenger {
      */
     @ObjectiveCName("sendVideoWithPeer:withName:withW:withH:withDuration:withThumb:withDescriptor:")
     public void sendVideo(Peer peer, String fileName, int w, int h, int duration,
-                          FastThumb fastThumb, String descriptor) {
-        modules.getMessagesModule().sendVideo(peer, fileName, w, h, duration, fastThumb, descriptor);
+                          FastThumb fastThumb, String descriptor,
+                          String compressedVideoPath, boolean removeOriginal) {
+        modules.getMessagesModule().sendVideo(peer, fileName, w, h, duration, fastThumb, descriptor,
+                compressedVideoPath, removeOriginal);
     }
 
     /**

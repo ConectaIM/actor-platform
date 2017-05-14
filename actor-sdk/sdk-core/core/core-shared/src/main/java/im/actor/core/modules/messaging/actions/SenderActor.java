@@ -28,6 +28,7 @@ import im.actor.core.api.base.SeqUpdate;
 import im.actor.core.api.rpc.RequestSendMessage;
 import im.actor.core.api.rpc.ResponseSeqDate;
 import im.actor.core.api.updates.UpdateMessageSent;
+import im.actor.core.entity.CompressedVideo;
 import im.actor.core.entity.FileReference;
 import im.actor.core.entity.Group;
 import im.actor.core.entity.GroupMember;
@@ -62,6 +63,7 @@ import im.actor.core.network.RpcException;
 import im.actor.core.util.RandomUtils;
 import im.actor.runtime.Runtime;
 import im.actor.runtime.Storage;
+import im.actor.runtime.VideoCompressorRuntimeProvider;
 import im.actor.runtime.power.WakeLock;
 
 /*-[
@@ -76,6 +78,8 @@ public class SenderActor extends ModuleActor {
 
     private long lastSendDate = 0;
     private HashMap<Long, WakeLock> fileUplaodingWakeLocks = new HashMap<>();
+
+    private VideoCompressorRuntimeProvider videoCompressorRuntime = new VideoCompressorRuntimeProvider();
 
     public SenderActor(ModuleContext context) {
         super(context);
@@ -321,7 +325,8 @@ public class SenderActor extends ModuleActor {
     }
 
     public void doSendVideo(Peer peer, String fileName, int w, int h, int duration,
-                            FastThumb fastThumb, String descriptor, int fileSize) {
+                            FastThumb fastThumb, String descriptor, int fileSize,
+                            String compressedVideoPath, boolean removeOriginal) {
         long rid = RandomUtils.nextRid();
         long date = createPendingDate();
         long sortDate = date + 365 * 24 * 60 * 60 * 1000L;
@@ -334,7 +339,14 @@ public class SenderActor extends ModuleActor {
         pendingMessages.getPendingMessages().add(new PendingMessage(peer, rid, videoContent));
         savePending();
 
-        performUploadFile(rid, descriptor, fileName);
+
+        CompressedVideo cv = videoCompressorRuntime.compressVideo(descriptor, compressedVideoPath, removeOriginal);
+
+        if(cv != null){
+            performUploadFile(rid, cv.getFilePath(), cv.getFileName());
+        }else{
+            performUploadFile(rid, descriptor, fileName);
+        }
     }
 
     public void doSendAnimation(Peer peer, String fileName, int w, int h,
@@ -559,7 +571,8 @@ public class SenderActor extends ModuleActor {
             SendVideo sendVideo = (SendVideo) message;
             doSendVideo(sendVideo.getPeer(), sendVideo.getFileName(),
                     sendVideo.getW(), sendVideo.getH(), sendVideo.getDuration(),
-                    sendVideo.getFastThumb(), sendVideo.getDescriptor(), sendVideo.getFileSize());
+                    sendVideo.getFastThumb(), sendVideo.getDescriptor(), sendVideo.getFileSize(),
+                    sendVideo.compressedVideoPath, sendVideo.removeOriginal);
         } else if (message instanceof SendAudio) {
             SendAudio sendAudio = (SendAudio) message;
             doSendAudio(sendAudio.getPeer(), sendAudio.getDescriptor(), sendAudio.getFileName(),
@@ -760,8 +773,12 @@ public class SenderActor extends ModuleActor {
         private String descriptor;
         private int fileSize;
 
+        private String compressedVideoPath;
+        private boolean removeOriginal;
+
         public SendVideo(Peer peer, String fileName, int w, int h, int duration,
-                         FastThumb fastThumb, String descriptor, int fileSize) {
+                         FastThumb fastThumb, String descriptor, int fileSize,
+                         String compressedVideoPath, boolean removeOriginal) {
             this.peer = peer;
             this.fileName = fileName;
             this.w = w;
@@ -770,6 +787,8 @@ public class SenderActor extends ModuleActor {
             this.fastThumb = fastThumb;
             this.descriptor = descriptor;
             this.fileSize = fileSize;
+            this.compressedVideoPath = compressedVideoPath;
+            this.removeOriginal = removeOriginal;
         }
 
         public Peer getPeer() {
@@ -802,6 +821,14 @@ public class SenderActor extends ModuleActor {
 
         public int getFileSize() {
             return fileSize;
+        }
+
+        public String getCompressedVideoPath() {
+            return compressedVideoPath;
+        }
+
+        public boolean isRemoveOriginal() {
+            return removeOriginal;
         }
     }
 

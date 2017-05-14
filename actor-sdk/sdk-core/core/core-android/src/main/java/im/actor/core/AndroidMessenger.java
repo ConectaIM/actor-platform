@@ -28,7 +28,6 @@ import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import br.com.diegosilva.vo.vclibrary.video.MediaController;
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
 import im.actor.core.entity.Message;
@@ -40,7 +39,6 @@ import im.actor.core.utils.AppStateActor;
 import im.actor.core.utils.GalleryScannerActor;
 import im.actor.core.utils.IOUtils;
 import im.actor.core.utils.ImageHelper;
-import im.actor.core.utils.VideoHelper;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.Command;
 import im.actor.core.viewmodel.GalleryVM;
@@ -302,6 +300,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                 @Override
                 public void run() {
 
+
                     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 
                     retriever.setDataSource(fullFilePath);
@@ -314,16 +313,9 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
                     FastThumb thumb = new FastThumb(smallThumb.getWidth(), smallThumb.getHeight(), smallThumbData);
 
-                    //compress video
-                    String resultFileName = getExternalUploadTempFile("video", "mp4");
-                    File compressedVideo = VideoHelper.compressVideo(fullFilePath, resultFileName, deleteOriginal);
+                    String compressedVideoPath = getExternalUploadTempFile("video", "mp4");
 
-                    //if video was compressed, send, if not, send the original
-                    if(compressedVideo == null){
-                        return;
-                    }
-
-                    sendVideo(peer, compressedVideo.getName(), width, height, duration, thumb, compressedVideo.getAbsolutePath());
+                    sendVideo(peer, fileName, width, height, duration, thumb, fullFilePath, compressedVideoPath, deleteOriginal);
                 }
             }).start();
         } catch (Throwable e) {
