@@ -313,7 +313,6 @@ public class PhotoHolder extends MessageHolder {
                     if (!updated) {
                         previewView.setImageURI(null);
                         Log.d(TAG, "rebind video - setImageURI(null)!");
-
                     }
                     //TODO: better approach?
                     if (fileMessage.getFastThumb() != null && !updated) {

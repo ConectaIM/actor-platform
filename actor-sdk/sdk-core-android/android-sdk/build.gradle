@@ -104,7 +104,7 @@ dependencies {
     compile 'com.android.support:customtabs:25.2.0'
 
     //Video Compressor
-    compile 'br.com.diegosilva:vclibrary:1.0.06-SNAPSHOT'
+    compile 'br.com.diegosilva:vclibrary:1.0.07-SNAPSHOT'
 
 }
 

@@ -371,6 +371,11 @@ public class SenderActor extends ModuleActor {
         context().getFilesModule().requestUpload(rid, descriptor, fileName, self());
     }
 
+    private void performCompressVideo(long rid, String descriptor, String fileName) {
+        fileUplaodingWakeLocks.put(rid, Runtime.makeWakeLock());
+        context().getFilesModule().requestUpload(rid, descriptor, fileName, self());
+    }
+
     private void onFileUploaded(long rid, FileReference fileReference) {
         PendingMessage msg = findPending(rid);
         if (msg == null) {
