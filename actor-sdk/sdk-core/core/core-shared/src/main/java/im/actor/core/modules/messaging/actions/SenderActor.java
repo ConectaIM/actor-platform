@@ -55,6 +55,7 @@ import im.actor.core.entity.content.VoiceContent;
 import im.actor.core.entity.content.internal.ContentRemoteContainer;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
+import im.actor.core.modules.file.CompressVideoManager;
 import im.actor.core.modules.file.UploadManager;
 import im.actor.core.modules.messaging.actions.entity.PendingMessage;
 import im.actor.core.modules.messaging.actions.entity.PendingMessagesStorage;
@@ -78,8 +79,6 @@ public class SenderActor extends ModuleActor {
 
     private long lastSendDate = 0;
     private HashMap<Long, WakeLock> fileUplaodingWakeLocks = new HashMap<>();
-
-    private VideoCompressorRuntimeProvider videoCompressorRuntime = new VideoCompressorRuntimeProvider();
 
     public SenderActor(ModuleContext context) {
         super(context);
@@ -339,14 +338,9 @@ public class SenderActor extends ModuleActor {
         pendingMessages.getPendingMessages().add(new PendingMessage(peer, rid, videoContent));
         savePending();
 
+        performCompressVideo(rid, descriptor, compressedVideoPath, removeOriginal);
 
-        CompressedVideo cv = videoCompressorRuntime.compressVideo(descriptor, compressedVideoPath, removeOriginal);
-
-        if(cv != null){
-            performUploadFile(rid, cv.getFilePath(), cv.getFileName());
-        }else{
-            performUploadFile(rid, descriptor, fileName);
-        }
+        //performUploadFile(rid, descriptor, fileName);
     }
 
     public void doSendAnimation(Peer peer, String fileName, int w, int h,
@@ -371,9 +365,9 @@ public class SenderActor extends ModuleActor {
         context().getFilesModule().requestUpload(rid, descriptor, fileName, self());
     }
 
-    private void performCompressVideo(long rid, String descriptor, String fileName) {
+    private void performCompressVideo(long rid, String descriptor, String compressedVideoPath, boolean removeOriginal) {
         fileUplaodingWakeLocks.put(rid, Runtime.makeWakeLock());
-        context().getFilesModule().requestUpload(rid, descriptor, fileName, self());
+        context().getFilesModule().requestCompressVideo(rid, descriptor, compressedVideoPath, removeOriginal, self());
     }
 
     private void onFileUploaded(long rid, FileReference fileReference) {
@@ -602,6 +596,12 @@ public class SenderActor extends ModuleActor {
             doSendAnimation(animation.getPeer(), animation.getFileName(),
                     animation.getW(), animation.getH(), animation.getFastThumb(), animation.getDescriptor(),
                     animation.getFileSize());
+        } else if(message instanceof CompressVideoManager.CompressionCompleted){
+            CompressVideoManager.CompressionCompleted compressionCompleted = (CompressVideoManager.CompressionCompleted) message;
+
+        } else if(message instanceof CompressVideoManager.CompressionFailed){
+            CompressVideoManager.CompressionFailed compressionCompleted = (CompressVideoManager.CompressionFailed) message;
+
         } else {
             super.onReceive(message);
         }

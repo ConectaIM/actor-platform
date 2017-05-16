@@ -1,5 +1,6 @@
 package im.actor.core.modules.file;
 
+import im.actor.core.entity.CompressedVideo;
 import im.actor.core.modules.ModuleActor;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import im.actor.core.modules.file.entity.Downloaded;
 import im.actor.core.util.RandomUtils;
 import im.actor.core.viewmodel.UploadFileCallback;
 import im.actor.runtime.Log;
+import im.actor.runtime.VideoCompressorRuntimeProvider;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.Props;
 import im.actor.runtime.actors.messages.PoisonPill;
@@ -24,245 +26,66 @@ import im.actor.runtime.files.FileSystemReference;
 public class CompressVideoManager extends ModuleActor {
 
 
+    private VideoCompressorRuntimeProvider videoCompressorRuntime = new VideoCompressorRuntimeProvider();
+
     public CompressVideoManager(ModuleContext context) {
         super(context);
     }
 
     // Tasks
 
-    public void startUpload(long rid, String descriptor, String fileName, ActorRef requestActor) {
+    public void startCompression(long rid, String originalVideoPath, String compressedVideoPath, boolean removeOriginal) {
+        CompressedVideo cv = videoCompressorRuntime.compressVideo(originalVideoPath, compressedVideoPath, removeOriginal);
 
     }
-
-    public void stopUpload(long rid) {
-
-    }
-
-    public void bindUpload(long rid, final UploadFileCallback callback) {
-
-    }
-
-    public void unbindUpload(long rid, UploadFileCallback callback) {
-
-    }
-
-    public void requestState(long rid, final UploadFileCallback callback) {
-
-    }
-
-    public void onUploadTaskError(long rid) {
-
-    }
-
-
-
-    public void onUploadTaskComplete(long rid, FileReference fileReference, FileSystemReference reference) {
-
-    }
-
-    private void checkQueue() {
-
-    }
-
-    private QueueItem findItem(long rid) {
-        for (QueueItem q : queue) {
-            if (q.rid == rid) {
-                return q;
-            }
-        }
-        return null;
-    }
-
-    private class QueueItem {
-        private long rid;
-        private String fileDescriptor;
-        private boolean isStopped;
-        private boolean isStarted;
-        private float progress;
-        private ActorRef taskRef;
-        private ActorRef requestActor;
-        private String fileName;
-
-        private QueueItem(long rid, String fileDescriptor, String fileName, ActorRef requestActor) {
-            this.rid = rid;
-            this.fileDescriptor = fileDescriptor;
-            this.requestActor = requestActor;
-            this.fileName = fileName;
-        }
-    }
-
-    //region Messages
 
     @Override
     public void onReceive(Object message) {
-        if (message instanceof StartUpload) {
-            StartUpload startUpload = (StartUpload) message;
-            startUpload(startUpload.getRid(), startUpload.getFileDescriptor(),
-                    startUpload.getFileName(), sender());
-        } else if (message instanceof StopUpload) {
-            StopUpload cancelUpload = (StopUpload) message;
-            stopUpload(cancelUpload.getRid());
-        } else if (message instanceof UploadTaskError) {
-            UploadTaskError uploadTaskError = (UploadTaskError) message;
-            onUploadTaskError(uploadTaskError.getRid());
-        } else if (message instanceof UploadTaskProgress) {
-            UploadTaskProgress taskProgress = (UploadTaskProgress) message;
-            onUploadTaskProgress(taskProgress.getRid(), taskProgress.getProgress());
-        } else if (message instanceof UploadTaskComplete) {
-            UploadTaskComplete taskComplete = (UploadTaskComplete) message;
-            onUploadTaskComplete(taskComplete.getRid(), taskComplete.getLocation(),
-                    taskComplete.getReference());
-        } else if (message instanceof BindUpload) {
-            BindUpload bindUpload = (BindUpload) message;
-            bindUpload(bindUpload.getRid(), bindUpload.getCallback());
-        } else if (message instanceof UnbindUpload) {
-            UnbindUpload unbindUpload = (UnbindUpload) message;
-            unbindUpload(unbindUpload.getRid(), unbindUpload.getCallback());
-        } else if (message instanceof RequestState) {
-            RequestState requestState = (RequestState) message;
-            requestState(requestState.getRid(), requestState.getCallback());
-        } else if (message instanceof PauseUpload) {
-            PauseUpload pauseUpload = (PauseUpload) message;
-            pauseUpload(pauseUpload.getRid());
-        } else if (message instanceof ResumeUpload) {
-            ResumeUpload resumeUpload = (ResumeUpload) message;
-            resumeUpload(resumeUpload.getRid());
+        if (message instanceof StartCompression) {
+            StartCompression startCompression = (StartCompression) message;
+            startCompression(startCompression.getRid(), startCompression.getOriginalVideoPath(),
+                    startCompression.getCompressedVideoPath(), startCompression.isRemoveOriginal());
         } else {
             super.onReceive(message);
         }
     }
 
-    public static class StartUpload {
+    public static class StartCompression {
         private long rid;
-        private String fileDescriptor;
-        private String fileName;
+        private String originalVideoPath;
+        private String compressedVideoPath;
+        private boolean removeOriginal;
 
-        public StartUpload(long rid, String fileDescriptor, String fileName) {
+        public StartCompression(long rid, String originalVideoPath, String compressedVideoPath, boolean removeOriginal) {
             this.rid = rid;
-            this.fileDescriptor = fileDescriptor;
-            this.fileName = fileName;
+            this.originalVideoPath = originalVideoPath;
+            this.compressedVideoPath = compressedVideoPath;
+            this.removeOriginal = removeOriginal;
         }
 
         public long getRid() {
             return rid;
         }
 
-        public String getFileDescriptor() {
-            return fileDescriptor;
+        public String getOriginalVideoPath() {
+            return originalVideoPath;
         }
 
-        public String getFileName() {
-            return fileName;
-        }
-    }
-
-    public static class BindUpload {
-        private long rid;
-        private UploadFileCallback callback;
-
-        public BindUpload(long rid, UploadFileCallback callback) {
-            this.rid = rid;
-            this.callback = callback;
+        public String getCompressedVideoPath() {
+            return compressedVideoPath;
         }
 
-        public long getRid() {
-            return rid;
-        }
-
-        public UploadFileCallback getCallback() {
-            return callback;
+        public boolean isRemoveOriginal() {
+            return removeOriginal;
         }
     }
 
-    public static class UnbindUpload {
-        private long rid;
-        private UploadFileCallback callback;
 
-        public UnbindUpload(long rid, UploadFileCallback callback) {
-            this.rid = rid;
-            this.callback = callback;
-        }
-
-        public long getRid() {
-            return rid;
-        }
-
-        public UploadFileCallback getCallback() {
-            return callback;
-        }
-    }
-
-    public static class StopUpload {
-        private long rid;
-
-        public StopUpload(long rid) {
-            this.rid = rid;
-        }
-
-        public long getRid() {
-            return rid;
-        }
-    }
-
-    public static class UploadTaskError {
-        private long rid;
-
-        public UploadTaskError(long rid) {
-            this.rid = rid;
-        }
-
-        public long getRid() {
-            return rid;
-        }
-    }
-
-    public static class UploadTaskProgress {
-        private long rid;
-        private float progress;
-
-        public UploadTaskProgress(long rid, float progress) {
-            this.rid = rid;
-            this.progress = progress;
-        }
-
-        public long getRid() {
-            return rid;
-        }
-
-        public float getProgress() {
-            return progress;
-        }
-    }
-
-    public static class UploadTaskComplete {
-        private long rid;
-        private FileReference location;
-        private FileSystemReference reference;
-
-        public UploadTaskComplete(long rid, FileReference location, FileSystemReference reference) {
-            this.rid = rid;
-            this.location = location;
-            this.reference = reference;
-        }
-
-        public long getRid() {
-            return rid;
-        }
-
-        public FileSystemReference getReference() {
-            return reference;
-        }
-
-        public FileReference getLocation() {
-            return location;
-        }
-    }
-
-    public static class UploadCompleted {
+    public static class CompressionCompleted {
         private long rid;
         private FileReference fileReference;
 
-        public UploadCompleted(long rid, FileReference fileReference) {
+        public CompressionCompleted(long rid, FileReference fileReference) {
             this.rid = rid;
             this.fileReference = fileReference;
         }
@@ -276,56 +99,22 @@ public class CompressVideoManager extends ModuleActor {
         }
     }
 
-    public static class UploadError {
+    public static class CompressionFailed {
         private long rid;
+        private FileReference fileReference;
 
-        public UploadError(long rid) {
+        public CompressionFailed(long rid, FileReference fileReference) {
             this.rid = rid;
-        }
-
-        public long getRid() {
-            return rid;
-        }
-    }
-
-    public static class RequestState {
-        private long rid;
-        private UploadFileCallback callback;
-
-        public RequestState(long rid, UploadFileCallback callback) {
-            this.rid = rid;
-            this.callback = callback;
+            this.fileReference = fileReference;
         }
 
         public long getRid() {
             return rid;
         }
 
-        public UploadFileCallback getCallback() {
-            return callback;
+        public FileReference getFileReference() {
+            return fileReference;
         }
     }
 
-    public static class PauseUpload {
-        private long rid;
-
-        public PauseUpload(long rid) {
-            this.rid = rid;
-        }
-
-        public long getRid() {
-            return rid;
-        }
-    }
-
-    public static class ResumeUpload {
-        private long rid;
-
-        public ResumeUpload(long rid) {
-            this.rid = rid;
-        }
-
-        public long getRid() {
-            return rid;
-        }
-    }
+}

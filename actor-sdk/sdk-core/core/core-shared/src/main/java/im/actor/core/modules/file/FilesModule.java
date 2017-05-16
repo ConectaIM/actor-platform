@@ -6,6 +6,7 @@ package im.actor.core.modules.file;
 
 import java.io.IOException;
 
+import im.actor.core.entity.CompressedVideo;
 import im.actor.core.entity.FileReference;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
@@ -28,6 +29,8 @@ public class FilesModule extends AbsModule {
     private ActorRef downloadManager;
     private ActorRef uploadManager;
     private FileUrlInt fileUrlInt;
+
+    private ActorRef compressVideoManager;
 
     public FilesModule(final ModuleContext context) {
         super(context);
@@ -56,6 +59,7 @@ public class FilesModule extends AbsModule {
         }));
         downloadManager = system().actorOf(Props.create(() -> new DownloadManager(context())).changeDispatcher("heavy"), "actor/download/manager");
         uploadManager = system().actorOf(Props.create(() -> new UploadManager(context())).changeDispatcher("heavy"), "actor/upload/manager");
+        compressVideoManager = system().actorOf(Props.create(() -> new CompressVideoManager(context())).changeDispatcher("heavy"), "actor/compressVideo/manager");
     }
 
     public KeyValueEngine<Downloaded> getDownloadedEngine() {
@@ -121,6 +125,10 @@ public class FilesModule extends AbsModule {
 
     public void requestUpload(long rid, String descriptor, String fileName, ActorRef requester) {
         uploadManager.send(new UploadManager.StartUpload(rid, descriptor, fileName), requester);
+    }
+
+    public void requestCompressVideo(long rid, String originalVideoPath, String compressedVideoPath, boolean removeOriginal, ActorRef requester) {
+        compressVideoManager.send(new CompressVideoManager.StartCompression(rid, originalVideoPath, compressedVideoPath, removeOriginal), requester);
     }
 
     public void cancelUpload(long rid) {
