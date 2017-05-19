@@ -38,6 +38,10 @@ android {
             applicationIdSuffix ".avell"
             applicationIdSuffix ".avell"
         }
+        desenv {
+            applicationIdSuffix ".desenv"
+            applicationIdSuffix ".desenv"
+        }
     }
 
     lintOptions {

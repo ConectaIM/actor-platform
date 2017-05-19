@@ -13,6 +13,7 @@ import im.actor.core.modules.file.entity.Downloaded;
 import im.actor.core.util.RandomUtils;
 import im.actor.core.viewmodel.UploadFileCallback;
 import im.actor.runtime.Log;
+import im.actor.runtime.Runtime;
 import im.actor.runtime.VideoCompressorRuntimeProvider;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.Props;
@@ -34,16 +35,20 @@ public class CompressVideoManager extends ModuleActor {
 
     // Tasks
 
-    public void startCompression(long rid, String originalVideoPath, String compressedVideoPath, boolean removeOriginal) {
-        CompressedVideo cv = videoCompressorRuntime.compressVideo(originalVideoPath, compressedVideoPath, removeOriginal);
-
+    public void startCompression(long rid, final String fileName, final String originalVideoPath, final String compressedVideoPath, final boolean removeOriginal) {
+        ActorRef sender = sender();
+        videoCompressorRuntime.compressVideo(originalVideoPath, compressedVideoPath, removeOriginal).then((cv)->{
+            sender.send(new CompressionCompleted(rid, originalVideoPath, fileName));
+        }).failure((ex)->{
+            sender.send(new CompressionFailed(rid, originalVideoPath, fileName));
+        });
     }
 
     @Override
     public void onReceive(Object message) {
         if (message instanceof StartCompression) {
             StartCompression startCompression = (StartCompression) message;
-            startCompression(startCompression.getRid(), startCompression.getOriginalVideoPath(),
+            startCompression(startCompression.getRid(), startCompression.getFileName(), startCompression.getOriginalVideoPath(),
                     startCompression.getCompressedVideoPath(), startCompression.isRemoveOriginal());
         } else {
             super.onReceive(message);
@@ -52,12 +57,14 @@ public class CompressVideoManager extends ModuleActor {
 
     public static class StartCompression {
         private long rid;
+        private String fileName;
         private String originalVideoPath;
         private String compressedVideoPath;
         private boolean removeOriginal;
 
-        public StartCompression(long rid, String originalVideoPath, String compressedVideoPath, boolean removeOriginal) {
+        public StartCompression(long rid, String fileName, String originalVideoPath, String compressedVideoPath, boolean removeOriginal) {
             this.rid = rid;
+            this.fileName = fileName;
             this.originalVideoPath = originalVideoPath;
             this.compressedVideoPath = compressedVideoPath;
             this.removeOriginal = removeOriginal;
@@ -75,45 +82,60 @@ public class CompressVideoManager extends ModuleActor {
             return compressedVideoPath;
         }
 
+        public String getFileName() {
+            return fileName;
+        }
+
         public boolean isRemoveOriginal() {
             return removeOriginal;
         }
     }
 
-
     public static class CompressionCompleted {
         private long rid;
-        private FileReference fileReference;
+        private String filePath;
+        private String fileName;
 
-        public CompressionCompleted(long rid, FileReference fileReference) {
+        public CompressionCompleted(long rid, String filePath, String fileName) {
             this.rid = rid;
-            this.fileReference = fileReference;
+            this.filePath = filePath;
+            this.fileName = fileName;
         }
 
         public long getRid() {
             return rid;
         }
 
-        public FileReference getFileReference() {
-            return fileReference;
+        public String getFilePath() {
+            return filePath;
+        }
+
+        public String getFileName() {
+            return fileName;
         }
     }
 
     public static class CompressionFailed {
         private long rid;
-        private FileReference fileReference;
+        private String filePath;
+        private String fileName;
 
-        public CompressionFailed(long rid, FileReference fileReference) {
+        public CompressionFailed(long rid, String filePath, String fileName) {
             this.rid = rid;
-            this.fileReference = fileReference;
+            this.filePath = filePath;
+            this.fileName = fileName;
         }
 
         public long getRid() {
             return rid;
         }
 
-        public FileReference getFileReference() {
-            return fileReference;
+        public String getFilePath() {
+            return filePath;
+        }
+
+        public String getFileName() {
+            return fileName;
         }
     }
 

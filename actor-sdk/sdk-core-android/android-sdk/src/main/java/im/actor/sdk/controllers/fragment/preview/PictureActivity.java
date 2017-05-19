@@ -54,6 +54,8 @@ import static im.actor.sdk.util.ActorSDKMessenger.users;
 
 public class PictureActivity extends BaseActivity {
 
+    private static final String TAG = PictureActivity.class.getName();
+
     private static final int PERMISSION_REQ_MEDIA = 0;
 
     private static final String ARG_FILE_SIZE = "ARG_FILE_SIZE";
@@ -512,7 +514,7 @@ public class PictureActivity extends BaseActivity {
                     saveMenuItem.setEnabled(false);
                     saveMenuItem.setTitle(R.string.menu_saved);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, e);
                 }
             }
         }

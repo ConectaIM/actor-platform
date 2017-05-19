@@ -15,8 +15,9 @@ import im.actor.core.entity.content.internal.LocalVideo;
 
 public class VideoContent extends DocumentContent {
 
-    public static VideoContent createLocalVideo(String descriptor, String fileName, int fileSize,
-                                                int w, int h, int duration, FastThumb fastThumb) {
+    public static VideoContent createLocalVideoUnCompressed(String descriptor, String fileName, int fileSize,
+                                                            int w, int h, int duration, FastThumb fastThumb,
+                                                            boolean isCompressed) {
         return new VideoContent(new ContentLocalContainer(
                 new LocalVideo(
                         fileName,
@@ -24,7 +25,7 @@ public class VideoContent extends DocumentContent {
                         fileSize,
                         "video/mp4",
                         fastThumb != null ? new LocalFastThumb(fastThumb) : null,
-                        w, h, duration)));
+                        w, h, duration, isCompressed)));
     }
 
     public static VideoContent createRemoteVideo(FileReference reference, int w, int h,
@@ -47,6 +48,7 @@ public class VideoContent extends DocumentContent {
     private int duration;
     private int w;
     private int h;
+    private boolean compressed;
 
     public VideoContent(ContentRemoteContainer contentContainer) {
         super(contentContainer);
@@ -63,6 +65,7 @@ public class VideoContent extends DocumentContent {
         w = localVideo.getW();
         h = localVideo.getH();
         duration = localVideo.getDuration();
+        compressed = localVideo.isCompressed();
     }
 
     public int getDuration() {
@@ -75,5 +78,9 @@ public class VideoContent extends DocumentContent {
 
     public int getH() {
         return h;
+    }
+
+    public boolean isCompressed() {
+        return compressed;
     }
 }

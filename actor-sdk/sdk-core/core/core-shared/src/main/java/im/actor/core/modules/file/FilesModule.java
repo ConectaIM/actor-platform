@@ -12,6 +12,7 @@ import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.file.entity.Downloaded;
 import im.actor.core.util.BaseKeyValueEngine;
+import im.actor.core.viewmodel.CompressVideoCallback;
 import im.actor.core.viewmodel.FileCallback;
 import im.actor.core.viewmodel.FileEventCallback;
 import im.actor.core.viewmodel.UploadFileCallback;
@@ -127,8 +128,16 @@ public class FilesModule extends AbsModule {
         uploadManager.send(new UploadManager.StartUpload(rid, descriptor, fileName), requester);
     }
 
-    public void requestCompressVideo(long rid, String originalVideoPath, String compressedVideoPath, boolean removeOriginal, ActorRef requester) {
-        compressVideoManager.send(new CompressVideoManager.StartCompression(rid, originalVideoPath, compressedVideoPath, removeOriginal), requester);
+    public void bindCompressVideo(long rid, CompressVideoCallback uploadFileCallback) {
+        //uploadManager.send(new UploadManager.BindUpload(rid, uploadFileCallback));
+    }
+
+    public void unbindCompressVideo(long rid, CompressVideoCallback callback) {
+        //uploadManager.send(new UploadManager.UnbindUpload(rid, callback));
+    }
+
+    public void requestCompressVideo(long rid, String fileName, String originalVideoPath, String compressedVideoPath, boolean removeOriginal, ActorRef requester) {
+        compressVideoManager.send(new CompressVideoManager.StartCompression(rid, fileName, originalVideoPath, compressedVideoPath, removeOriginal), requester);
     }
 
     public void cancelUpload(long rid) {

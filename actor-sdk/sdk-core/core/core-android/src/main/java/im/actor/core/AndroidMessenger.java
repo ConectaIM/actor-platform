@@ -44,6 +44,7 @@ import im.actor.core.viewmodel.Command;
 import im.actor.core.viewmodel.GalleryVM;
 import im.actor.runtime.Log;
 import im.actor.runtime.Runtime;
+import im.actor.runtime.VideoCompressorRuntimeProvider;
 import im.actor.runtime.actors.Actor;
 import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.ActorRef;
@@ -52,7 +53,6 @@ import im.actor.runtime.actors.Props;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.runtime.eventbus.EventBus;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
-import im.actor.sdk.ActorSDK;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static im.actor.runtime.actors.ActorSystem.system;
@@ -296,35 +296,29 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
     public void sendVideo(final Peer peer, final String fullFilePath, final String fileName, boolean deleteOriginal) {
         try {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 
+            retriever.setDataSource(fullFilePath);
+            int duration = (int) (Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) / 1000L);
+            Bitmap img = retriever.getFrameAtTime(0);
+            int width = img.getWidth();
+            int height = img.getHeight();
+            Bitmap smallThumb = ImageHelper.scaleFit(img, 90, 90);
+            byte[] smallThumbData = ImageHelper.save(smallThumb);
 
-                    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            FastThumb thumb = new FastThumb(smallThumb.getWidth(), smallThumb.getHeight(), smallThumbData);
 
-                    retriever.setDataSource(fullFilePath);
-                    int duration = (int) (Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) / 1000L);
-                    Bitmap img = retriever.getFrameAtTime(0);
-                    int width = img.getWidth();
-                    int height = img.getHeight();
-                    Bitmap smallThumb = ImageHelper.scaleFit(img, 90, 90);
-                    byte[] smallThumbData = ImageHelper.save(smallThumb);
+            String compressedVideoPath = getExternalUploadTempFile("video", "mp4");
 
-                    FastThumb thumb = new FastThumb(smallThumb.getWidth(), smallThumb.getHeight(), smallThumbData);
+            sendVideo(peer, fileName, width, height, duration, thumb, fullFilePath, compressedVideoPath, deleteOriginal);
 
-                    String compressedVideoPath = getExternalUploadTempFile("video", "mp4");
-
-                    sendVideo(peer, fileName, width, height, duration, thumb, fullFilePath, compressedVideoPath, deleteOriginal);
-                }
-            }).start();
         } catch (Throwable e) {
             Log.e(TAG, e);
         }
     }
 
     public Command<Boolean> sendUri(final Peer peer, final Uri uri) {
-        return sendUri(peer, uri, "Actor");
+        return sendUri(peer, uri, "actor");
     }
 
     public Command<Boolean> sendUri(final Peer peer, final Uri uri, String appName) {
@@ -361,16 +355,18 @@ public class AndroidMessenger extends im.actor.core.Messenger {
             }
 
             if (picturePath == null || !uri.getScheme().equals("file")) {
-                File externalFile = context.getExternalFilesDir(null);
+
+                File externalFile = Environment.getExternalStorageDirectory();
+
+               // File externalFile = context.getExternalFilesDir(null);
                 if (externalFile == null) {
                     callback.onError(new NullPointerException());
                     return;
                 }
                 String externalPath = externalFile.getAbsolutePath();
 
-                File dest = new File(externalPath + "/" +
-                        appName +
-                        "/");
+                File dest = new File(externalPath + "/" + appName + "/" + appName + " images" + "/");
+
                 dest.mkdirs();
 
                 if (ext.isEmpty() && picturePath != null) {
@@ -446,7 +442,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         }
         String externalPath = externalFile.getAbsolutePath();
 
-        File dest = new File(externalPath + "/"+ActorSDK.sharedActor().getAppName()+"/tmp/");
+        File dest = new File(externalPath + "/actor/tmp/");
         dest.mkdirs();
 
         File outputFile = new File(dest, prefix + "_" + random.nextLong() + "." + postfix);
@@ -461,7 +457,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         }
         String externalPath = externalFile.getAbsolutePath();
 
-        File dest = new File(externalPath + "/"+ActorSDK.sharedActor().getAppName()+"/upload_tmp/");
+        File dest = new File(externalPath + "/actor/upload_tmp/");
         dest.mkdirs();
 
         File outputFile = new File(dest, prefix + "_" + random.nextLong() + "." + postfix);
@@ -475,7 +471,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         }
         String externalPath = externalFile.getAbsolutePath();
 
-        File dest = new File(externalPath + "/"+ActorSDK.sharedActor().getAppName()+"/tmp/");
+        File dest = new File(externalPath + "/actor/tmp/");
         dest.mkdirs();
 
         File outputFile = new File(dest, prefix + "_" + random.nextLong() + "." + postfix);

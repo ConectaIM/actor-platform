@@ -14,13 +14,16 @@ public class LocalVideo extends LocalDocument {
     private int w;
     private int h;
     private int duration;
+    private boolean compressed;
 
     public LocalVideo(String fileName, String fileDescriptor, int fileSize, String mimeType,
-                      LocalFastThumb fastThumb, int w, int h, int duration) {
+                      LocalFastThumb fastThumb, int w, int h, int duration, boolean compressed) {
+
         super(fileName, fileDescriptor, fileSize, mimeType, fastThumb);
         this.w = w;
         this.h = h;
         this.duration = duration;
+        this.compressed = compressed;
     }
 
     public LocalVideo(byte[] data) throws IOException {
@@ -41,6 +44,10 @@ public class LocalVideo extends LocalDocument {
 
     public int getDuration() {
         return duration;
+    }
+
+    public boolean isCompressed() {
+        return compressed;
     }
 
     @Override

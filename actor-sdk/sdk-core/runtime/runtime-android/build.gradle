@@ -53,6 +53,6 @@ dependencies {
     compile 'io.pristine:libjingle:11139@aar'
 
     //Video Compressor
-    compile 'br.com.diegosilva:vclibrary:1.0.07-SNAPSHOT'
+    compile 'br.com.diegosilva:vclibrary:1.0.08-SNAPSHOT'
 
 }
