@@ -89,4 +89,8 @@ public class Storage {
     public static FileSystemReference commitTempFile(FileSystemReference sourceFile, long fileId, String fileName) {
         return fileSystemRuntime.commitTempFile(sourceFile, fileId, fileName);
     }
+
+    public static boolean removeFileFromDescriptor(String descriptor){
+        return fileSystemRuntime.removeFromDescriptor(descriptor);
+    }
 }

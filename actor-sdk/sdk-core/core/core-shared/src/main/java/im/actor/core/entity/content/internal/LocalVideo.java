@@ -56,6 +56,7 @@ public class LocalVideo extends LocalDocument {
         w = values.getInt(10);
         h = values.getInt(11);
         duration = values.getInt(12);
+        compressed = values.getBool(13);
     }
 
     @Override
@@ -64,5 +65,6 @@ public class LocalVideo extends LocalDocument {
         writer.writeInt(10, w);
         writer.writeInt(11, h);
         writer.writeInt(12, duration);
+        writer.writeBool(13, compressed);
     }
 }

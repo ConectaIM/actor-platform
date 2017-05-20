@@ -308,9 +308,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
             FastThumb thumb = new FastThumb(smallThumb.getWidth(), smallThumb.getHeight(), smallThumbData);
 
-            String compressedVideoPath = getExternalUploadTempFile("video", "mp4");
-
-            sendVideo(peer, fileName, width, height, duration, thumb, fullFilePath, compressedVideoPath, deleteOriginal);
+            sendVideo(peer, fileName, width, height, duration, thumb, fullFilePath);
 
         } catch (Throwable e) {
             Log.e(TAG, e);

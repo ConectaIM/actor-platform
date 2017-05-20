@@ -64,7 +64,6 @@ import im.actor.core.util.RandomUtils;
 import im.actor.runtime.Log;
 import im.actor.runtime.Runtime;
 import im.actor.runtime.Storage;
-import im.actor.runtime.VideoCompressorRuntimeProvider;
 import im.actor.runtime.power.WakeLock;
 
 /*-[
@@ -106,18 +105,16 @@ public class SenderActor extends ModuleActor {
                 DocumentContent documentContent = (DocumentContent) pending.getContent();
                 if (documentContent.getSource() instanceof FileLocalSource) {
                     if (Storage.isFsPersistent()) {
-
-//                        if(pending.getContent() instanceof VideoContent &&
-//                                !((VideoContent) pending.getContent()).isCompressed()){
-//
-//                            //TODO: compress video
-//                            //performCompressVideo(pending.getRid());
-//
-//                        }else{
+                        if(pending.getContent() instanceof VideoContent &&
+                                !((VideoContent) pending.getContent()).isCompressed()){
+                            performCompressVideo(pending.getRid(),
+                                    ((FileLocalSource) documentContent.getSource()).getFileName(),
+                                    ((FileLocalSource) documentContent.getSource()).getFileDescriptor());
+                        }else{
                             performUploadFile(pending.getRid(),
                                     ((FileLocalSource) documentContent.getSource()).getFileDescriptor(),
                                     ((FileLocalSource) documentContent.getSource()).getFileName());
-//                        }
+                        }
                     } else {
                         List<Long> rids = new ArrayList<>();
                         rids.add(pending.getRid());
@@ -334,8 +331,7 @@ public class SenderActor extends ModuleActor {
     }
 
     public void doSendVideo(Peer peer, String fileName, int w, int h, int duration,
-                            FastThumb fastThumb, String descriptor, int fileSize,
-                            String compressedVideoPath, boolean removeOriginal) {
+                            FastThumb fastThumb, String descriptor, int fileSize) {
         long rid = RandomUtils.nextRid();
         long date = createPendingDate();
         long sortDate = date + 365 * 24 * 60 * 60 * 1000L;
@@ -347,9 +343,7 @@ public class SenderActor extends ModuleActor {
         pendingMessages.getPendingMessages().add(new PendingMessage(peer, rid, videoContent));
         savePending();
 
-        performCompressVideo(rid, fileName, descriptor, compressedVideoPath, removeOriginal);
-
-        //            performUploadFile(rid, descriptor, fileName);
+        performCompressVideo(rid, fileName, descriptor);
     }
 
     public void doSendAnimation(Peer peer, String fileName, int w, int h,
@@ -374,13 +368,28 @@ public class SenderActor extends ModuleActor {
         context().getFilesModule().requestUpload(rid, descriptor, fileName, self());
     }
 
-    private void performCompressVideo(long rid, String fileName, String descriptor, String compressedVideoPath, boolean removeOriginal) {
+    private void performCompressVideo(long rid, String fileName, String descriptor) {
         fileUplaodingWakeLocks.put(rid, Runtime.makeWakeLock());
-        context().getFilesModule().requestCompressVideo(rid, fileName, descriptor, compressedVideoPath, removeOriginal, self());
+        context().getFilesModule().requestCompressVideo(rid, fileName, descriptor, self());
     }
 
     private void onVideoCompressed(long rid, String fileName, String filePath){
         PendingMessage msg = findPending(rid);
+        if (msg == null) {
+            return;
+        }
+
+        pendingMessages.getPendingMessages().remove(msg);
+
+        VideoContent baseVideoContent = (VideoContent) msg.getContent();
+
+        VideoContent videoContent = VideoContent.createLocalVideoUnCompressed(filePath, fileName, baseVideoContent.getSource().getSize(),
+                baseVideoContent.getW(), baseVideoContent.getH(), baseVideoContent.getDuration(), baseVideoContent.getFastThumb(), true);
+
+        pendingMessages.getPendingMessages().add(new PendingMessage(msg.getPeer(), msg.getRid(), videoContent));
+        savePending();
+
+        fileUplaodingWakeLocks.remove(rid).releaseLock();
         performUploadFile(rid, filePath, fileName);
     }
 
@@ -417,6 +426,8 @@ public class SenderActor extends ModuleActor {
         }
 
         pendingMessages.getPendingMessages().add(new PendingMessage(msg.getPeer(), msg.getRid(), nContent));
+        savePending();
+
         context().getMessagesModule().getRouter().onContentChanged(msg.getPeer(), msg.getRid(), nContent);
         performSendContent(msg.getPeer(), rid, nContent);
         fileUplaodingWakeLocks.remove(rid).releaseLock();
@@ -584,8 +595,7 @@ public class SenderActor extends ModuleActor {
             SendVideo sendVideo = (SendVideo) message;
             doSendVideo(sendVideo.getPeer(), sendVideo.getFileName(),
                     sendVideo.getW(), sendVideo.getH(), sendVideo.getDuration(),
-                    sendVideo.getFastThumb(), sendVideo.getDescriptor(), sendVideo.getFileSize(),
-                    sendVideo.getCompressedVideoPath(), sendVideo.isRemoveOriginal());
+                    sendVideo.getFastThumb(), sendVideo.getDescriptor(), sendVideo.getFileSize());
         } else if (message instanceof SendAudio) {
             SendAudio sendAudio = (SendAudio) message;
             doSendAudio(sendAudio.getPeer(), sendAudio.getDescriptor(), sendAudio.getFileName(),
@@ -792,12 +802,9 @@ public class SenderActor extends ModuleActor {
         private String descriptor;
         private int fileSize;
 
-        private String compressedVideoPath;
-        private boolean removeOriginal;
 
         public SendVideo(Peer peer, String fileName, int w, int h, int duration,
-                         FastThumb fastThumb, String descriptor, int fileSize,
-                         String compressedVideoPath, boolean removeOriginal) {
+                         FastThumb fastThumb, String descriptor, int fileSize) {
             this.peer = peer;
             this.fileName = fileName;
             this.w = w;
@@ -806,8 +813,6 @@ public class SenderActor extends ModuleActor {
             this.fastThumb = fastThumb;
             this.descriptor = descriptor;
             this.fileSize = fileSize;
-            this.compressedVideoPath = compressedVideoPath;
-            this.removeOriginal = removeOriginal;
         }
 
         public Peer getPeer() {
@@ -842,13 +847,6 @@ public class SenderActor extends ModuleActor {
             return fileSize;
         }
 
-        public String getCompressedVideoPath() {
-            return compressedVideoPath;
-        }
-
-        public boolean isRemoveOriginal() {
-            return removeOriginal;
-        }
     }
 
     public static class SendAudio {

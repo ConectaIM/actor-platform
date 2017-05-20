@@ -83,4 +83,5 @@ public class VideoContent extends DocumentContent {
     public boolean isCompressed() {
         return compressed;
     }
+
 }

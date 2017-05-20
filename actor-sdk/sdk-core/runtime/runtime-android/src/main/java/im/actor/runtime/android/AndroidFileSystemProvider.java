@@ -120,4 +120,9 @@ public class AndroidFileSystemProvider implements FileSystemRuntime {
         checkTempDirs();
         return new AndroidFileSystemReference(descriptor);
     }
+
+    @Override
+    public boolean removeFromDescriptor(String descriptor) {
+        return new File(descriptor).delete();
+    }
 }

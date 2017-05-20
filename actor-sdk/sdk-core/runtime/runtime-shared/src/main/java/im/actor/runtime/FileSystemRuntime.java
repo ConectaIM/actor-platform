@@ -48,4 +48,13 @@ public interface FileSystemRuntime {
      */
     @ObjectiveCName("fileFromDescriptor:")
     FileSystemReference fileFromDescriptor(String descriptor);
+
+    /**
+     * Remove file from descriptor
+     *
+     * @param descriptor descriptor
+     * @return the is file removed
+     */
+    @ObjectiveCName("removeFromDescriptor:")
+    boolean removeFromDescriptor(String descriptor);
 }

@@ -129,15 +129,15 @@ public class FilesModule extends AbsModule {
     }
 
     public void bindCompressVideo(long rid, CompressVideoCallback uploadFileCallback) {
-        //uploadManager.send(new UploadManager.BindUpload(rid, uploadFileCallback));
+        compressVideoManager.send(new CompressVideoManager.BindCompress(rid, uploadFileCallback));
     }
 
     public void unbindCompressVideo(long rid, CompressVideoCallback callback) {
-        //uploadManager.send(new UploadManager.UnbindUpload(rid, callback));
+        compressVideoManager.send(new CompressVideoManager.UnbindCompress(rid, callback));
     }
 
-    public void requestCompressVideo(long rid, String fileName, String originalVideoPath, String compressedVideoPath, boolean removeOriginal, ActorRef requester) {
-        compressVideoManager.send(new CompressVideoManager.StartCompression(rid, fileName, originalVideoPath, compressedVideoPath, removeOriginal), requester);
+    public void requestCompressVideo(long rid, String fileName, String originalVideoPath, ActorRef requester) {
+        compressVideoManager.send(new CompressVideoManager.StartCompression(rid, fileName, originalVideoPath), requester);
     }
 
     public void cancelUpload(long rid) {
