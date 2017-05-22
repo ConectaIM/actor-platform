@@ -21,40 +21,52 @@ public class CompressVideoManager extends ModuleActor {
 
     private VideoCompressorRuntimeProvider videoCompressorRuntime = new VideoCompressorRuntimeProvider();
     private HashMap<Long, ArrayList<CompressVideoCallback>> callbacks = new HashMap<>();
-    private ArrayList<QueueItem> queue = new ArrayList<>();
+    private ArrayList<CompressItem> queue = new ArrayList<>();
 
     public CompressVideoManager(ModuleContext context) {
         super(context);
     }
 
     public void startCompression(long rid, final String fileName, final String originalVideoPath) {
-        ActorRef sender = sender();
-        videoCompressorRuntime.compressVideo(originalVideoPath).then((cv)->{
-            sender.send(new CompressionCompleted(rid, originalVideoPath, fileName));
+
+        final CompressItem ci = new CompressItem(rid, fileName, originalVideoPath);
+        ci.sender = sender();
+
+        videoCompressorRuntime.compressVideo(ci, new VideoCompressorRuntimeProvider.CompressorProgressListener() {
+            @Override
+            public void onProgress(long rid, float v) {
+                ArrayList<CompressVideoCallback> clist = callbacks.get(rid);
+                if (clist != null) {
+                    for (final CompressVideoCallback callback : clist) {
+                        im.actor.runtime.Runtime.dispatch(() -> callback.onCompressing(v));
+                    }
+                }
+            }
+        }).then((cv)->{
+            cv.getSender().send(new CompressionCompleted(cv.getRid(), cv.getFilePath(), cv.getFileName()));
         }).failure((ex)->{
-            sender.send(new CompressionFailed(rid, originalVideoPath, fileName));
+            ci.getSender().send(new CompressionFailed(ci.getRid(), ci.getOriginalFilePath(), ci.getFileName()));
         });
     }
 
     public void bindUpload(long rid, final CompressVideoCallback callback) {
 
-        QueueItem queueItem = findItem(rid);
+        CompressItem queueItem = findItem(rid);
+
         if (queueItem == null) {
             im.actor.runtime.Runtime.dispatch(() -> callback.onNotConpressing());
         } else {
-            if (queueItem.isStopped) {
-                im.actor.runtime.Runtime.dispatch(() -> callback.onNotConpressing());
-            } else {
-                final float progress = queueItem.progress;
-                im.actor.runtime.Runtime.dispatch(() -> callback.onCompressing(progress));
-            }
+            final float progress = queueItem.progress;
+            im.actor.runtime.Runtime.dispatch(() -> callback.onCompressing(progress));
         }
 
         ArrayList<CompressVideoCallback> clist = callbacks.get(rid);
+
         if (clist == null) {
             clist = new ArrayList<>();
             callbacks.put(rid, clist);
         }
+
         clist.add(callback);
     }
 
@@ -65,8 +77,8 @@ public class CompressVideoManager extends ModuleActor {
         }
     }
 
-    private QueueItem findItem(long rid) {
-        for (QueueItem q : queue) {
+    private CompressItem findItem(long rid) {
+        for (CompressItem q : queue) {
             if (q.rid == rid) {
                 return q;
             }
@@ -193,21 +205,36 @@ public class CompressVideoManager extends ModuleActor {
         }
     }
 
-    private class QueueItem {
+    public class CompressItem {
         private long rid;
-        private String fileDescriptor;
-        private boolean isStopped;
-        private boolean isStarted;
-        private float progress;
-        private ActorRef taskRef;
-        private ActorRef requestActor;
         private String fileName;
+        private String originalFilePath;
+        private float progress;
 
-        private QueueItem(long rid, String fileDescriptor, String fileName, ActorRef requestActor) {
+        private ActorRef sender;
+
+        private CompressItem(long rid, String fileName, String originalFilePath) {
             this.rid = rid;
-            this.fileDescriptor = fileDescriptor;
-            this.requestActor = requestActor;
             this.fileName = fileName;
+            this.originalFilePath = originalFilePath;
+
+        }
+
+
+        public long getRid() {
+            return rid;
+        }
+
+        public String getFileName() {
+            return fileName;
+        }
+
+        public String getOriginalFilePath() {
+            return originalFilePath;
+        }
+
+        public ActorRef getSender() {
+            return sender;
         }
     }
 

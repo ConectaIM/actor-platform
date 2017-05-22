@@ -294,7 +294,15 @@ public class PhotoHolder extends MessageHolder {
                 downloadFileVM = messenger().bindFile(((FileRemoteSource) fileMessage.getSource()).getFileReference(),
                         autoDownload, new DownloadVMCallback(fileMessage));
             } else if (fileMessage.getSource() instanceof FileLocalSource) {
-                uploadFileVM = messenger().bindUpload(message.getRid(), new UploadVMCallback());
+
+                if(fileMessage instanceof VideoContent
+                        && !((VideoContent) fileMessage).isCompressed()){
+                  messenger().bin
+                }else{
+                    uploadFileVM = messenger().bindUpload(message.getRid(), new UploadVMCallback());
+                }
+
+
                 if (isPhoto) {
                     Uri uri = Uri.fromFile(
                             new File(((FileLocalSource) fileMessage.getSource()).getFileDescriptor()));
@@ -545,6 +553,9 @@ public class PhotoHolder extends MessageHolder {
             goneView(progressValue);
         }
     }
+
+
+
 
     public void bindImage(Uri uri) {
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
