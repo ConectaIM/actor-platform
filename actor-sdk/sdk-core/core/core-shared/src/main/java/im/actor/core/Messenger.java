@@ -54,6 +54,8 @@ import im.actor.core.util.ActorTrace;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.CallVM;
 import im.actor.core.viewmodel.Command;
+import im.actor.core.viewmodel.CompressVideoVM;
+import im.actor.core.viewmodel.CompressVideoVMCallback;
 import im.actor.core.viewmodel.ConversationVM;
 import im.actor.core.viewmodel.DialogGroupsVM;
 import im.actor.core.viewmodel.FileCallback;
@@ -1935,6 +1937,19 @@ public class Messenger {
     @ObjectiveCName("bindUploadWithRid:withCallback:")
     public UploadFileVM bindUpload(long rid, UploadFileVMCallback callback) {
         return new UploadFileVM(rid, callback, modules);
+    }
+
+    /**
+     * Bind CompressVideo File View Model
+     *
+     * @param rid      randomId of uploading file
+     * @param callback View Model file state callback
+     * @return Compress File View Model
+     */
+    @NotNull
+    @ObjectiveCName("bindCompressVideoWithRid:withCallback:")
+    public CompressVideoVM bindCompress(long rid, CompressVideoVMCallback callback) {
+        return new CompressVideoVM(rid, callback, modules);
     }
 
     /**

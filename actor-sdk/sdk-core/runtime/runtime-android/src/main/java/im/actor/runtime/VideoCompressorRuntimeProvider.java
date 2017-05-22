@@ -35,10 +35,11 @@ public class VideoCompressorRuntimeProvider {
                     }
 
                     @Override
-                    public void onSuccess(File file) {
-                        new File(item.getOriginalFilePath()).delete();
-                        file.renameTo(new File(item.getOriginalFilePath()));
-                        resolver.result(new CompressedVideo(item.getRid(), file.getName(), file.getAbsolutePath(), item.getSender()));
+                    public void onSuccess(File tempFile) {
+                        File originalFile = new File(item.getOriginalFilePath());
+                        originalFile.delete();
+                        tempFile.renameTo(originalFile);
+                        resolver.result(new CompressedVideo(item.getRid(), originalFile.getName(), originalFile.getAbsolutePath(), item.getSender()));
                     }
                 });
 

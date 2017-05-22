@@ -15,8 +15,8 @@ import im.actor.runtime.mvvm.AsyncVM;
 public class CompressVideoVM extends AsyncVM {
     private long rid;
     private Modules modules;
-    private UploadFileVMCallback vmCallback;
-    private UploadFileCallback callback;
+    private CompressVideoVMCallback vmCallback;
+    private CompressVideoCallback callback;
 
     /**
      * <p>INTERNAL API</p>
@@ -26,37 +26,38 @@ public class CompressVideoVM extends AsyncVM {
      * @param vmCallback file value model callback
      * @param modules    im.actor.android.modules reference
      */
-    public CompressVideoVM(long rid, UploadFileVMCallback vmCallback, Modules modules) {
+    public CompressVideoVM(long rid, CompressVideoVMCallback vmCallback, Modules modules) {
         this.rid = rid;
         this.modules = modules;
         this.vmCallback = vmCallback;
-        this.callback = new UploadFileCallback() {
+        this.callback = new CompressVideoCallback() {
+
             @Override
-            public void onNotUploading() {
-                post(new NotUploading());
+            public void onNotConpressing() {
+                post(new NotCompressing());
             }
 
             @Override
-            public void onUploading(float progress) {
-                post(new Uploading(progress));
+            public void onCompressing(float progress) {
+                post(new Compressing(progress));
             }
 
             @Override
-            public void onUploaded() {
-                post(new Uploaded());
+            public void onCompressed() {
+                post(new Compressed());
             }
         };
-        modules.getFilesModule().bindUploadFile(rid, callback);
+        modules.getFilesModule().bindCompressVideo(rid, callback);
     }
 
     @Override
     protected void onObjectReceived(Object obj) {
-        if (obj instanceof NotUploading) {
-            vmCallback.onNotUploaded();
-        } else if (obj instanceof Uploading) {
-            vmCallback.onUploading(((Uploading) obj).getProgress());
-        } else if (obj instanceof Uploaded) {
-            vmCallback.onUploaded();
+        if (obj instanceof NotCompressing) {
+            vmCallback.onNotConpressing();
+        } else if (obj instanceof Compressing) {
+            vmCallback.onCompressing(((Compressing) obj).getProgress());
+        } else if (obj instanceof Compressed) {
+            vmCallback.onCompressed();
         }
     }
 
@@ -67,17 +68,17 @@ public class CompressVideoVM extends AsyncVM {
     @Override
     public void detach() {
         super.detach();
-        modules.getFilesModule().unbindUploadFile(rid, callback);
+        modules.getFilesModule().unbindCompressVideo(rid, callback);
     }
 
-    private class NotUploading {
+    private class NotCompressing {
 
     }
 
-    private class Uploading {
+    private class Compressing {
         private float progress;
 
-        private Uploading(float progress) {
+        private Compressing(float progress) {
             this.progress = progress;
         }
 
@@ -86,7 +87,7 @@ public class CompressVideoVM extends AsyncVM {
         }
     }
 
-    private class Uploaded {
+    private class Compressed {
 
     }
 }

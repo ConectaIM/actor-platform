@@ -389,6 +389,8 @@ public class SenderActor extends ModuleActor {
         pendingMessages.getPendingMessages().add(new PendingMessage(msg.getPeer(), msg.getRid(), videoContent));
         savePending();
 
+        context().getMessagesModule().getRouter().onContentChanged(msg.getPeer(), msg.getRid(), videoContent);
+
         fileUplaodingWakeLocks.remove(rid).releaseLock();
         performUploadFile(rid, filePath, fileName);
     }

@@ -36,6 +36,8 @@ import im.actor.core.entity.content.FileLocalSource;
 import im.actor.core.entity.content.FileRemoteSource;
 import im.actor.core.entity.content.PhotoContent;
 import im.actor.core.entity.content.VideoContent;
+import im.actor.core.viewmodel.CompressVideoVM;
+import im.actor.core.viewmodel.CompressVideoVMCallback;
 import im.actor.core.viewmodel.FileCallback;
 import im.actor.core.viewmodel.FileVM;
 import im.actor.core.viewmodel.FileVMCallback;
@@ -91,6 +93,7 @@ public class PhotoHolder extends MessageHolder {
     // Binded model
     protected FileVM downloadFileVM;
     protected UploadFileVM uploadFileVM;
+    protected CompressVideoVM compressVideoVM;
     protected boolean isPhoto;
     protected boolean isAnimation;
 
@@ -256,6 +259,11 @@ public class PhotoHolder extends MessageHolder {
                 uploadFileVM = null;
             }
 
+            if(compressVideoVM != null){
+                compressVideoVM.detach();
+                compressVideoVM = null;
+            }
+
             needRebind = true;
         }
         Log.d(TAG, "needRebind by new: " + needRebind);
@@ -295,13 +303,8 @@ public class PhotoHolder extends MessageHolder {
                         autoDownload, new DownloadVMCallback(fileMessage));
             } else if (fileMessage.getSource() instanceof FileLocalSource) {
 
-                if(fileMessage instanceof VideoContent
-                        && !((VideoContent) fileMessage).isCompressed()){
-                  messenger().bin
-                }else{
-                    uploadFileVM = messenger().bindUpload(message.getRid(), new UploadVMCallback());
-                }
-
+                compressVideoVM = messenger().bindCompress(message.getRid(), new CompressVMCallback());
+                uploadFileVM = messenger().bindUpload(message.getRid(), new UploadVMCallback());
 
                 if (isPhoto) {
                     Uri uri = Uri.fromFile(
@@ -316,7 +319,6 @@ public class PhotoHolder extends MessageHolder {
                     if (fileMessage.getFastThumb() != null && !updated) {
                         fastThumbLoader.request(fileMessage.getFastThumb().getImage());
                         Log.d(TAG, "rebind video- new thumb!");
-
                     }
                 }
             } else {
@@ -360,22 +362,27 @@ public class PhotoHolder extends MessageHolder {
                 }
             });
         } else if (document.getSource() instanceof FileLocalSource) {
-            messenger().requestUploadState(currentMessage.getRid(), new UploadFileCallback() {
-                @Override
-                public void onNotUploading() {
-                    messenger().resumeUpload(currentMessage.getRid());
-                }
+            if(document instanceof VideoContent
+                    && !((VideoContent) document).isCompressed()){
 
-                @Override
-                public void onUploading(float progress) {
-                    messenger().pauseUpload(currentMessage.getRid());
-                }
+            }else{
+                messenger().requestUploadState(currentMessage.getRid(), new UploadFileCallback() {
+                    @Override
+                    public void onNotUploading() {
+                        messenger().resumeUpload(currentMessage.getRid());
+                    }
 
-                @Override
-                public void onUploaded() {
-                    // Nothing to do
-                }
-            });
+                    @Override
+                    public void onUploading(float progress) {
+                        messenger().pauseUpload(currentMessage.getRid());
+                    }
+
+                    @Override
+                    public void onUploaded() {
+                        // Nothing to do
+                    }
+                });
+            }
         }
     }
 
@@ -425,6 +432,11 @@ public class PhotoHolder extends MessageHolder {
             uploadFileVM = null;
         }
 
+        if(compressVideoVM != null){
+            compressVideoVM.detach();
+            compressVideoVM = null;
+        }
+
         // Releasing images
         fastThumbLoader.cancel();
         previewView.setImageURI(null);
@@ -465,6 +477,46 @@ public class PhotoHolder extends MessageHolder {
             progressView.setValue(100);
 
             goneView(progressContainer);
+            goneView(progressView);
+            goneView(progressValue);
+        }
+    }
+
+    private class CompressVMCallback implements CompressVideoVMCallback {
+
+        @Override
+        public void onNotConpressing() {
+            showView(progressContainer);
+
+            progressIcon.setImageResource(R.drawable.conv_media_upload);
+            showView(progressIcon);
+
+            goneView(progressView);
+            goneView(progressValue);
+        }
+
+        @Override
+        public void onCompressing(float progress) {
+            showView(progressContainer);
+            goneView(progressValue);
+
+            progressIcon.setImageResource(R.drawable.conv_media_upload);
+            progressView.setValue(0);
+            progressValue.setText("");
+
+            showView(progressView);
+            showView(progressValue);
+            showView(progressIcon);
+
+        }
+
+        @Override
+        public void onCompressed() {
+            showView(progressContainer);
+
+            progressIcon.setImageResource(R.drawable.conv_media_upload);
+            showView(progressIcon);
+
             goneView(progressView);
             goneView(progressValue);
         }

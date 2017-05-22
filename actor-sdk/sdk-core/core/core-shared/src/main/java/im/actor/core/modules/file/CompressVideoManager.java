@@ -31,6 +31,7 @@ public class CompressVideoManager extends ModuleActor {
 
         final CompressItem ci = new CompressItem(rid, fileName, originalVideoPath);
         ci.sender = sender();
+        queue.add(ci);
 
         videoCompressorRuntime.compressVideo(ci, new VideoCompressorRuntimeProvider.CompressorProgressListener() {
             @Override
@@ -43,13 +44,20 @@ public class CompressVideoManager extends ModuleActor {
                 }
             }
         }).then((cv)->{
+            queue.remove(ci);
+            ArrayList<CompressVideoCallback> clist = callbacks.get(rid);
+            if (clist != null) {
+                for (final CompressVideoCallback callback : clist) {
+                    im.actor.runtime.Runtime.dispatch(() -> callback.onCompressed());
+                }
+            }
             cv.getSender().send(new CompressionCompleted(cv.getRid(), cv.getFilePath(), cv.getFileName()));
         }).failure((ex)->{
             ci.getSender().send(new CompressionFailed(ci.getRid(), ci.getOriginalFilePath(), ci.getFileName()));
         });
     }
 
-    public void bindUpload(long rid, final CompressVideoCallback callback) {
+    public void bindCompress(long rid, final CompressVideoCallback callback) {
 
         CompressItem queueItem = findItem(rid);
 
@@ -70,7 +78,7 @@ public class CompressVideoManager extends ModuleActor {
         clist.add(callback);
     }
 
-    public void unbindUpload(long rid, UploadFileCallback callback) {
+    public void unbindCompress(long rid, CompressVideoCallback callback) {
         ArrayList<CompressVideoCallback> clist = callbacks.get(rid);
         if (clist != null) {
             clist.remove(callback);
@@ -91,6 +99,12 @@ public class CompressVideoManager extends ModuleActor {
         if (message instanceof StartCompression) {
             StartCompression startCompression = (StartCompression) message;
             startCompression(startCompression.getRid(), startCompression.getFileName(), startCompression.getOriginalVideoPath());
+        }else if(message instanceof BindCompress) {
+            BindCompress bindCompress = (BindCompress) message;
+            bindCompress(bindCompress.getRid(), bindCompress.callback);
+        }else if(message instanceof UnbindCompress){
+            UnbindCompress unbindCompress = (UnbindCompress) message;
+            unbindCompress(unbindCompress.getRid(), unbindCompress.callback);
         } else {
             super.onReceive(message);
         }

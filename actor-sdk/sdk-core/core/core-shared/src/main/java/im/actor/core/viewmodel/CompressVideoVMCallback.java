@@ -11,22 +11,22 @@ import com.google.j2objc.annotations.ObjectiveCName;
  */
 public interface CompressVideoVMCallback {
     /**
-     * On File not uploading
+     * On File not compressing
      */
-    @ObjectiveCName("onNotUploaded")
-    void onNotUploaded();
+    @ObjectiveCName("onNotConpressing")
+    void onNotConpressing();
 
     /**
-     * On File upload in progress
+     * On File compressing in progress
      *
      * @param progress progress value in [0..1]
      */
-    @ObjectiveCName("onUploading:")
-    void onUploading(float progress);
+    @ObjectiveCName("onCompressing:")
+    void onCompressing(float progress);
 
     /**
-     * On file uploaded
+     * On file compressed
      */
-    @ObjectiveCName("onUploaded")
-    void onUploaded();
+    @ObjectiveCName("onCompressed")
+    void onCompressed();
 }
