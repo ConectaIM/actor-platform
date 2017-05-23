@@ -148,9 +148,18 @@ public class FilesModule extends AbsModule {
         uploadManager.send(new UploadManager.RequestState(rid, callback));
     }
 
+    public void requestVideoCompressState(long rid, CompressVideoCallback callback) {
+        uploadManager.send(new CompressVideoManager.RequestState(rid, callback));
+    }
+
     public void resumeUpload(long rid) {
         uploadManager.send(new UploadManager.ResumeUpload(rid));
     }
+
+    public void resumeVideoCompressing(long rid) {
+        compressVideoManager.send(new CompressVideoManager.ResumeCompressing(rid));
+    }
+
 
     public void pauseUpload(long rid) {
         uploadManager.send(new UploadManager.PauseUpload(rid));

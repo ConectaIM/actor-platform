@@ -395,6 +395,16 @@ public class SenderActor extends ModuleActor {
         performUploadFile(rid, filePath, fileName);
     }
 
+    private void onVideoCompressedError(long rid) {
+        PendingMessage msg = findPending(rid);
+        if (msg == null) {
+            return;
+        }
+
+        self().send(new MessageError(msg.getPeer(), msg.getRid()));
+        fileUplaodingWakeLocks.remove(rid).releaseLock();
+    }
+
     private void onFileUploaded(long rid, FileReference fileReference) {
         PendingMessage msg = findPending(rid);
         if (msg == null) {
@@ -626,8 +636,8 @@ public class SenderActor extends ModuleActor {
             CompressVideoManager.CompressionCompleted compressionCompleted = (CompressVideoManager.CompressionCompleted) message;
             onVideoCompressed(compressionCompleted.getRid(), compressionCompleted.getFileName(), compressionCompleted.getFilePath());
         } else if(message instanceof CompressVideoManager.CompressionFailed){
-            CompressVideoManager.CompressionFailed compressionCompleted = (CompressVideoManager.CompressionFailed) message;
-
+            CompressVideoManager.CompressionFailed compressionFailed = (CompressVideoManager.CompressionFailed) message;
+            onVideoCompressedError(compressionFailed.getRid());
         } else {
             super.onReceive(message);
         }

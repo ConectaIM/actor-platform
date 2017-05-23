@@ -19,30 +19,33 @@ public class VideoCompressorRuntimeProvider {
     public Promise<CompressedVideo> compressVideo(CompressVideoManager.CompressItem item, CompressorProgressListener progressCallback){
         return new Promise<>((PromiseFunc<CompressedVideo>) resolver -> {
             new Thread(()->{
-                FileSystemReference fr = Storage.createTempFile();
-                String destPath = fr.getDescriptor();
-                MediaController.getInstance().convertVideo(item.getOriginalFilePath(), destPath, new ConversionListener() {
-                    @Override
-                    public void onError(Exception e) {
-                        resolver.error(new RuntimeException(("Error when compressing video")));
-                    }
-
-                    @Override
-                    public void onProgress(float v) {
-                        if(progressCallback != null){
-                            progressCallback.onProgress(item.getRid(), v);
+                try{
+                    FileSystemReference fr = Storage.createTempFile();
+                    String destPath = fr.getDescriptor();
+                    MediaController.getInstance().convertVideo(item.getOriginalFilePath(), destPath, new ConversionListener() {
+                        @Override
+                        public void onError(Exception e) {
+                            resolver.error(new RuntimeException(("Error when compressing video")));
                         }
-                    }
 
-                    @Override
-                    public void onSuccess(File tempFile) {
-                        File originalFile = new File(item.getOriginalFilePath());
-                        originalFile.delete();
-                        tempFile.renameTo(originalFile);
-                        resolver.result(new CompressedVideo(item.getRid(), originalFile.getName(), originalFile.getAbsolutePath(), item.getSender()));
-                    }
-                });
+                        @Override
+                        public void onProgress(float v) {
+                            if(progressCallback != null){
+                                progressCallback.onProgress(item.getRid(), v);
+                            }
+                        }
 
+                        @Override
+                        public void onSuccess(File tempFile) {
+                            File originalFile = new File(item.getOriginalFilePath());
+                            originalFile.delete();
+                            tempFile.renameTo(originalFile);
+                            resolver.result(new CompressedVideo(item.getRid(), originalFile.getName(), originalFile.getAbsolutePath(), item.getSender()));
+                        }
+                    });
+                }catch (Exception e){
+                   resolver.error(e);
+                }
             }).start();
         });
     }

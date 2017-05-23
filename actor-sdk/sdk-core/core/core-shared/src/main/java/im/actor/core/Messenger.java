@@ -54,6 +54,7 @@ import im.actor.core.util.ActorTrace;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.CallVM;
 import im.actor.core.viewmodel.Command;
+import im.actor.core.viewmodel.CompressVideoCallback;
 import im.actor.core.viewmodel.CompressVideoVM;
 import im.actor.core.viewmodel.CompressVideoVMCallback;
 import im.actor.core.viewmodel.ConversationVM;
@@ -2021,6 +2022,17 @@ public class Messenger {
     }
 
     /**
+     * Request upload file state
+     *
+     * @param rid      file's random id
+     * @param callback file state callback
+     */
+    @ObjectiveCName("requestVideoCompressStateWithRid:withCallback:")
+    public void requestVideoCompressState(long rid, CompressVideoCallback callback) {
+        modules.getFilesModule().requestVideoCompressState(rid, callback);
+    }
+
+    /**
      * Cancel file download
      *
      * @param fileId file's id
@@ -2048,6 +2060,16 @@ public class Messenger {
     @ObjectiveCName("resumeUploadWithRid:")
     public void resumeUpload(long rid) {
         modules.getFilesModule().resumeUpload(rid);
+    }
+
+    /**
+     * Resume Video Compressing
+     *
+     * @param rid file's random id
+     */
+    @ObjectiveCName("resumeVideoCompressingWithRid:")
+    public void resumeVideoCompressing(long rid) {
+        modules.getFilesModule().resumeVideoCompressing(rid);
     }
 
     /**

@@ -36,6 +36,7 @@ import im.actor.core.entity.content.FileLocalSource;
 import im.actor.core.entity.content.FileRemoteSource;
 import im.actor.core.entity.content.PhotoContent;
 import im.actor.core.entity.content.VideoContent;
+import im.actor.core.viewmodel.CompressVideoCallback;
 import im.actor.core.viewmodel.CompressVideoVM;
 import im.actor.core.viewmodel.CompressVideoVMCallback;
 import im.actor.core.viewmodel.FileCallback;
@@ -364,6 +365,22 @@ public class PhotoHolder extends MessageHolder {
         } else if (document.getSource() instanceof FileLocalSource) {
             if(document instanceof VideoContent
                     && !((VideoContent) document).isCompressed()){
+                messenger().requestVideoCompressState(currentMessage.getRid(), new CompressVideoCallback() {
+                    @Override
+                    public void onNotConpressing() {
+                        messenger().resumeVideoCompressing(currentMessage.getRid());
+                    }
+
+                    @Override
+                    public void onCompressing(float progress) {
+                        //Nothing to do
+                    }
+
+                    @Override
+                    public void onCompressed() {
+                        //Nothing to do
+                    }
+                });
 
             }else{
                 messenger().requestUploadState(currentMessage.getRid(), new UploadFileCallback() {
@@ -513,12 +530,15 @@ public class PhotoHolder extends MessageHolder {
         @Override
         public void onCompressed() {
             showView(progressContainer);
+            goneView(progressValue);
 
             progressIcon.setImageResource(R.drawable.conv_media_upload);
-            showView(progressIcon);
+            progressView.setValue(0);
+            progressValue.setText("");
 
-            goneView(progressView);
-            goneView(progressValue);
+            showView(progressView);
+            showView(progressValue);
+            showView(progressIcon);
         }
     }
 
