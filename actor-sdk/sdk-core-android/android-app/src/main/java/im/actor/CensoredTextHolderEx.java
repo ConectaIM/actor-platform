@@ -1,31 +1,21 @@
 package im.actor;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
-import android.text.TextUtils;
 import android.text.style.ClickableSpan;
-import android.text.style.URLSpan;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import im.actor.core.entity.GroupMember;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
-import im.actor.core.viewmodel.UserVM;
-import im.actor.sdk.ActorSDK;
 import im.actor.sdk.controllers.conversation.messages.MessagesAdapter;
 import im.actor.sdk.controllers.conversation.messages.content.TextHolder;
-import im.actor.sdk.controllers.conversation.view.MentionSpan;
-import im.actor.sdk.view.BaseUrlSpan;
-
-import static im.actor.sdk.util.ActorSDKMessenger.users;
 
 public class CensoredTextHolderEx extends TextHolder {
     public CensoredTextHolderEx(MessagesAdapter adapter, View itemView, Peer peer) {

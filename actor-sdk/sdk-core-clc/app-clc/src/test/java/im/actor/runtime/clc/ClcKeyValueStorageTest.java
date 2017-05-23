@@ -1,8 +1,5 @@
 package im.actor.runtime.clc;
 
-import im.actor.runtime.StorageRuntimeProvider;
-import im.actor.runtime.storage.KeyValueRecord;
-import im.actor.runtime.storage.KeyValueStorage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,8 +7,12 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import im.actor.runtime.StorageRuntimeProvider;
+import im.actor.runtime.storage.KeyValueRecord;
+import im.actor.runtime.storage.KeyValueStorage;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ClcKeyValueStorageTest {
 
@@ -54,8 +55,6 @@ public class ClcKeyValueStorageTest {
     }
 
 
-
-
     @Test
     public void addOrUpdateItem() {
         //insert
@@ -72,23 +71,23 @@ public class ClcKeyValueStorageTest {
     public void addOrUpdateItems() {
         //insert
         List keyValues = Arrays.asList(
-                new KeyValueRecord(1,"value1".getBytes()),
-                new KeyValueRecord(2,"value2".getBytes()));
+                new KeyValueRecord(1, "value1".getBytes()),
+                new KeyValueRecord(2, "value2".getBytes()));
         kvs.addOrUpdateItems(keyValues);
         assertEquals(new String(kvs.loadItem(1)), "value1");
         assertEquals(new String(kvs.loadItem(2)), "value2");
 
         //update
         keyValues = Arrays.asList(
-                new KeyValueRecord(1,"value3".getBytes()),
-                new KeyValueRecord(2,"value4".getBytes()));
+                new KeyValueRecord(1, "value3".getBytes()),
+                new KeyValueRecord(2, "value4".getBytes()));
         kvs.addOrUpdateItems(keyValues);
         assertEquals(new String(kvs.loadItem(1)), "value3");
         assertEquals(new String(kvs.loadItem(2)), "value4");
     }
 
     @Test
-    public void removeItem(){
+    public void removeItem() {
         kvs.addOrUpdateItem(1, "value1".getBytes());
         assertEquals(new String(kvs.loadItem(1)), "value1");
         kvs.removeItem(1);
@@ -96,7 +95,7 @@ public class ClcKeyValueStorageTest {
     }
 
     @Test
-    public void removeItemWithContext(){
+    public void removeItemWithContext() {
         kvs.addOrUpdateItem(1, "value1".getBytes());
         assertEquals(new String(kvs.loadItem(1)), "value1");
 
@@ -112,24 +111,24 @@ public class ClcKeyValueStorageTest {
     }
 
     @Test
-    public void removeItems(){
+    public void removeItems() {
         List keyValues = Arrays.asList(
-                new KeyValueRecord(1,"value1".getBytes()),
-                new KeyValueRecord(2,"value2".getBytes()));
+                new KeyValueRecord(1, "value1".getBytes()),
+                new KeyValueRecord(2, "value2".getBytes()));
         kvs.addOrUpdateItems(keyValues);
         assertEquals(new String(kvs.loadItem(1)), "value1");
         assertEquals(new String(kvs.loadItem(2)), "value2");
 
-        kvs.removeItems(new long[]{1,2});
+        kvs.removeItems(new long[]{1, 2});
         assertNull(kvs.loadItem(1));
         assertNull(kvs.loadItem(2));
     }
 
     @Test
-    public void clear(){
+    public void clear() {
         List keyValues = Arrays.asList(
-                new KeyValueRecord(1,"value1".getBytes()),
-                new KeyValueRecord(2,"value2".getBytes()));
+                new KeyValueRecord(1, "value1".getBytes()),
+                new KeyValueRecord(2, "value2".getBytes()));
         kvs.addOrUpdateItems(keyValues);
         assertEquals(new String(kvs.loadItem(1)), "value1");
         assertEquals(new String(kvs.loadItem(2)), "value2");
@@ -140,10 +139,10 @@ public class ClcKeyValueStorageTest {
     }
 
     @Test
-    public void clearWithContext(){
+    public void clearWithContext() {
         List keyValues = Arrays.asList(
-                new KeyValueRecord(1,"value1".getBytes()),
-                new KeyValueRecord(2,"value2".getBytes()));
+                new KeyValueRecord(1, "value1".getBytes()),
+                new KeyValueRecord(2, "value2".getBytes()));
         kvs.addOrUpdateItems(keyValues);
         assertEquals(new String(kvs.loadItem(1)), "value1");
         assertEquals(new String(kvs.loadItem(2)), "value2");
@@ -154,8 +153,8 @@ public class ClcKeyValueStorageTest {
         assertNull(kvs.loadItem(2));
 
         List keyValues2 = Arrays.asList(
-                new KeyValueRecord(3,"value3".getBytes()),
-                new KeyValueRecord(4,"value4".getBytes()));
+                new KeyValueRecord(3, "value3".getBytes()),
+                new KeyValueRecord(4, "value4".getBytes()));
         kvs.addOrUpdateItems(keyValues2);
         assertEquals(new String(kvs.loadItem(3)), "value3");
         assertEquals(new String(kvs.loadItem(4)), "value4");
@@ -171,11 +170,10 @@ public class ClcKeyValueStorageTest {
     }
 
 
-
     @After
     public void finalize() {
         srp.setContext(null);
         //remove all records
-        ((ClcKeyValueStorage)kvs).clearAll();
+        ((ClcKeyValueStorage) kvs).clearAll();
     }
 }

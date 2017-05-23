@@ -9,10 +9,11 @@ public interface Badger {
 
     /**
      * Called when user attempts to update notification count
-     * @param context Caller context
+     *
+     * @param context       Caller context
      * @param componentName Component containing package and class name of calling application's
      *                      launcher activity
-     * @param badgeCount Desired notification count
+     * @param badgeCount    Desired notification count
      * @throws ShortcutBadgeException
      */
     void executeBadge(Context context, ComponentName componentName, int badgeCount) throws ShortcutBadgeException;

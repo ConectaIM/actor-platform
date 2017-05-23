@@ -260,7 +260,7 @@ public class PhotoHolder extends MessageHolder {
                 uploadFileVM = null;
             }
 
-            if(compressVideoVM != null){
+            if (compressVideoVM != null) {
                 compressVideoVM.detach();
                 compressVideoVM = null;
             }
@@ -363,8 +363,8 @@ public class PhotoHolder extends MessageHolder {
                 }
             });
         } else if (document.getSource() instanceof FileLocalSource) {
-            if(document instanceof VideoContent
-                    && !((VideoContent) document).isCompressed()){
+            if (document instanceof VideoContent
+                    && !((VideoContent) document).isCompressed()) {
                 messenger().requestVideoCompressState(currentMessage.getRid(), new CompressVideoCallback() {
                     @Override
                     public void onNotConpressing() {
@@ -382,7 +382,7 @@ public class PhotoHolder extends MessageHolder {
                     }
                 });
 
-            }else{
+            } else {
                 messenger().requestUploadState(currentMessage.getRid(), new UploadFileCallback() {
                     @Override
                     public void onNotUploading() {
@@ -449,7 +449,7 @@ public class PhotoHolder extends MessageHolder {
             uploadFileVM = null;
         }
 
-        if(compressVideoVM != null){
+        if (compressVideoVM != null) {
             compressVideoVM.detach();
             compressVideoVM = null;
         }
@@ -625,8 +625,6 @@ public class PhotoHolder extends MessageHolder {
             goneView(progressValue);
         }
     }
-
-
 
 
     public void bindImage(Uri uri) {

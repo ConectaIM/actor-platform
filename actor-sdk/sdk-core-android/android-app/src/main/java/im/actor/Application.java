@@ -124,7 +124,7 @@ public class Application extends ActorSDKApplication {
         @Override
         public void configureChatViewHolders(ArrayList<BubbleLayouter> layouters) {
 //            layouters.add(0, new BubbleTextHolderLayouter());
-            layouters.add(0, new DefaultLayouter(DefaultLayouter.TEXT_HOLDER, (adapter2, root2, peer2) -> new TextHolder(adapter2, root2, peer2){
+            layouters.add(0, new DefaultLayouter(DefaultLayouter.TEXT_HOLDER, (adapter2, root2, peer2) -> new TextHolder(adapter2, root2, peer2) {
                 @Override
                 public void bindRawText(CharSequence rawText, long readDate, long receiveDate, Spannable reactions, Message message, boolean isItalic) {
                     super.bindRawText(rawText, readDate, receiveDate, reactions, message, isItalic);
@@ -183,7 +183,7 @@ public class Application extends ActorSDKApplication {
         @Override
         public ActorIntentFragmentActivity getSettingsIntent() {
 
-            return new BaseActorSettingsActivity(){
+            return new BaseActorSettingsActivity() {
                 @Override
                 public BaseActorSettingsFragment getSettingsFragment() {
                     return new MyBaseActorSettingsFragment();

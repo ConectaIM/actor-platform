@@ -90,7 +90,7 @@ public class Storage {
         return fileSystemRuntime.commitTempFile(sourceFile, fileId, fileName);
     }
 
-    public static boolean removeFileFromDescriptor(String descriptor){
+    public static boolean removeFileFromDescriptor(String descriptor) {
         return fileSystemRuntime.removeFromDescriptor(descriptor);
     }
 }

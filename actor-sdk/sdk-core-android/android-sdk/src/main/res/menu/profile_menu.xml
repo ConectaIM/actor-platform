@@ -12,5 +12,5 @@
         android:icon="@drawable/ic_edit_white_24dp"
         android:title="@string/profile_menu_rename"
         app:showAsAction="always" />
-    
+
 </menu>

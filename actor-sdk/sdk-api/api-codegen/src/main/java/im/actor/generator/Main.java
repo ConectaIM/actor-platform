@@ -1,15 +1,18 @@
 package im.actor.generator;
 
-import im.actor.generator.generators.ProtoBufGenerator;
-import im.actor.generator.generators.doc.DocIndexGenerator;
-import im.actor.generator.generators.doc.DocUpdatesGenerator;
-import im.actor.generator.generators.java.*;
-import im.actor.generator.scheme.*;
-
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.IOException;
+
+import im.actor.generator.generators.java.EnumGenerator;
+import im.actor.generator.generators.java.JavaConfig;
+import im.actor.generator.generators.java.MetaGenerator;
+import im.actor.generator.generators.java.RequestGenerator;
+import im.actor.generator.generators.java.StringJoin;
+import im.actor.generator.generators.java.StructGenerator;
+import im.actor.generator.generators.java.UpdateBoxGenerator;
+import im.actor.generator.generators.java.UpdateGenerator;
+import im.actor.generator.scheme.SchemeDefinition;
+import im.actor.generator.scheme.SchemeFactory;
 
 public class Main {
     public static void main(String[] args) throws IOException {

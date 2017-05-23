@@ -1,36 +1,38 @@
 package clc;
 
 
-import im.actor.core.*;
-import im.actor.core.api.*;
-import im.actor.core.api.rpc.RequestEditAbout;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+
+import im.actor.core.ApiConfiguration;
+import im.actor.core.AuthState;
+import im.actor.core.ConfigurationBuilder;
+import im.actor.core.DeviceCategory;
+import im.actor.core.Messenger;
+import im.actor.core.PlatformType;
+import im.actor.core.api.ApiArrayValue;
+import im.actor.core.api.ApiInt32Value;
+import im.actor.core.api.ApiInt64Value;
+import im.actor.core.api.ApiRawValue;
+import im.actor.core.api.ApiStringValue;
 import im.actor.core.api.rpc.ResponseRawRequest;
-import im.actor.core.api.rpc.ResponseSeq;
-import im.actor.core.api.updates.UpdateUserAboutChanged;
-import im.actor.core.entity.*;
-import im.actor.core.entity.content.TextContent;
-import im.actor.core.network.RpcCallback;
-import im.actor.core.network.RpcException;
+import im.actor.core.entity.Notification;
+import im.actor.core.entity.Peer;
+import im.actor.core.entity.PhoneBookContact;
+import im.actor.core.entity.Sex;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.providers.PhoneBookProvider;
 import im.actor.core.viewmodel.Command;
 import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.UserVM;
-import im.actor.runtime.clc.ClcJavaPreferenceStorage;
-import im.actor.runtime.function.Consumer;
-import im.actor.runtime.function.Function;
-import im.actor.runtime.generic.mvvm.AndroidListUpdate;
-import im.actor.runtime.generic.mvvm.BindedDisplayList;
-import im.actor.runtime.generic.mvvm.DisplayList;
 import im.actor.runtime.json.JSONException;
 import im.actor.runtime.json.JSONObject;
-import im.actor.runtime.promise.Promise;
-import im.actor.sdk.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.*;
-import java.util.prefs.BackingStoreException;
+import im.actor.sdk.ClcMessenger;
 
 
 public class ClcApplication {
@@ -91,10 +93,10 @@ public class ClcApplication {
         messenger.signUp(name, sex, avatarPath).start(new CommandCallback<AuthState>() {
             @Override
             public void onResult(AuthState res) {
-                if (res == AuthState.LOGGED_IN){
+                if (res == AuthState.LOGGED_IN) {
                     logger.info("Logado");
                     sendMessage("+989150000" + (myNumber + 20), "seed: " + randomSeed + "," + myNumber);
-                }else if(res == AuthState.SIGN_UP){
+                } else if (res == AuthState.SIGN_UP) {
                     logger.info("Deve Entrar");
                 }
             }
@@ -115,7 +117,7 @@ public class ClcApplication {
                     if (res == AuthState.SIGN_UP) {
                         logger.info("Vai Logar");
                         signUp("75550000" + (myNumber), Sex.MALE, null);
-                    } else if(res == AuthState.LOGGED_IN){
+                    } else if (res == AuthState.LOGGED_IN) {
                         logger.info("Ja esta logado, vai enviar msg");
 
                         // sendMessage("+556191520714", "seed: " + randomSeed + "," + myNumber);
@@ -127,28 +129,29 @@ public class ClcApplication {
 
                         ApiRawValue values = new ApiInt32Value(826965698);
 
-                        messenger.rawRequestCommand("grupoExtService","getPublicGroups", values).start(new CommandCallback<ResponseRawRequest>() {
+                        messenger.rawRequestCommand("grupoExtService", "getPublicGroups", values).start(new CommandCallback<ResponseRawRequest>() {
                             @Override
                             public void onResult(ResponseRawRequest res) {
                                 logger.debug("TAG", "onResult: ");
                                 logger.debug(res.toString());
                                 ApiArrayValue values = (ApiArrayValue) res.getResult();
 
-                                for(ApiRawValue val : values.getArray()){
+                                for (ApiRawValue val : values.getArray()) {
                                     JSONObject g = null;
                                     try {
-                                        g = new JSONObject(((ApiStringValue)val).getText());
+                                        g = new JSONObject(((ApiStringValue) val).getText());
 
                                         JSONObject obj = new JSONObject();
                                         obj.put("userId", messenger.myUid());
                                         obj.put("groupId", g.getInt("id"));
 
                                         ApiStringValue param = new ApiStringValue(obj.toString());
-                                        messenger.rawRequestCommand("grupoExtService","getInviteLink", param).start(new CommandCallback<ResponseRawRequest>() {
+                                        messenger.rawRequestCommand("grupoExtService", "getInviteLink", param).start(new CommandCallback<ResponseRawRequest>() {
                                             @Override
                                             public void onResult(ResponseRawRequest res) {
-                                                logger.debug(((ApiStringValue)res.getResult()).getText());
+                                                logger.debug(((ApiStringValue) res.getResult()).getText());
                                             }
+
                                             @Override
                                             public void onError(Exception e) {
                                                 logger.error(e.getMessage(), e);
@@ -158,11 +161,12 @@ public class ClcApplication {
 
                                         ApiInt64Value idGrupo = new ApiInt64Value(obj.getLong("groupId"));
 
-                                        messenger.rawRequestCommand("grupoExtService","getGroupAdmin", idGrupo).start(new CommandCallback<ResponseRawRequest>() {
+                                        messenger.rawRequestCommand("grupoExtService", "getGroupAdmin", idGrupo).start(new CommandCallback<ResponseRawRequest>() {
                                             @Override
                                             public void onResult(ResponseRawRequest res) {
-                                                logger.debug(String.valueOf(((ApiInt64Value)res.getResult()).getValue()));
+                                                logger.debug(String.valueOf(((ApiInt64Value) res.getResult()).getValue()));
                                             }
+
                                             @Override
                                             public void onError(Exception e) {
                                                 logger.error(e.getMessage(), e);
@@ -175,6 +179,7 @@ public class ClcApplication {
                                     }
                                 }
                             }
+
                             @Override
                             public void onError(Exception e) {
                                 logger.error("onError: ", e);
@@ -190,7 +195,7 @@ public class ClcApplication {
                 }
             });
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -206,7 +211,7 @@ public class ClcApplication {
 
             @Override
             public void onError(Exception e) {
-                logger.error(e.getMessage(),e);
+                logger.error(e.getMessage(), e);
             }
         });
 
@@ -275,7 +280,6 @@ public class ClcApplication {
                 "4295f9666fad3faf2d04277fe7a0c40ff39a85d313de5348ad8ffa650ad71855",
                 "najva00000000000000000123-" + myNumber,
                 "najva00000000000000000000-v1-" + myNumber));
-
 
 
         messenger = new ClcMessenger(builder.build(), String.valueOf(myNumber));

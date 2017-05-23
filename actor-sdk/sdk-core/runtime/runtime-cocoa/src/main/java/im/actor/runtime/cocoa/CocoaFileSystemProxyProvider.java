@@ -33,4 +33,9 @@ public class CocoaFileSystemProxyProvider implements FileSystemRuntime {
     public FileSystemReference fileFromDescriptor(String descriptor) {
         return runtime.fileFromDescriptor(descriptor);
     }
+
+    @Override
+    public boolean removeFromDescriptor(String descriptor) {
+        return runtime.removeFromDescriptor(descriptor);
+    }
 }

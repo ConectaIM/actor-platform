@@ -6,9 +6,9 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
-        <bitmap android:src="@drawable/conv_attach"/>
+        <bitmap android:src="@drawable/conv_attach" />
     </item>
     <item>
-        <bitmap android:src="@drawable/conv_attach"/>
+        <bitmap android:src="@drawable/conv_attach" />
     </item>
 </selector>

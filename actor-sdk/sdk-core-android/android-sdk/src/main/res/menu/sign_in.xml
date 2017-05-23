@@ -13,8 +13,8 @@
         app:showAsAction="always" />
 
     <!--<item-->
-        <!--android:id="@+id/change_endpoint"-->
-        <!--android:title="@string/auth_change_endpoint"-->
-        <!--app:showAsAction="never" />-->
+    <!--android:id="@+id/change_endpoint"-->
+    <!--android:title="@string/auth_change_endpoint"-->
+    <!--app:showAsAction="never" />-->
 
 </menu>

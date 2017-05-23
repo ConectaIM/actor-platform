@@ -1,5 +1,13 @@
 package im.actor.sdk;
 
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
+
 import im.actor.core.Configuration;
 import im.actor.core.Messenger;
 import im.actor.core.entity.Message;
@@ -9,13 +17,6 @@ import im.actor.runtime.clc.ClcContext;
 import im.actor.runtime.clc.ClcJavaPreferenceStorage;
 import im.actor.runtime.clc.ClcPreferencesStorage;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 public class ClcMessenger extends Messenger {
 
@@ -32,7 +33,7 @@ public class ClcMessenger extends Messenger {
         //context for preferences
         setContext(context);
         //context for databases(index,keyvalue,list)
-        ((ClcContext)Storage.getStorageRuntime()).setContext(context);
+        ((ClcContext) Storage.getStorageRuntime()).setContext(context);
     }
 
     public BindedDisplayList<Message> getMessageDisplayList(final Peer peer) {
@@ -70,7 +71,7 @@ public class ClcMessenger extends Messenger {
     }
 
 
-    public Preferences getPref(){
+    public Preferences getPref() {
         return ((ClcJavaPreferenceStorage) modules.getPreferences()).getPref();
     }
 

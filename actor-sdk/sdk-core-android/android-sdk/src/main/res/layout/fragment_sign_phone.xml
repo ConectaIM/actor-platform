@@ -72,7 +72,7 @@
                         android:imeOptions="actionGo"
                         android:inputType="phone"
                         android:maxLength="4"
-                        android:maxLines="1"/>
+                        android:maxLines="1" />
 
                     <im.actor.sdk.controllers.auth.BackspaceKeyEditText
                         android:id="@+id/tv_phone_number"
@@ -81,7 +81,7 @@
                         android:layout_marginRight="15dp"
                         android:imeOptions="actionGo"
                         android:inputType="phone"
-                        android:maxLines="1"/>
+                        android:maxLines="1" />
 
                 </LinearLayout>
 

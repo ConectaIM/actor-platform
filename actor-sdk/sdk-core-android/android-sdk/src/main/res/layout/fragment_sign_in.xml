@@ -54,7 +54,7 @@
                     android:textAlignment="center"
                     android:gravity="center_vertical|center_horizontal"
                     android:textSize="30sp"
-                    android:background="@android:color/transparent"/>
+                    android:background="@android:color/transparent" />
 
             </LinearLayout>
 

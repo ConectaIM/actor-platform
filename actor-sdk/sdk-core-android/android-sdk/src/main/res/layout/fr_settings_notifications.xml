@@ -59,7 +59,7 @@
 
         <im.actor.sdk.view.DividerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/div_size"/>
+            android:layout_height="@dimen/div_size" />
 
         <LinearLayout
             android:id="@+id/vibrationCont"
@@ -105,7 +105,7 @@
 
         <im.actor.sdk.view.DividerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/div_size"/>
+            android:layout_height="@dimen/div_size" />
 
         <LinearLayout
             android:id="@+id/groupCont"
@@ -151,7 +151,7 @@
 
         <im.actor.sdk.view.DividerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/div_size"/>
+            android:layout_height="@dimen/div_size" />
 
         <LinearLayout
             android:id="@+id/groupMentionsCont"
@@ -197,7 +197,7 @@
 
         <im.actor.sdk.view.DividerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/div_size"/>
+            android:layout_height="@dimen/div_size" />
 
         <LinearLayout
             android:id="@+id/titlesCont"
@@ -242,7 +242,7 @@
 
         <im.actor.sdk.view.DividerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/div_size"/>
+            android:layout_height="@dimen/div_size" />
 
         <LinearLayout
             android:id="@+id/soundCont"
@@ -289,7 +289,7 @@
         <im.actor.sdk.view.DividerView
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/div_size"/>
+            android:layout_height="@dimen/div_size" />
 
         <LinearLayout
             android:id="@+id/soundPickerCont"

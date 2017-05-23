@@ -6,7 +6,9 @@
     <!--<string name="xloto_app_endpoint">tcp://64.137.170.2:9070</string>-->
     <string name="xloto_app_endpoint">tcp://api-mtproto.im.xloto.com.br:9070</string>
 
-    <string name="xloto_invite_url">https://play.google.com/store/apps/details?id=br.com.diegosilva.actorlotericas</string>
+    <string name="xloto_invite_url">
+        https://play.google.com/store/apps/details?id=br.com.diegosilva.actorlotericas
+    </string>
     <string name="xloto_group_invite_prefix">https://im.xloto.com.br/join/</string>
     <!--<string name="xloto_invite_data_url">https://api.actor.diegosilva.com.br/v1/groups/invites/</string>-->
     <!--<string name="xloto_api_endpoint">https://api.actor.diegosilva.com.br</string>-->

@@ -6,24 +6,24 @@ apply plugin: 'io.codearte.nexus-staging'
 mainClassName = "clc.ClcApplication"
 
 sourceSets {
-	main {
-		resources.srcDirs = ['src/main/resources',
-				'../../sdk-core/core/core-shared/src/main/resources'
-		]
-		java {
+    main {
+        resources.srcDirs = ['src/main/resources',
+                             '../../sdk-core/core/core-shared/src/main/resources'
+        ]
+        java {
 
-			srcDirs = ['src/main/java',
-			'../../sdk-core/runtime/runtime-generic/src/main/java',
-			'../../sdk-core/runtime/runtime-shared/src/main/java',
-			'../../sdk-core/runtime/runtime-clc/src/main/java',
-			'../../sdk-core/core/core-shared/src/main/java',
-			]
-		}
-		resources {
-			srcDir 'res'
-		}
+            srcDirs = ['src/main/java',
+                       '../../sdk-core/runtime/runtime-generic/src/main/java',
+                       '../../sdk-core/runtime/runtime-shared/src/main/java',
+                       '../../sdk-core/runtime/runtime-clc/src/main/java',
+                       '../../sdk-core/core/core-shared/src/main/java',
+            ]
+        }
+        resources {
+            srcDir 'res'
+        }
 
-	}
+    }
     test {
         java {
             srcDirs = ["src/test/java"]
@@ -33,10 +33,10 @@ sourceSets {
 dependencies {
 //	compile project(':actor-sdk:sdk-core:core:core-shared') //don't use this because of the duplicate class exception (runtime-clc and runtime-share)
 //	compile project(':actor-sdk:sdk-core:runtime:runtime-clc')
-	compile 'org.xerial:sqlite-jdbc:3.8.11.2'
-	compile 'org.slf4j:slf4j-api:1.7.18'
-	compile 'ch.qos.logback:logback-classic:1.1.6'
-	compile 'ch.qos.logback:logback-core:1.1.6'
+    compile 'org.xerial:sqlite-jdbc:3.8.11.2'
+    compile 'org.slf4j:slf4j-api:1.7.18'
+    compile 'ch.qos.logback:logback-classic:1.1.6'
+    compile 'ch.qos.logback:logback-core:1.1.6'
 //    compile 'commons-configuration:commons-configuration:1.6'
 //    compile 'commons-codec:commons-codec:1.9'
     testCompile "junit:junit:4.11"
@@ -45,18 +45,18 @@ dependencies {
 
 
 allprojects {
-	tasks.withType(JavaCompile) {
-		sourceCompatibility = "1.8"
-		targetCompatibility = "1.8"
-	}
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+    }
 }
 
 buildscript {
-	dependencies {
-		classpath 'com.android.tools.build:gradle:2.3.2'
-		classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
-		classpath 'me.tatarka:gradle-retrolambda:3.5.0'
-	}
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+        classpath 'me.tatarka:gradle-retrolambda:3.5.0'
+    }
 }
 
 //
@@ -72,20 +72,20 @@ String ossrhUsername = ""
 String ossrhPassword = ""
 boolean isDeployConfigured = false
 if (project.rootProject.file('gradle.properties').exists()) {
-	Properties properties = new Properties()
-	properties.load(project.rootProject.file('gradle.properties').newDataInputStream())
-	ossrhUsername = properties.getProperty("ossrhUsername", "")
-	ossrhPassword = properties.getProperty("ossrhPassword", "")
-	version = baseVersion + "." + properties.getProperty("build_index", "")
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('gradle.properties').newDataInputStream())
+    ossrhUsername = properties.getProperty("ossrhUsername", "")
+    ossrhPassword = properties.getProperty("ossrhPassword", "")
+    version = baseVersion + "." + properties.getProperty("build_index", "")
 
-	print("##teamcity[buildNumber '$version']")
+    print("##teamcity[buildNumber '$version']")
 
-	nexusStaging {
-		username ossrhUsername
-		password ossrhPassword
-	}
+    nexusStaging {
+        username ossrhUsername
+        password ossrhPassword
+    }
 
-	isDeployConfigured = true
+    isDeployConfigured = true
 }
 
 project.afterEvaluate {
@@ -95,55 +95,55 @@ project.afterEvaluate {
 //		archives sourcesJarRelease
 //	}
 
-	if (isDeployConfigured) {
+    if (isDeployConfigured) {
 
 //        signing {
 //            sign configurations.archives
 //        }
 
-		uploadArchives {
-			repositories {
-				mavenDeployer {
-					// beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    // beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-					repository(url: "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/") {
-						authentication(userName: ossrhUsername, password: ossrhPassword)
-					}
+                    repository(url: "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/") {
+                        authentication(userName: ossrhUsername, password: ossrhPassword)
+                    }
 
-					pom.project {
-						name 'Actor SDK for Android'
-						packaging 'jar'
-						description 'Actor SDK: Embedding mobile messaging to Android App'
-						url 'https://github.com/actorapp/actor-platform'
+                    pom.project {
+                        name 'Actor SDK for Android'
+                        packaging 'jar'
+                        description 'Actor SDK: Embedding mobile messaging to Android App'
+                        url 'https://github.com/actorapp/actor-platform'
 
-						scm {
-							url 'scm:git@github.com:actorapp/actor-platform.git'
-							connection 'scm:git@github.com:actorapp/actor-platform.git'
-							developerConnection 'scm:git@github.com:actorapp/actor-platform.git'
-						}
+                        scm {
+                            url 'scm:git@github.com:actorapp/actor-platform.git'
+                            connection 'scm:git@github.com:actorapp/actor-platform.git'
+                            developerConnection 'scm:git@github.com:actorapp/actor-platform.git'
+                        }
 
-						licenses {
-							license {
-								name 'The MIT License (MIT)'
-								url 'http://opensource.org/licenses/MIT'
-								distribution 'repo'
-							}
-						}
+                        licenses {
+                            license {
+                                name 'The MIT License (MIT)'
+                                url 'http://opensource.org/licenses/MIT'
+                                distribution 'repo'
+                            }
+                        }
 
-						developers {
-							developer {
-								id 'ex3ndr'
-								name 'Stepan Korshakov'
-							}
-							developer {
-								id 'dfsilva'
-								name 'Diego Silva'
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+                        developers {
+                            developer {
+                                id 'ex3ndr'
+                                name 'Stepan Korshakov'
+                            }
+                            developer {
+                                id 'dfsilva'
+                                name 'Diego Silva'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

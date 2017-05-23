@@ -15,8 +15,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import im.actor.map.MapItem;
-
 /**
  * Created by kiolt_000 on 22/09/2014.
  */

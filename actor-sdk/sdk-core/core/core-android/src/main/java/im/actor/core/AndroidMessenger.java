@@ -44,7 +44,6 @@ import im.actor.core.viewmodel.Command;
 import im.actor.core.viewmodel.GalleryVM;
 import im.actor.runtime.Log;
 import im.actor.runtime.Runtime;
-import im.actor.runtime.VideoCompressorRuntimeProvider;
 import im.actor.runtime.actors.Actor;
 import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.ActorRef;
@@ -356,7 +355,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
                 File externalFile = Environment.getExternalStorageDirectory();
 
-               // File externalFile = context.getExternalFilesDir(null);
+                // File externalFile = context.getExternalFilesDir(null);
                 if (externalFile == null) {
                     callback.onError(new NullPointerException());
                     return;

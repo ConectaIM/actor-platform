@@ -1,15 +1,20 @@
 package im.actor.runtime.clc;
 
-import im.actor.runtime.StorageRuntimeProvider;
-import im.actor.runtime.storage.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import im.actor.runtime.StorageRuntimeProvider;
+import im.actor.runtime.storage.ListEngineRecord;
+import im.actor.runtime.storage.ListStorage;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by amir on 4/12/16.
@@ -209,7 +214,7 @@ public class ClcListStorageTest {
     }
 
     @Test
-    public void getCount(){
+    public void getCount() {
         updateOrAddList();
         assertEquals(ls.getCount(), 6);
     }

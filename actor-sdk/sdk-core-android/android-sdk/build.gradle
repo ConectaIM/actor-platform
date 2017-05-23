@@ -192,7 +192,7 @@ project.afterEvaluate {
         uploadArchives {
             repositories {
                 mavenDeployer {
-                   // beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+                    // beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
                     repository(url: "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/") {
                         authentication(userName: ossrhUsername, password: ossrhPassword)

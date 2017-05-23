@@ -24,33 +24,129 @@
         "Api para grupos pre-definidos"
       ],
       "items": [
-     {
-       "type":"struct",
-       "content": {
-         "name":"GroupPre",
-"doc":[
-"fadsfasdfasdfas"],"attributes":[
-{"type":"int64","id":1,"name":"groupId"}
-,{"type":"int64","id":2,"name":"groupFatherId"}
-,{"type":{"type":"list","childType":{"type":"struct","childType":"GroupPre"}},"id":5,"name":"childrens"}
-]}},{"type":"rpc","content":{
-"name":"LoadGroupsPre",
-"header":18,
-"response":{"type":"anonymous","header":20, "doc":[
-"fffff"] ,"attributes":[{"type":{"type":"list","childType":{"type":"struct","childType":"GroupPre"}},"id":1,"name":"groups"}
-]},
-"doc":[
-"fasdfasdfasd"],"attributes":[
-]}},{"type":"rpc","content":{
-"name":"CreateGroupPre",
-"header":19,
-"response":{"type":"anonymous","header":21, "doc":[
-"fasdfasdfas"] ,"attributes":[{"type":"int32","id":1,"name":"seq"}
-,{"type":{"type":"alias","childType":"seq_state"},"id":2,"name":"state"}
-,{"type":{"type":"struct","childType":"GroupPre"},"id":3,"name":"groupPre"}
-]},
-"doc":[
-"fadsfasdfasd"],"attributes":[
-{"type":{"type":"alias","childType":"groupId"},"id":1,"name":"groupId"}
-,{"type":{"type":"alias","childType":"groupId"},"id":2,"name":"groupFatherId"}
-]}}]}]}
+        {
+          "type": "struct",
+          "content": {
+            "name": "GroupPre",
+            "doc": [
+              "fadsfasdfasdfas"
+            ],
+            "attributes": [
+              {
+                "type": "int64",
+                "id": 1,
+                "name": "groupId"
+              },
+              {
+                "type": "int64",
+                "id": 2,
+                "name": "groupFatherId"
+              },
+              {
+                "type": {
+                  "type": "list",
+                  "childType": {
+                    "type": "struct",
+                    "childType": "GroupPre"
+                  }
+                },
+                "id": 5,
+                "name": "childrens"
+              }
+            ]
+          }
+        },
+        {
+          "type": "rpc",
+          "content": {
+            "name": "LoadGroupsPre",
+            "header": 18,
+            "response": {
+              "type": "anonymous",
+              "header": 20,
+              "doc": [
+                "fffff"
+              ],
+              "attributes": [
+                {
+                  "type": {
+                    "type": "list",
+                    "childType": {
+                      "type": "struct",
+                      "childType": "GroupPre"
+                    }
+                  },
+                  "id": 1,
+                  "name": "groups"
+                }
+              ]
+            },
+            "doc": [
+              "fasdfasdfasd"
+            ],
+            "attributes": [
+            ]
+          }
+        },
+        {
+          "type": "rpc",
+          "content": {
+            "name": "CreateGroupPre",
+            "header": 19,
+            "response": {
+              "type": "anonymous",
+              "header": 21,
+              "doc": [
+                "fasdfasdfas"
+              ],
+              "attributes": [
+                {
+                  "type": "int32",
+                  "id": 1,
+                  "name": "seq"
+                },
+                {
+                  "type": {
+                    "type": "alias",
+                    "childType": "seq_state"
+                  },
+                  "id": 2,
+                  "name": "state"
+                },
+                {
+                  "type": {
+                    "type": "struct",
+                    "childType": "GroupPre"
+                  },
+                  "id": 3,
+                  "name": "groupPre"
+                }
+              ]
+            },
+            "doc": [
+              "fadsfasdfasd"
+            ],
+            "attributes": [
+              {
+                "type": {
+                  "type": "alias",
+                  "childType": "groupId"
+                },
+                "id": 1,
+                "name": "groupId"
+              },
+              {
+                "type": {
+                  "type": "alias",
+                  "childType": "groupId"
+                },
+                "id": 2,
+                "name": "groupFatherId"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

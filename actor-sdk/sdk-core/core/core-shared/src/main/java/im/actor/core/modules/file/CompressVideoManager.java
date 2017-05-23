@@ -8,8 +8,10 @@ import im.actor.core.modules.ModuleContext;
 import im.actor.core.viewmodel.CompressVideoCallback;
 import im.actor.core.viewmodel.UploadFileCallback;
 
+import im.actor.runtime.CompressorProgressListener;
 import im.actor.runtime.VideoCompressorRuntimeProvider;
 import im.actor.runtime.actors.ActorRef;
+import im.actor.runtime.video.CompressedVideo;
 
 
 /**
@@ -37,10 +39,12 @@ public class CompressVideoManager extends ModuleActor {
 
         final CompressItem ci = new CompressItem(rid, fileName, originalVideoPath);
         ci.sender = sender();
+        ci.isStarted = true;
         queue.add(ci);
 
-        ci.isStarted = true;
-        videoCompressorRuntime.compressVideo(ci, new VideoCompressorRuntimeProvider.CompressorProgressListener() {
+
+
+        videoCompressorRuntime.compressVideo(ci.getRid(), ci.getOriginalFilePath(), ci.getSender(), new CompressorProgressListener() {
             @Override
             public void onProgress(long rid, float v) {
                 ArrayList<CompressVideoCallback> clist = callbacks.get(rid);

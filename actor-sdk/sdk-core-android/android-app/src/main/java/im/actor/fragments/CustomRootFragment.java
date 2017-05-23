@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import im.actor.develop.R;
-import im.actor.sdk.controllers.dialogs.DialogsDefaultFragment;
 import im.actor.sdk.controllers.BaseFragment;
+import im.actor.sdk.controllers.dialogs.DialogsDefaultFragment;
 import im.actor.sdk.controllers.placeholder.GlobalPlaceholderFragment;
 import im.actor.sdk.controllers.search.GlobalSearchDefaultFragment;
 import im.actor.sdk.controllers.search.GlobalSearchStateDelegate;

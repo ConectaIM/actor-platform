@@ -12,8 +12,8 @@ import im.actor.core.entity.content.TextContent;
 import im.actor.develop.R;
 import im.actor.sdk.controllers.conversation.messages.BubbleLayouter;
 import im.actor.sdk.controllers.conversation.messages.MessagesAdapter;
-import im.actor.sdk.controllers.conversation.messages.content.MessageHolder;
 import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
+import im.actor.sdk.controllers.conversation.messages.content.MessageHolder;
 import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedData;
 import im.actor.sdk.controllers.conversation.view.BubbleContainer;
 

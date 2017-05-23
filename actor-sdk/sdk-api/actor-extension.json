@@ -3,7 +3,7 @@
   "scala-package": "im.actor.api.xloto.rpc",
   "java-package": "im.actor.core.xloto.api",
   "aliases": [
-
   ],
   "sections": [
-]}
+  ]
+}

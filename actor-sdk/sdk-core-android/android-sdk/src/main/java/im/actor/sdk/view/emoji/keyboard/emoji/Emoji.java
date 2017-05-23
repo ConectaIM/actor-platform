@@ -8,11 +8,6 @@
 
 package im.actor.sdk.view.emoji.keyboard.emoji;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Locale;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -30,6 +25,11 @@ import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Locale;
 
 import im.actor.runtime.Log;
 import im.actor.runtime.android.AndroidContext;
