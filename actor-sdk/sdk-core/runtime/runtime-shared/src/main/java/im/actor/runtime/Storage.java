@@ -19,6 +19,7 @@ public class Storage {
     private static final StorageRuntime storageRuntime = new StorageRuntimeProvider();
     private static final EnginesRuntime enginesRuntime = new EnginesRuntimeProvider();
     private static final FileSystemRuntime fileSystemRuntime = new FileSystemRuntimeProvider();
+    private static final VideoCompressorRuntime videoCompressorRuntime = new VideoCompressorRuntimeProvider();
 
     // Runtimes
 
@@ -32,6 +33,10 @@ public class Storage {
 
     public static FileSystemRuntime getFileSystemRuntime() {
         return fileSystemRuntime;
+    }
+
+    public static VideoCompressorRuntime getVideoCompressorRuntime(){
+        return videoCompressorRuntime;
     }
 
 

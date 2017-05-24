@@ -7,5 +7,4 @@ import im.actor.runtime.android.AndroidVideoCompressorRuntimeProvider;
  */
 
 public class VideoCompressorRuntimeProvider extends AndroidVideoCompressorRuntimeProvider {
-
 }

@@ -26,4 +26,9 @@ public class FileSystemRuntimeProvider implements FileSystemRuntime {
     public FileSystemReference fileFromDescriptor(String descriptor) {
         throw new RuntimeException("Dumb");
     }
+
+    @Override
+    public boolean removeFromDescriptor(String descriptor) {
+        return false;
+    }
 }

@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.viewmodel.CompressVideoCallback;
-import im.actor.core.viewmodel.UploadFileCallback;
 
 import im.actor.runtime.CompressorProgressListener;
-import im.actor.runtime.VideoCompressorRuntimeProvider;
+import im.actor.runtime.Storage;
 import im.actor.runtime.actors.ActorRef;
-import im.actor.runtime.video.CompressedVideo;
 
 
 /**
@@ -20,8 +18,6 @@ import im.actor.runtime.video.CompressedVideo;
 
 public class CompressVideoManager extends ModuleActor {
 
-
-    private VideoCompressorRuntimeProvider videoCompressorRuntime = new VideoCompressorRuntimeProvider();
 
     private HashMap<Long, ArrayList<CompressVideoCallback>> callbacks = new HashMap<>();
     private ArrayList<CompressItem> queue = new ArrayList<>();
@@ -44,7 +40,7 @@ public class CompressVideoManager extends ModuleActor {
 
 
 
-        videoCompressorRuntime.compressVideo(ci.getRid(), ci.getOriginalFilePath(), ci.getSender(), new CompressorProgressListener() {
+        Storage.getVideoCompressorRuntime().compressVideo(ci.getRid(), ci.getOriginalFilePath(), ci.getSender(), new CompressorProgressListener() {
             @Override
             public void onProgress(long rid, float v) {
                 ArrayList<CompressVideoCallback> clist = callbacks.get(rid);

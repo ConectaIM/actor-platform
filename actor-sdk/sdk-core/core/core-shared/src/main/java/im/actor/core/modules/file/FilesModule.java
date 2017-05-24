@@ -6,7 +6,6 @@ package im.actor.core.modules.file;
 
 import java.io.IOException;
 
-import im.actor.core.entity.CompressedVideo;
 import im.actor.core.entity.FileReference;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;

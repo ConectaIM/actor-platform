@@ -505,7 +505,7 @@ public class PhotoHolder extends MessageHolder {
         public void onNotConpressing() {
             showView(progressContainer);
 
-            progressIcon.setImageResource(R.drawable.conv_media_upload);
+            progressIcon.setImageResource(R.drawable.ic_arrow_compress_white_24dp);
             showView(progressIcon);
 
             goneView(progressView);
@@ -517,7 +517,7 @@ public class PhotoHolder extends MessageHolder {
             showView(progressContainer);
             goneView(progressValue);
 
-            progressIcon.setImageResource(R.drawable.conv_media_upload);
+            progressIcon.setImageResource(R.drawable.ic_arrow_compress_white_24dp);
             progressView.setValue(0);
             progressValue.setText("");
 
@@ -532,7 +532,7 @@ public class PhotoHolder extends MessageHolder {
             showView(progressContainer);
             goneView(progressValue);
 
-            progressIcon.setImageResource(R.drawable.conv_media_upload);
+            progressIcon.setImageResource(R.drawable.ic_arrow_compress_white_24dp);
             progressView.setValue(0);
             progressValue.setText("");
 

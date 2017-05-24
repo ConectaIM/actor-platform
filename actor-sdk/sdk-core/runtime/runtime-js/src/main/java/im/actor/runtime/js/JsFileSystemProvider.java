@@ -50,4 +50,9 @@ public class JsFileSystemProvider implements FileSystemRuntime {
         }
         return null;
     }
+
+    @Override
+    public boolean removeFromDescriptor(String descriptor) {
+        return false;
+    }
 }

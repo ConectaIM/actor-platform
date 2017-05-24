@@ -4,7 +4,6 @@ import java.io.File;
 
 import br.com.diegosilva.vo.vclibrary.video.ConversionListener;
 import br.com.diegosilva.vo.vclibrary.video.MediaController;
-import im.actor.core.modules.file.CompressVideoManager;
 import im.actor.runtime.CompressorProgressListener;
 import im.actor.runtime.Storage;
 import im.actor.runtime.VideoCompressorRuntime;
