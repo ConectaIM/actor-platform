@@ -402,12 +402,6 @@ public class Messenger {
         modules.getAuthModule().resetAuth();
     }
 
-    /**
-     * This method is called when messenger was logged in. Useful for subclasses
-     */
-    public void onLoggedIn() {
-
-    }
 
     //////////////////////////////////////
     //        Authenticated state

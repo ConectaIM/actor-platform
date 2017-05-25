@@ -114,6 +114,8 @@ public class Modules implements ModuleContext {
         // timing.section("Auth");
         this.authentication = new Authentication(this);
         // timing.end();
+
+        this.configuration.getModuleStartListener().onModuleCreate(this);
     }
 
     public void run() {
@@ -121,6 +123,7 @@ public class Modules implements ModuleContext {
         // timing.section("Auth");
         this.authentication.run();
         // timing.end();
+        this.configuration.getModuleStartListener().onRun(this);
     }
 
     public void onLoggedIn(boolean first) {
@@ -169,7 +172,6 @@ public class Modules implements ModuleContext {
         timing.section("EventBus");
         eventBusModule = new EventBusModule(this);
 
-
         timing = new Timing("ACCOUNT_RUN");
         timing.section("Users");
         users.run();
@@ -201,11 +203,13 @@ public class Modules implements ModuleContext {
         conductor.runAfter();
         timing.end();
 
-        if (Runtime.isMainThread()) {
-            messenger.onLoggedIn();
-        } else {
-            Runtime.postToMainThread(() -> messenger.onLoggedIn());
-        }
+//        if (Runtime.isMainThread()) {
+//            messenger.onLoggedIn();
+//        } else {
+//            Runtime.postToMainThread(() -> messenger.onLoggedIn());
+//        }
+
+        this.configuration.getModuleStartListener().onLoggedIn(this, first);
     }
 
     @Override

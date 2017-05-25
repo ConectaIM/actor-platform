@@ -6,6 +6,7 @@ package im.actor.core;
 
 import com.google.j2objc.annotations.Property;
 
+import im.actor.core.modules.ModuleStartListener;
 import im.actor.core.network.TrustedKey;
 import im.actor.core.network.parser.BaseParser;
 import im.actor.core.providers.CallsProvider;
@@ -72,6 +73,8 @@ public class Configuration {
     private final BaseParser[] rpcParses;
     @Property("readonly, nonatomic")
     private final BaseParser[] updateParcers;
+    @Property("readonly, nonatomic")
+    private final ModuleStartListener moduleStartListener;
 
 
     Configuration(ConnectionEndpoint[] endpoints,
@@ -100,7 +103,8 @@ public class Configuration {
                   String[] autoJoinGroups,
                   AutoJoinType autoJoinType,
                   BaseParser[] rpcParsers,
-                  BaseParser[] updatesParser) {
+                  BaseParser[] updatesParser,
+                  ModuleStartListener moduleStartListener) {
         this.endpoints = endpoints;
         this.phoneBookProvider = phoneBookProvider;
         this.enableContactsLogging = enableContactsLogging;
@@ -128,6 +132,7 @@ public class Configuration {
         this.autoJoinType = autoJoinType;
         this.rpcParses = rpcParsers;
         this.updateParcers = updatesParser;
+        this.moduleStartListener = moduleStartListener;
     }
 
     /**
@@ -356,6 +361,8 @@ public class Configuration {
     }
 
     /**
+     * Get RpcParses
+     *
      * @return
      */
     public BaseParser[] getRpcParses() {
@@ -363,9 +370,20 @@ public class Configuration {
     }
 
     /**
+     * Get UpdateParces
+     *
      * @return
      */
     public BaseParser[] getUpdateParcers() {
         return updateParcers;
+    }
+
+    /**
+     * Get ModuleStartListener
+     *
+     * @return
+     */
+    public ModuleStartListener getModuleStartListener() {
+        return moduleStartListener;
     }
 }

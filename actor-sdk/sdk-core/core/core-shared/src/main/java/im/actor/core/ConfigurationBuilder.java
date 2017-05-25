@@ -11,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import im.actor.core.modules.ModuleContext;
+import im.actor.core.modules.ModuleStartListener;
 import im.actor.core.network.TrustedKey;
 import im.actor.core.network.parser.BaseParser;
 import im.actor.core.providers.CallsProvider;
@@ -68,6 +70,17 @@ public class ConfigurationBuilder {
     private List<BaseParser> extraRpcParsers = new ArrayList<>();
     private List<BaseParser> extraUpdateParsers = new ArrayList<>();
 
+    private ModuleStartListener moduleStartListener = new ModuleStartListener() {
+        @Override
+        public void onModuleCreate(ModuleContext context) {
+        }
+        @Override
+        public void onRun(ModuleContext context) {
+        }
+        @Override
+        public void onLoggedIn(ModuleContext context, boolean first) {
+        }
+    };
 
     /**
      * Setting Auto Join to group type: when to join to your groups
@@ -413,6 +426,12 @@ public class ConfigurationBuilder {
         return this;
     }
 
+    @NotNull
+    @ObjectiveCName("setModuleStartListener:")
+    public ConfigurationBuilder setModuleStartListener(@NotNull ModuleStartListener moduleStartListener) {
+        this.moduleStartListener = moduleStartListener;
+        return this;
+    }
 
     /**
      * Build configuration
@@ -458,6 +477,7 @@ public class ConfigurationBuilder {
                 autoJoinGroups.toArray(new String[autoJoinGroups.size()]),
                 autoJoinType,
                 extraRpcParsers.toArray(new BaseParser[]{}),
-                extraUpdateParsers.toArray(new BaseParser[]{}));
+                extraUpdateParsers.toArray(new BaseParser[]{}),
+                moduleStartListener);
     }
 }

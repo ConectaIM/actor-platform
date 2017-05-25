@@ -371,7 +371,7 @@ public class ActorSDK {
                     pushManager.registerPush(application);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
 
             synchronized (LOAD_LOCK) {
@@ -394,7 +394,7 @@ public class ActorSDK {
                         LOAD_LOCK.wait();
                         Log.d(TAG, "Waited for startup in " + (Runtime.getActorTime() - start) + " ms");
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e(TAG, e);
                     }
                 }
             }
