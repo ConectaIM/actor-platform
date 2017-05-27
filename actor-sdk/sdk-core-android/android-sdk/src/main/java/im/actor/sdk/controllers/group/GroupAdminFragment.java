@@ -14,10 +14,10 @@ import im.actor.core.entity.GroupType;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.runtime.mvvm.Value;
 import im.actor.runtime.mvvm.ValueChangedListener;
-import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
 import im.actor.sdk.controllers.Intents;
+import im.actor.sdk.util.ActorSDKMessenger;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
@@ -160,13 +160,13 @@ public class GroupAdminFragment extends BaseFragment {
                             .setPositiveButton(R.string.alert_delete_group_yes, (d1, which1) -> {
                                 if (groupVM.getIsCanLeave().get()) {
                                     execute(messenger().leaveAndDeleteGroup(groupVM.getId()), R.string.progress_common)
-                                            .then(aVoid -> ActorSDK.returnToRoot(getActivity()))
+                                            .then(aVoid -> ActorSDKMessenger.returnToRoot(getActivity()))
                                             .failure(e -> {
                                                 Toast.makeText(getActivity(), R.string.toast_unable_leave, Toast.LENGTH_LONG).show();
                                             });
                                 } else if (groupVM.getIsCanDelete().get()) {
                                     execute(messenger().deleteGroup(groupVM.getId()), R.string.progress_common)
-                                            .then(aVoid -> ActorSDK.returnToRoot(getActivity()))
+                                            .then(aVoid -> ActorSDKMessenger.returnToRoot(getActivity()))
                                             .failure(e -> {
                                                 Toast.makeText(getActivity(), R.string.toast_unable_delete_chat, Toast.LENGTH_LONG).show();
                                             });

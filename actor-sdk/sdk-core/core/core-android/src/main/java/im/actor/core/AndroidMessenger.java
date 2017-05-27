@@ -562,8 +562,8 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
     }
 
-    @Override
-    public void onLoggedIn() {
-        super.onLoggedIn();
-    }
+//    @Override
+//    public void onLoggedIn() {
+//        super.onLoggedIn();
+//    }
 }

@@ -60,6 +60,10 @@ public class ActorSDK {
      */
     public ActorStyle style = new ActorStyle();
 
+    /**
+     * ActorSDKCreateListener default implementation
+     */
+    protected ActorSDKCreateListener sdkCreateListener = ActorSDKCreateListener.stub;
 
     //
     // SDK Objects
@@ -240,7 +244,6 @@ public class ActorSDK {
     //
     // SDK Initialization
     //
-
     public void createActor(final Application application) {
 
         this.application = application;
@@ -260,85 +263,9 @@ public class ActorSDK {
             ActorSystem.system().addDispatcher("voice_capture_dispatcher", 1);
 
             //
-            // SDK Configuration
+            //Messenger
             //
-            ConfigurationBuilder builder = new ConfigurationBuilder();
-            for (String s : endpoints) {
-                builder.addEndpoint(s);
-            }
-            for (String t : trustedKeys) {
-                builder.addTrustedKey(t);
-            }
-
-            //parsers
-
-            for (BaseParser r : rpcParsers) {
-                builder.addRpcParser(r);
-            }
-
-            for (BaseParser u : updateParsers) {
-                builder.addUpdateParser(u);
-            }
-
-            builder.setPhoneBookProvider(new AndroidPhoneBook());
-            builder.setVideoCallsEnabled(videoCallsEnabled);
-            builder.setOnClientPrivacyEnabled(onClientPrivacyEnabled);
-            builder.setNotificationProvider(new AndroidNotifications(application));
-            builder.setDeviceCategory(DeviceCategory.MOBILE);
-            builder.setPlatformType(PlatformType.ANDROID);
-            builder.setIsEnabledGroupedChatList(false);
-            builder.setApiConfiguration(new ApiConfiguration(
-                    appName,
-                    apiAppId,
-                    apiAppKey,
-                    Devices.getDeviceName(),
-                    AndroidContext.getContext().getPackageName() + ":" + Build.SERIAL));
-
-            //
-            // Adding Locales
-            //
-            Locale defaultLocale = Locale.getDefault();
-            Log.d(TAG, "Found Locale: " + defaultLocale.getLanguage() + "-" + defaultLocale.getCountry());
-            Log.d(TAG, "Found Locale: " + defaultLocale.getLanguage());
-            builder.addPreferredLanguage(defaultLocale.getLanguage() + "-" + defaultLocale.getCountry());
-            builder.addPreferredLanguage(defaultLocale.getLanguage());
-
-            //
-            // Adding TimeZone
-            //
-            String timeZone = TimeZone.getDefault().getID();
-            Log.d(TAG, "Found TimeZone: " + timeZone);
-            builder.setTimeZone(timeZone);
-
-            //
-            // App Name
-            //
-            if (customApplicationName != null) {
-                builder.setCustomAppName(customApplicationName);
-            }
-
-            //
-            // Calls Support
-            //
-            builder.setCallsProvider(new AndroidCallProvider());
-
-            //
-            // Handle raw updates
-            //
-            builder.setRawUpdatesHandler(getDelegate().getRawUpdatesHandler());
-
-            //
-            // Auto Join
-            //
-            for (String s : autoJoinGroups) {
-                builder.addAutoJoinGroup(s);
-            }
-            builder.setAutoJoinType(autoJoinType);
-
-            //
-            // Building Messenger
-            //
-            this.messenger = new AndroidMessenger(application, builder.build());
+            createMessenger();
 
             //
             // Keep Alive
@@ -361,7 +288,6 @@ public class ActorSDK {
                 });
             }
 
-
             //
             // GCM
             //
@@ -378,8 +304,93 @@ public class ActorSDK {
                 isLoaded = true;
                 LOAD_LOCK.notifyAll();
             }
-
         });
+
+        sdkCreateListener.onCreateActor(application);
+    }
+
+    protected void createMessenger() {
+        //
+        // SDK Configuration
+        //
+        ConfigurationBuilder builder = new ConfigurationBuilder();
+        for (String s : endpoints) {
+            builder.addEndpoint(s);
+        }
+        for (String t : trustedKeys) {
+            builder.addTrustedKey(t);
+        }
+
+        //parsers
+
+        for (BaseParser r : rpcParsers) {
+            builder.addRpcParser(r);
+        }
+
+        for (BaseParser u : updateParsers) {
+            builder.addUpdateParser(u);
+        }
+
+        builder.setPhoneBookProvider(new AndroidPhoneBook());
+        builder.setVideoCallsEnabled(videoCallsEnabled);
+        builder.setOnClientPrivacyEnabled(onClientPrivacyEnabled);
+        builder.setNotificationProvider(new AndroidNotifications(application));
+        builder.setDeviceCategory(DeviceCategory.MOBILE);
+        builder.setPlatformType(PlatformType.ANDROID);
+        builder.setIsEnabledGroupedChatList(false);
+        builder.setApiConfiguration(new ApiConfiguration(
+                appName,
+                apiAppId,
+                apiAppKey,
+                Devices.getDeviceName(),
+                AndroidContext.getContext().getPackageName() + ":" + Build.SERIAL));
+
+        //
+        // Adding Locales
+        //
+        Locale defaultLocale = Locale.getDefault();
+        Log.d(TAG, "Found Locale: " + defaultLocale.getLanguage() + "-" + defaultLocale.getCountry());
+        Log.d(TAG, "Found Locale: " + defaultLocale.getLanguage());
+        builder.addPreferredLanguage(defaultLocale.getLanguage() + "-" + defaultLocale.getCountry());
+        builder.addPreferredLanguage(defaultLocale.getLanguage());
+
+        //
+        // Adding TimeZone
+        //
+        String timeZone = TimeZone.getDefault().getID();
+        Log.d(TAG, "Found TimeZone: " + timeZone);
+        builder.setTimeZone(timeZone);
+
+        //
+        // App Name
+        //
+        if (customApplicationName != null) {
+            builder.setCustomAppName(customApplicationName);
+        }
+
+        //
+        // Calls Support
+        //
+        builder.setCallsProvider(new AndroidCallProvider());
+
+        //
+        // Handle raw updates
+        //
+        builder.setRawUpdatesHandler(getDelegate().getRawUpdatesHandler());
+
+        //
+        // Auto Join
+        //
+        for (String s : autoJoinGroups) {
+            builder.addAutoJoinGroup(s);
+        }
+
+        builder.setAutoJoinType(autoJoinType);
+
+        //
+        // Building Messenger
+        //
+        this.messenger = sdkCreateListener.createMessenger(application, builder);
     }
 
     /**
@@ -1120,16 +1131,11 @@ public class ActorSDK {
         this.inviteDataUrl = inviteDataUrl;
     }
 
+    public ActorSDKCreateListener getSdkCreateListener() {
+        return sdkCreateListener;
+    }
 
-    public static void returnToRoot(Context context) {
-        Intent i;
-        ActorIntent startIntent = ActorSDK.sharedActor().getDelegate().getStartIntent();
-        if (startIntent != null && startIntent instanceof ActorIntentActivity) {
-            i = ((ActorIntentActivity) startIntent).getIntent();
-        } else {
-            i = new Intent(context, RootActivity.class);
-        }
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivity(i);
+    public void setSdkCreateListener(ActorSDKCreateListener sdkCreateListener) {
+        this.sdkCreateListener = sdkCreateListener;
     }
 }

@@ -209,7 +209,12 @@ public class Modules implements ModuleContext {
 //            Runtime.postToMainThread(() -> messenger.onLoggedIn());
 //        }
 
-        this.configuration.getModuleStartListener().onLoggedIn(this, first);
+        if (Runtime.isMainThread()) {
+            this.configuration.getModuleStartListener().onLoggedIn(this, first);
+        } else {
+            Runtime.postToMainThread(() -> this.configuration.getModuleStartListener().onLoggedIn(this, first));
+        }
+
     }
 
     @Override
