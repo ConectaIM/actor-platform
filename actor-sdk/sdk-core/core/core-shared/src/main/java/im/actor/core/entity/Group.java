@@ -21,6 +21,7 @@ import im.actor.core.api.ApiGroupPermissions;
 import im.actor.core.api.ApiMapValue;
 import im.actor.core.api.ApiMember;
 import im.actor.core.util.BitMaskUtil;
+import im.actor.runtime.bser.Bser;
 import im.actor.runtime.bser.BserCreator;
 import im.actor.runtime.storage.KeyValueItem;
 
@@ -30,6 +31,10 @@ public class Group extends WrapperExtEntity<ApiGroupFull, ApiGroup> implements K
     private static final int RECORD_EXT_ID = 11;
 
     public static BserCreator<Group> CREATOR = Group::new;
+
+    public static Group fromBytes(byte[] data) throws IOException {
+        return Bser.parse(new Group(), data);
+    }
 
     //
     // Main

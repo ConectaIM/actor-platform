@@ -4,16 +4,15 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
-import me.leolin.shortcutbadger.Badger;
-import me.leolin.shortcutbadger.ShortcutBadgeException;
-import me.leolin.shortcutbadger.ShortcutBadger;
-
 import java.util.Arrays;
 import java.util.List;
 
+import me.leolin.shortcutbadger.Badger;
+import me.leolin.shortcutbadger.ShortcutBadgeException;
+
 /**
  * @author Leo Lin
- * Deprecated, LG devices will use DefaultBadger
+ *         Deprecated, LG devices will use DefaultBadger
  */
 @Deprecated
 public class LGHomeBadger implements Badger {

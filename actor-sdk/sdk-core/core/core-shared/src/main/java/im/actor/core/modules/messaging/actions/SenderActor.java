@@ -105,12 +105,12 @@ public class SenderActor extends ModuleActor {
                 DocumentContent documentContent = (DocumentContent) pending.getContent();
                 if (documentContent.getSource() instanceof FileLocalSource) {
                     if (Storage.isFsPersistent()) {
-                        if(pending.getContent() instanceof VideoContent &&
-                                !((VideoContent) pending.getContent()).isCompressed()){
+                        if (pending.getContent() instanceof VideoContent &&
+                                !((VideoContent) pending.getContent()).isCompressed()) {
                             performCompressVideo(pending.getRid(),
                                     ((FileLocalSource) documentContent.getSource()).getFileName(),
                                     ((FileLocalSource) documentContent.getSource()).getFileDescriptor());
-                        }else{
+                        } else {
                             performUploadFile(pending.getRid(),
                                     ((FileLocalSource) documentContent.getSource()).getFileDescriptor(),
                                     ((FileLocalSource) documentContent.getSource()).getFileName());
@@ -373,7 +373,7 @@ public class SenderActor extends ModuleActor {
         context().getFilesModule().requestCompressVideo(rid, fileName, descriptor, self());
     }
 
-    private void onVideoCompressed(long rid, String fileName, String filePath){
+    private void onVideoCompressed(long rid, String fileName, String filePath) {
         PendingMessage msg = findPending(rid);
         if (msg == null) {
             return;
@@ -632,10 +632,10 @@ public class SenderActor extends ModuleActor {
             doSendAnimation(animation.getPeer(), animation.getFileName(),
                     animation.getW(), animation.getH(), animation.getFastThumb(), animation.getDescriptor(),
                     animation.getFileSize());
-        } else if(message instanceof CompressVideoManager.CompressionCompleted){
+        } else if (message instanceof CompressVideoManager.CompressionCompleted) {
             CompressVideoManager.CompressionCompleted compressionCompleted = (CompressVideoManager.CompressionCompleted) message;
             onVideoCompressed(compressionCompleted.getRid(), compressionCompleted.getFileName(), compressionCompleted.getFilePath());
-        } else if(message instanceof CompressVideoManager.CompressionFailed){
+        } else if (message instanceof CompressVideoManager.CompressionFailed) {
             CompressVideoManager.CompressionFailed compressionFailed = (CompressVideoManager.CompressionFailed) message;
             onVideoCompressedError(compressionFailed.getRid());
         } else {

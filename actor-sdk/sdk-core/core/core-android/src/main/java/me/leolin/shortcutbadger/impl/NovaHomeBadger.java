@@ -5,12 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 
-import me.leolin.shortcutbadger.Badger;
-import me.leolin.shortcutbadger.ShortcutBadgeException;
-import me.leolin.shortcutbadger.ShortcutBadger;
-
 import java.util.Arrays;
 import java.util.List;
+
+import me.leolin.shortcutbadger.Badger;
+import me.leolin.shortcutbadger.ShortcutBadgeException;
 
 /**
  * Shortcut Badger support for Nova Launcher.

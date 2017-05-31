@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import im.actor.core.modules.ModuleContext;
-import im.actor.core.modules.ModuleStartListener;
+import im.actor.core.modules.ModuleCreateListener;
 import im.actor.core.network.TrustedKey;
 import im.actor.core.network.parser.BaseParser;
 import im.actor.core.providers.CallsProvider;
@@ -70,17 +69,7 @@ public class ConfigurationBuilder {
     private List<BaseParser> extraRpcParsers = new ArrayList<>();
     private List<BaseParser> extraUpdateParsers = new ArrayList<>();
 
-    private ModuleStartListener moduleStartListener = new ModuleStartListener() {
-        @Override
-        public void onModuleCreate(ModuleContext context) {
-        }
-        @Override
-        public void onRun(ModuleContext context) {
-        }
-        @Override
-        public void onLoggedIn(ModuleContext context, boolean first) {
-        }
-    };
+    private ModuleCreateListener moduleCreateListener = ModuleCreateListener.stub;
 
     /**
      * Setting Auto Join to group type: when to join to your groups
@@ -427,9 +416,9 @@ public class ConfigurationBuilder {
     }
 
     @NotNull
-    @ObjectiveCName("setModuleStartListener:")
-    public ConfigurationBuilder setModuleStartListener(@NotNull ModuleStartListener moduleStartListener) {
-        this.moduleStartListener = moduleStartListener;
+    @ObjectiveCName("setModuleCreateListener:")
+    public ConfigurationBuilder setModuleCreateListener(@NotNull ModuleCreateListener moduleCreateListener) {
+        this.moduleCreateListener = moduleCreateListener;
         return this;
     }
 
@@ -478,6 +467,6 @@ public class ConfigurationBuilder {
                 autoJoinType,
                 extraRpcParsers.toArray(new BaseParser[]{}),
                 extraUpdateParsers.toArray(new BaseParser[]{}),
-                moduleStartListener);
+                moduleCreateListener);
     }
 }

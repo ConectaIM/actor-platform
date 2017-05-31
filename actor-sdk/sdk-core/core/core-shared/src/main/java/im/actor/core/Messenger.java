@@ -122,7 +122,7 @@ public class Messenger {
         // ThreadDispatcher.pushDispatcher(Runtime::postToMainThread);
 
         // timing.section("Modules:Create");
-        this.modules = new Modules(this, configuration);
+        this.modules = configuration.getModuleCreateListener().createModules(this, configuration);
 
         // timing.section("Modules:Run");
         this.modules.run();

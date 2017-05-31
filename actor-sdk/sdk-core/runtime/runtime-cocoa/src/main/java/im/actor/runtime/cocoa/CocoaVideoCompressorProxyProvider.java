@@ -2,7 +2,6 @@ package im.actor.runtime.cocoa;
 
 import com.google.j2objc.annotations.ObjectiveCName;
 
-
 import im.actor.runtime.CompressorProgressListener;
 import im.actor.runtime.VideoCompressorRuntime;
 import im.actor.runtime.actors.ActorRef;

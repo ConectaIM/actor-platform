@@ -35,7 +35,7 @@ public class Storage {
         return fileSystemRuntime;
     }
 
-    public static VideoCompressorRuntime getVideoCompressorRuntime(){
+    public static VideoCompressorRuntime getVideoCompressorRuntime() {
         return videoCompressorRuntime;
     }
 

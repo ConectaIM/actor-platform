@@ -34,7 +34,6 @@ import im.actor.core.modules.typing.TypingModule;
 import im.actor.core.modules.users.UsersModule;
 import im.actor.core.network.ActorApi;
 import im.actor.core.util.Timing;
-import im.actor.runtime.Runtime;
 import im.actor.runtime.Storage;
 import im.actor.runtime.eventbus.EventBus;
 import im.actor.runtime.storage.PreferencesStorage;
@@ -114,8 +113,6 @@ public class Modules implements ModuleContext {
         // timing.section("Auth");
         this.authentication = new Authentication(this);
         // timing.end();
-
-        this.configuration.getModuleStartListener().onModuleCreate(this);
     }
 
     public void run() {
@@ -123,7 +120,6 @@ public class Modules implements ModuleContext {
         // timing.section("Auth");
         this.authentication.run();
         // timing.end();
-        this.configuration.getModuleStartListener().onRun(this);
     }
 
     public void onLoggedIn(boolean first) {
@@ -208,12 +204,6 @@ public class Modules implements ModuleContext {
 //        } else {
 //            Runtime.postToMainThread(() -> messenger.onLoggedIn());
 //        }
-
-        if (Runtime.isMainThread()) {
-            this.configuration.getModuleStartListener().onLoggedIn(this, first);
-        } else {
-            Runtime.postToMainThread(() -> this.configuration.getModuleStartListener().onLoggedIn(this, first));
-        }
 
     }
 

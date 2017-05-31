@@ -1,12 +1,12 @@
 package im.actor.core.modules.file;
 
 
-import im.actor.core.modules.ModuleActor;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.viewmodel.CompressVideoCallback;
-
 import im.actor.runtime.CompressorProgressListener;
 import im.actor.runtime.Storage;
 import im.actor.runtime.actors.ActorRef;
@@ -29,7 +29,7 @@ public class CompressVideoManager extends ModuleActor {
     public void startCompression(long rid, final String fileName, final String originalVideoPath) {
 
         CompressItem oldItem = findItem(rid);
-        if(oldItem != null){
+        if (oldItem != null) {
             queue.remove(oldItem);
         }
 
@@ -37,7 +37,6 @@ public class CompressVideoManager extends ModuleActor {
         ci.sender = sender();
         ci.isStarted = true;
         queue.add(ci);
-
 
 
         Storage.getVideoCompressorRuntime().compressVideo(ci.getRid(), ci.getOriginalFilePath(), ci.getSender(), new CompressorProgressListener() {
@@ -50,7 +49,7 @@ public class CompressVideoManager extends ModuleActor {
                     }
                 }
             }
-        }).then((cv)->{
+        }).then((cv) -> {
             ci.isStarted = false;
             queue.remove(ci);
 
@@ -61,7 +60,7 @@ public class CompressVideoManager extends ModuleActor {
                 }
             }
             cv.getSender().send(new CompressionCompleted(cv.getRid(), cv.getFilePath(), cv.getFileName()));
-        }).failure((ex)->{
+        }).failure((ex) -> {
             ci.isStarted = false;
             ArrayList<CompressVideoCallback> clist = callbacks.get(rid);
 
@@ -146,16 +145,16 @@ public class CompressVideoManager extends ModuleActor {
         if (message instanceof StartCompression) {
             StartCompression startCompression = (StartCompression) message;
             startCompression(startCompression.getRid(), startCompression.getFileName(), startCompression.getOriginalVideoPath());
-        }else if(message instanceof BindCompress) {
+        } else if (message instanceof BindCompress) {
             BindCompress bindCompress = (BindCompress) message;
             bindCompress(bindCompress.getRid(), bindCompress.callback);
-        }else if(message instanceof UnbindCompress) {
+        } else if (message instanceof UnbindCompress) {
             UnbindCompress unbindCompress = (UnbindCompress) message;
             unbindCompress(unbindCompress.getRid(), unbindCompress.callback);
-        }else if(message instanceof RequestState) {
+        } else if (message instanceof RequestState) {
             RequestState requestState = (RequestState) message;
             requestState(requestState.getRid(), requestState.callback);
-        }else if(message instanceof ResumeCompressing){
+        } else if (message instanceof ResumeCompressing) {
             ResumeCompressing resumeCompressing = (ResumeCompressing) message;
             resumeCompressing(resumeCompressing.getRid());
         } else {
@@ -272,7 +271,7 @@ public class CompressVideoManager extends ModuleActor {
         }
     }
 
-    public static class RequestState{
+    public static class RequestState {
         private long rid;
         private CompressVideoCallback callback;
 
@@ -290,7 +289,7 @@ public class CompressVideoManager extends ModuleActor {
         }
     }
 
-    public static class ResumeCompressing{
+    public static class ResumeCompressing {
         private long rid;
 
         public ResumeCompressing(long rid) {

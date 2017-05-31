@@ -17,13 +17,13 @@ import im.actor.runtime.video.CompressedVideo;
  * Created by diego on 23/05/17.
  */
 
-public class AndroidVideoCompressorRuntimeProvider implements VideoCompressorRuntime{
+public class AndroidVideoCompressorRuntimeProvider implements VideoCompressorRuntime {
 
     @Override
-    public Promise<CompressedVideo> compressVideo(long rid, String originalPath, ActorRef sender, CompressorProgressListener progressCallback){
+    public Promise<CompressedVideo> compressVideo(long rid, String originalPath, ActorRef sender, CompressorProgressListener progressCallback) {
         return new Promise<>((PromiseFunc<CompressedVideo>) resolver -> {
-            new Thread(()->{
-                try{
+            new Thread(() -> {
+                try {
                     FileSystemReference fr = Storage.createTempFile();
                     String destPath = fr.getDescriptor();
                     MediaController.getInstance().convertVideo(originalPath, destPath, new ConversionListener() {
@@ -34,7 +34,7 @@ public class AndroidVideoCompressorRuntimeProvider implements VideoCompressorRun
 
                         @Override
                         public void onProgress(float v) {
-                            if(progressCallback != null){
+                            if (progressCallback != null) {
                                 progressCallback.onProgress(rid, v);
                             }
                         }
@@ -47,7 +47,7 @@ public class AndroidVideoCompressorRuntimeProvider implements VideoCompressorRun
                             resolver.result(new CompressedVideo(rid, originalFile.getName(), originalFile.getAbsolutePath(), sender));
                         }
                     });
-                }catch (Exception e){
+                } catch (Exception e) {
                     resolver.error(e);
                 }
             }).start();
