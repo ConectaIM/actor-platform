@@ -23,15 +23,11 @@ public enum ApiPeerType {
     }
 
     public static ApiPeerType parse(int value) throws IOException {
-        switch (value) {
-            case 1:
-                return ApiPeerType.PRIVATE;
-            case 2:
-                return ApiPeerType.GROUP;
-            case 3:
-                return ApiPeerType.ENCRYPTEDPRIVATE;
-            default:
-                return ApiPeerType.UNSUPPORTED_VALUE;
+        switch(value) {
+            case 1: return ApiPeerType.PRIVATE;
+            case 2: return ApiPeerType.GROUP;
+            case 3: return ApiPeerType.ENCRYPTEDPRIVATE;
+            default: return ApiPeerType.UNSUPPORTED_VALUE;
         }
     }
 }

@@ -22,13 +22,10 @@ public enum ApiPhoneActivationType {
     }
 
     public static ApiPhoneActivationType parse(int value) throws IOException {
-        switch (value) {
-            case 1:
-                return ApiPhoneActivationType.CODE;
-            case 2:
-                return ApiPhoneActivationType.PASSWORD;
-            default:
-                return ApiPhoneActivationType.UNSUPPORTED_VALUE;
+        switch(value) {
+            case 1: return ApiPhoneActivationType.CODE;
+            case 2: return ApiPhoneActivationType.PASSWORD;
+            default: return ApiPhoneActivationType.UNSUPPORTED_VALUE;
         }
     }
 }
