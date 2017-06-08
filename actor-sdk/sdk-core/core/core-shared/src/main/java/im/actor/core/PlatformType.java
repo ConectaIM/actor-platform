@@ -7,6 +7,9 @@ package im.actor.core;
 /**
  * Application type
  */
-public enum PlatformType {
-    GENERIC, ANDROID, IOS, WEB
+public interface PlatformType {
+    int GENERIC = 0;
+    int ANDROID = 1;
+    int IOS = 2;
+    int WEB = 3;
 }

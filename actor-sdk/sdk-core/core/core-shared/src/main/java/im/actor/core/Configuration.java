@@ -40,9 +40,9 @@ public class Configuration {
     @Property("readonly, nonatomic")
     private final ApiConfiguration apiConfiguration;
     @Property("readonly, nonatomic")
-    private final DeviceCategory deviceCategory;
+    private final int deviceCategory;
     @Property("readonly, nonatomic")
-    private final PlatformType platformType;
+    private final int platformType;
     @Property("readonly, nonatomic")
     private final String timeZone;
     @Property("readonly, nonatomic")
@@ -68,7 +68,7 @@ public class Configuration {
     @Property("readonly, nonatomic")
     private final String[] autoJoinGroups;
     @Property("readonly, nonatomic")
-    private final AutoJoinType autoJoinType;
+    private final int autoJoinType;
     @Property("readonly, nonatomic")
     private final BaseParser[] rpcParses;
     @Property("readonly, nonatomic")
@@ -83,8 +83,8 @@ public class Configuration {
                   boolean enableContactsLogging,
                   boolean enableNetworkLogging,
                   boolean enableFilesLogging,
-                  DeviceCategory deviceCategory,
-                  PlatformType platformType,
+                  int deviceCategory,
+                  int platformType,
                   int minDelay,
                   int maxDelay,
                   int maxFailureCount,
@@ -100,7 +100,7 @@ public class Configuration {
                   boolean videoCallsEnabled,
                   boolean isEnabledGroupedChatList,
                   String[] autoJoinGroups,
-                  AutoJoinType autoJoinType,
+                  int autoJoinType,
                   BaseParser[] rpcParsers,
                   BaseParser[] updatesParser,
                   ModuleCreateListener moduleCreateListener) {
@@ -211,7 +211,7 @@ public class Configuration {
      *
      * @return Device Type
      */
-    public DeviceCategory getDeviceCategory() {
+    public int getDeviceCategory() {
         return deviceCategory;
     }
 
@@ -220,7 +220,7 @@ public class Configuration {
      *
      * @return App Type
      */
-    public PlatformType getPlatformType() {
+    public int getPlatformType() {
         return platformType;
     }
 
@@ -355,7 +355,7 @@ public class Configuration {
      *
      * @return auto join type
      */
-    public AutoJoinType getAutoJoinType() {
+    public int getAutoJoinType() {
         return autoJoinType;
     }
 

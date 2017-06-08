@@ -34,6 +34,13 @@ import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.activity.BaseFragmentActivity;
 
+import static im.actor.core.AuthState.AUTH_EMAIL;
+import static im.actor.core.AuthState.AUTH_PHONE;
+import static im.actor.core.AuthState.AUTH_START;
+import static im.actor.core.AuthState.CODE_VALIDATION_EMAIL;
+import static im.actor.core.AuthState.CODE_VALIDATION_PHONE;
+import static im.actor.core.AuthState.LOGGED_IN;
+import static im.actor.core.AuthState.SIGN_UP;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 public class AuthActivity extends BaseFragmentActivity implements Observer {
@@ -50,7 +57,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
     private static final int OAUTH_DIALOG = 1;
     private ProgressDialog progressDialog;
     private AlertDialog alertDialog;
-    private AuthState state;
+    private int state;
     private int availableAuthType = AUTH_TYPE_PHONE;
     private int currentAuthType = AUTH_TYPE_PHONE;
     private int signType;
@@ -84,8 +91,8 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
         codeValidated = preferences.getBool("codeValidated", false);
         currentName = preferences.getString("currentName");
         signType = preferences.getInt("signType", signType);
-        String savedState = preferences.getString("auth_state");
-        state = Enum.valueOf(AuthState.class, savedState != null ? savedState : "AUTH_START");
+        state = preferences.getInt("auth_state", AUTH_START);
+//        state = Enum.valueOf(AuthState.class, savedState != null ? savedState : "AUTH_START");
         updateState(state, true);
 
         SMSActivationObservable.getInstance().addObserver(this);
@@ -100,12 +107,12 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
     }
 
 
-    private void updateState(AuthState state) {
+    private void updateState(int state) {
         updateState(state, false);
     }
 
-    private void updateState(AuthState state, boolean force) {
-        if (this.state != null && (this.state == state && !force)) {
+    private void updateState(int state, boolean force) {
+        if (this.state != 0 && (this.state == state && !force)) {
             return;
         }
         PreferencesStorage preferences = messenger().getPreferences();
@@ -116,11 +123,11 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
         preferences.putBool("codeValidated", codeValidated);
         preferences.putString("currentName", currentName);
         preferences.putInt("signType", signType);
-        preferences.putString("auth_state", state.toString());
+        preferences.putInt("auth_state", state);
 
         // if we show the next fragment when app is in background and not visible , app crashes!
         // e.g when the GSM data is off and after trying to send code we go to settings to turn on, app is going invisible and ...
-        if (state != AuthState.LOGGED_IN && getIsResumed() == false) {
+        if (state != LOGGED_IN && getIsResumed() == false) {
             return;
         }
 
@@ -130,7 +137,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
             case AUTH_START:
 
                 if (signType == SIGN_TYPE_UP) {
-                    updateState(AuthState.SIGN_UP);
+                    updateState(SIGN_UP);
                 } else if (signType == SIGN_TYPE_IN) {
                     showFragment(new SignInFragment(), false);
                 }
@@ -165,9 +172,9 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                 Fragment signInFragment = new ValidateCodeFragment();
                 Bundle args = new Bundle();
 
-                args.putString("authType", state == AuthState.CODE_VALIDATION_EMAIL ? ValidateCodeFragment.AUTH_TYPE_EMAIL : ValidateCodeFragment.AUTH_TYPE_PHONE);
+                args.putString("authType", state == CODE_VALIDATION_EMAIL ? ValidateCodeFragment.AUTH_TYPE_EMAIL : ValidateCodeFragment.AUTH_TYPE_PHONE);
                 args.putBoolean(ValidateCodeFragment.AUTH_TYPE_SIGN, signType == SIGN_TYPE_IN);
-                args.putString("authId", state == AuthState.CODE_VALIDATION_EMAIL ? currentEmail : Long.toString(currentPhone));
+                args.putString("authId", state == CODE_VALIDATION_EMAIL ? currentEmail : Long.toString(currentPhone));
                 signInFragment.setArguments(args);
                 showFragment(signInFragment, false);
                 break;
@@ -182,12 +189,12 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
         currentName = name;
         currentSex = Sex.UNKNOWN;
         availableAuthType = ActorSDK.sharedActor().getAuthType();
-        AuthState authState;
+        int authState;
         if (!codeValidated) {
             if ((availableAuthType & AUTH_TYPE_PHONE) == AUTH_TYPE_PHONE) {
-                authState = AuthState.AUTH_PHONE;
+                authState = AUTH_PHONE;
             } else if ((availableAuthType & AUTH_TYPE_EMAIL) == AUTH_TYPE_EMAIL) {
-                authState = AuthState.AUTH_EMAIL;
+                authState = AUTH_EMAIL;
             } else {
                 // none of valid auth types selected - force crash?
                 return;
@@ -224,11 +231,11 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                         case OTP:
                             switch (currentAuthType) {
                                 case AUTH_TYPE_PHONE:
-                                    updateState(AuthState.CODE_VALIDATION_PHONE);
+                                    updateState(CODE_VALIDATION_PHONE);
                                     break;
 
                                 case AUTH_TYPE_EMAIL:
-                                    updateState(AuthState.CODE_VALIDATION_EMAIL);
+                                    updateState(CODE_VALIDATION_EMAIL);
                                     break;
                             }
                             break;
@@ -260,7 +267,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                         messenger().doCompleteAuth(authCodeRes.getResult()).then(new Consumer<Boolean>() {
                             @Override
                             public void apply(Boolean aBoolean) {
-                                updateState(AuthState.LOGGED_IN);
+                                updateState(LOGGED_IN);
                             }
                         }).failure(new Consumer<Exception>() {
                             @Override
@@ -270,7 +277,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                         });
                     } else {
                         if (currentName == null || currentName.isEmpty()) {
-                            updateState(AuthState.SIGN_UP, true);
+                            updateState(SIGN_UP, true);
                         } else {
                             signUp(messenger().doSignup(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
                         }
@@ -295,7 +302,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                 messenger().doCompleteAuth(authRes).then(new Consumer<Boolean>() {
                     @Override
                     public void apply(Boolean aBoolean) {
-                        updateState(AuthState.LOGGED_IN);
+                        updateState(LOGGED_IN);
                     }
                 }).failure(new Consumer<Exception>() {
                     @Override
@@ -388,7 +395,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             dismissAlert();
-                                            updateState(AuthState.AUTH_START);
+                                            updateState(AUTH_START);
                                         }
                                     }).setCancelable(false)
                                     .show()
@@ -409,12 +416,12 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                                                 } else if (currentAuthType == AUTH_TYPE_PHONE) {
                                                     switchToPhoneAuth();
                                                 } else {
-                                                    updateState(AuthState.AUTH_START);
+                                                    updateState(AUTH_START);
                                                 }
                                             } else if (signType == SIGN_TYPE_IN) {
                                                 startSignIn();
                                             } else {
-                                                updateState(AuthState.AUTH_START);
+                                                updateState(AUTH_START);
                                             }
 
                                         }
@@ -433,23 +440,23 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
     }
 
     public void switchToEmailAuth() {
-        updateState(AuthState.AUTH_EMAIL);
+        updateState(AUTH_EMAIL);
     }
 
     public void switchToPhoneAuth() {
-        updateState(AuthState.AUTH_PHONE);
+        updateState(AUTH_PHONE);
     }
 
 
     public void startSignIn() {
         signType = SIGN_TYPE_IN;
-        updateState(AuthState.AUTH_START, true);
+        updateState(AUTH_START, true);
     }
 
 
     public void startSignUp() {
         signType = SIGN_TYPE_UP;
-        updateState(AuthState.AUTH_START, true);
+        updateState(AUTH_START, true);
     }
 
 

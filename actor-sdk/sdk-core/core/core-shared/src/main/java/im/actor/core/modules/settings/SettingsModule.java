@@ -13,6 +13,14 @@ import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.ActorSystem;
 import im.actor.runtime.eventbus.EventBus;
 
+import static im.actor.core.DeviceCategory.DESKTOP;
+import static im.actor.core.DeviceCategory.MOBILE;
+import static im.actor.core.DeviceCategory.TABLET;
+import static im.actor.core.PlatformType.ANDROID;
+import static im.actor.core.PlatformType.GENERIC;
+import static im.actor.core.PlatformType.IOS;
+import static im.actor.core.PlatformType.WEB;
+
 public class SettingsModule extends AbsModule {
 
     private final String STORAGE_PREFIX = "app.settings.";

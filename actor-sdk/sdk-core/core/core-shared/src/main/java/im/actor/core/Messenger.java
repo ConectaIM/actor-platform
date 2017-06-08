@@ -143,7 +143,7 @@ public class Messenger {
      */
     @NotNull
     @Deprecated
-    public AuthState getAuthState() {
+    public int getAuthState() {
         return modules.getAuthModule().getAuthState();
     }
 
@@ -255,7 +255,7 @@ public class Messenger {
     @NotNull
     @Deprecated
     @ObjectiveCName("requestStartAuthCommandWithEmail:")
-    public Command<AuthState> requestStartEmailAuth(final String email) {
+    public Command<Integer> requestStartEmailAuth(final String email) {
         return modules.getAuthModule().requestStartEmailAuth(email);
     }
 
@@ -268,7 +268,7 @@ public class Messenger {
     @NotNull
     @Deprecated
     @ObjectiveCName("requestStartAuthCommandWithPhone:")
-    public Command<AuthState> requestStartPhoneAuth(final long phone) {
+    public Command<Integer> requestStartPhoneAuth(final long phone) {
         return modules.getAuthModule().requestStartPhoneAuth(phone);
     }
 
@@ -281,7 +281,7 @@ public class Messenger {
     @NotNull
     @Deprecated
     @ObjectiveCName("requestStartAnonymousAuthWithUserName:")
-    public Command<AuthState> requestStartAnonymousAuth(String userName) {
+    public Command<Integer> requestStartAnonymousAuth(String userName) {
         return modules.getAuthModule().requestStartAnonymousAuth(userName);
     }
 
@@ -293,7 +293,7 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("requestStartAuthCommandWithUserName:")
-    public Command<AuthState> requestStartUserNameAuth(String userName) {
+    public Command<Integer> requestStartUserNameAuth(String userName) {
         return modules.getAuthModule().requestStartUserNameAuth(userName);
     }
 
@@ -304,7 +304,7 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("requestGetOAuthParamsCommand")
-    public Command<AuthState> requestGetOAuthParams() {
+    public Command<Integer> requestGetOAuthParams() {
         return modules.getAuthModule().requestGetOAuth2Params();
     }
 
@@ -316,7 +316,7 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("requestCompleteOAuthCommandWithCode:")
-    public Command<AuthState> requestCompleteOAuth(String code) {
+    public Command<Integer> requestCompleteOAuth(String code) {
         return modules.getAuthModule().requestCompleteOauth(code);
     }
 
@@ -339,7 +339,7 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("validateCodeCommand:")
-    public Command<AuthState> validateCode(final String code) {
+    public Command<Integer> validateCode(final String code) {
         return modules.getAuthModule().requestValidateCode(code);
     }
 
@@ -351,7 +351,7 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("validatePasswordCommand:")
-    public Command<AuthState> validatePassword(String password) {
+    public Command<Integer> validatePassword(String password) {
         return modules.getAuthModule().requestValidatePassword(password);
     }
 
@@ -365,7 +365,7 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("signUpCommandWithName:WithSex:withAvatar:")
-    public Command<AuthState> signUp(String name, Sex sex, String avatarPath) {
+    public Command<Integer> signUp(String name, Sex sex, String avatarPath) {
         return modules.getAuthModule().signUp(name, ApiSex.UNKNOWN, avatarPath);
     }
 

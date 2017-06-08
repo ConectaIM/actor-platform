@@ -7,6 +7,9 @@ package im.actor.core;
 /**
  * Current device type
  */
-public enum DeviceCategory {
-    UNKNOWN, DESKTOP, TABLET, MOBILE
+public interface DeviceCategory {
+    int UNKNOWN = 0;
+    int DESKTOP = 1;
+    int TABLET = 2;
+    int MOBILE = 3;
 }

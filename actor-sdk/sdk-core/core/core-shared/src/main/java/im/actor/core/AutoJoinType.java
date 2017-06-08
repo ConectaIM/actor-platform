@@ -1,6 +1,6 @@
 package im.actor.core;
 
-public enum AutoJoinType {
-    AFTER_INIT,
-    IMMEDIATELY
+public interface AutoJoinType {
+    int AFTER_INIT = 0;
+    int IMMEDIATELY = 1;
 }

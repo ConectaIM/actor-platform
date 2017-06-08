@@ -182,7 +182,7 @@ public class ActorSDK {
      * Auto Join Groups
      */
     private String[] autoJoinGroups = new String[0];
-    private AutoJoinType autoJoinType = AutoJoinType.AFTER_INIT;
+    private int autoJoinType = AutoJoinType.AFTER_INIT;
 
     /**
      * Auth type - binary mask for auth type
@@ -903,7 +903,7 @@ public class ActorSDK {
      *
      * @return auto join type
      */
-    public AutoJoinType getAutoJoinType() {
+    public int getAutoJoinType() {
         return autoJoinType;
     }
 
@@ -912,7 +912,7 @@ public class ActorSDK {
      *
      * @param autoJoinType auto join type
      */
-    public void setAutoJoinType(AutoJoinType autoJoinType) {
+    public void setAutoJoinType(int autoJoinType) {
         this.autoJoinType = autoJoinType;
     }
 

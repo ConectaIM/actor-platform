@@ -66,7 +66,7 @@ public class Authentication {
     private static final String KEY_OAUTH_REDIRECT_URL = "oauth_redirect_url";
 
     private Modules modules;
-    private AuthState state;
+    private int state;
 
     private final ArrayList<String> langs;
     private final byte[] deviceHash;
@@ -286,7 +286,7 @@ public class Authentication {
     //
 
     @Deprecated
-    public Command<AuthState> requestStartAnonymousAuth(final String userName) {
+    public Command<Integer> requestStartAnonymousAuth(final String userName) {
         return callback -> request(new RequestStartAnonymousAuth(userName,
                 apiConfiguration.getAppId(),
                 apiConfiguration.getAppKey(),
@@ -310,7 +310,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public AuthState getAuthState() {
+    public int getAuthState() {
         return state;
     }
 
@@ -325,7 +325,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public Command<AuthState> requestStartEmailAuth(final String email) {
+    public Command<Integer> requestStartEmailAuth(final String email) {
         return callback -> {
             ArrayList<String> langs1 = new ArrayList<>();
             for (String s : modules.getConfiguration().getPreferredLanguages()) {
@@ -370,7 +370,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public Command<AuthState> requestStartUserNameAuth(final String userName) {
+    public Command<Integer> requestStartUserNameAuth(final String userName) {
         return callback -> {
             ArrayList<String> langs1 = new ArrayList<>();
             for (String s : modules.getConfiguration().getPreferredLanguages()) {
@@ -405,7 +405,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public Command<AuthState> requestStartPhoneAuth(final long phone) {
+    public Command<Integer> requestStartPhoneAuth(final long phone) {
         return callback -> {
             ArrayList<String> langs1 = new ArrayList<>();
             for (String s : modules.getConfiguration().getPreferredLanguages()) {
@@ -447,7 +447,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public Command<AuthState> requestGetOAuth2Params() {
+    public Command<Integer> requestGetOAuth2Params() {
         return callback -> request(new RequestGetOAuth2Params(modules.getPreferences().getString(KEY_TRANSACTION_HASH),
                         "https://actor.im/auth/oauth2callback"),
                 new RpcCallback<ResponseGetOAuth2Params>() {
@@ -471,7 +471,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public Command<AuthState> requestCompleteOauth(final String code) {
+    public Command<Integer> requestCompleteOauth(final String code) {
         return callback -> request(new RequestCompleteOAuth2(modules.getPreferences().getString(KEY_TRANSACTION_HASH), code), new RpcCallback<ResponseAuth>() {
             @Override
             public void onResult(ResponseAuth response) {
@@ -498,7 +498,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public Command<AuthState> signUp(final String name, final ApiSex sex, final String avatarPath) {
+    public Command<Integer> signUp(final String name, final ApiSex sex, final String avatarPath) {
         return callback -> request(new RequestSignUp(modules.getPreferences().getString(KEY_TRANSACTION_HASH), name, sex,
                 null), new RpcCallback<ResponseAuth>() {
             @Override
@@ -523,7 +523,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public Command<AuthState> requestValidateCode(final String code) {
+    public Command<Integer> requestValidateCode(final String code) {
         if (code == null) {
             throw new RuntimeException("Code couldn't be null!");
         }
@@ -558,7 +558,7 @@ public class Authentication {
     }
 
     @Deprecated
-    public Command<AuthState> requestValidatePassword(final String password) {
+    public Command<Integer> requestValidatePassword(final String password) {
         return callback -> {
             String transactionHash = modules.getPreferences()
                     .getString(KEY_TRANSACTION_HASH);
@@ -623,7 +623,7 @@ public class Authentication {
     }
 
     @Deprecated
-    private void onLoggedIn(final CommandCallback<AuthState> callback, ResponseAuth response) {
+    private void onLoggedIn(final CommandCallback<Integer> callback, ResponseAuth response) {
         state = AuthState.LOGGED_IN;
         myUid = response.getUser().getId();
         modules.onLoggedIn(true);

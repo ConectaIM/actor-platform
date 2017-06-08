@@ -42,9 +42,9 @@ public class ConfigurationBuilder {
 
     private ApiConfiguration apiConfiguration;
 
-    private PlatformType platformType = PlatformType.GENERIC;
+    private int platformType = PlatformType.GENERIC;
 
-    private DeviceCategory deviceCategory = DeviceCategory.UNKNOWN;
+    private int deviceCategory = DeviceCategory.UNKNOWN;
 
     private int minDelay = 100;
     private int maxDelay = 15000;
@@ -64,7 +64,7 @@ public class ConfigurationBuilder {
     private boolean isEnabledGroupedChatList = true;
 
     private ArrayList<String> autoJoinGroups = new ArrayList<>();
-    private AutoJoinType autoJoinType = AutoJoinType.AFTER_INIT;
+    private int autoJoinType = AutoJoinType.AFTER_INIT;
 
     private List<BaseParser> extraRpcParsers = new ArrayList<>();
     private List<BaseParser> extraUpdateParsers = new ArrayList<>();
@@ -78,7 +78,7 @@ public class ConfigurationBuilder {
      * @return this
      */
     @ObjectiveCName("setAutoJoinType:")
-    public ConfigurationBuilder setAutoJoinType(AutoJoinType autoJoinType) {
+    public ConfigurationBuilder setAutoJoinType(int autoJoinType) {
         this.autoJoinType = autoJoinType;
         return this;
     }
@@ -219,7 +219,7 @@ public class ConfigurationBuilder {
      */
     @NotNull
     @ObjectiveCName("setPlatformType:")
-    public ConfigurationBuilder setPlatformType(@NotNull PlatformType platformType) {
+    public ConfigurationBuilder setPlatformType(@NotNull int platformType) {
         this.platformType = platformType;
         return this;
     }
@@ -232,7 +232,7 @@ public class ConfigurationBuilder {
      */
     @NotNull
     @ObjectiveCName("setDeviceCategory:")
-    public ConfigurationBuilder setDeviceCategory(@NotNull DeviceCategory deviceCategory) {
+    public ConfigurationBuilder setDeviceCategory(@NotNull int deviceCategory) {
         this.deviceCategory = deviceCategory;
         return this;
     }
@@ -439,12 +439,12 @@ public class ConfigurationBuilder {
         if (apiConfiguration == null) {
             throw new RuntimeException("Api Configuration not set");
         }
-        if (deviceCategory == null) {
-            throw new RuntimeException("Device Category not set");
-        }
-        if (platformType == null) {
-            throw new RuntimeException("App Category not set");
-        }
+//        if (deviceCategory == 0) {
+//            throw new RuntimeException("Device Category not set");
+//        }
+//        if (platformType == null) {
+//            throw new RuntimeException("App Category not set");
+//        }
         if (trustedKeys.size() == 0) {
             Log.w("ConfigurationBuilder", "No Trusted keys set. Using anonymous server authentication.");
         }
