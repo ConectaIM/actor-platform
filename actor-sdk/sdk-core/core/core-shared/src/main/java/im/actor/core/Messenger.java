@@ -216,7 +216,7 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("doSignupWithName:withSex:withTransaction:")
-    public Promise<AuthRes> doSignup(String name, Sex sex, String transactionHash) {
+    public Promise<AuthRes> doSignup(String name, int sex, String transactionHash) {
         return modules.getAuthModule().doSignup(name, sex, transactionHash);
     }
 
@@ -1155,7 +1155,7 @@ public class Messenger {
      * @return found peers
      */
     @ObjectiveCName("findPeersWithType:")
-    public Command<List<PeerSearchEntity>> findPeers(PeerSearchType type) {
+    public Command<List<PeerSearchEntity>> findPeers(int type) {
         return callback -> modules.getSearchModule().findPeers(type)
                 .then(v -> callback.onResult(v))
                 .failure(e -> callback.onError(e));

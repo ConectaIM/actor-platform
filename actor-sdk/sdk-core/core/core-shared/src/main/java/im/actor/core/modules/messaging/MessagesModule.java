@@ -295,7 +295,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
                                 responseSeqDate.getSeq(),
                                 responseSeqDate.getState(),
                                 new UpdateMessageContentChanged(
-                                        new ApiPeer(peer.getPeerType().toApi(), peer.getPeerId()),
+                                        new ApiPeer(PeerType.toApi(peer.getPeerType()), peer.getPeerId()),
                                         rid,
                                         editMessage)
                         ));
@@ -339,7 +339,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
                                 responseReactionsResponse.getSeq(),
                                 responseReactionsResponse.getState(),
                                 new UpdateReactionsUpdate(
-                                        new ApiPeer(peer.getPeerType().toApi(), peer.getPeerId()),
+                                        new ApiPeer(PeerType.toApi(peer.getPeerType()), peer.getPeerId()),
                                         rid, responseReactionsResponse.getReactions())));
     }
 
@@ -352,7 +352,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
                                 responseReactionsResponse.getSeq(),
                                 responseReactionsResponse.getState(),
                                 new UpdateReactionsUpdate(
-                                        new ApiPeer(peer.getPeerType().toApi(), peer.getPeerId()),
+                                        new ApiPeer(PeerType.toApi(peer.getPeerType()), peer.getPeerId()),
                                         rid, responseReactionsResponse.getReactions())));
     }
 
@@ -396,7 +396,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
                         updates().applyUpdate(
                                 responseSeq.getSeq(),
                                 responseSeq.getState(),
-                                new UpdateChatDelete(new ApiPeer(peer.getPeerType().toApi(), peer.getPeerId()))
+                                new UpdateChatDelete(new ApiPeer(PeerType.toApi(peer.getPeerType()), peer.getPeerId()))
                         ));
     }
 
@@ -408,7 +408,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
                         updates().applyUpdate(
                                 responseSeq.getSeq(),
                                 responseSeq.getState(),
-                                new UpdateChatClear(new ApiPeer(peer.getPeerType().toApi(), peer.getPeerId())))
+                                new UpdateChatClear(new ApiPeer(PeerType.toApi(peer.getPeerType()), peer.getPeerId())))
                 );
     }
 

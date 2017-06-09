@@ -35,6 +35,9 @@ import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.avatar.AvatarPlaceholderDrawable;
 
+import static im.actor.core.entity.PeerType.GROUP;
+import static im.actor.core.entity.PeerType.PRIVATE;
+
 public class AndroidNotifications implements NotificationProvider {
 
     private static final int NOTIFICATION_ID = 1;
@@ -168,7 +171,7 @@ public class AndroidNotifications implements NotificationProvider {
 
             final NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
             for (Notification n : topNotifications) {
-                if (topNotification.getPeer().getPeerType() == PeerType.GROUP) {
+                if (topNotification.getPeer().getPeerType() == GROUP) {
                     inboxStyle.addLine(getNotificationTextFull(n, messenger));
                 } else {
                     inboxStyle.addLine(messenger.getFormatter().formatNotificationText(n));
@@ -338,7 +341,7 @@ public class AndroidNotifications implements NotificationProvider {
 
     private String getNotificationSender(Notification pendingNotification) {
         String sender;
-        if (pendingNotification.getPeer().getPeerType() == PeerType.GROUP) {
+        if (pendingNotification.getPeer().getPeerType() == GROUP) {
             sender = messenger().getUser(pendingNotification.getSender()).getName().get();
             sender += "@";
             sender += messenger().getGroup(pendingNotification.getPeer().getPeerId()).getName().get();

@@ -15,7 +15,7 @@ public class DialogBuilder {
     private Avatar dialogAvatar;
     private int unreadCount;
     private long rid;
-    private ContentType messageType;
+    private int messageType;
     private String text;
     private int senderId;
     private long time;
@@ -72,7 +72,7 @@ public class DialogBuilder {
         return this;
     }
 
-    public DialogBuilder setMessageType(ContentType messageType) {
+    public DialogBuilder setMessageType(int messageType) {
         this.messageType = messageType;
         return this;
     }

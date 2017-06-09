@@ -10,7 +10,7 @@ import com.google.j2objc.annotations.Property;
 public class ContactRecord {
 
     @Property("readonly, nonatomic")
-    private final ContactRecordType recordType;
+    private final int recordType;
     @Property("readonly, nonatomic")
     private final String recordTypeSpec;
     @Property("readonly, nonatomic")
@@ -20,7 +20,7 @@ public class ContactRecord {
     @Property("readonly, nonatomic")
     private final String recordSubtitle;
 
-    public ContactRecord(ContactRecordType recordType, String recordTypeSpec, String recordData, String recordTitle, String recordSubtitle) {
+    public ContactRecord(int recordType, String recordTypeSpec, String recordData, String recordTitle, String recordSubtitle) {
         this.recordType = recordType;
         this.recordTypeSpec = recordTypeSpec;
         this.recordData = recordData;
@@ -28,7 +28,7 @@ public class ContactRecord {
         this.recordSubtitle = recordSubtitle;
     }
 
-    public ContactRecordType getRecordType() {
+    public int getRecordType() {
         return recordType;
     }
 

@@ -37,7 +37,7 @@ public class GroupVM extends BaseValueModel<Group> {
     private int groupId;
     @NotNull
     @Property("nonatomic, readonly")
-    private GroupType groupType;
+    private int groupType;
     @NotNull
     @Property("nonatomic, readonly")
     private StringValueModel name;
@@ -201,7 +201,7 @@ public class GroupVM extends BaseValueModel<Group> {
      */
     @NotNull
     @ObjectiveCName("getGroupType")
-    public GroupType getGroupType() {
+    public int getGroupType() {
         return groupType;
     }
 

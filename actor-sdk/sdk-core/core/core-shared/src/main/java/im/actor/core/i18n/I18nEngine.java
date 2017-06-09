@@ -41,6 +41,31 @@ import im.actor.runtime.Runtime;
 import im.actor.runtime.intl.IntlEngine;
 import im.actor.runtime.json.JSONException;
 
+import static im.actor.core.entity.ContentType.CONTACT;
+import static im.actor.core.entity.ContentType.DOCUMENT;
+import static im.actor.core.entity.ContentType.DOCUMENT_AUDIO;
+import static im.actor.core.entity.ContentType.DOCUMENT_PHOTO;
+import static im.actor.core.entity.ContentType.DOCUMENT_VIDEO;
+import static im.actor.core.entity.ContentType.LOCATION;
+import static im.actor.core.entity.ContentType.NONE;
+import static im.actor.core.entity.ContentType.SERVICE;
+import static im.actor.core.entity.ContentType.SERVICE_ABOUT;
+import static im.actor.core.entity.ContentType.SERVICE_ADD;
+import static im.actor.core.entity.ContentType.SERVICE_AVATAR;
+import static im.actor.core.entity.ContentType.SERVICE_AVATAR_REMOVED;
+import static im.actor.core.entity.ContentType.SERVICE_CALL_ENDED;
+import static im.actor.core.entity.ContentType.SERVICE_CALL_MISSED;
+import static im.actor.core.entity.ContentType.SERVICE_CREATED;
+import static im.actor.core.entity.ContentType.SERVICE_JOINED;
+import static im.actor.core.entity.ContentType.SERVICE_KICK;
+import static im.actor.core.entity.ContentType.SERVICE_LEAVE;
+import static im.actor.core.entity.ContentType.SERVICE_REGISTERED;
+import static im.actor.core.entity.ContentType.SERVICE_TITLE;
+import static im.actor.core.entity.ContentType.SERVICE_TOPIC;
+import static im.actor.core.entity.ContentType.STICKER;
+import static im.actor.core.entity.ContentType.TEXT;
+import static im.actor.core.entity.ContentType.UNKNOWN_CONTENT;
+
 public class I18nEngine extends IntlEngine {
 
     private static final String TAG = "I18nEngine";
@@ -131,7 +156,7 @@ public class I18nEngine extends IntlEngine {
     //
 
     @ObjectiveCName("formatPresence:withSex:")
-    public String formatPresence(UserPresence value, Sex sex) {
+    public String formatPresence(UserPresence value, int sex) {
         if (value == null) {
             return null;
         }
@@ -247,7 +272,7 @@ public class I18nEngine extends IntlEngine {
      * @return true if content is wide
      */
     @ObjectiveCName("isLargeDialogMessage:")
-    public boolean isLargeDialogMessage(ContentType contentType) {
+    public boolean isLargeDialogMessage(int contentType) {
         switch (contentType) {
             case SERVICE:
             case SERVICE_AVATAR:
@@ -294,7 +319,7 @@ public class I18nEngine extends IntlEngine {
      * @return formatted content
      */
     @ObjectiveCName("formatContentTextWithSenderId:withContentType:withText:withRelatedUid:withIsChannel:")
-    public String formatContentText(int senderId, ContentType contentType, String text, int relatedUid,
+    public String formatContentText(int senderId, int contentType, String text, int relatedUid,
                                     boolean isChannel) {
 
         String groupKey = isChannel ? "channels" : "groups";

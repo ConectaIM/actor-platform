@@ -13,7 +13,7 @@ import im.actor.core.entity.content.FastThumb;
 
 public class EntityConverter {
 
-    public static MessageState convert(ApiMessageState state) {
+    public static int convert(ApiMessageState state) {
         if (state == null) {
             return MessageState.UNKNOWN;
         }
@@ -31,7 +31,7 @@ public class EntityConverter {
         return new Group(group, null);
     }
 
-    public static PeerType convert(ApiPeerType peerType) {
+    public static int convert(ApiPeerType peerType) {
         switch (peerType) {
             case GROUP:
                 return PeerType.GROUP;

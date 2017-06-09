@@ -63,7 +63,7 @@ public class User extends WrapperExtEntity<ApiFullUser, ApiUser> implements KeyV
     @NotNull
     @Property("readonly, nonatomic")
     @SuppressWarnings("NullableProblems")
-    private Sex sex;
+    private int sex;
     @Property("readonly, nonatomic")
     private boolean isBot;
     @NotNull
@@ -144,7 +144,7 @@ public class User extends WrapperExtEntity<ApiFullUser, ApiUser> implements KeyV
     }
 
     @NotNull
-    public Sex getSex() {
+    public int getSex() {
         return sex;
     }
 

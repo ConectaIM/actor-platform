@@ -22,6 +22,9 @@ import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
 import im.actor.sdk.view.emoji.keyboard.emoji.Emoji;
 
+import static im.actor.core.entity.MessageState.ERROR;
+import static im.actor.core.entity.MessageState.PENDING;
+import static im.actor.core.entity.MessageState.SENT;
 import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 
 public class TextHolder extends MessageHolder {

@@ -239,8 +239,8 @@ public class Authentication {
     // Signup
     //
 
-    public Promise<AuthRes> doSignup(final String name, final Sex sex, final String transactionHash) {
-        return new Promise<>((PromiseFunc<AuthRes>) resolver -> request(new RequestSignUp(transactionHash, name, sex.toApi(), null), new RpcCallback<ResponseAuth>() {
+    public Promise<AuthRes> doSignup(final String name, final int sex, final String transactionHash) {
+        return new Promise<>((PromiseFunc<AuthRes>) resolver -> request(new RequestSignUp(transactionHash, name, Sex.toApi(sex), null), new RpcCallback<ResponseAuth>() {
 
             @Override
             public void onResult(ResponseAuth response) {

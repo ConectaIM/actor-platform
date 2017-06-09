@@ -6,11 +6,14 @@ package im.actor.core.entity;
 
 import im.actor.core.api.ApiPeerType;
 
-public enum PeerType {
-    PRIVATE, GROUP, PRIVATE_ENCRYPTED;
+public abstract class PeerType {
 
-    public ApiPeerType toApi() {
-        switch (this) {
+    public static final int PRIVATE = 1;
+    public static final int GROUP = 2;
+    public static final int PRIVATE_ENCRYPTED = 3;
+
+    public static ApiPeerType toApi(int peerType) {
+        switch (peerType) {
             case GROUP:
                 return ApiPeerType.GROUP;
             case PRIVATE:

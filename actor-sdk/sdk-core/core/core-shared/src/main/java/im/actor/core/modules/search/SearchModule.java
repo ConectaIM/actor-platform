@@ -108,7 +108,7 @@ public class SearchModule extends AbsModule {
                                         AbsContent.fromMessage(itm.getResult().getContent()))));
     }
 
-    public Promise<List<PeerSearchEntity>> findPeers(PeerSearchType type) {
+    public Promise<List<PeerSearchEntity>> findPeers(int type) {
         final ApiSearchPeerType apiType;
         if (type == PeerSearchType.GROUPS) {
             apiType = ApiSearchPeerType.GROUPS;

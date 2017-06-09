@@ -14,6 +14,10 @@ import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserValues;
 import im.actor.runtime.bser.BserWriter;
 
+import static im.actor.core.entity.PeerType.GROUP;
+import static im.actor.core.entity.PeerType.PRIVATE;
+import static im.actor.core.entity.PeerType.PRIVATE_ENCRYPTED;
+
 public class Peer extends BserObject {
 
     public static final BserCreator<Peer> CREATOR = new BserCreator<Peer>() {
@@ -34,26 +38,26 @@ public class Peer extends BserObject {
         switch (type) {
             default:
             case 0:
-                return new Peer(PeerType.PRIVATE, id);
+                return new Peer(PRIVATE, id);
             case 1:
-                return new Peer(PeerType.GROUP, id);
+                return new Peer(GROUP, id);
         }
     }
 
     public static Peer user(int uid) {
-        return new Peer(PeerType.PRIVATE, uid);
+        return new Peer(PRIVATE, uid);
     }
 
     public static Peer group(int gid) {
-        return new Peer(PeerType.GROUP, gid);
+        return new Peer(GROUP, gid);
     }
 
     @Property("readonly, nonatomic")
-    private PeerType peerType;
+    private int peerType;
     @Property("readonly, nonatomic")
     private int peerId;
 
-    public Peer(PeerType peerType, int peerId) {
+    public Peer(int peerType, int peerId) {
         this.peerType = peerType;
         this.peerId = peerId;
     }
@@ -76,7 +80,7 @@ public class Peer extends BserObject {
         return ((long) peerId & 0xFFFFFFFFL) + (((long) type & 0xFFFFFFFFL) << 32);
     }
 
-    public PeerType getPeerType() {
+    public int getPeerType() {
         return peerType;
     }
 
@@ -99,7 +103,7 @@ public class Peer extends BserObject {
 
     @Override
     public int hashCode() {
-        int result = peerType.hashCode();
+        int result = peerType;
         result = 31 * result + peerId;
         return result;
     }
@@ -110,13 +114,13 @@ public class Peer extends BserObject {
         switch (values.getInt(2)) {
             default:
             case 1:
-                peerType = PeerType.PRIVATE;
+                peerType = PRIVATE;
                 break;
             case 3:
-                peerType = PeerType.GROUP;
+                peerType = GROUP;
                 break;
             case 4:
-                peerType = PeerType.PRIVATE_ENCRYPTED;
+                peerType = PRIVATE_ENCRYPTED;
                 break;
         }
     }

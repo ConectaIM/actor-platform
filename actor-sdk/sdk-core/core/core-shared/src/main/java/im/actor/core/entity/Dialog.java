@@ -77,10 +77,11 @@ public class Dialog extends BserObject implements ListEngineItem {
     @Property("readonly, nonatomic")
     private Long knownReceiveDate;
 
+    //ContentType.java
     @NotNull
     @SuppressWarnings("NullableProblems")
     @Property("readonly, nonatomic")
-    private ContentType messageType;
+    private int messageType;
     @NotNull
     @SuppressWarnings("NullableProblems")
     @Property("readonly, nonatomic")
@@ -97,7 +98,7 @@ public class Dialog extends BserObject implements ListEngineItem {
                   boolean isChannel,
                   int unreadCount,
                   long rid,
-                  @NotNull ContentType messageType,
+                  @NotNull int messageType,
                   @NotNull String text,
                   int senderId,
                   long date,
@@ -171,7 +172,7 @@ public class Dialog extends BserObject implements ListEngineItem {
     }
 
     @NotNull
-    public ContentType getMessageType() {
+    public int getMessageType() {
         return messageType;
     }
 
@@ -227,7 +228,7 @@ public class Dialog extends BserObject implements ListEngineItem {
         rid = values.getLong(6);
         senderId = values.getInt(7);
         date = values.getLong(8);
-        messageType = ContentType.fromValue(values.getInt(9));
+        messageType = values.getInt(9);
         text = StringUtil.ellipsize(values.getString(10), MAX_LENGTH);
 
         relatedUid = values.getInt(12);
@@ -250,7 +251,7 @@ public class Dialog extends BserObject implements ListEngineItem {
         writer.writeLong(6, rid);
         writer.writeInt(7, senderId);
         writer.writeLong(8, date);
-        writer.writeInt(9, messageType.getValue());
+        writer.writeInt(9, messageType);
         writer.writeString(10, text);
         writer.writeInt(12, relatedUid);
 

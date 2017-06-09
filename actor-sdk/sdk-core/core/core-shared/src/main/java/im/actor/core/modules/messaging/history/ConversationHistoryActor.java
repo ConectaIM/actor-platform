@@ -108,7 +108,7 @@ public class ConversationHistoryActor extends ModuleActor {
         for (ApiMessageContainer historyMessage : history) {
 
             AbsContent content = AbsContent.fromMessage(historyMessage.getMessage());
-            MessageState state = EntityConverter.convert(historyMessage.getState());
+            int state = EntityConverter.convert(historyMessage.getState());
             ArrayList<Reaction> reactions = new ArrayList<>();
             for (ApiMessageReaction r : historyMessage.getReactions()) {
                 reactions.add(new Reaction(r.getCode(), r.getUsers()));

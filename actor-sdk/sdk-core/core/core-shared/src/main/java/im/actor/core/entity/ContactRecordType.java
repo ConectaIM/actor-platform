@@ -4,6 +4,9 @@
 
 package im.actor.core.entity;
 
-public enum ContactRecordType {
-    PHONE, EMAIL, WEB, SOCIAL
+public interface ContactRecordType {
+    int PHONE = 0;
+    int EMAIL = 1;
+    int WEB = 2;
+    int SOCIAL = 3;
 }

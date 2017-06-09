@@ -19,6 +19,9 @@ import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
 import im.actor.sdk.view.emoji.stickers.StickerView;
 
+import static im.actor.core.entity.MessageState.ERROR;
+import static im.actor.core.entity.MessageState.PENDING;
+import static im.actor.core.entity.MessageState.SENT;
 import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 
 /**

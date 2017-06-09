@@ -42,7 +42,7 @@ public class Message extends BserObject implements ListEngineItem {
     @Property("readonly, nonatomic")
     private int senderId;
     @Property("readonly, nonatomic")
-    private MessageState messageState;
+    private int messageState;
     @Property("readonly, nonatomic")
     private AbsContent content;
     @Property("readonly, nonatomic")
@@ -50,11 +50,11 @@ public class Message extends BserObject implements ListEngineItem {
     @Property("readonly, nonatomic")
     private int contentIndex;
 
-    public Message(long rid, long sortDate, long date, int senderId, MessageState messageState, AbsContent content) {
+    public Message(long rid, long sortDate, long date, int senderId, int messageState, AbsContent content) {
         this(rid, sortDate, date, senderId, messageState, content, new ArrayList<Reaction>(), 0);
     }
 
-    public Message(long rid, long sortDate, long date, int senderId, MessageState messageState, AbsContent content,
+    public Message(long rid, long sortDate, long date, int senderId, int messageState, AbsContent content,
                    List<Reaction> reactions, int contentIndex) {
         this.rid = rid;
         this.sortDate = sortDate;
@@ -86,7 +86,7 @@ public class Message extends BserObject implements ListEngineItem {
         return senderId;
     }
 
-    public MessageState getMessageState() {
+    public int getMessageState() {
         return messageState;
     }
 
@@ -114,7 +114,7 @@ public class Message extends BserObject implements ListEngineItem {
         return content;
     }
 
-    public Message changeState(MessageState messageState) {
+    public Message changeState(int messageState) {
         return new Message(rid, sortDate, date, senderId, messageState, content, reactions, contentIndex);
     }
 
@@ -140,7 +140,7 @@ public class Message extends BserObject implements ListEngineItem {
         sortDate = values.getLong(2);
         date = values.getLong(3);
         senderId = values.getInt(4);
-        messageState = MessageState.fromValue(values.getInt(5));
+        messageState = values.getInt(5);
         content = AbsContent.parse(values.getBytes(6));
         reactions = new ArrayList<>();
         for (byte[] react : values.getRepeatedBytes(7)) {
@@ -155,7 +155,7 @@ public class Message extends BserObject implements ListEngineItem {
         writer.writeLong(2, sortDate);
         writer.writeLong(3, date);
         writer.writeInt(4, senderId);
-        writer.writeInt(5, messageState.getValue());
+        writer.writeInt(5, messageState);
         writer.writeBytes(6, AbsContent.serialize(content));
         writer.writeRepeatedObj(7, reactions);
         writer.writeInt(8, contentIndex);

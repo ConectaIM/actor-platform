@@ -16,6 +16,7 @@ import java.util.Observer;
 
 import im.actor.core.AuthState;
 import im.actor.core.entity.AuthCodeRes;
+import im.actor.core.entity.AuthMode;
 import im.actor.core.entity.AuthRes;
 import im.actor.core.entity.AuthStartRes;
 import im.actor.core.entity.Sex;
@@ -41,6 +42,7 @@ import static im.actor.core.AuthState.CODE_VALIDATION_EMAIL;
 import static im.actor.core.AuthState.CODE_VALIDATION_PHONE;
 import static im.actor.core.AuthState.LOGGED_IN;
 import static im.actor.core.AuthState.SIGN_UP;
+import static im.actor.core.entity.AuthMode.OTP;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 public class AuthActivity extends BaseFragmentActivity implements Observer {
@@ -67,7 +69,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
     private String currentCode;
     private boolean isRegistered = false;
     private String currentName;
-    private Sex currentSex;
+    private int currentSex;
     private ActorRef authActor;
     private boolean codeValidated = false;
 
@@ -203,7 +205,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
             updateState(authState);
 
         } else {
-            signUp(messenger().doSignup(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
+            signUp(messenger().doSignup(currentName, currentSex != 0 ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
         }
     }
 
@@ -228,18 +230,16 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                     transactionHash = authStartRes.getTransactionHash();
                     isRegistered = authStartRes.isRegistered();
                     switch (authStartRes.getAuthMode()) {
-                        case OTP:
+                        case AuthMode.OTP :
                             switch (currentAuthType) {
                                 case AUTH_TYPE_PHONE:
                                     updateState(CODE_VALIDATION_PHONE);
                                     break;
-
                                 case AUTH_TYPE_EMAIL:
                                     updateState(CODE_VALIDATION_EMAIL);
                                     break;
                             }
                             break;
-
                         default:
                             //not supported AuthMode - force crash?
                     }
@@ -279,7 +279,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                         if (currentName == null || currentName.isEmpty()) {
                             updateState(SIGN_UP, true);
                         } else {
-                            signUp(messenger().doSignup(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
+                            signUp(messenger().doSignup(currentName, currentSex != 0 ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
                         }
                     }
                 }
@@ -292,7 +292,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
         });
     }
 
-    public void signUp(Promise<AuthRes> promise, String name, Sex sex) {
+    public void signUp(Promise<AuthRes> promise, String name, int sex) {
         currentName = name;
         currentSex = sex;
         promise.then(new Consumer<AuthRes>() {
@@ -385,7 +385,7 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                                                     break;
 
                                                 case SIGN_UP:
-                                                    signUp(messenger().doSignup(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
+                                                    signUp(messenger().doSignup(currentName, currentSex != 0 ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
                                                     break;
                                             }
 

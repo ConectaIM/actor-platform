@@ -3,10 +3,14 @@ package im.actor.core.entity;
 import im.actor.core.api.ApiEmailActivationType;
 import im.actor.core.api.ApiPhoneActivationType;
 
-public enum AuthMode {
-    OTP, PASSWORD, OAUTH2, UNSUPPORTED;
+public abstract class AuthMode {
 
-    public static AuthMode fromApi(ApiEmailActivationType activationType) {
+    public static final int OTP = 0;
+    public static final int PASSWORD = 1;
+    public static final int OAUTH2 = 2;
+    public static final int UNSUPPORTED = 3;
+
+    public static int fromApi(ApiEmailActivationType activationType) {
         switch (activationType) {
             case CODE:
                 return OTP;
@@ -20,7 +24,7 @@ public enum AuthMode {
         }
     }
 
-    public static AuthMode fromApi(ApiPhoneActivationType activationType) {
+    public static int fromApi(ApiPhoneActivationType activationType) {
         switch (activationType) {
             case CODE:
                 return OTP;

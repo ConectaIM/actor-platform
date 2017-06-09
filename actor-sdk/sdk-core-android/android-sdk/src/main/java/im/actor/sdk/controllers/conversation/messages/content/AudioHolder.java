@@ -38,6 +38,9 @@ import im.actor.sdk.controllers.conversation.messages.content.preprocessor.Prepr
 import im.actor.sdk.core.audio.AudioPlayerActor;
 import im.actor.sdk.view.TintImageView;
 
+import static im.actor.core.entity.MessageState.ERROR;
+import static im.actor.core.entity.MessageState.PENDING;
+import static im.actor.core.entity.MessageState.SENT;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 import static im.actor.sdk.util.ViewUtils.goneView;

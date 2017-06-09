@@ -71,7 +71,7 @@ public abstract class BaseAuthFragment extends BaseFragment {
         activity.validateCode(messenger().doValidateCode(code, activity.getTransactionHash()), code);
     }
 
-    protected void signUp(String name, Sex sex) {
+    protected void signUp(String name, int sex) {
         AuthActivity activity = (AuthActivity) getActivity();
         Promise<AuthRes> promise = messenger().doSignup(name, sex, activity.getTransactionHash());
         ((AuthActivity) getActivity()).signUp(promise, name, sex);

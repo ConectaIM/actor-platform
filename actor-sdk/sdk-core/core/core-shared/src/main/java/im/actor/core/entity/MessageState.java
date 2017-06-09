@@ -4,23 +4,14 @@
 
 package im.actor.core.entity;
 
-public enum MessageState {
-    PENDING(1),
-    SENT(2),
-    ERROR(5),
-    UNKNOWN(6);
+public final class MessageState {
 
-    int value;
+    public static final int PENDING = 1;
+    public static final int SENT = 2;
+    public static final int ERROR = 5;
+    public static final int UNKNOWN = 6;
 
-    MessageState(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public static MessageState fromValue(int value) {
+    public static int fromValue(int value) {
         switch (value) {
             case 1:
                 return PENDING;

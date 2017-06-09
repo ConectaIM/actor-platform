@@ -4,43 +4,35 @@
 
 package im.actor.core.entity;
 
-public enum ContentType {
-    TEXT(2), NONE(1),
-    DOCUMENT(3),
-    DOCUMENT_PHOTO(4),
-    DOCUMENT_VIDEO(5),
-    DOCUMENT_AUDIO(17),
-    CONTACT(18),
-    LOCATION(19),
-    STICKER(20),
-    SERVICE(6),
-    SERVICE_ADD(7),
-    SERVICE_KICK(8),
-    SERVICE_LEAVE(9),
-    SERVICE_REGISTERED(10),
-    SERVICE_CREATED(11),
-    SERVICE_JOINED(16),
-    SERVICE_TITLE(12),
-    SERVICE_AVATAR(13),
-    SERVICE_AVATAR_REMOVED(14),
-    CUSTOM_JSON_MESSAGE(21),
-    SERVICE_CALL_ENDED(22),
-    SERVICE_CALL_MISSED(23),
-    SERVICE_TOPIC(24),
-    SERVICE_ABOUT(25),
-    UNKNOWN_CONTENT(15);
+public abstract class ContentType {
 
-    int value;
+    public static final int NONE = 1;
+    public static final int TEXT = 2;
+    public static final int DOCUMENT = 3;
+    public static final int DOCUMENT_PHOTO = 4;
+    public static final int DOCUMENT_VIDEO = 5;
+    public static final int DOCUMENT_AUDIO = 17;
+    public static final int CONTACT = 18;
+    public static final int LOCATION = 19;
+    public static final int STICKER = 20;
+    public static final int SERVICE = 6;
+    public static final int SERVICE_ADD = 7;
+    public static final int SERVICE_KICK = 8;
+    public static final int SERVICE_LEAVE = 9;
+    public static final int SERVICE_REGISTERED = 10;
+    public static final int SERVICE_CREATED = 11;
+    public static final int SERVICE_JOINED = 16;
+    public static final int SERVICE_TITLE = 12;
+    public static final int SERVICE_AVATAR = 13;
+    public static final int SERVICE_AVATAR_REMOVED = 14;
+    public static final int CUSTOM_JSON_MESSAGE = 21;
+    public static final int SERVICE_CALL_ENDED = 22;
+    public static final int SERVICE_CALL_MISSED = 23;
+    public static final int SERVICE_TOPIC = 24;
+    public static final int SERVICE_ABOUT = 25;
+    public static final int UNKNOWN_CONTENT = 15;
 
-    ContentType(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public static ContentType fromValue(int value) {
+    public static int fromValue(int value) {
         switch (value) {
             default:
             case 1:

@@ -65,7 +65,7 @@ public class UserVM extends BaseValueModel<User> {
     @NotNull
     private StringValueModel timeZone;
     @NotNull
-    private Sex sex;
+    private int sex;
     @NotNull
     private BooleanValueModel isContact;
     @NotNull
@@ -252,7 +252,7 @@ public class UserVM extends BaseValueModel<User> {
      */
     @NotNull
     @ObjectiveCName("getSex")
-    public Sex getSex() {
+    public int getSex() {
         return sex;
     }
 

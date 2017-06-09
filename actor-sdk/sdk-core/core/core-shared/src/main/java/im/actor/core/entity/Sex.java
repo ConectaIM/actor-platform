@@ -8,21 +8,13 @@ import org.jetbrains.annotations.NotNull;
 
 import im.actor.core.api.ApiSex;
 
-public enum Sex {
-    UNKNOWN(1), MALE(2), FEMALE(3);
-
-    private int value;
-
-    Sex(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
+public abstract class Sex {
+    public static final int UNKNOWN = 1;
+    public static final int MALE = 2;
+    public static final int FEMALE = 3;
 
     @NotNull
-    public static Sex fromValue(int value) {
+    public static int fromValue(int value) {
         switch (value) {
             default:
             case 1:
@@ -34,8 +26,8 @@ public enum Sex {
         }
     }
 
-    public ApiSex toApi() {
-        switch (this) {
+    public static ApiSex toApi(int sex) {
+        switch (sex) {
             case FEMALE:
                 return ApiSex.FEMALE;
             case MALE:

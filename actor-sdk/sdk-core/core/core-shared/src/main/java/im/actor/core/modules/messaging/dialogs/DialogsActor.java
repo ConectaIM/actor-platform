@@ -38,6 +38,8 @@ import im.actor.runtime.annotations.Verified;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.ListEngine;
 
+import static im.actor.core.entity.PeerType.GROUP;
+import static im.actor.core.entity.PeerType.PRIVATE;
 import static im.actor.core.util.JavaUtil.equalsE;
 
 public class DialogsActor extends ModuleActor {

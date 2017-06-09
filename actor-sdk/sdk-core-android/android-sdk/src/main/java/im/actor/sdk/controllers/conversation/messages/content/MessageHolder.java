@@ -87,7 +87,7 @@ public abstract class MessageHolder extends AbsMessageViewHolder
             if (message.getSenderId() == myUid()) {
                 container.makeOutboundBubble();
             } else {
-                boolean isGroupBot = getPeer().getPeerType().equals(PeerType.GROUP) && users().get(message.getSenderId()).getName().get().equals("Bot");
+                boolean isGroupBot = getPeer().getPeerType() == PeerType.GROUP && users().get(message.getSenderId()).getName().get().equals("Bot");
                 container.makeInboundBubble(
                         getPeer().getPeerType() == PeerType.GROUP
                                 || !ActorSDK.sharedActor().style.isShowAvatarInTitle()

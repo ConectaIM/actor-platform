@@ -40,6 +40,9 @@ import im.actor.sdk.controllers.conversation.messages.content.preprocessor.Prepr
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
 
+import static im.actor.core.entity.MessageState.ERROR;
+import static im.actor.core.entity.MessageState.PENDING;
+import static im.actor.core.entity.MessageState.SENT;
 import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 
 public class LocationHolder extends MessageHolder {
