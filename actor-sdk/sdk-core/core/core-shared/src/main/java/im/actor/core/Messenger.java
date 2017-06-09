@@ -365,8 +365,8 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("signUpCommandWithName:WithSex:withAvatar:")
-    public Command<Integer> signUp(String name, Sex sex, String avatarPath) {
-        return modules.getAuthModule().signUp(name, ApiSex.UNKNOWN, avatarPath);
+    public Command<Integer> signUp(String name, int sex, String avatarPath) {
+        return modules.getAuthModule().signUp(name, Sex.toApi(sex), avatarPath);
     }
 
     /**

@@ -8,6 +8,9 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 import im.actor.core.entity.Peer;
 
+import static im.actor.core.entity.PeerType.GROUP;
+import static im.actor.core.entity.PeerType.PRIVATE;
+
 public class JsPeer extends JavaScriptObject {
 
     public static JsPeer create(Peer peer) {

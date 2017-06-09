@@ -10,6 +10,7 @@ import com.google.gwt.http.client.URL;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.i18n.client.TimeZone;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.rpc.core.java.lang.Integer_CustomFieldSerializer;
 
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportPackage;
@@ -32,6 +33,7 @@ import im.actor.core.entity.MentionFilterResult;
 import im.actor.core.entity.MessageSearchEntity;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
+import im.actor.core.entity.Sex;
 import im.actor.core.entity.User;
 import im.actor.core.js.annotations.UsedByApp;
 import im.actor.core.js.entity.Enums;
@@ -178,7 +180,7 @@ public class JsFacade implements Exportable {
 
     @UsedByApp
     public String getAuthState() {
-        return Enums.convert(messenger.getAuthState());
+        return Enums.convertAuthState(messenger.getAuthState());
     }
 
     @UsedByApp
@@ -191,10 +193,10 @@ public class JsFacade implements Exportable {
                            final JsAuthErrorClosure error) {
         try {
             long res = Long.parseLong(phone);
-            messenger.requestStartPhoneAuth(res).start(new CommandCallback<AuthState>() {
+            messenger.requestStartPhoneAuth(res).start(new CommandCallback<Integer>() {
                 @Override
-                public void onResult(AuthState res) {
-                    success.onResult(Enums.convert(res));
+                public void onResult(Integer res) {
+                    success.onResult(Enums.convertAuthState(res));
                 }
 
                 @Override
@@ -225,10 +227,10 @@ public class JsFacade implements Exportable {
     @UsedByApp
     public void requestCodeEmail(String email, final JsAuthSuccessClosure success,
                                  final JsAuthErrorClosure error) {
-        messenger.requestStartEmailAuth(email).start(new CommandCallback<AuthState>() {
+        messenger.requestStartEmailAuth(email).start(new CommandCallback<Integer>() {
             @Override
-            public void onResult(AuthState res) {
-                success.onResult(Enums.convert(res));
+            public void onResult(Integer res) {
+                success.onResult(Enums.convertAuthState(res));
             }
 
             @Override
@@ -250,10 +252,10 @@ public class JsFacade implements Exportable {
     public void sendCode(String code, final JsAuthSuccessClosure success,
                          final JsAuthErrorClosure error) {
         try {
-            messenger.validateCode(code).start(new CommandCallback<AuthState>() {
+            messenger.validateCode(code).start(new CommandCallback<Integer>() {
                 @Override
-                public void onResult(AuthState res) {
-                    success.onResult(Enums.convert(res));
+                public void onResult(Integer res) {
+                    success.onResult(Enums.convertAuthState(res));
                 }
 
                 @Override
@@ -284,10 +286,10 @@ public class JsFacade implements Exportable {
     @UsedByApp
     public void signUp(String name, final JsAuthSuccessClosure success,
                        final JsAuthErrorClosure error) {
-        messenger.signUp(name, null, null).start(new CommandCallback<AuthState>() {
+        messenger.signUp(name, Sex.UNKNOWN, null).start(new CommandCallback<Integer>() {
             @Override
-            public void onResult(AuthState res) {
-                success.onResult(Enums.convert(res));
+            public void onResult(Integer res) {
+                success.onResult(Enums.convertAuthState(res));
             }
 
             @Override

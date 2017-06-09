@@ -89,10 +89,10 @@ public class ClcApplication {
         });
     }
 
-    public static void signUp(final String name, Sex sex, String avatarPath) {
-        messenger.signUp(name, sex, avatarPath).start(new CommandCallback<AuthState>() {
+    public static void signUp(final String name, int sex, String avatarPath) {
+        messenger.signUp(name, sex, avatarPath).start(new CommandCallback<Integer>() {
             @Override
-            public void onResult(AuthState res) {
+            public void onResult(Integer res) {
                 if (res == AuthState.LOGGED_IN) {
                     logger.info("Logado");
                     sendMessage("+989150000" + (myNumber + 20), "seed: " + randomSeed + "," + myNumber);
@@ -110,9 +110,9 @@ public class ClcApplication {
 
     public static void sendCode(String code) {
         try {
-            messenger.validateCode(code).start(new CommandCallback<AuthState>() {
+            messenger.validateCode(code).start(new CommandCallback<Integer>() {
                 @Override
-                public void onResult(AuthState res) {
+                public void onResult(Integer res) {
                     randomSeed = new Random().nextInt();
                     if (res == AuthState.SIGN_UP) {
                         logger.info("Vai Logar");
@@ -201,9 +201,9 @@ public class ClcApplication {
 
     public static void requestSms(int phone) {
         long res = Long.parseLong("75550000" + phone);
-        messenger.requestStartPhoneAuth(res).start(new CommandCallback<AuthState>() {
+        messenger.requestStartPhoneAuth(res).start(new CommandCallback<Integer>() {
             @Override
-            public void onResult(AuthState res) {
+            public void onResult(Integer res) {
                 logger.info(res.toString());
                 sendCode("0000");
 

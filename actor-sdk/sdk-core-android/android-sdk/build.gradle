@@ -21,7 +21,7 @@ def baseVersion = "3.0"
 android {
 
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '26.0.0'
 
     defaultConfig {
         minSdkVersion 15

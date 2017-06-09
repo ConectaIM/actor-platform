@@ -33,7 +33,6 @@ public abstract class Sex {
             case MALE:
                 return ApiSex.MALE;
             default:
-            case UNKNOWN:
                 return ApiSex.UNKNOWN;
         }
     }
