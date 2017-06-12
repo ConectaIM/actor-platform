@@ -6,8 +6,9 @@ object Dependencies {
   object V {
     val actorCommons = "0.0.20"
     val actorBotkit = "1.0.108"
-    val akka = "2.4.7"
-    val akkaHttpJson = "1.10.0"
+    val akka = "2.5.2"
+    val akkaHttp = "10.0.7"
+    val akkaHttpJson = "1.15.0"
     val cats = "0.7.2"
     val circe = "0.5.1"
     val kamon = "0.5.2"
@@ -29,11 +30,11 @@ object Dependencies {
 
     val akkaActor               = "com.typesafe.akka"             %% "akka-actor"                    % V.akka
     val akkaPersistence         = "com.typesafe.akka"             %% "akka-persistence"              % V.akka
-    val akkaDdata               = "com.typesafe.akka"             %% "akka-distributed-data-experimental" % V.akka
+    val akkaDdata               = "com.typesafe.akka"             %% "akka-distributed-data"         % V.akka
     val akkaClusterTools        = "com.typesafe.akka"             %% "akka-cluster-tools"            % V.akka
     val akkaClusterSharding     = "com.typesafe.akka"             %% "akka-cluster-sharding"         % V.akka
     val akkaStream              = "com.typesafe.akka"             %% "akka-stream"                   % V.akka
-    val akkaHttp                = "com.typesafe.akka"             %% "akka-http-experimental"        % V.akka
+    val akkaHttp                = "com.typesafe.akka"             %% "akka-http"                     % V.akkaHttp
     val akkaHttpPlayJson        = "de.heikoseeberger"             %% "akka-http-play-json"           % V.akkaHttpJson
     val akkaHttpCirce           = "de.heikoseeberger"             %% "akka-http-circe"               % V.akkaHttpJson
     val akkaSlf4j               = "com.typesafe.akka"             %% "akka-slf4j"                    % V.akka
