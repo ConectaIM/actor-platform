@@ -144,22 +144,22 @@ object Dependencies {
     tyrex,
     kamonCore,
     kamonDatadog,
-    silencer
+    silencer, cats
   )
 
   val root = shared ++ Seq(
-    akkaSlf4j, akkaActor, akkaStream
+    akkaSlf4j, akkaActor, akkaStream, cats
   )
 
-  val activation = shared ++ Seq(akkaActor, playJson, sprayClient)
+  val activation = shared ++ Seq(akkaActor, playJson, sprayClient, cats)
 
-  val bots = shared ++ Seq(actorBotkit, upickle, shardakka)
+  val bots = shared ++ Seq(actorBotkit, upickle, shardakka, cats)
 
-  val botkit = Seq(actorConcurrent, akkaActor, akkaHttp, akkaSlf4j, javaCompat, sprayWebsocket, upickle)
+  val botkit = Seq(actorConcurrent, akkaActor, akkaHttp, akkaSlf4j, javaCompat, sprayWebsocket, upickle, cats)
 
-  val botShared = Seq(upickle, javaCompat)
+  val botShared = Seq(upickle, javaCompat, cats)
 
-  val cli = Seq(akkaClusterTools, scopt)
+  val cli = Seq(akkaClusterTools, scopt, cats)
 
   val protocScalaPbRuntime = Seq(protobufJava, scalaPbRuntime)
 
@@ -175,48 +175,48 @@ object Dependencies {
     postgresJdbc,
     shardakka,
     scrImageCore,
-    sprayClient
+    sprayClient, cats
   )
 
-  val enrich = shared ++ Seq(akkaActor, akkaHttp)
+  val enrich = shared ++ Seq(akkaActor, akkaHttp, cats)
 
   val rpcApi = shared ++ Seq(
-    akkaSlf4j, akkaActor, bcprov, apacheCommonsIo, apacheCommonsValidator, shapeless, akkaHttpPlayJson
+    akkaSlf4j, akkaActor, bcprov, apacheCommonsIo, apacheCommonsValidator, shapeless, akkaHttpPlayJson, cats
   )
 
-  val httpApi = shared ++ Seq(akkaActor, akkaHttp, akkaHttpPlayJson, akkaHttpCirce, circeCore, circeGeneric, circeParse, jodaTime, playJson)
+  val httpApi = shared ++ Seq(akkaActor, akkaHttp, akkaHttpPlayJson, akkaHttpCirce, circeCore, circeGeneric, circeParse, jodaTime, playJson, cats)
 
-  val email = shared ++ Seq(akkaActor, apacheEmail)
+  val email = shared ++ Seq(akkaActor, apacheEmail, cats)
 
-  val oauth = shared ++ Seq(akkaActor, akkaHttp, playJson)
+  val oauth = shared ++ Seq(akkaActor, akkaHttp, playJson, cats)
 
   val session = shared ++ Seq(
-    akkaSlf4j, akkaActor, akkaStream, scodecCore
+    akkaSlf4j, akkaActor, akkaStream, scodecCore, cats
   )
 
-  val sessionMessages = Seq(akkaActor)
+  val sessionMessages = Seq(akkaActor, cats)
 
-  val persist = shared ++ Seq(akkaActor, akkaStream, actorCatsSlick, actorStorageSlick, apacheCommonsCodec, guava, postgresJdbc, slick, slickHikaricp, slickJoda, slickPg, slickPgDate2, slickTestkit, flywayCore, hikariCP, jodaTime, jodaConvert)
+  val persist = shared ++ Seq(akkaActor, akkaStream, actorCatsSlick, actorStorageSlick, apacheCommonsCodec, guava, postgresJdbc, slick, slickHikaricp, slickJoda, slickPg, slickPgDate2, slickTestkit, flywayCore, hikariCP, jodaTime, jodaConvert, cats)
 
   val presences = shared :+ akkaClusterSharding
 
-  val sms = shared ++ Seq(akkaActor, akkaHttp, dispatch)
+  val sms = shared ++ Seq(akkaActor, akkaHttp, dispatch, cats)
 
-  val codecs = shared ++ Seq(scodecBits, scodecCore)
+  val codecs = shared ++ Seq(scodecBits, scodecCore, cats)
   
-  val models = shared ++ Seq(scodecBits, scodecCore, jodaTime, jodaConvert, slickPg)
+  val models = shared ++ Seq(scodecBits, scodecCore, jodaTime, jodaConvert, slickPg, cats)
 
-  val fileAdapter = shared ++ Seq(amazonaws, apacheCommonsCodec, apacheCommonsIo, awsWrap, betterFiles)
+  val fileAdapter = shared ++ Seq(amazonaws, apacheCommonsCodec, apacheCommonsIo, awsWrap, betterFiles, cats)
 
   val frontend = shared ++ Seq(
     akkaSlf4j, akkaActor, akkaStream,
     guava,
-    scodecBits, scodecCore
+    scodecBits, scodecCore, cats
   )
 
   val sdk = Seq.empty
 
   val runtime = shared ++ Seq(akkaActor, actorConcurrent, akkaHttp, akkaSlf4j, akkaStream, akkaPersistenceJdbc, apacheCommonsCodec, caffeine, cats, jodaConvert, jodaTime, icu4j, libPhoneNumber, scalapbSer, akkaTestkit % "test", scalatest % "test")
 
-  val tests = shared ++ Seq(akkaClusterSharding, amazonaws, jfairy, scalacheck, scalatest, slickTestkit, akkaTestkit, akkaMultiNodeTestkit)
+  val tests = shared ++ Seq(akkaClusterSharding, amazonaws, jfairy, scalacheck, scalatest, slickTestkit, akkaTestkit, akkaMultiNodeTestkit, cats)
 }
