@@ -6,7 +6,7 @@ object Dependencies {
   object V {
     val actorCommons = "0.0.20"
     val actorBotkit = "1.0.108"
-    val akka = "2.4.7"
+    val akka = "2.4.11.2"
     val akkaHttpJson = "1.10.0"
     val cats = "0.7.2"
     val circe = "0.5.1"
