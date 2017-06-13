@@ -4,9 +4,10 @@ import sbt._
 
 object Dependencies {
   object V {
-    val actorCommons = "0.0.20"
+    val actorCommons = "0.0.27-SNAPSHOT"
     val actorBotkit = "1.0.108"
-    val akka = "2.4.11.2"
+    val akka = "2.4.19"
+    val akkaHttp = "2.4.11.2"
     val akkaHttpJson = "1.10.0"
     val cats = "0.7.2"
     val circe = "0.5.1"
@@ -14,8 +15,8 @@ object Dependencies {
     val slick = "3.1.1"
     val slickPg = "0.14.3"
     val scalatest = "2.2.4"
-    val shardakka = "0.1.22-SNAPSHOT"
-    val scalapbSer = "0.1.17-SNAPSHOT"
+    val shardakka = "0.1.26-SNAPSHOT"
+    val scalapbSer = "0.1.21-SNAPSHOT"
   }
 
   object Compile {
@@ -29,11 +30,11 @@ object Dependencies {
 
     val akkaActor               = "com.typesafe.akka"             %% "akka-actor"                    % V.akka
     val akkaPersistence         = "com.typesafe.akka"             %% "akka-persistence"              % V.akka
-    val akkaDdata               = "com.typesafe.akka"             %% "akka-distributed-data-experimental" % V.akka
+    val akkaDdata               = "com.typesafe.akka"             %% "akka-distributed-data-experimental"         % V.akka
     val akkaClusterTools        = "com.typesafe.akka"             %% "akka-cluster-tools"            % V.akka
     val akkaClusterSharding     = "com.typesafe.akka"             %% "akka-cluster-sharding"         % V.akka
     val akkaStream              = "com.typesafe.akka"             %% "akka-stream"                   % V.akka
-    val akkaHttp                = "com.typesafe.akka"             %% "akka-http-experimental"        % V.akka
+    val akkaHttp                = "com.typesafe.akka"             %% "akka-http-experimental"        % V.akkaHttp
     val akkaHttpPlayJson        = "de.heikoseeberger"             %% "akka-http-play-json"           % V.akkaHttpJson
     val akkaHttpCirce           = "de.heikoseeberger"             %% "akka-http-circe"               % V.akkaHttpJson
     val akkaSlf4j               = "com.typesafe.akka"             %% "akka-slf4j"                    % V.akka
@@ -163,7 +164,6 @@ object Dependencies {
   val protocScalaPbRuntime = Seq(protobufJava, scalaPbRuntime)
 
   val core = shared ++ Seq(
-    cats,
     actorConcurrent,
     akkaActor,
     akkaClusterTools,
@@ -178,45 +178,41 @@ object Dependencies {
     sprayClient
   )
 
-  val enrich = shared ++ Seq(akkaActor, akkaHttp, cats)
+  val enrich = shared ++ Seq(akkaActor, akkaHttp)
 
   val rpcApi = shared ++ Seq(
-    akkaSlf4j, akkaActor, bcprov, apacheCommonsIo, apacheCommonsValidator, shapeless, akkaHttpPlayJson, cats
+    akkaSlf4j, akkaActor, bcprov, apacheCommonsIo, apacheCommonsValidator, shapeless, akkaHttpPlayJson
   )
 
-  val httpApi = shared ++ Seq(akkaActor, akkaHttp, akkaHttpPlayJson, akkaHttpCirce, circeCore, circeGeneric, circeParse, jodaTime, playJson, cats)
+  val httpApi = shared ++ Seq(akkaActor, akkaHttp, akkaHttpPlayJson, akkaHttpCirce, circeCore, circeGeneric, circeParse, jodaTime, playJson)
 
-  val email = shared ++ Seq(akkaActor, apacheEmail, cats)
+  val email = shared ++ Seq(akkaActor, apacheEmail)
 
-  val oauth = shared ++ Seq(akkaActor, akkaHttp, playJson, cats)
+  val oauth = shared ++ Seq(akkaActor, akkaHttp, playJson)
 
   val session = shared ++ Seq(
-    akkaSlf4j, akkaActor, akkaStream, scodecCore, cats
+    akkaSlf4j, akkaActor, akkaStream, scodecCore
   )
 
-  val sessionMessages = Seq(akkaActor, cats)
+  val sessionMessages = Seq(akkaActor)
 
-  val persist = shared ++ Seq(akkaActor, akkaStream, actorCatsSlick, actorStorageSlick, apacheCommonsCodec, guava, postgresJdbc, slick, slickHikaricp, slickJoda, slickPg, slickPgDate2, slickTestkit, flywayCore, hikariCP, jodaTime, jodaConvert, cats)
+  val persist = shared ++ Seq(akkaActor, akkaStream, actorCatsSlick, actorStorageSlick, apacheCommonsCodec, guava, postgresJdbc, slick, slickHikaricp, slickJoda, slickPg, slickPgDate2, slickTestkit, flywayCore, hikariCP, jodaTime, jodaConvert)
 
   val presences = shared :+ akkaClusterSharding
 
-  val sms = shared ++ Seq(akkaActor, akkaHttp, dispatch, cats)
+  val sms = shared ++ Seq(akkaActor, akkaHttp, dispatch)
 
-  val codecs = shared ++ Seq(scodecBits, scodecCore, cats)
+  val codecs = shared ++ Seq(scodecBits, scodecCore)
   
-  val models = shared ++ Seq(scodecBits, scodecCore, jodaTime, jodaConvert, slickPg, cats)
+  val models = shared ++ Seq(scodecBits, scodecCore, jodaTime, jodaConvert, slickPg)
 
-  val fileAdapter = shared ++ Seq(amazonaws, apacheCommonsCodec, apacheCommonsIo, awsWrap, betterFiles, cats)
+  val fileAdapter = shared ++ Seq(amazonaws, apacheCommonsCodec, apacheCommonsIo, awsWrap, betterFiles)
 
-  val frontend = shared ++ Seq(
-    akkaSlf4j, akkaActor, akkaStream,
-    guava,
-    scodecBits, scodecCore, cats
-  )
+  val frontend = shared ++ Seq(akkaSlf4j, akkaActor, akkaStream, guava, scodecBits, scodecCore)
 
   val sdk = Seq.empty
 
   val runtime = shared ++ Seq(akkaActor, actorConcurrent, akkaHttp, akkaSlf4j, akkaStream, akkaPersistenceJdbc, apacheCommonsCodec, caffeine, cats, jodaConvert, jodaTime, icu4j, libPhoneNumber, scalapbSer, akkaTestkit % "test", scalatest % "test")
 
-  val tests = shared ++ Seq(akkaClusterSharding, amazonaws, jfairy, scalacheck, scalatest, slickTestkit, akkaTestkit, akkaMultiNodeTestkit, cats)
+  val tests = shared ++ Seq(akkaClusterSharding, amazonaws, jfairy, scalacheck, scalatest, slickTestkit, akkaTestkit, akkaMultiNodeTestkit)
 }
