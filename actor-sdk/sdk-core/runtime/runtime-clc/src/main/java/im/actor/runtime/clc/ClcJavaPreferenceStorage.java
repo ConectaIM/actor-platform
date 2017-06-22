@@ -25,6 +25,7 @@ public class ClcJavaPreferenceStorage implements ClcPreferencesStorage {
     @Override
     public void putLong(String key, long v) {
         pref.putLong(context + "_" + key, v);
+
     }
 
     @Override

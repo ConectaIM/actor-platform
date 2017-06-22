@@ -2,7 +2,7 @@ import com.typesafe.sbt.SbtMultiJvm.MultiJvmKeys.MultiJvm
 import im.actor.{Configs, Dependencies, Versioning, Resolvers, SbtActorApi}
 import sbt.Keys.{baseDirectory, libraryDependencies, unmanagedResourceDirectories}
 
-val ScalaVersion = "2.11.8"
+val ScalaVersion = "2.11.11"
 val BotKitVersion = Versioning.getVersion
 
 resolvers ++= Seq(

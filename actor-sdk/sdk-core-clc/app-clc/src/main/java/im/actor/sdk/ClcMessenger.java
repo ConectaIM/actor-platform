@@ -1,8 +1,6 @@
 package im.actor.sdk;
 
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.prefs.BackingStoreException;
@@ -20,7 +18,7 @@ import im.actor.runtime.generic.mvvm.BindedDisplayList;
 
 public class ClcMessenger extends Messenger {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClcMessenger.class);
+    //private static final Logger logger = LoggerFactory.getLogger(ClcMessenger.class);
     private HashMap<Peer, BindedDisplayList<Message>> messagesLists = new HashMap<Peer, BindedDisplayList<Message>>();
 
     /**
@@ -66,7 +64,7 @@ public class ClcMessenger extends Messenger {
         try {
             ((ClcJavaPreferenceStorage) modules.getPreferences()).getPref().clear();
         } catch (BackingStoreException e) {
-            logger.error("Cannot clear preferences", e);
+            e.printStackTrace();
         }
     }
 

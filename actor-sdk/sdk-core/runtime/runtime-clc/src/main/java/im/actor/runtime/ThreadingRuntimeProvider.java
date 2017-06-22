@@ -6,9 +6,6 @@ import im.actor.runtime.threading.Dispatcher;
 
 public class ThreadingRuntimeProvider extends GenericThreadingProvider {
 
-    public ThreadingRuntimeProvider() {
-    }
-
     @Override
     public Dispatcher createDispatcher(String name) {
         return new ClcDispatcher(name);

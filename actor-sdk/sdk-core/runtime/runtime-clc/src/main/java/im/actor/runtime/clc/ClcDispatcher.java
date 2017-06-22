@@ -1,5 +1,6 @@
 package im.actor.runtime.clc;
 
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -14,12 +15,14 @@ public class ClcDispatcher implements Dispatcher {
     final ScheduledThreadPoolExecutor executor;
 
     public ClcDispatcher(String name) {
-        executor = new ScheduledThreadPoolExecutor(5);
+        executor = new ScheduledThreadPoolExecutor(10);
     }
 
     @Override
     public DispatchCancel dispatch(Runnable message, long delay) {
-        executor.schedule(message, delay, TimeUnit.MILLISECONDS);
-        return null;
+        ScheduledFuture<?> t = executor.schedule(message, delay, TimeUnit.MILLISECONDS);
+        return ()->{
+            t.cancel(false);
+        };
     }
 }

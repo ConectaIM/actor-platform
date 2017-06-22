@@ -1,9 +1,5 @@
 package clc;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,6 +26,7 @@ import im.actor.core.providers.PhoneBookProvider;
 import im.actor.core.viewmodel.Command;
 import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.UserVM;
+import im.actor.runtime.Log;
 import im.actor.runtime.json.JSONException;
 import im.actor.runtime.json.JSONObject;
 import im.actor.sdk.ClcMessenger;
@@ -37,7 +34,7 @@ import im.actor.sdk.ClcMessenger;
 
 public class ClcApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClcApplication.class);
+   public static final String TAG = ClcApplication.class.getName();
 
     static ClcMessenger messenger;
     static int rate = 1000;
@@ -84,7 +81,7 @@ public class ClcApplication {
 
             @Override
             public void onError(Exception e) {
-                logger.error(e.getMessage(), e);
+                Log.e(TAG, e);
             }
         });
     }
@@ -94,10 +91,10 @@ public class ClcApplication {
             @Override
             public void onResult(Integer res) {
                 if (res == AuthState.LOGGED_IN) {
-                    logger.info("Logado");
+                    Log.d(TAG,"Logado");
                     sendMessage("+989150000" + (myNumber + 20), "seed: " + randomSeed + "," + myNumber);
                 } else if (res == AuthState.SIGN_UP) {
-                    logger.info("Deve Entrar");
+                    Log.d(TAG,"Deve Entrar");
                 }
             }
 
@@ -115,10 +112,10 @@ public class ClcApplication {
                 public void onResult(Integer res) {
                     randomSeed = new Random().nextInt();
                     if (res == AuthState.SIGN_UP) {
-                        logger.info("Vai Logar");
+                        Log.d(TAG,"Vai Logar");
                         signUp("75550000" + (myNumber), Sex.MALE, null);
                     } else if (res == AuthState.LOGGED_IN) {
-                        logger.info("Ja esta logado, vai enviar msg");
+                       Log.d(TAG,"Ja esta logado, vai enviar msg");
 
                         // sendMessage("+556191520714", "seed: " + randomSeed + "," + myNumber);
                         //sendMessage("5564999663299", "Teste");
@@ -132,8 +129,8 @@ public class ClcApplication {
                         messenger.rawRequestCommand("grupoExtService", "getPublicGroups", values).start(new CommandCallback<ResponseRawRequest>() {
                             @Override
                             public void onResult(ResponseRawRequest res) {
-                                logger.debug("TAG", "onResult: ");
-                                logger.debug(res.toString());
+                                Log.d(TAG, "onResult: ");
+                                Log.d(TAG, res.toString());
                                 ApiArrayValue values = (ApiArrayValue) res.getResult();
 
                                 for (ApiRawValue val : values.getArray()) {
@@ -149,12 +146,12 @@ public class ClcApplication {
                                         messenger.rawRequestCommand("grupoExtService", "getInviteLink", param).start(new CommandCallback<ResponseRawRequest>() {
                                             @Override
                                             public void onResult(ResponseRawRequest res) {
-                                                logger.debug(((ApiStringValue) res.getResult()).getText());
+                                                Log.d(TAG,((ApiStringValue) res.getResult()).getText());
                                             }
 
                                             @Override
                                             public void onError(Exception e) {
-                                                logger.error(e.getMessage(), e);
+                                                Log.e(TAG, e);
                                             }
                                         });
 
@@ -164,16 +161,16 @@ public class ClcApplication {
                                         messenger.rawRequestCommand("grupoExtService", "getGroupAdmin", idGrupo).start(new CommandCallback<ResponseRawRequest>() {
                                             @Override
                                             public void onResult(ResponseRawRequest res) {
-                                                logger.debug(String.valueOf(((ApiInt64Value) res.getResult()).getValue()));
+                                                Log.d(TAG,String.valueOf(((ApiInt64Value) res.getResult()).getValue()));
                                             }
 
                                             @Override
                                             public void onError(Exception e) {
-                                                logger.error(e.getMessage(), e);
+                                                Log.e(TAG, e);
                                             }
                                         });
 
-                                        logger.debug(g.toString());
+                                        Log.d(TAG, g.toString());
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -182,7 +179,7 @@ public class ClcApplication {
 
                             @Override
                             public void onError(Exception e) {
-                                logger.error("onError: ", e);
+                                Log.e(TAG, e);
                             }
                         });
                     }
@@ -195,7 +192,7 @@ public class ClcApplication {
                 }
             });
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            Log.e(TAG, e);
         }
     }
 
@@ -204,14 +201,14 @@ public class ClcApplication {
         messenger.requestStartPhoneAuth(res).start(new CommandCallback<Integer>() {
             @Override
             public void onResult(Integer res) {
-                logger.info(res.toString());
+                Log.d(TAG,res.toString());
                 sendCode("0000");
 
             }
 
             @Override
             public void onError(Exception e) {
-                logger.error(e.getMessage(), e);
+                Log.e(TAG, e);
             }
         });
 
@@ -252,23 +249,23 @@ public class ClcApplication {
         builder.setNotificationProvider(new NotificationProvider() {
             @Override
             public void onMessageArriveInApp(Messenger messenger) {
-                logger.debug("onMessageArriveInApp");
+                Log.d(TAG,"onMessageArriveInApp");
             }
 
             @Override
             public void onNotification(Messenger messenger, List<Notification> topNotifications, int messagesCount, int conversationsCount) {
-                logger.debug("onNotification");
+                Log.d(TAG,"onNotification");
 
             }
 
             @Override
             public void onUpdateNotification(Messenger messenger, List<Notification> topNotifications, int messagesCount, int conversationsCount) {
-                logger.debug("onUpdateNotification");
+                Log.d(TAG,"onUpdateNotification");
             }
 
             @Override
             public void hideAllNotifications() {
-                logger.debug("hideAllNotifications");
+                Log.d(TAG,"hideAllNotifications");
             }
         });
 
