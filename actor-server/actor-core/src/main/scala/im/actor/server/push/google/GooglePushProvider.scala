@@ -13,7 +13,7 @@ final class GooglePushProvider(userId: Int, system: ActorSystem) extends PushPro
     val message = GooglePushMessage(
       to = creds.regId,
       collapse_key = Some(s"seq-invisible-${userId.toString}"),
-      data = Some(
+      notification = Some(
         Map(
           "seq" → seq.toString,
           "_authId" → creds.authId.toString
@@ -40,7 +40,7 @@ final class GooglePushProvider(userId: Int, system: ActorSystem) extends PushPro
     val message = GooglePushMessage(
       to = creds.regId,
       collapse_key = Some(s"seq-visible-${userId.toString}"),
-      data = Some(
+      notification = Some(
         Map(
           "seq" → seq.toString,
           "_authId" → creds.authId.toString

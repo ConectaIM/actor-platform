@@ -122,6 +122,13 @@ public class ActorApi {
     }
 
     /**
+     * Forcing network connection check
+     */
+    public synchronized void checkConnection() {
+        this.apiBroker.send(new ApiBroker.PerformCheckConnection());
+    }
+
+    /**
      * Changing endpoints
      */
     public synchronized void changeEndpoints(Endpoints endpoints) {

@@ -13,6 +13,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import im.actor.core.AuthState;
+import im.actor.core.entity.AuthStartRes;
 import im.actor.develop.R;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.controllers.auth.AuthActivity;
@@ -35,8 +37,8 @@ public class TourActivity extends ActionBarActivity {
 
         ActorSDK.sharedActor().waitForReady();
 
-        String authState = getSharedPreferences("properties.ini", Context.MODE_PRIVATE).getString("auth_state", null);
-        if (authState != null && !authState.equals("SIGN_UP") && !authState.equals("AUTH_START")) {
+        int authState = getSharedPreferences("properties.ini", Context.MODE_PRIVATE).getInt("auth_state", -1);
+        if (authState != -1 && authState != AuthState.SIGN_UP && authState != AuthState.AUTH_START) {
             ActorSDK.sharedActor().startMessagingApp(this);
             finish();
         }

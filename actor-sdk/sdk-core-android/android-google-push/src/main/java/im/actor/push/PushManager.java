@@ -3,6 +3,7 @@ package im.actor.push;
 import android.content.Context;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
 
 import java.io.IOException;
 
@@ -38,7 +39,7 @@ public class PushManager implements ActorPushManager {
                                 exponentialBackoff.onFailure();
                             }
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            Log.e(TAG, e);
                             exponentialBackoff.onFailure();
                         }
                         long waitTime = exponentialBackoff.exponentialWait();
@@ -46,7 +47,7 @@ public class PushManager implements ActorPushManager {
                         try {
                             Thread.sleep(waitTime);
                         } catch (InterruptedException e1) {
-                            e1.printStackTrace();
+                            Log.e(TAG, e1);
                             return;
                         }
                     }
@@ -65,12 +66,14 @@ public class PushManager implements ActorPushManager {
     }
 
     private String tryRegisterPush(Context context) {
-        GoogleCloudMessaging cloudMessaging = GoogleCloudMessaging.getInstance(context);
         Log.d(TAG, "Requesting push token iteration...");
         try {
-            return cloudMessaging.register("" + ActorSDK.sharedActor().getPushId());
+            String regId = InstanceID.getInstance(context)
+                    .getToken(String.valueOf(ActorSDK.sharedActor().getPushId()),
+                            GoogleCloudMessaging.INSTANCE_ID_SCOPE);
+            return regId;
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, e);
             return null;
         }
     }

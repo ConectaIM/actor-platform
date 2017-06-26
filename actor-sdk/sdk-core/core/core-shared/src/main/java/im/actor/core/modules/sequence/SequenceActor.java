@@ -94,7 +94,7 @@ public class SequenceActor extends ModuleActor {
         try {
             update = updatesParser.read(type, body);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, e);
             return;
         }
 

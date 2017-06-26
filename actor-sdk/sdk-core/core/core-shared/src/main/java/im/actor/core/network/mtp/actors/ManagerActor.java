@@ -495,7 +495,7 @@ public class ManagerActor extends Actor {
 
     }
 
-    private static class PerformConnectionCheck {
+    public static class PerformConnectionCheck {
 
     }
 

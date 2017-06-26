@@ -107,6 +107,10 @@ public class MTProto {
         this.manager.send(new ManagerActor.ForceNetworkCheck());
     }
 
+    public void performCheckConnection(){
+        this.manager.send(new ManagerActor.PerformConnectionCheck());
+    }
+
     public void stopProto() {
         this.sender.send(PoisonPill.INSTANCE);
         this.manager.send(PoisonPill.INSTANCE);

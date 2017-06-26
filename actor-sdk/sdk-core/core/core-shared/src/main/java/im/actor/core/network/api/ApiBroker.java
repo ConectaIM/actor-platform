@@ -147,6 +147,12 @@ public class ApiBroker extends AskcableActor {
         }
     }
 
+    private void checkConnection(){
+        if(proto != null){
+            proto.performCheckConnection();
+        }
+    }
+
     private void onNewSessionCreated(long authId) {
         if (authId != currentAuthId) {
             return;
@@ -469,6 +475,10 @@ public class ApiBroker extends AskcableActor {
 
     }
 
+    public static class PerformCheckConnection {
+
+    }
+
     public static class ChangeEndpoints {
         Endpoints endpoints;
 
@@ -704,6 +714,8 @@ public class ApiBroker extends AskcableActor {
             onNetworkChanged(networkChanged.getState());
         } else if (message instanceof ForceNetworkCheck) {
             forceNetworkCheck();
+        } else if (message instanceof PerformCheckConnection) {
+            checkConnection();
         } else if (message instanceof ConnectionsCountChanged) {
             connectionCountChanged(((ConnectionsCountChanged) message).getCount());
         } else if (message instanceof AuthKeyActor.KeyCreated) {

@@ -11,15 +11,23 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
+
         <receiver
             android:name="im.actor.push.PushReceiver"
+            android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
                 <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>
+
+        <service android:name="im.actor.push.PushService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
 
     </application>
 

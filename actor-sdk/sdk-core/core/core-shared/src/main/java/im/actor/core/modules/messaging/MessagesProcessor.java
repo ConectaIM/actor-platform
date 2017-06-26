@@ -69,7 +69,6 @@ public class MessagesProcessor extends AbsModule implements SequenceProcessor {
                     msgContent));
         }
 
-
         return context().getMessagesModule().getRouter().onNewMessages(peer, nMessages);
     }
 

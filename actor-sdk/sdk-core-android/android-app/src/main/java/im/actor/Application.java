@@ -2,6 +2,7 @@ package im.actor;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
@@ -52,7 +53,9 @@ public class Application extends ActorSDKApplication {
         MultiDex.install(this);
         super.onCreate();
 
-        System.loadLibrary("vclibrary");
+        if (Build.VERSION.SDK_INT < 18) {
+            System.loadLibrary("vclibrary");
+        }
     }
 
     @Override

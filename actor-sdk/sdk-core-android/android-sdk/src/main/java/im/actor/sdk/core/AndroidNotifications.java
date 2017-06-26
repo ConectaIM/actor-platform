@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -28,6 +29,7 @@ import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.viewmodel.FileVMCallback;
+import im.actor.runtime.Log;
 import im.actor.runtime.files.FileSystemReference;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
@@ -39,6 +41,8 @@ import static im.actor.core.entity.PeerType.GROUP;
 import static im.actor.core.entity.PeerType.PRIVATE;
 
 public class AndroidNotifications implements NotificationProvider {
+
+    private static final String TAG = AndroidNotifications.class.getName();
 
     private static final int NOTIFICATION_ID = 1;
 
@@ -71,17 +75,21 @@ public class AndroidNotifications implements NotificationProvider {
     @Override
     public void onNotification(Messenger messenger, List<Notification> topNotifications, int messagesCount, int conversationsCount) {
 
+        Log.d(TAG, "Recebendo notificação");
+
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
         builder.setAutoCancel(true);
         builder.setSmallIcon(R.drawable.ic_app_notify);
-        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
         builder.setCategory(NotificationCompat.CATEGORY_MESSAGE);
 
         int defaults = NotificationCompat.DEFAULT_LIGHTS;
+
         if (messenger.isNotificationVibrationEnabled()) {
             defaults |= NotificationCompat.DEFAULT_VIBRATE;
         }
+
 //        if (silentUpdate) {
 //            defaults = 0;
 //        }
@@ -120,7 +128,6 @@ public class AndroidNotifications implements NotificationProvider {
                     id = messenger().getUsers().get(visiblePeer.getPeerId()).getId();
                     avatarTitle = messenger().getUsers().get(visiblePeer.getPeerId()).getName().get();
                     break;
-
                 case GROUP:
                     avatar = messenger().getGroups().get(visiblePeer.getPeerId()).getAvatar().get();
                     id = messenger().getGroups().get(visiblePeer.getPeerId()).getId();
@@ -134,6 +141,7 @@ public class AndroidNotifications implements NotificationProvider {
 
             final NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             manager.notify(NOTIFICATION_ID, result);
+
 
             if (avatar != null && avatar.getSmallImage() != null && avatar.getSmallImage().getFileReference() != null) {
                 messenger.bindFile(avatar.getSmallImage().getFileReference(), true, new FileVMCallback() {
