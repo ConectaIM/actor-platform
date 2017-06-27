@@ -23,18 +23,18 @@ public class PushReceiver extends GcmReceiver {
 
         if (!extras.isEmpty()) {
                 ActorSDK.sharedActor().waitForReady();
-                if (extras.containsKey("seq")) {
-                    int seq = Integer.parseInt(extras.getString("seq"));
+                if (extras.containsKey("gcm.notification.seq")) {
+                    int seq = Integer.parseInt(extras.getString("gcm.notification.seq"));
 
-                    int authId = Integer.parseInt(extras.getString("authId", "0"));
+                    int authId = Integer.parseInt(extras.getString("gcm.notification.authId", "0"));
                     Log.d(TAG, "Push received #" + seq);
                     ActorSDK.sharedActor().getMessenger().onPushReceived(seq, authId);
                     setResultCode(Activity.RESULT_OK);
                 } else if (extras.containsKey("callId")) {
-                    long callId = Long.parseLong(extras.getString("callId"));
+                    long callId = Long.parseLong(extras.getString("gcm.notification.callId"));
                     int attempt = 0;
-                    if (extras.containsKey("attemptIndex")) {
-                        attempt = Integer.parseInt(extras.getString("attemptIndex"));
+                    if (extras.containsKey("gcm.notification.attemptIndex")) {
+                        attempt = Integer.parseInt(extras.getString("gcm.notification.attemptIndex"));
                     }
                     Log.d(TAG, "Received Call #" + callId + " (" + attempt + ")");
                     ActorSDK.sharedActor().getMessenger().checkCall(callId, attempt);
