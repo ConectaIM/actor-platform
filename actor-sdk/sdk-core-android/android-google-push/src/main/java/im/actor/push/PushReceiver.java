@@ -26,7 +26,7 @@ public class PushReceiver extends GcmReceiver {
                 if (extras.containsKey("gcm.notification.seq")) {
                     int seq = Integer.parseInt(extras.getString("gcm.notification.seq"));
 
-                    int authId = Integer.parseInt(extras.getString("gcm.notification.authId", "0"));
+                    long authId = Long.parseLong(extras.getString("gcm.notification._authId", "0"));
                     Log.d(TAG, "Push received #" + seq);
                     ActorSDK.sharedActor().getMessenger().onPushReceived(seq, authId);
                     setResultCode(Activity.RESULT_OK);
