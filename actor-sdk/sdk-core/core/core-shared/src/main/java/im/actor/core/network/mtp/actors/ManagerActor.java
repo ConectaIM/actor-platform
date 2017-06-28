@@ -193,7 +193,6 @@ public class ManagerActor extends Actor {
         inSeq = 0;
         connectionStateChanged();
 
-
         backoff.onSuccess();
         isCheckingConnections = false;
         requestCheckConnection();
@@ -204,6 +203,8 @@ public class ManagerActor extends Actor {
     private void onConnectionCreateFailure() {
         Log.w(TAG, "Connection create failure");
 
+        currentConnectionId = 0;
+
         backoff.onFailure();
         isCheckingConnections = false;
         requestCheckConnection(backoff.exponentialWait());
@@ -213,6 +214,7 @@ public class ManagerActor extends Actor {
         Log.w(TAG, "Connection #" + id + " dies");
 
         if (currentConnectionId == id) {
+            Log.w(TAG, "currentConnectionId == id");
             currentConnectionId = 0;
             currentConnection = null;
             outSeq = 0;
@@ -279,7 +281,7 @@ public class ManagerActor extends Actor {
 
                         @Override
                         public void onConnectionRedirect(String host, int port, int timeout) {
-                            // TODO: Implement better processing
+                            Log.d(TAG, "Connection redirect");
                             self().send(new ConnectionDie(id));
                         }
 
@@ -290,6 +292,7 @@ public class ManagerActor extends Actor {
 
                         @Override
                         public void onConnectionDie() {
+                            Log.d(TAG, "Connection die");
                             self().send(new ConnectionDie(id));
                         }
                     }, new CreateConnectionCallback() {
@@ -312,8 +315,7 @@ public class ManagerActor extends Actor {
 
     @AutoreleasePool
     private void onInMessage(byte[] data, int offset, int len) {
-        // Log.d(TAG, "Received package");
-
+        //Log.d(TAG, "Received package");
         DataInput bis = new DataInput(data, offset, len);
         try {
             long authId = bis.readLong();
@@ -423,7 +425,7 @@ public class ManagerActor extends Actor {
                 try {
                     currentConnection.close();
                 } catch (Exception e2) {
-                    e2.printStackTrace();
+                    Log.e(TAG, e2);
                 }
                 currentConnection = null;
                 currentConnectionId = 0;

@@ -98,15 +98,14 @@ public class AndroidNotifications implements NotificationProvider {
 
         if (messagesCount == 1) {
             // Single message notification
-
             final String sender = getNotificationSender(topNotification);
-
             final CharSequence text = messenger.getFormatter().formatNotificationText(topNotification);
             visiblePeer = topNotification.getPeer();
 
             Avatar avatar = null;
             int id = 0;
             String avatarTitle = "";
+
             switch (visiblePeer.getPeerType()) {
                 case PRIVATE:
                     avatar = messenger().getUsers().get(visiblePeer.getPeerId()).getAvatar().get();
@@ -148,9 +147,7 @@ public class AndroidNotifications implements NotificationProvider {
             } else {
                 manager.notify(NOTIFICATION_ID, result);
             }
-
         } else if (conversationsCount == 1) {
-
             // Single conversation notification
             String sender = getNotificationSender(topNotification);
             builder.setContentTitle(sender);
@@ -267,7 +264,6 @@ public class AndroidNotifications implements NotificationProvider {
 
     @NotNull
     private RoundedBitmapDrawable getRoundedBitmapDrawable(FileSystemReference reference) {
-
         Bitmap b = BitmapFactory.decodeFile(reference.getDescriptor());
         RoundedBitmapDrawable d = RoundedBitmapDrawableFactory.create(context.getResources(), Bitmap.createScaledBitmap(b, Screen.dp(55), Screen.dp(55), false));
         d.setCornerRadius(d.getIntrinsicHeight() / 2);
@@ -276,15 +272,12 @@ public class AndroidNotifications implements NotificationProvider {
     }
 
     private android.app.Notification buildSingleConversationNotification(NotificationCompat.Builder builder, NotificationCompat.InboxStyle inboxStyle, Drawable avatarDrawable, Notification topNotification) {
-
         android.app.Notification notification = builder
                 .setLargeIcon(drawableToBitmap(avatarDrawable))
                 .setContentIntent(PendingIntent.getActivity(context, 0,
                         Intents.openDialog(topNotification.getPeer(), false, context),
                         PendingIntent.FLAG_UPDATE_CURRENT))
                 .setStyle(inboxStyle)
-                .setGroup("messages")
-                .setGroupSummary(true)
                 .build();
         addCustomLedAndSound(topNotification, notification);
         return notification;
@@ -299,8 +292,6 @@ public class AndroidNotifications implements NotificationProvider {
                         Intents.openDialog(topNotification.getPeer(), false, context),
                         PendingIntent.FLAG_CANCEL_CURRENT))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
-                .setGroup("messages")
-                .setGroupSummary(true)
                 .build();
         addCustomLedAndSound(topNotification, notification);
         return notification;

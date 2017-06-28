@@ -1,6 +1,11 @@
 package im.actor.core;
 
+import android.app.job.JobInfo;
+import android.app.job.JobParameters;
+import android.app.job.JobScheduler;
+import android.app.job.JobService;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -107,6 +112,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                 new BroadcastReceiver() {
                     @Override
                     public void onReceive(Context context, Intent intent) {
+                        Log.d(TAG, "Network Connection Changed");
                         ConnectivityManager cm =
                                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -134,6 +140,24 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                         onNetworkChanged(state);
                     }
                 }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)));
+
+        Runtime.dispatch(() -> context.registerReceiver(
+                new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        Log.d(TAG, "Idle Mode is changed");
+
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                            if (pm.isDeviceIdleMode()) {
+                                Log.d(TAG, "Idle Mode Active");
+                            }else{
+                                Log.d(TAG, "Idle Mode Inactive");
+                            }
+                        }
+
+                    }
+                }, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED)));
 
 
         // Screen change processor
