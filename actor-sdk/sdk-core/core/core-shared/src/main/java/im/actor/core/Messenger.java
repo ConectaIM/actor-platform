@@ -685,8 +685,18 @@ public class Messenger {
      * @param state New network state
      */
     @ObjectiveCName("onNetworkChanged:")
-    public void onNetworkChanged(@NotNull NetworkState state) {
+    public void onNetworkChanged(@NotNull int state) {
         modules.getActorApi().onNetworkChanged(state);
+    }
+
+    @ObjectiveCName("onDozeStart")
+    public void onDozeStart() {
+        modules.getActorApi().onDozeStart();
+    }
+
+    @ObjectiveCName("onDozeStop")
+    public void onDozeStop() {
+        modules.getActorApi().onDozeStop();
     }
 
     /**

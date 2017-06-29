@@ -135,7 +135,7 @@ public class ApiBroker extends AskcableActor {
         }
     }
 
-    private void onNetworkChanged(NetworkState state) {
+    private void onNetworkChanged(int state) {
         if (proto != null) {
             proto.onNetworkChanged(state);
         }
@@ -150,6 +150,24 @@ public class ApiBroker extends AskcableActor {
     private void checkConnection(){
         if(proto != null){
             proto.performCheckConnection();
+        }
+    }
+
+    private void checkConnectionDoze(){
+        if(proto != null){
+            proto.performCheckConnectionDoze();
+        }
+    }
+
+    private void onDozeStop() {
+        if(proto != null){
+            proto.onDozeStop();
+        }
+    }
+
+    private void onDozeStart() {
+        if(proto != null){
+            proto.onDozeStart();
         }
     }
 
@@ -460,15 +478,23 @@ public class ApiBroker extends AskcableActor {
     }
 
     public static class NetworkChanged {
-        private NetworkState state;
+        private int state;
 
-        public NetworkChanged(NetworkState state) {
+        public NetworkChanged(int state) {
             this.state = state;
         }
 
-        public NetworkState getState() {
+        public int getState() {
             return state;
         }
+    }
+
+    public static class OnDozeStart {
+
+    }
+
+    public static class OnDozeStop {
+
     }
 
     public static class ForceNetworkCheck {
@@ -476,6 +502,10 @@ public class ApiBroker extends AskcableActor {
     }
 
     public static class PerformCheckConnection {
+
+    }
+
+    public static class PerformCheckConnectionDoze {
 
     }
 
@@ -716,6 +746,8 @@ public class ApiBroker extends AskcableActor {
             forceNetworkCheck();
         } else if (message instanceof PerformCheckConnection) {
             checkConnection();
+        }else if(message instanceof PerformCheckConnectionDoze){
+            checkConnectionDoze();
         } else if (message instanceof ConnectionsCountChanged) {
             connectionCountChanged(((ConnectionsCountChanged) message).getCount());
         } else if (message instanceof AuthKeyActor.KeyCreated) {
@@ -723,8 +755,14 @@ public class ApiBroker extends AskcableActor {
                     ((AuthKeyActor.KeyCreated) message).getAuthKey());
         } else if (message instanceof ChangeEndpoints) {
             changeEndpoints(((ChangeEndpoints) message).getEndpoints());
+        } else if (message instanceof OnDozeStart) {
+            onDozeStart();
+        } else if (message instanceof OnDozeStop) {
+            onDozeStop();
         } else {
             super.onReceive(message);
         }
     }
+
+
 }

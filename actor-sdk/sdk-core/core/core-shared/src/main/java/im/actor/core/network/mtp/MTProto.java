@@ -99,7 +99,7 @@ public class MTProto {
         sender.send(new PusherActor.ForgetMessage(mtId, true));
     }
 
-    public void onNetworkChanged(NetworkState state) {
+    public void onNetworkChanged(int state) {
         this.manager.send(new ManagerActor.NetworkChanged(state));
     }
 
@@ -109,6 +109,18 @@ public class MTProto {
 
     public void performCheckConnection(){
         this.manager.send(new ManagerActor.PerformConnectionCheck());
+    }
+
+    public void performCheckConnectionDoze(){
+        this.manager.send(new ManagerActor.PerformConnectionCheckDoze());
+    }
+
+    public void onDozeStart(){
+        this.manager.send(new ManagerActor.OnDozeStart());
+    }
+
+    public void onDozeStop(){
+        this.manager.send(new ManagerActor.OnDozeStop());
     }
 
     public void stopProto() {

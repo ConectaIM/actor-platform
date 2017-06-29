@@ -310,7 +310,6 @@
             android:theme="@style/AppcompatNoDisplay">
             <intent-filter>
                 <action android:name="im.actor.action.botMessageShortcut" />
-
             </intent-filter>
         </activity>
 
@@ -336,15 +335,15 @@
             android:name=".receivers.ChromeCustomTabReceiver"
             android:enabled="true" />
 
-        <receiver
-            android:name="im.actor.sdk.receivers.SDKPushReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="im.actor.push.intent.RECEIVE" />
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name="im.actor.sdk.receivers.SDKPushReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="im.actor.push.intent.RECEIVE" />-->
+                <!--<category android:name="${applicationId}" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <receiver android:name="im.actor.sdk.activation.SMSActivationReceiver">
             <intent-filter>

@@ -85,7 +85,7 @@ public class AsyncTcpConnection extends AsyncConnection {
                         onSocketCreated(socket1);
                         return;
                     } catch (Throwable e) {
-                        e.printStackTrace();
+                        Log.e(TAG, e);
                     }
                 }
 
@@ -114,7 +114,7 @@ public class AsyncTcpConnection extends AsyncConnection {
 
                 onSocketCreated(socket1);
             } catch (Throwable e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
                 crashConnection();
             }
         });
@@ -184,21 +184,21 @@ public class AsyncTcpConnection extends AsyncConnection {
             try {
                 socket.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
         }
         if (inputStream != null) {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
         }
         if (outputStream != null) {
             try {
                 outputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
         }
         socket = null;
@@ -255,7 +255,7 @@ public class AsyncTcpConnection extends AsyncConnection {
                     outputStream.flush();
                 }
             } catch (IOException | NullPointerException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
                 crashConnection();
             }
         }
@@ -291,7 +291,7 @@ public class AsyncTcpConnection extends AsyncConnection {
                     onRawReceived(dataOutput.toByteArray());
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
                 crashConnection();
             }
         }

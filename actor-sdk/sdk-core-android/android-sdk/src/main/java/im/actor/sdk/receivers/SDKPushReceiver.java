@@ -7,6 +7,8 @@ import im.actor.sdk.push.ActorPushReceiver;
 
 public class SDKPushReceiver extends ActorPushReceiver {
 
+    private static final String TAG = SDKPushReceiver.class.getSimpleName();
+
     @Override
     public void onPushReceived(String payload) {
         try {
@@ -30,7 +32,7 @@ public class SDKPushReceiver extends ActorPushReceiver {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e);
         }
     }
 }

@@ -67,9 +67,14 @@ public class ManagerActor extends Actor {
     // Connection
     private int currentConnectionId;
     private Connection currentConnection;
-    private NetworkState networkState = NetworkState.UNKNOWN;
+    private int networkState = NetworkState.UNKNOWN;
     private int outSeq = 0;
     private int inSeq = 0;
+
+    // Doze mode
+    private boolean dozeActivated = false;
+    private final int MAX_CONNECTION_RETRIES_DOZE = 1;
+    private int qtdReconnectionTriedDoze = MAX_CONNECTION_RETRIES_DOZE;
 
     // Creating
     private boolean isCheckingConnections = false;
@@ -147,6 +152,8 @@ public class ManagerActor extends Actor {
             onConnectionDie(((ConnectionDie) message).connectionId);
         } else if (message instanceof PerformConnectionCheck) {
             checkConnection();
+        }else if(message instanceof PerformConnectionCheckDoze){
+            checkConnectionDoze();
         } else if (message instanceof NetworkChanged) {
             onNetworkChanged(((NetworkChanged) message).state);
         } else if (message instanceof ForceNetworkCheck) {
@@ -159,9 +166,33 @@ public class ManagerActor extends Actor {
         } else if (message instanceof InMessage) {
             InMessage m = (InMessage) message;
             onInMessage(m.data, m.offset, m.len);
+        } else if (message instanceof OnDozeStart) {
+            startDoze();
+        } else if (message instanceof OnDozeStop) {
+            stopDoze();
         } else {
             super.onReceive(message);
         }
+    }
+
+    private void startDoze(){
+        Log.d(TAG, "Start Doze");
+        this.dozeActivated = true;
+        this.qtdReconnectionTriedDoze = MAX_CONNECTION_RETRIES_DOZE;
+    }
+
+    private void stopDoze(){
+        Log.d(TAG, "Stop Doze");
+        this.dozeActivated = false;
+        this.qtdReconnectionTriedDoze = MAX_CONNECTION_RETRIES_DOZE;
+        requestCheckConnection();
+    }
+
+    private boolean isInDozing(){
+        if(dozeActivated && (qtdReconnectionTriedDoze >= MAX_CONNECTION_RETRIES_DOZE)){
+            return true;
+        }
+        return false;
     }
 
     private void onConnectionCreated(int id, Connection connection) {
@@ -214,7 +245,6 @@ public class ManagerActor extends Actor {
         Log.w(TAG, "Connection #" + id + " dies");
 
         if (currentConnectionId == id) {
-            Log.w(TAG, "currentConnectionId == id");
             currentConnectionId = 0;
             currentConnection = null;
             outSeq = 0;
@@ -224,7 +254,7 @@ public class ManagerActor extends Actor {
         }
     }
 
-    private void onNetworkChanged(NetworkState state) {
+    private void onNetworkChanged(int state) {
         Log.w(TAG, "Network configuration changed: " + state);
         this.networkState = state;
         backoff.reset();
@@ -242,7 +272,7 @@ public class ManagerActor extends Actor {
     }
 
     private void requestCheckConnection(long wait) {
-        if (!isCheckingConnections) {
+        if (!isCheckingConnections && !isInDozing()) {
             if (currentConnection == null) {
                 if (wait == 0) {
                     Log.w(TAG, "Requesting connection creating");
@@ -258,9 +288,20 @@ public class ManagerActor extends Actor {
         }
     }
 
+
+    private void checkConnectionDoze(){
+        Log.d(TAG, "Checking Doze Connection");
+        qtdReconnectionTriedDoze = 0;
+        requestCheckConnection();
+    }
+
     private void checkConnection() {
         if (isCheckingConnections) {
             return;
+        }
+
+        if(isInDozing()){
+           return;
         }
 
         if (currentConnection == null) {
@@ -274,6 +315,9 @@ public class ManagerActor extends Actor {
 
             final int id = NEXT_CONNECTION.getAndIncrement();
 
+            if(dozeActivated){
+                qtdReconnectionTriedDoze++;
+            }
             Network.createConnection(id, ActorApi.MTPROTO_VERSION,
                     ActorApi.API_MAJOR_VERSION,
                     ActorApi.API_MINOR_VERSION,
@@ -486,9 +530,9 @@ public class ManagerActor extends Actor {
     }
 
     public static class NetworkChanged {
-        private NetworkState state;
+        private int state;
 
-        public NetworkChanged(NetworkState state) {
+        public NetworkChanged(int state) {
             this.state = state;
         }
     }
@@ -498,6 +542,18 @@ public class ManagerActor extends Actor {
     }
 
     public static class PerformConnectionCheck {
+
+    }
+
+    public static class PerformConnectionCheckDoze {
+
+    }
+
+    public static class OnDozeStart {
+
+    }
+
+    public static class OnDozeStop {
 
     }
 

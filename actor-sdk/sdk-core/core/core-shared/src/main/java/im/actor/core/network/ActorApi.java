@@ -110,8 +110,17 @@ public class ActorApi {
      *
      * @param state current network state if available
      */
-    public synchronized void onNetworkChanged(NetworkState state) {
+    public synchronized void onNetworkChanged(int state) {
         this.apiBroker.send(new ApiBroker.NetworkChanged(state));
+    }
+
+
+    public synchronized void onDozeStart() {
+        this.apiBroker.send(new ApiBroker.OnDozeStart());
+    }
+
+    public synchronized void onDozeStop() {
+        this.apiBroker.send(new ApiBroker.OnDozeStop());
     }
 
     /**
@@ -126,6 +135,13 @@ public class ActorApi {
      */
     public synchronized void checkConnection() {
         this.apiBroker.send(new ApiBroker.PerformCheckConnection());
+    }
+
+    /**
+     * Forcing network connection check
+     */
+    public synchronized void checkConnectionDoze() {
+        this.apiBroker.send(new ApiBroker.PerformCheckConnectionDoze());
     }
 
     /**

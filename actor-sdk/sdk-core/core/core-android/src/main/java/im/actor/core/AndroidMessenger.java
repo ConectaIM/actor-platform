@@ -120,7 +120,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                         boolean isConnected = activeNetwork != null &&
                                 activeNetwork.isConnectedOrConnecting();
 
-                        NetworkState state;
+                        int state;
                         if (isConnected) {
                             switch (activeNetwork.getType()) {
                                 case ConnectivityManager.TYPE_WIFI:
@@ -151,11 +151,12 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                             if (pm.isDeviceIdleMode()) {
                                 Log.d(TAG, "Idle Mode Active");
+                                onDozeStart();
                             }else{
                                 Log.d(TAG, "Idle Mode Inactive");
+                                onDozeStop();
                             }
                         }
-
                     }
                 }, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED)));
 
