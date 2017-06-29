@@ -1,6 +1,5 @@
 package im.actor.sdk;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
@@ -14,7 +13,6 @@ import im.actor.core.PlatformType;
 import im.actor.core.network.parser.BaseParser;
 import im.actor.runtime.Log;
 import im.actor.runtime.Runtime;
-import im.actor.runtime.actors.ActorSystem;
 import im.actor.runtime.threading.ThreadDispatcher;
 
 public class ActorSDK {
@@ -232,7 +230,7 @@ public class ActorSDK {
         //builder.setPhoneBookProvider(new AndroidPhoneBook());
         builder.setVideoCallsEnabled(videoCallsEnabled);
         builder.setOnClientPrivacyEnabled(onClientPrivacyEnabled);
-       // builder.setNotificationProvider(new AndroidNotifications(application));
+        // builder.setNotificationProvider(new AndroidNotifications(application));
         builder.setDeviceCategory(DeviceCategory.DESKTOP);
         builder.setPlatformType(PlatformType.GENERIC);
         builder.setIsEnabledGroupedChatList(false);
@@ -240,8 +238,8 @@ public class ActorSDK {
                 appName,
                 apiAppId,
                 apiAppKey,
-                ClcIdentifier.getMACAddress()+"TITLE",
-                ClcIdentifier.getMACAddress()+"DEVICE"));
+                ClcIdentifier.getMACAddress() + "TITLE",
+                ClcIdentifier.getMACAddress() + "DEVICE"));
 
         //
         // Adding Locales

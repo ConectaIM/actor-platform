@@ -13,7 +13,6 @@ import im.actor.core.api.ApiMessageState;
 import im.actor.core.api.rpc.RequestLoadHistory;
 import im.actor.core.entity.EntityConverter;
 import im.actor.core.entity.Message;
-import im.actor.core.entity.MessageState;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.Reaction;
 import im.actor.core.entity.content.AbsContent;

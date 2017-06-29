@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import im.actor.core.AndroidMessenger;
 import im.actor.core.entity.GroupMember;
 import im.actor.core.entity.GroupType;
 import im.actor.core.entity.Peer;
@@ -38,7 +37,6 @@ import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.controllers.fragment.preview.ViewAvatarActivity;
 import im.actor.sdk.controllers.group.view.MembersAdapter;
 import im.actor.sdk.util.ActorSDKMessenger;
-import im.actor.sdk.util.AndroidUtils;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
 import im.actor.sdk.view.adapters.RecyclerListView;

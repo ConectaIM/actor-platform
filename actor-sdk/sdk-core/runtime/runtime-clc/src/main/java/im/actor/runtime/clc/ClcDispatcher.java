@@ -21,7 +21,7 @@ public class ClcDispatcher implements Dispatcher {
     @Override
     public DispatchCancel dispatch(Runnable message, long delay) {
         ScheduledFuture<?> t = executor.schedule(message, delay, TimeUnit.MILLISECONDS);
-        return ()->{
+        return () -> {
             t.cancel(false);
         };
     }

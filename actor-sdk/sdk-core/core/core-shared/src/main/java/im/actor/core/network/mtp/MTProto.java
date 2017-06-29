@@ -5,7 +5,6 @@
 package im.actor.core.network.mtp;
 
 import im.actor.core.network.Endpoints;
-import im.actor.core.network.NetworkState;
 import im.actor.core.network.mtp.actors.ManagerActor;
 import im.actor.core.network.mtp.actors.PusherActor;
 import im.actor.core.network.mtp.actors.ReceiverActor;
@@ -107,19 +106,19 @@ public class MTProto {
         this.manager.send(new ManagerActor.ForceNetworkCheck());
     }
 
-    public void performCheckConnection(){
+    public void performCheckConnection() {
         this.manager.send(new ManagerActor.PerformConnectionCheck());
     }
 
-    public void performCheckConnectionDoze(){
+    public void performCheckConnectionDoze() {
         this.manager.send(new ManagerActor.PerformConnectionCheckDoze());
     }
 
-    public void onDozeStart(){
+    public void onDozeStart() {
         this.manager.send(new ManagerActor.OnDozeStart());
     }
 
-    public void onDozeStop(){
+    public void onDozeStop() {
         this.manager.send(new ManagerActor.OnDozeStop());
     }
 

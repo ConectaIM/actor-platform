@@ -3,11 +3,7 @@ package im.actor.sdk;
 import android.app.Application;
 
 import im.actor.core.AndroidMessenger;
-import im.actor.core.Configuration;
 import im.actor.core.ConfigurationBuilder;
-import im.actor.core.Messenger;
-import im.actor.core.modules.ModuleContext;
-import im.actor.core.modules.Modules;
 
 /**
  * Created by diego on 26/05/17.

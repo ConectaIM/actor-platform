@@ -9,11 +9,11 @@ import im.actor.runtime.LogRuntime;
  * Created by amir on 3/12/16.
  */
 public class ClcLogProvider implements LogRuntime {
-   // private static final Logger logger = LoggerFactory.getLogger(ClcLogProvider.class);
+    // private static final Logger logger = LoggerFactory.getLogger(ClcLogProvider.class);
 
     @Override
     public void w(String tag, String message) {
-       // logger.warn(tag + ":" + message);
+        // logger.warn(tag + ":" + message);
         System.out.println(tag + ":" + message);
     }
 
@@ -32,7 +32,7 @@ public class ClcLogProvider implements LogRuntime {
 
     @Override
     public void v(String tag, String message) {
-       // logger.warn(tag + ":" + message);
+        // logger.warn(tag + ":" + message);
         System.out.println(tag + ":" + message);
     }
 }

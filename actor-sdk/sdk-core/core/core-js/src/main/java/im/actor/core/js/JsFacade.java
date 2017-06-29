@@ -10,7 +10,6 @@ import com.google.gwt.http.client.URL;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.i18n.client.TimeZone;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.rpc.core.java.lang.Integer_CustomFieldSerializer;
 
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportPackage;
@@ -20,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 import im.actor.core.ApiConfiguration;
-import im.actor.core.AuthState;
 import im.actor.core.ConfigurationBuilder;
 import im.actor.core.DeviceCategory;
 import im.actor.core.PlatformType;

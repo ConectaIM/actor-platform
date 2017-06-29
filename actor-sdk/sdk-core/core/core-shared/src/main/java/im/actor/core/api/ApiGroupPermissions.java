@@ -26,14 +26,21 @@ public enum ApiGroupPermissions {
     }
 
     public static ApiGroupPermissions parse(int value) throws IOException {
-        switch(value) {
-            case 1: return ApiGroupPermissions.SEND_MESSAGE;
-            case 2: return ApiGroupPermissions.CLEAR;
-            case 3: return ApiGroupPermissions.LEAVE;
-            case 4: return ApiGroupPermissions.DELETE;
-            case 5: return ApiGroupPermissions.JOIN;
-            case 6: return ApiGroupPermissions.VIEW_INFO;
-            default: return ApiGroupPermissions.UNSUPPORTED_VALUE;
+        switch (value) {
+            case 1:
+                return ApiGroupPermissions.SEND_MESSAGE;
+            case 2:
+                return ApiGroupPermissions.CLEAR;
+            case 3:
+                return ApiGroupPermissions.LEAVE;
+            case 4:
+                return ApiGroupPermissions.DELETE;
+            case 5:
+                return ApiGroupPermissions.JOIN;
+            case 6:
+                return ApiGroupPermissions.VIEW_INFO;
+            default:
+                return ApiGroupPermissions.UNSUPPORTED_VALUE;
         }
     }
 }

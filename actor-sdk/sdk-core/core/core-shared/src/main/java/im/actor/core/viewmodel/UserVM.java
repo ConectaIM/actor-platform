@@ -13,7 +13,6 @@ import java.util.List;
 
 import im.actor.core.entity.ContactRecord;
 import im.actor.core.entity.ContactRecordType;
-import im.actor.core.entity.Sex;
 import im.actor.core.entity.User;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.viewmodel.generics.ArrayListBotCommands;

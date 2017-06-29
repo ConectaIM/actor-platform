@@ -44,32 +44,6 @@ public class SignEmailFragment extends BaseAuthFragment {
 
         initView(v);
 
-//        Get domain logo
-
-//        logoActor = ActorSystem.system().actorOf(Props.create(LogoActor.class, new ActorCreator<LogoActor>() {
-//            @Override
-//            public LogoActor create() {
-//                return new LogoActor();
-//            }
-//        }), "actor/logo_actor");
-//
-//        logoActor.send(new LogoActor.AddCallback(new LogoActor.LogoCallBack() {
-//            @Override
-//            public void onDownloaded(final Drawable logoDrawable) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (logoDrawable != null) {
-//                            logo.setImageDrawable(logoDrawable);
-//                            logo.measure(0, 0);
-//                            expand(logo, logo.getMeasuredHeight());
-//                        } else {
-//                            expand(logo, 0);
-//                        }
-//                    }
-//                });
-//            }
-//        }));
         v.findViewById(R.id.divider).setBackgroundColor(style.getDividerColor());
         setTosAndPrivacy((TextView) v.findViewById(R.id.disclaimer));
 

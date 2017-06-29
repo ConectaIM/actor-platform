@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import im.actor.core.entity.ContentType;
 import im.actor.core.entity.Dialog;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Notification;

@@ -1,8 +1,18 @@
 package im.actor.generator.generators.java;
 
-import im.actor.generator.scheme.*;
-
 import java.io.IOException;
+
+import im.actor.generator.scheme.SchemeAliasType;
+import im.actor.generator.scheme.SchemeDefinition;
+import im.actor.generator.scheme.SchemeEnum;
+import im.actor.generator.scheme.SchemeEnumType;
+import im.actor.generator.scheme.SchemeListType;
+import im.actor.generator.scheme.SchemeOptionalType;
+import im.actor.generator.scheme.SchemePrimitiveType;
+import im.actor.generator.scheme.SchemeStructType;
+import im.actor.generator.scheme.SchemeTraitType;
+import im.actor.generator.scheme.SchemeType;
+import im.actor.generator.scheme.SchemeUpdate;
 
 /**
  * Created by ex3ndr on 15.11.14.

@@ -32,20 +32,33 @@ public enum ApiGroupFullPermissions {
     }
 
     public static ApiGroupFullPermissions parse(int value) throws IOException {
-        switch(value) {
-            case 1: return ApiGroupFullPermissions.EDIT_INFO;
-            case 2: return ApiGroupFullPermissions.VIEW_MEMBERS;
-            case 3: return ApiGroupFullPermissions.INVITE_MEMBERS;
-            case 4: return ApiGroupFullPermissions.INVITE_VIA_LINK;
-            case 5: return ApiGroupFullPermissions.CALL;
-            case 6: return ApiGroupFullPermissions.EDIT_ADMIN_SETTINGS;
-            case 7: return ApiGroupFullPermissions.VIEW_ADMINS;
-            case 8: return ApiGroupFullPermissions.EDIT_ADMINS;
-            case 9: return ApiGroupFullPermissions.KICK_INVITED;
-            case 10: return ApiGroupFullPermissions.KICK_ANYONE;
-            case 11: return ApiGroupFullPermissions.EDIT_FOREIGN;
-            case 12: return ApiGroupFullPermissions.DELETE_FOREIGN;
-            default: return ApiGroupFullPermissions.UNSUPPORTED_VALUE;
+        switch (value) {
+            case 1:
+                return ApiGroupFullPermissions.EDIT_INFO;
+            case 2:
+                return ApiGroupFullPermissions.VIEW_MEMBERS;
+            case 3:
+                return ApiGroupFullPermissions.INVITE_MEMBERS;
+            case 4:
+                return ApiGroupFullPermissions.INVITE_VIA_LINK;
+            case 5:
+                return ApiGroupFullPermissions.CALL;
+            case 6:
+                return ApiGroupFullPermissions.EDIT_ADMIN_SETTINGS;
+            case 7:
+                return ApiGroupFullPermissions.VIEW_ADMINS;
+            case 8:
+                return ApiGroupFullPermissions.EDIT_ADMINS;
+            case 9:
+                return ApiGroupFullPermissions.KICK_INVITED;
+            case 10:
+                return ApiGroupFullPermissions.KICK_ANYONE;
+            case 11:
+                return ApiGroupFullPermissions.EDIT_FOREIGN;
+            case 12:
+                return ApiGroupFullPermissions.DELETE_FOREIGN;
+            default:
+                return ApiGroupFullPermissions.UNSUPPORTED_VALUE;
         }
     }
 }

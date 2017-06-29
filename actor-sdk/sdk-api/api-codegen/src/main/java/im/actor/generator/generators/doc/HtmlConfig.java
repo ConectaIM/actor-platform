@@ -1,9 +1,15 @@
 package im.actor.generator.generators.doc;
 
-import im.actor.generator.scheme.*;
-
 import java.io.IOException;
 import java.util.List;
+
+import im.actor.generator.scheme.SchemeAttribute;
+import im.actor.generator.scheme.SchemeEnumType;
+import im.actor.generator.scheme.SchemeListType;
+import im.actor.generator.scheme.SchemeOptionalType;
+import im.actor.generator.scheme.SchemePrimitiveType;
+import im.actor.generator.scheme.SchemeStructType;
+import im.actor.generator.scheme.SchemeType;
 
 /**
  * Created by ex3ndr on 18.11.14.

@@ -17,6 +17,7 @@ public interface ModuleCreateListener {
             return new Modules(messenger, configuration);
         }
     };
+
     /**
      * Called to create module
      *

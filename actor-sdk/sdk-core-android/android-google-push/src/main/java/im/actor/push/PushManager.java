@@ -71,7 +71,7 @@ public class PushManager implements ActorPushManager {
             String regId = InstanceID.getInstance(context)
                     .getToken(String.valueOf(ActorSDK.sharedActor().getPushId()),
                             GoogleCloudMessaging.INSTANCE_ID_SCOPE);
-            return "FCM_"+regId;
+            return "FCM_" + regId;
         } catch (IOException e) {
             Log.e(TAG, e);
             return null;

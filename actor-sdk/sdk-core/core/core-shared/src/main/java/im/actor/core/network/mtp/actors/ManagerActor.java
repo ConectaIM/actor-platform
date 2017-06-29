@@ -152,7 +152,7 @@ public class ManagerActor extends Actor {
             onConnectionDie(((ConnectionDie) message).connectionId);
         } else if (message instanceof PerformConnectionCheck) {
             checkConnection();
-        }else if(message instanceof PerformConnectionCheckDoze){
+        } else if (message instanceof PerformConnectionCheckDoze) {
             checkConnectionDoze();
         } else if (message instanceof NetworkChanged) {
             onNetworkChanged(((NetworkChanged) message).state);
@@ -175,21 +175,21 @@ public class ManagerActor extends Actor {
         }
     }
 
-    private void startDoze(){
+    private void startDoze() {
         Log.d(TAG, "Start Doze");
         this.dozeActivated = true;
         this.qtdReconnectionTriedDoze = MAX_CONNECTION_RETRIES_DOZE;
     }
 
-    private void stopDoze(){
+    private void stopDoze() {
         Log.d(TAG, "Stop Doze");
         this.dozeActivated = false;
         this.qtdReconnectionTriedDoze = MAX_CONNECTION_RETRIES_DOZE;
         requestCheckConnection();
     }
 
-    private boolean isInDozing(){
-        if(dozeActivated && (qtdReconnectionTriedDoze >= MAX_CONNECTION_RETRIES_DOZE)){
+    private boolean isInDozing() {
+        if (dozeActivated && (qtdReconnectionTriedDoze >= MAX_CONNECTION_RETRIES_DOZE)) {
             return true;
         }
         return false;
@@ -288,11 +288,12 @@ public class ManagerActor extends Actor {
         }
     }
 
-
-    private void checkConnectionDoze(){
-        Log.d(TAG, "Checking Doze Connection");
-        qtdReconnectionTriedDoze = 0;
-        requestCheckConnection();
+    private void checkConnectionDoze() {
+        if(dozeActivated){
+            Log.d(TAG, "Checking Doze Connection");
+            qtdReconnectionTriedDoze = 0;
+            requestCheckConnection();
+        }
     }
 
     private void checkConnection() {
@@ -300,8 +301,8 @@ public class ManagerActor extends Actor {
             return;
         }
 
-        if(isInDozing()){
-           return;
+        if (isInDozing()) {
+            return;
         }
 
         if (currentConnection == null) {
@@ -315,7 +316,7 @@ public class ManagerActor extends Actor {
 
             final int id = NEXT_CONNECTION.getAndIncrement();
 
-            if(dozeActivated){
+            if (dozeActivated) {
                 qtdReconnectionTriedDoze++;
             }
             Network.createConnection(id, ActorApi.MTPROTO_VERSION,

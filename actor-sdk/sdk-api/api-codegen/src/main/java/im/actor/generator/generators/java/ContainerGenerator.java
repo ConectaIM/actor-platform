@@ -1,9 +1,26 @@
 package im.actor.generator.generators.java;
 
-import im.actor.generator.FileGenerator;
-import im.actor.generator.scheme.*;
-
 import java.io.IOException;
+
+import im.actor.generator.FileGenerator;
+import im.actor.generator.scheme.ParameterCategory;
+import im.actor.generator.scheme.SchemeAttribute;
+import im.actor.generator.scheme.SchemeContainer;
+import im.actor.generator.scheme.SchemeDefinition;
+import im.actor.generator.scheme.SchemeEnumType;
+import im.actor.generator.scheme.SchemeListType;
+import im.actor.generator.scheme.SchemeOptionalType;
+import im.actor.generator.scheme.SchemePrimitiveType;
+import im.actor.generator.scheme.SchemeResponse;
+import im.actor.generator.scheme.SchemeResponseAnonymous;
+import im.actor.generator.scheme.SchemeRpc;
+import im.actor.generator.scheme.SchemeStruct;
+import im.actor.generator.scheme.SchemeStructType;
+import im.actor.generator.scheme.SchemeTrait;
+import im.actor.generator.scheme.SchemeTraitType;
+import im.actor.generator.scheme.SchemeType;
+import im.actor.generator.scheme.SchemeUpdate;
+import im.actor.generator.scheme.SchemeUpdateBox;
 
 public class ContainerGenerator {
 

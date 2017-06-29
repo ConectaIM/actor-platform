@@ -4,9 +4,6 @@
 
 package im.actor.core.js.entity;
 
-import im.actor.core.AuthState;
-import im.actor.core.entity.MessageState;
-
 import static im.actor.core.AuthState.AUTH_START;
 import static im.actor.core.AuthState.CODE_VALIDATION_EMAIL;
 import static im.actor.core.AuthState.CODE_VALIDATION_PHONE;

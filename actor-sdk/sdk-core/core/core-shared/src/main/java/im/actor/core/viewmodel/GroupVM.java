@@ -15,7 +15,6 @@ import java.util.HashSet;
 import im.actor.core.api.ApiMapValue;
 import im.actor.core.entity.Group;
 import im.actor.core.entity.GroupMember;
-import im.actor.core.entity.GroupType;
 import im.actor.core.viewmodel.generics.AvatarValueModel;
 import im.actor.core.viewmodel.generics.BooleanValueModel;
 import im.actor.core.viewmodel.generics.IntValueModel;

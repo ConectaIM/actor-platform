@@ -1,10 +1,12 @@
 package im.actor.generator.generators.doc;
 
-import im.actor.generator.scheme.*;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+
+import im.actor.generator.scheme.SchemeDefinition;
+import im.actor.generator.scheme.SchemeSection;
 
 /**
  * Created by ex3ndr on 17.11.14.

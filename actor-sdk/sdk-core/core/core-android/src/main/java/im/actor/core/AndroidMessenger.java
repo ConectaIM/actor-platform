@@ -1,11 +1,6 @@
 package im.actor.core;
 
-import android.app.job.JobInfo;
-import android.app.job.JobParameters;
-import android.app.job.JobScheduler;
-import android.app.job.JobService;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -152,7 +147,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                             if (pm.isDeviceIdleMode()) {
                                 Log.d(TAG, "Idle Mode Active");
                                 onDozeStart();
-                            }else{
+                            } else {
                                 Log.d(TAG, "Idle Mode Inactive");
                                 onDozeStop();
                             }

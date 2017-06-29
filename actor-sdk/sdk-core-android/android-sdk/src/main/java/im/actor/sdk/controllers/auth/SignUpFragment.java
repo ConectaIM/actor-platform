@@ -66,6 +66,7 @@ public class SignUpFragment extends BaseAuthFragment {
                 }
             }
         });
+
         v.findViewById(R.id.divider).setBackgroundColor(style.getDividerColor());
 
         return v;

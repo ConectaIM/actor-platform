@@ -34,7 +34,7 @@ import im.actor.sdk.ClcMessenger;
 
 public class ClcApplication {
 
-   public static final String TAG = ClcApplication.class.getName();
+    public static final String TAG = ClcApplication.class.getName();
 
     static ClcMessenger messenger;
     static int rate = 1000;
@@ -91,10 +91,10 @@ public class ClcApplication {
             @Override
             public void onResult(Integer res) {
                 if (res == AuthState.LOGGED_IN) {
-                    Log.d(TAG,"Logado");
+                    Log.d(TAG, "Logado");
                     sendMessage("+989150000" + (myNumber + 20), "seed: " + randomSeed + "," + myNumber);
                 } else if (res == AuthState.SIGN_UP) {
-                    Log.d(TAG,"Deve Entrar");
+                    Log.d(TAG, "Deve Entrar");
                 }
             }
 
@@ -112,10 +112,10 @@ public class ClcApplication {
                 public void onResult(Integer res) {
                     randomSeed = new Random().nextInt();
                     if (res == AuthState.SIGN_UP) {
-                        Log.d(TAG,"Vai Logar");
+                        Log.d(TAG, "Vai Logar");
                         signUp("75550000" + (myNumber), Sex.MALE, null);
                     } else if (res == AuthState.LOGGED_IN) {
-                       Log.d(TAG,"Ja esta logado, vai enviar msg");
+                        Log.d(TAG, "Ja esta logado, vai enviar msg");
 
                         // sendMessage("+556191520714", "seed: " + randomSeed + "," + myNumber);
                         //sendMessage("5564999663299", "Teste");
@@ -146,7 +146,7 @@ public class ClcApplication {
                                         messenger.rawRequestCommand("grupoExtService", "getInviteLink", param).start(new CommandCallback<ResponseRawRequest>() {
                                             @Override
                                             public void onResult(ResponseRawRequest res) {
-                                                Log.d(TAG,((ApiStringValue) res.getResult()).getText());
+                                                Log.d(TAG, ((ApiStringValue) res.getResult()).getText());
                                             }
 
                                             @Override
@@ -161,7 +161,7 @@ public class ClcApplication {
                                         messenger.rawRequestCommand("grupoExtService", "getGroupAdmin", idGrupo).start(new CommandCallback<ResponseRawRequest>() {
                                             @Override
                                             public void onResult(ResponseRawRequest res) {
-                                                Log.d(TAG,String.valueOf(((ApiInt64Value) res.getResult()).getValue()));
+                                                Log.d(TAG, String.valueOf(((ApiInt64Value) res.getResult()).getValue()));
                                             }
 
                                             @Override
@@ -201,7 +201,7 @@ public class ClcApplication {
         messenger.requestStartPhoneAuth(res).start(new CommandCallback<Integer>() {
             @Override
             public void onResult(Integer res) {
-                Log.d(TAG,res.toString());
+                Log.d(TAG, res.toString());
                 sendCode("0000");
 
             }
@@ -249,23 +249,23 @@ public class ClcApplication {
         builder.setNotificationProvider(new NotificationProvider() {
             @Override
             public void onMessageArriveInApp(Messenger messenger) {
-                Log.d(TAG,"onMessageArriveInApp");
+                Log.d(TAG, "onMessageArriveInApp");
             }
 
             @Override
             public void onNotification(Messenger messenger, List<Notification> topNotifications, int messagesCount, int conversationsCount) {
-                Log.d(TAG,"onNotification");
+                Log.d(TAG, "onNotification");
 
             }
 
             @Override
             public void onUpdateNotification(Messenger messenger, List<Notification> topNotifications, int messagesCount, int conversationsCount) {
-                Log.d(TAG,"onUpdateNotification");
+                Log.d(TAG, "onUpdateNotification");
             }
 
             @Override
             public void hideAllNotifications() {
-                Log.d(TAG,"hideAllNotifications");
+                Log.d(TAG, "hideAllNotifications");
             }
         });
 

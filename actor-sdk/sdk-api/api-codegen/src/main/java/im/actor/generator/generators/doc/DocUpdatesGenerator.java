@@ -1,12 +1,22 @@
 package im.actor.generator.generators.doc;
 
-import im.actor.generator.scheme.*;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 
-import static im.actor.generator.generators.doc.HtmlConfig.*;
+import im.actor.generator.scheme.SchemeBaseResponse;
+import im.actor.generator.scheme.SchemeDefinition;
+import im.actor.generator.scheme.SchemeEnum;
+import im.actor.generator.scheme.SchemeRecord;
+import im.actor.generator.scheme.SchemeResponse;
+import im.actor.generator.scheme.SchemeRpc;
+import im.actor.generator.scheme.SchemeSection;
+import im.actor.generator.scheme.SchemeStruct;
+import im.actor.generator.scheme.SchemeUpdate;
+import im.actor.generator.scheme.SchemeUpdateBox;
+
+import static im.actor.generator.generators.doc.HtmlConfig.schemeWrap;
 
 /**
  * Created by ex3ndr on 18.11.14.

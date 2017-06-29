@@ -69,7 +69,7 @@
     <string name="tour_secure_text">Rest assured that no one will ever read your messages. Share documents, files and photos without fear that they could fall into the wrong hands. All our chats are encrypted.</string>
 
     <!-- Phone Sign Fragment -->
-    <string name="auth_phone_title">Sign up</string>
+    <string name="auth_phone_title">Sign in with phone</string>
     <string name="auth_phone_hint">Please select your country code and enter your phone number.</string>
     <string name="auth_phone_number_hint">Phone number</string>
     <string name="auth_phone_get_code">CONFIRM NUMBER</string>

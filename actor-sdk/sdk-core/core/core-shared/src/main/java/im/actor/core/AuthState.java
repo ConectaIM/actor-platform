@@ -19,4 +19,5 @@ public interface AuthState {
     int COMPLETE_OAUTH = 8;
     int SIGN_UP = 9;
     int LOGGED_IN = 10;
+    int AUTH_NAME = 11;
 }

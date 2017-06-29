@@ -20,7 +20,6 @@ import android.widget.TextView;
 import java.util.regex.Pattern;
 
 import im.actor.core.entity.AuthRes;
-import im.actor.core.entity.Sex;
 import im.actor.runtime.promise.Promise;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;

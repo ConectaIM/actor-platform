@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import im.actor.core.AuthState;
-import im.actor.core.entity.AuthStartRes;
 import im.actor.develop.R;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.controllers.auth.AuthActivity;
@@ -35,9 +34,8 @@ public class TourActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        ActorSDK.sharedActor().waitForReady();
-
         int authState = getSharedPreferences("properties.ini", Context.MODE_PRIVATE).getInt("auth_state", -1);
+
         if (authState != -1 && authState != AuthState.SIGN_UP && authState != AuthState.AUTH_START) {
             ActorSDK.sharedActor().startMessagingApp(this);
             finish();
@@ -62,36 +60,35 @@ public class TourActivity extends ActionBarActivity {
         final View welcomeText = findViewById(R.id.welcome_text);
 
         background.findViewById(R.id.background_colored).setBackgroundColor(ActorSDK.sharedActor().style.getMainColor());
-        TextView signupButtonText = (TextView) findViewById(R.id.signUpButtonText);
-        StateListDrawable states = SelectorFactory.get(ActorSDK.sharedActor().style.getPrimaryAltColor(), this);
-        signupButtonText.setBackgroundDrawable(states);
-        signupButtonText.setTextColor(ActorSDK.sharedActor().style.getTextPrimaryInvColor());
-        signupButtonText.setTypeface(Fonts.medium());
+        //TextView signupButtonText = (TextView) findViewById(R.id.signUpButtonText);
+//        StateListDrawable states = SelectorFactory.get(ActorSDK.sharedActor().style.getPrimaryAltColor(), this);
+//        signupButtonText.setBackgroundDrawable(states);
+//        signupButtonText.setTextColor(ActorSDK.sharedActor().style.getTextPrimaryInvColor());
+//        signupButtonText.setTypeface(Fonts.medium());
         TextView buttonSignUp = (TextView) findViewById(R.id.signIn);
         buttonSignUp.setTextColor(ActorSDK.sharedActor().style.getTextPrimaryInvColor());
         buttonSignUp.setTypeface(Fonts.medium());
         ((TextView) findViewById(R.id.app_name)).setTextColor(ActorSDK.sharedActor().style.getTextPrimaryInvColor());
         ((TextView) findViewById(R.id.tour_welcome_subtitle)).setTextColor(ActorSDK.sharedActor().style.getTextPrimaryInvColor());
 
-        findViewById(R.id.signUpButton).setOnClickListener(new View.OnClickListener() {
+//        findViewById(R.id.signUpButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Bundle authExtras = new Bundle();
+//                authExtras.putInt(AuthActivity.SIGN_TYPE_KEY, AuthActivity.SIGN_TYPE_UP);
+//                ActorSDK.sharedActor().startAuthActivity(TourActivity.this, authExtras);
+//                finish();
+//
+//            }
+//        });
+
+        findViewById(R.id.signIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle authExtras = new Bundle();
                 authExtras.putInt(AuthActivity.SIGN_TYPE_KEY, AuthActivity.SIGN_TYPE_UP);
                 ActorSDK.sharedActor().startAuthActivity(TourActivity.this, authExtras);
                 finish();
-
-            }
-        });
-
-        findViewById(R.id.signIn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle authExtras = new Bundle();
-                authExtras.putInt(AuthActivity.SIGN_TYPE_KEY, AuthActivity.SIGN_TYPE_IN);
-                ActorSDK.sharedActor().startAuthActivity(TourActivity.this, authExtras);
-                finish();
-
             }
         });
 

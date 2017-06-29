@@ -10,8 +10,6 @@ import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.os.OSType;
 import javafx.concurrent.Task;
 
-import static javafx.application.Platform.runLater;
-
 /**
  * Created by ex3ndr on 07.08.15.
  */
@@ -45,12 +43,12 @@ public class MainThreadRuntimeProvider implements MainThreadRuntime {
     @Override
     public void postToMainThread(Runnable runnable) {
         new Thread(new Task<Void>() {
-           @Override
-           protected Void call() throws Exception {
-               runnable.run();
-               return null;
-           }
-       }).start();
+            @Override
+            protected Void call() throws Exception {
+                runnable.run();
+                return null;
+            }
+        }).start();
     }
 
     @Override

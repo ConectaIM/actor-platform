@@ -1,10 +1,15 @@
 package im.actor.generator.generators.java;
 
-import im.actor.generator.FileGenerator;
-import im.actor.generator.scheme.*;
-
 import java.io.File;
 import java.io.IOException;
+
+import im.actor.generator.FileGenerator;
+import im.actor.generator.scheme.SchemeBaseResponse;
+import im.actor.generator.scheme.SchemeDefinition;
+import im.actor.generator.scheme.SchemeResponse;
+import im.actor.generator.scheme.SchemeResponseAnonymous;
+import im.actor.generator.scheme.SchemeRpc;
+import im.actor.generator.scheme.SchemeUpdateBox;
 
 public class RequestGenerator {
     public static void generate(SchemeDefinition definition, String path) throws IOException {

@@ -51,11 +51,13 @@ public class SignPhoneFragment extends BaseAuthFragment {
         v.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
         TextView buttonContinue = (TextView) v.findViewById(R.id.button_continue_text);
         StateListDrawable states = SelectorFactory.get(ActorSDK.sharedActor().style.getMainColor(), getActivity());
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             buttonContinue.setBackground(states);
         } else {
             buttonContinue.setBackgroundDrawable(states);
         }
+
         buttonContinue.setTextColor(ActorSDK.sharedActor().style.getTextPrimaryInvColor());
         buttonContinue.setTypeface(Fonts.medium());
         ((TextView) v.findViewById(R.id.button_why)).setTypeface(Fonts.medium());
@@ -121,14 +123,11 @@ public class SignPhoneFragment extends BaseAuthFragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
                 final Activity a = getActivity();
                 if (a != null) {
 
@@ -177,7 +176,6 @@ public class SignPhoneFragment extends BaseAuthFragment {
 
         phoneNumberEditText = (BackspaceKeyEditText) v.findViewById(R.id.tv_phone_number);
         phoneNumberEditText.setTextColor(ActorSDK.sharedActor().style.getTextPrimaryColor());
-        //phoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         phoneNumberEditText.addTextChangedListener(Mask.telephoneMask(phoneNumberEditText));
 
@@ -203,21 +201,21 @@ public class SignPhoneFragment extends BaseAuthFragment {
                 return false;
             }
         });
-        phoneNumberEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+//        phoneNumberEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//            }
+//        });
 
         countryCodeEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -255,20 +253,21 @@ public class SignPhoneFragment extends BaseAuthFragment {
                 switchToEmail();
             }
         });
+
         if ((ActorSDK.sharedActor().getAuthType() & AuthActivity.AUTH_TYPE_EMAIL) == AuthActivity.AUTH_TYPE_EMAIL) {
             switchToEmail.setVisibility(View.VISIBLE);
         } else {
             switchToEmail.setVisibility(View.GONE);
         }
 
-        Button singIn = (Button) v.findViewById(R.id.button_sign_in);
-        singIn.setTextColor(ActorSDK.sharedActor().style.getTextSecondaryColor());
-        onClick(singIn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startSignIn();
-            }
-        });
+//        Button singIn = (Button) v.findViewById(R.id.button_sign_in);
+//        singIn.setTextColor(ActorSDK.sharedActor().style.getTextSecondaryColor());
+//        onClick(singIn, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startSignIn();
+//            }
+//        });
 
         onClick(v, R.id.button_continue, new View.OnClickListener() {
             @Override
@@ -308,6 +307,7 @@ public class SignPhoneFragment extends BaseAuthFragment {
 
         messenger().getPreferences().putString("auth_county_code", countryCodeEditText.getText().toString());
         messenger().getPreferences().putString("auth_phone_number", phoneNumberEditText.getText().toString());
+
         startPhoneAuth(Long.parseLong(rawPhoneN));
     }
 
@@ -352,7 +352,7 @@ public class SignPhoneFragment extends BaseAuthFragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.clear();
-        getActivity().getMenuInflater().inflate(R.menu.sign_up, menu);
+       // getActivity().getMenuInflater().inflate(R.menu.sign_up, menu);
     }
 
 }

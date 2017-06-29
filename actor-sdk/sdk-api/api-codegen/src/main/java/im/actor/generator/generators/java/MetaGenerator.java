@@ -1,9 +1,9 @@
 package im.actor.generator.generators.java;
 
+import java.io.IOException;
+
 import im.actor.generator.FileGenerator;
 import im.actor.generator.scheme.SchemeDefinition;
-
-import java.io.IOException;
 
 /**
  * Created by ex3ndr on 20.05.15.

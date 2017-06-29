@@ -1,13 +1,30 @@
 package im.actor.generator.generators.doc;
 
-import im.actor.generator.scheme.*;
-
 import java.io.IOException;
 import java.util.List;
 
-import static im.actor.generator.generators.doc.HtmlConfig.*;
+import im.actor.generator.scheme.SchemeComment;
+import im.actor.generator.scheme.SchemeContainer;
+import im.actor.generator.scheme.SchemeDoc;
+import im.actor.generator.scheme.SchemeDocComment;
+import im.actor.generator.scheme.SchemeDocParameter;
+import im.actor.generator.scheme.SchemeEnum;
+import im.actor.generator.scheme.SchemeRecord;
+import im.actor.generator.scheme.SchemeResponse;
+import im.actor.generator.scheme.SchemeRpc;
+import im.actor.generator.scheme.SchemeSection;
+import im.actor.generator.scheme.SchemeStruct;
+import im.actor.generator.scheme.SchemeUpdate;
+import im.actor.generator.scheme.SchemeUpdateBox;
+import im.actor.generator.scheme.SchemeWhitespace;
+
+import static im.actor.generator.generators.doc.HtmlConfig.COMMENT;
 import static im.actor.generator.generators.doc.HtmlConfig.HEADER;
+import static im.actor.generator.generators.doc.HtmlConfig.KEYWORD;
+import static im.actor.generator.generators.doc.HtmlConfig.color;
 import static im.actor.generator.generators.doc.HtmlConfig.generateAttributes;
+import static im.actor.generator.generators.doc.HtmlConfig.hex;
+import static im.actor.generator.generators.doc.HtmlConfig.link;
 
 /**
  * Created by ex3ndr on 18.11.14.

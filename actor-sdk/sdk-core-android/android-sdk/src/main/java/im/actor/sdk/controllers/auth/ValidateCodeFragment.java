@@ -39,9 +39,11 @@ public class ValidateCodeFragment extends BaseAuthFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         authType = getArguments().getString("authType");
         isSign = getArguments().getBoolean(AUTH_TYPE_SIGN);
         keyboardHelper = new KeyboardHelper(getActivity());
+
         View v = inflater.inflate(R.layout.fragment_validate_code, container, false);
         v.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
         TextView buttonConfirm = (TextView) v.findViewById(R.id.button_confirm_sms_code_text);

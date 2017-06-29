@@ -22,10 +22,13 @@ public enum ApiAuthHolder {
     }
 
     public static ApiAuthHolder parse(int value) throws IOException {
-        switch(value) {
-            case 1: return ApiAuthHolder.THISDEVICE;
-            case 2: return ApiAuthHolder.OTHERDEVICE;
-            default: return ApiAuthHolder.UNSUPPORTED_VALUE;
+        switch (value) {
+            case 1:
+                return ApiAuthHolder.THISDEVICE;
+            case 2:
+                return ApiAuthHolder.OTHERDEVICE;
+            default:
+                return ApiAuthHolder.UNSUPPORTED_VALUE;
         }
     }
 }

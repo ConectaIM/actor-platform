@@ -12,7 +12,6 @@ import im.actor.core.api.parser.UpdatesParser;
 import im.actor.core.network.ActorApiCallback;
 import im.actor.core.network.AuthKeyStorage;
 import im.actor.core.network.Endpoints;
-import im.actor.core.network.NetworkState;
 import im.actor.core.network.RpcCallback;
 import im.actor.core.network.RpcException;
 import im.actor.core.network.RpcInternalException;
@@ -147,26 +146,26 @@ public class ApiBroker extends AskcableActor {
         }
     }
 
-    private void checkConnection(){
-        if(proto != null){
+    private void checkConnection() {
+        if (proto != null) {
             proto.performCheckConnection();
         }
     }
 
-    private void checkConnectionDoze(){
-        if(proto != null){
+    private void checkConnectionDoze() {
+        if (proto != null) {
             proto.performCheckConnectionDoze();
         }
     }
 
     private void onDozeStop() {
-        if(proto != null){
+        if (proto != null) {
             proto.onDozeStop();
         }
     }
 
     private void onDozeStart() {
-        if(proto != null){
+        if (proto != null) {
             proto.onDozeStart();
         }
     }
@@ -746,7 +745,7 @@ public class ApiBroker extends AskcableActor {
             forceNetworkCheck();
         } else if (message instanceof PerformCheckConnection) {
             checkConnection();
-        }else if(message instanceof PerformCheckConnectionDoze){
+        } else if (message instanceof PerformCheckConnectionDoze) {
             checkConnectionDoze();
         } else if (message instanceof ConnectionsCountChanged) {
             connectionCountChanged(((ConnectionsCountChanged) message).getCount());

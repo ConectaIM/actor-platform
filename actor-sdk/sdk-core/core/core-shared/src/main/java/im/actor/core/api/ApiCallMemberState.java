@@ -25,13 +25,19 @@ public enum ApiCallMemberState {
     }
 
     public static ApiCallMemberState parse(int value) throws IOException {
-        switch(value) {
-            case 1: return ApiCallMemberState.RINGING;
-            case 4: return ApiCallMemberState.RINGING_REACHED;
-            case 2: return ApiCallMemberState.CONNECTING;
-            case 3: return ApiCallMemberState.CONNECTED;
-            case 5: return ApiCallMemberState.ENDED;
-            default: return ApiCallMemberState.UNSUPPORTED_VALUE;
+        switch (value) {
+            case 1:
+                return ApiCallMemberState.RINGING;
+            case 4:
+                return ApiCallMemberState.RINGING_REACHED;
+            case 2:
+                return ApiCallMemberState.CONNECTING;
+            case 3:
+                return ApiCallMemberState.CONNECTED;
+            case 5:
+                return ApiCallMemberState.ENDED;
+            default:
+                return ApiCallMemberState.UNSUPPORTED_VALUE;
         }
     }
 }

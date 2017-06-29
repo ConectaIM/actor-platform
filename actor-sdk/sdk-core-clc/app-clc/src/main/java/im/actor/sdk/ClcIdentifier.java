@@ -12,7 +12,7 @@ public class ClcIdentifier {
     private static String mac = null;
 
     public static String getMACAddress() {
-        if(mac == null) {
+        if (mac == null) {
             try {
                 InetAddress address = InetAddress.getLocalHost();
                 NetworkInterface networkInterface = NetworkInterface.getByInetAddress(address);
@@ -29,7 +29,7 @@ public class ClcIdentifier {
                 mac = null;
                 return "unknow";
             }
-        }else{
+        } else {
             return mac;
         }
     }

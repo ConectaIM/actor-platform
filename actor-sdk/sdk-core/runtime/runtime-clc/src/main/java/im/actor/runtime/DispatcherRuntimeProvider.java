@@ -1,6 +1,5 @@
 package im.actor.runtime;
 
-import im.actor.runtime.clc.ClcDispatcher;
 import im.actor.runtime.clc.ClcDispatcherProvider;
 
 /**
