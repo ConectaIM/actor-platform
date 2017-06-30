@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -72,8 +71,8 @@ public class SignPhoneFragment extends BaseAuthFragment {
         String deviceCountry = Devices.getDeviceCountry();
         if (!TextUtils.isEmpty(deviceCountry)) {
             Country country = countryDb.getCountryByShortName(deviceCountry);
-            setCountryName(country);
             if (country != null) {
+                setCountryName(country);
                 countryCodeEditText.setText(country.phoneCode);
                 focusPhone();
             } else {
@@ -84,8 +83,11 @@ public class SignPhoneFragment extends BaseAuthFragment {
             countryCodeEditText.setText("");
             focusCode();
         }
+
         v.findViewById(R.id.divider).setBackgroundColor(style.getDividerColor());
         setTosAndPrivacy((TextView) v.findViewById(R.id.disclaimer));
+
+        setCountry(Countries.getInstance().getCountryByShortName("BR"));
 
         return v;
     }
@@ -93,7 +95,6 @@ public class SignPhoneFragment extends BaseAuthFragment {
     @Override
     public void onResume() {
         super.onResume();
-
 
         setTitle(R.string.auth_phone_title);
 
@@ -109,12 +110,10 @@ public class SignPhoneFragment extends BaseAuthFragment {
         ((TextView) v.findViewById(R.id.phone_sign_hint)).setTextColor(ActorSDK.sharedActor().style.getTextSecondaryColor());
         countrySelectButton = (Button) v.findViewById(R.id.button_country_select);
         countrySelectButton.setTextColor(ActorSDK.sharedActor().style.getMainColor());
-        onClick(countrySelectButton, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                keyboardHelper.setImeVisibility(phoneNumberEditText, false);
-                startActivityForResult(new Intent(getActivity(), PickCountryActivity.class), REQUEST_COUNTRY);
-            }
+
+        onClick(countrySelectButton, cv -> {
+            keyboardHelper.setImeVisibility(phoneNumberEditText, false);
+            startActivityForResult(new Intent(getActivity(), PickCountryActivity.class), REQUEST_COUNTRY);
         });
 
         countryCodeEditText = (EditText) v.findViewById(R.id.tv_country_code);
@@ -179,53 +178,29 @@ public class SignPhoneFragment extends BaseAuthFragment {
 
         phoneNumberEditText.addTextChangedListener(Mask.telephoneMask(phoneNumberEditText));
 
-        phoneNumberEditText.setBackspaceListener(new BackspaceKeyEditText.BackspacePressListener() {
-            @Override
-            public boolean onBackspacePressed() {
-                if (phoneNumberEditText.getText().length() == 0) {
-                    focusCode();
-                    return false;
-                } else {
-                    return true;
-                }
+        phoneNumberEditText.setBackspaceListener(() -> {
+            if (phoneNumberEditText.getText().length() == 0) {
+                focusCode();
+                return false;
+            } else {
+                return true;
             }
         });
 
-        phoneNumberEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_GO) {
-                    requestCode();
-                    return true;
-                }
-                return false;
+        phoneNumberEditText.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_GO) {
+                requestCode();
+                return true;
             }
+            return false;
         });
-//        phoneNumberEditText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//            }
-//        });
 
-        countryCodeEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    focusPhone();
-                    return true;
-                }
-                return false;
+        countryCodeEditText.setOnEditorActionListener((v1, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                focusPhone();
+                return true;
             }
+            return false;
         });
 
         String savedCountryCode = messenger().getPreferences().getString("auth_county_code");
@@ -260,30 +235,11 @@ public class SignPhoneFragment extends BaseAuthFragment {
             switchToEmail.setVisibility(View.GONE);
         }
 
-//        Button singIn = (Button) v.findViewById(R.id.button_sign_in);
-//        singIn.setTextColor(ActorSDK.sharedActor().style.getTextSecondaryColor());
-//        onClick(singIn, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startSignIn();
-//            }
-//        });
-
-        onClick(v, R.id.button_continue, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestCode();
-            }
-        });
-
-
-        setCountry(Countries.getInstance().getCountryByShortName("BR"));
-
+        onClick(v, R.id.button_continue, view -> requestCode());
     }
 
     private void requestCode() {
         final String ACTION = "Request code";
-
 
         if (countryCodeEditText.getText().toString().trim().length() == 0 ||
                 phoneNumberEditText.getText().toString().trim().length() == 0) {
@@ -352,7 +308,7 @@ public class SignPhoneFragment extends BaseAuthFragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.clear();
-       // getActivity().getMenuInflater().inflate(R.menu.sign_up, menu);
+        getActivity().getMenuInflater().inflate(R.menu.sign_in_phone, menu);
     }
 
 }

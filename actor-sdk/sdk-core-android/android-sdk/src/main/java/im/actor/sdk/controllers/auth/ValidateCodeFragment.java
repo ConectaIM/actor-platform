@@ -20,6 +20,7 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 
+import im.actor.runtime.Log;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.util.Fonts;
@@ -28,20 +29,19 @@ import im.actor.sdk.view.SelectorFactory;
 
 public class ValidateCodeFragment extends BaseAuthFragment {
 
+    private static final String TAG = ValidateCodeFragment.class.getSimpleName();
 
     public static final String AUTH_TYPE_EMAIL = "auth_type_email";
     public static final String AUTH_TYPE_PHONE = "auth_type_phone";
-    public static final String AUTH_TYPE_SIGN = "auth_type_is_sign";
-    String authType;
+
+    private String authType;
     private EditText codeEnterEditText;
     private KeyboardHelper keyboardHelper;
-    boolean isSign = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         authType = getArguments().getString("authType");
-        isSign = getArguments().getBoolean(AUTH_TYPE_SIGN);
         keyboardHelper = new KeyboardHelper(getActivity());
 
         View v = inflater.inflate(R.layout.fragment_validate_code, container, false);
@@ -63,91 +63,60 @@ public class ValidateCodeFragment extends BaseAuthFragment {
                 Phonenumber.PhoneNumber number = PhoneNumberUtil.getInstance().parse(phoneNumber, null);
                 phoneNumber = PhoneNumberUtil.getInstance().format(number, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL);
             } catch (NumberParseException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
 
-            sendHint.setText(
-                    Html.fromHtml(getString(R.string.auth_code_phone_hint).replace("{0}", "<b>" + phoneNumber + "</b>"))
-            );
+            sendHint.setText((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) ?
+                Html.fromHtml(getString(R.string.auth_code_phone_hint).replace("{0}", "<b>" + phoneNumber + "</b>"),Html.FROM_HTML_MODE_LEGACY) :
+                    Html.fromHtml(getString(R.string.auth_code_phone_hint).replace("{0}", "<b>" + phoneNumber + "</b>")));
+
         } else if (authType.equals(AUTH_TYPE_EMAIL)) {
             sendHint.setText(
-                    Html.fromHtml(getString(R.string.auth_code_email_hint).replace("{0}", "<b>" + authId + "</b>"))
+                    (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) ?
+                            Html.fromHtml(getString(R.string.auth_code_email_hint).replace("{0}", "<b>" + authId + "</b>"), Html.FROM_HTML_MODE_LEGACY) :
+                            Html.fromHtml(getString(R.string.auth_code_email_hint).replace("{0}", "<b>" + authId + "</b>"))
             );
         }
 
         codeEnterEditText = (EditText) v.findViewById(R.id.et_sms_code_enter);
         codeEnterEditText.setTextColor(ActorSDK.sharedActor().style.getTextPrimaryColor());
-        codeEnterEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+        codeEnterEditText.setOnEditorActionListener((v13, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                sendCode();
+                return true;
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (s.length() == 6) {
-//                    sendCode();
-//                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        codeEnterEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    sendCode();
-                    return true;
-                }
-                return false;
-            }
+            return false;
         });
 
         codeEnterEditText.setText(((AuthActivity) getActivity()).getCurrentCode());
 
-        onClick(v, R.id.button_confirm_sms_code, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendCode();
-            }
-        });
+        onClick(v, R.id.button_confirm_sms_code, v12 -> sendCode());
 
         Button editAuth = (Button) v.findViewById(R.id.button_edit_phone);
         if (authType.equals(AUTH_TYPE_EMAIL)) {
             editAuth.setText(getString(R.string.auth_code_wrong_email));
         }
-        onClick(v, R.id.button_edit_phone, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setMessage(authType.equals(AUTH_TYPE_EMAIL) ? R.string.auth_code_email_change : R.string.auth_code_phone_change)
-                        .setPositiveButton(R.string.auth_code_change_yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (isSign) {
-                                    startSignIn();
-                                } else {
-                                    if (authType.equals(AUTH_TYPE_EMAIL)) {
-                                        switchToEmail();
-                                    } else if (authType.equals(AUTH_TYPE_PHONE)) {
-                                        switchToPhone();
-                                    }
-                                }
 
-                            }
-                        })
-                        .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .show()
-                        .setCanceledOnTouchOutside(true);
-            }
-        });
+        onClick(v, R.id.button_edit_phone, v1 -> new AlertDialog.Builder(getActivity())
+                .setMessage(authType.equals(AUTH_TYPE_EMAIL) ? R.string.auth_code_email_change : R.string.auth_code_phone_change)
+                .setPositiveButton(R.string.auth_code_change_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (authType.equals(AUTH_TYPE_EMAIL)) {
+                            switchToEmail();
+                        } else if (authType.equals(AUTH_TYPE_PHONE)) {
+                            switchToPhone();
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show()
+                .setCanceledOnTouchOutside(true));
         v.findViewById(R.id.divider).setBackgroundColor(style.getDividerColor());
 
         return v;

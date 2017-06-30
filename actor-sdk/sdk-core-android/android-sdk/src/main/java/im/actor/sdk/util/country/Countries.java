@@ -47,7 +47,6 @@ public class Countries {
 
     private static final ArrayList<Country> countries;
 
-
     static {
         countries = new ArrayList<Country>();
 

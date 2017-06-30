@@ -1,7 +1,5 @@
 package im.actor.tour;
 
-import android.content.Context;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,18 +13,17 @@ import android.widget.TextView;
 
 import im.actor.core.AuthState;
 import im.actor.develop.R;
+import im.actor.runtime.storage.PreferencesStorage;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.controllers.auth.AuthActivity;
 import im.actor.sdk.util.Fonts;
 import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.SelectorFactory;
+
+import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 
 public class TourActivity extends ActionBarActivity {
 
-    private static final int SIGNIN = 1;
-    private static final int SIGNUP = 3;
-    private static final int SIGNIN_OAUTH = 4;
     private int lastPageIndex = 3;
     private int contentTopPadding;
 
@@ -34,9 +31,10 @@ public class TourActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        int authState = getSharedPreferences("properties.ini", Context.MODE_PRIVATE).getInt("auth_state", -1);
+        PreferencesStorage preferences = messenger().getPreferences();
+        int authState = preferences.getInt(AuthActivity.AUTH_STATE_KEY, AuthState.AUTH_START);
 
-        if (authState != -1 && authState != AuthState.SIGN_UP && authState != AuthState.AUTH_START) {
+        if (authState != AuthState.AUTH_START) {
             ActorSDK.sharedActor().startMessagingApp(this);
             finish();
         }
@@ -82,23 +80,16 @@ public class TourActivity extends ActionBarActivity {
 //            }
 //        });
 
-        findViewById(R.id.signIn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle authExtras = new Bundle();
-                authExtras.putInt(AuthActivity.SIGN_TYPE_KEY, AuthActivity.SIGN_TYPE_UP);
-                ActorSDK.sharedActor().startAuthActivity(TourActivity.this, authExtras);
-                finish();
-            }
+        findViewById(R.id.signIn).setOnClickListener(v -> {
+            Bundle authExtras = new Bundle();
+            ActorSDK.sharedActor().startAuthActivity(TourActivity.this, authExtras);
+            finish();
         });
 
-        View.OnClickListener jumpToTopListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backToTopArrow.animate().alpha(0).setDuration(0).start();
-                backToTopText.animate().alpha(0).setDuration(0).start();
-                viewPager.setCurrentItem(0, true);
-            }
+        View.OnClickListener jumpToTopListener = v -> {
+            backToTopArrow.animate().alpha(0).setDuration(0).start();
+            backToTopText.animate().alpha(0).setDuration(0).start();
+            viewPager.setCurrentItem(0, true);
         };
         backToTopText.setOnClickListener(jumpToTopListener);
         backToTopArrow.setOnClickListener(jumpToTopListener);

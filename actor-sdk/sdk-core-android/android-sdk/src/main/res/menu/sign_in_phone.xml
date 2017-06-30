@@ -8,8 +8,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/sign_in"
-        android:title="@string/tour_sign_in"
+        android:id="@+id/email"
+        android:title="@string/email"
         app:showAsAction="always" />
 
     <!--<item-->

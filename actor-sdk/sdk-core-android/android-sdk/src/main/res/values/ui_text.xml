@@ -51,6 +51,8 @@
     <!-- Tour -->
     <string name="tour_sign_up">SIGN UP</string>
     <string name="tour_sign_in">SIGN IN</string>
+    <string name="email">EMAIL</string>
+    <string name="phone">PHONE</string>
     <string name="tour_sign_using_tel">with telephone number</string>
     <string name="tour_sign_using_email">with email</string>
     <string name="tour_sign_using_oauth">with google</string>

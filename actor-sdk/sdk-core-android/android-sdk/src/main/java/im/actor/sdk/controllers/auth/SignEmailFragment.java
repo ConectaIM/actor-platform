@@ -68,16 +68,11 @@ public class SignEmailFragment extends BaseAuthFragment {
 
         ((TextView) v.findViewById(im.actor.sdk.R.id.button_why)).setTypeface(Fonts.medium());
         ((TextView) v.findViewById(im.actor.sdk.R.id.button_why)).setTextColor(ActorSDK.sharedActor().style.getMainColor());
-        v.findViewById(im.actor.sdk.R.id.button_why).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setMessage(R.string.auth_email_why_description)
-                        .setPositiveButton(im.actor.sdk.R.string.auth_phone_why_done, null)
-                        .show()
-                        .setCanceledOnTouchOutside(true);
-            }
-        });
+        v.findViewById(im.actor.sdk.R.id.button_why).setOnClickListener(v1 -> new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.auth_email_why_description)
+                .setPositiveButton(R.string.auth_phone_why_done, null)
+                .show()
+                .setCanceledOnTouchOutside(true));
 
         ((TextView) v.findViewById(R.id.email_login_hint)).setTextColor(ActorSDK.sharedActor().style.getTextSecondaryColor());
         emailEditText = (EditText) v.findViewById(R.id.tv_email);
@@ -91,43 +86,20 @@ public class SignEmailFragment extends BaseAuthFragment {
 
         }
 
-        emailEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_GO) {
-                    requestCode();
-                    return true;
-                }
-                return false;
+        emailEditText.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_GO) {
+                requestCode();
+                return true;
             }
+            return false;
         });
-        emailEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-//                logoActor.send(new LogoActor.OnInput(emailEditText.getText().toString()));
-                //TODO trackAuthEmailType
-                //messenger().trackAuthPhoneType(emailEditText.getText().toString());
-            }
-        });
 
         TextView switchToPhone = (TextView) v.findViewById(R.id.button_switch_to_phone);
         switchToPhone.setTextColor(ActorSDK.sharedActor().style.getMainColor());
-        onClick(switchToPhone, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToPhone();
-            }
-        });
+
+        onClick(switchToPhone, v12 -> switchToPhone());
+
         if ((ActorSDK.sharedActor().getAuthType() & AuthActivity.AUTH_TYPE_PHONE) == AuthActivity.AUTH_TYPE_PHONE) {
             switchToPhone.setVisibility(View.VISIBLE);
         } else {
@@ -136,25 +108,15 @@ public class SignEmailFragment extends BaseAuthFragment {
 
         Button singIn = (Button) v.findViewById(R.id.button_sign_in);
         singIn.setTextColor(ActorSDK.sharedActor().style.getTextSecondaryColor());
-        onClick(singIn, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startSignIn();
-            }
-        });
 
-        onClick(v, R.id.button_continue, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestCode();
-            }
-        });
+        onClick(singIn, v13 -> startAuth());
+
+        onClick(v, R.id.button_continue, view -> requestCode());
 
     }
 
     private void requestCode() {
         final String ACTION = "Request code email";
-
 
         if (emailEditText.getText().toString().trim().length() == 0) {
             new AlertDialog.Builder(getActivity())
@@ -177,7 +139,7 @@ public class SignEmailFragment extends BaseAuthFragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.clear();
-        getActivity().getMenuInflater().inflate(R.menu.sign_up, menu);
+        getActivity().getMenuInflater().inflate(R.menu.sign_in_email, menu);
     }
 
 

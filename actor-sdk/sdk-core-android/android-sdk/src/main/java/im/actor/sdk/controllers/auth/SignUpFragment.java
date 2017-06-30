@@ -58,12 +58,9 @@ public class SignUpFragment extends BaseAuthFragment {
         ((TextView) v.findViewById(R.id.sign_up_hint)).setTextColor(ActorSDK.sharedActor().style.getTextSecondaryColor());
 
 
-        sendConfirmCodeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!firstNameEditText.getText().toString().isEmpty()) {
-                    startAuth(firstNameEditText.getText().toString().trim());
-                }
+        sendConfirmCodeButton.setOnClickListener(v1 -> {
+            if (!firstNameEditText.getText().toString().isEmpty()) {
+                startAuth(firstNameEditText.getText().toString().trim());
             }
         });
 
@@ -90,7 +87,7 @@ public class SignUpFragment extends BaseAuthFragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.clear();
-        getActivity().getMenuInflater().inflate(R.menu.sign_up, menu);
+        //getActivity().getMenuInflater().inflate(R.menu.sign_up, menu);
 //        MenuItem item = menu.findItem(R.id.change_endpoint);
 //        if (item != null) {
 //            item.setVisible(ActorSDK.sharedActor().isUseAlternateEndpointsEnabled());

@@ -483,9 +483,8 @@ public class Authentication {
                 if ("EMAIL_EXPIRED".equals(e.getTag())) {
                     resetAuth();
                 } else if ("EMAIL_UNOCCUPIED".equals(e.getTag())) {
-                    // modules.getPreferences().putString(KEY_CODE, code);
-                    state = AuthState.SIGN_UP;
-                    callback.onResult(AuthState.SIGN_UP);
+                    state = AuthState.AUTH_START;
+                    callback.onResult(AuthState.AUTH_START);
                     return;
                 }
 
@@ -542,9 +541,8 @@ public class Authentication {
                     if ("PHONE_CODE_EXPIRED".equals(e.getTag()) || "EMAIL_CODE_EXPIRED".equals(e.getTag())) {
                         resetAuth();
                     } else if ("PHONE_NUMBER_UNOCCUPIED".equals(e.getTag()) || "EMAIL_UNOCCUPIED".equals(e.getTag())) {
-                        // modules.getPreferences().putString(KEY_CODE, code);
-                        state = AuthState.SIGN_UP;
-                        Runtime.postToMainThread(() -> callback.onResult(AuthState.SIGN_UP));
+                        state = AuthState.AUTH_START;
+                        Runtime.postToMainThread(() -> callback.onResult(AuthState.AUTH_START));
                         return;
                     }
 
@@ -572,8 +570,8 @@ public class Authentication {
                         @Override
                         public void onError(final RpcException e) {
                             if ("PHONE_NUMBER_UNOCCUPIED".equals(e.getTag()) || "EMAIL_UNOCCUPIED".equals(e.getTag())) {
-                                state = AuthState.SIGN_UP;
-                                Runtime.postToMainThread(() -> callback.onResult(AuthState.SIGN_UP));
+                                state = AuthState.AUTH_START;
+                                Runtime.postToMainThread(() -> callback.onResult(AuthState.AUTH_START));
                                 return;
                             }
 

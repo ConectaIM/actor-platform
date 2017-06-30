@@ -3,13 +3,11 @@ package im.actor.sdk.controllers.auth;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v13.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.MenuItem;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -22,12 +20,12 @@ import im.actor.core.entity.Sex;
 import im.actor.core.network.RpcException;
 import im.actor.core.network.RpcInternalException;
 import im.actor.core.network.RpcTimeoutException;
+import im.actor.runtime.Log;
 import im.actor.runtime.actors.Actor;
 import im.actor.runtime.actors.ActorCreator;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.ActorSystem;
 import im.actor.runtime.actors.Props;
-import im.actor.runtime.function.Consumer;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.PreferencesStorage;
 import im.actor.sdk.ActorSDK;
@@ -41,27 +39,25 @@ import static im.actor.core.AuthState.AUTH_START;
 import static im.actor.core.AuthState.CODE_VALIDATION_EMAIL;
 import static im.actor.core.AuthState.CODE_VALIDATION_PHONE;
 import static im.actor.core.AuthState.LOGGED_IN;
-import static im.actor.core.AuthState.SIGN_UP;
+
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 public class AuthActivity extends BaseFragmentActivity implements Observer {
 
+    private static final String TAG = AuthActivity.class.getSimpleName();
+
     private static final int PERMISSIONS_REQUEST_READ_SMS = 1;
 
-    public static final String AUTH_TYPE_KEY = "auth_type";
-    public static final String SIGN_TYPE_KEY = "sign_type";
+    public static final String AUTH_STATE_KEY = "auth_state";
+
     public static final int AUTH_TYPE_PHONE = 1;
     public static final int AUTH_TYPE_EMAIL = 2;
 
-    public static final int SIGN_TYPE_IN = 3;
-    public static final int SIGN_TYPE_UP = 4;
-    private static final int OAUTH_DIALOG = 1;
     private ProgressDialog progressDialog;
     private AlertDialog alertDialog;
-    private int state;
+    private int authState;
     private int availableAuthType = AUTH_TYPE_PHONE;
     private int currentAuthType = AUTH_TYPE_PHONE;
-    private int signType;
     private long currentPhone;
     private String currentEmail;
     private String transactionHash;
@@ -83,7 +79,6 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
             }
         }), "actor/auth_promises_actor");
 
-        signType = getIntent().getIntExtra(SIGN_TYPE_KEY, SIGN_TYPE_IN);
 
         PreferencesStorage preferences = messenger().getPreferences();
         currentPhone = preferences.getLong("currentPhone", 0);
@@ -92,20 +87,11 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
         isRegistered = preferences.getBool("isRegistered", false);
         codeValidated = preferences.getBool("codeValidated", false);
         currentName = preferences.getString("currentName");
-        signType = preferences.getInt("signType", signType);
-        state = preferences.getInt("auth_state", AUTH_START);
+        authState = preferences.getInt("auth_state", AUTH_START);
 
-        updateState(state, true);
+        updateState(authState, true);
 
         SMSActivationObservable.getInstance().addObserver(this);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -114,9 +100,10 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
     }
 
     private void updateState(int state, boolean force) {
-        if (this.state != 0 && (this.state == state && !force)) {
+        if (this.authState != 0 && (this.authState == state && !force)) {
             return;
         }
+
         PreferencesStorage preferences = messenger().getPreferences();
         preferences.putLong("currentPhone", currentPhone);
         preferences.putString("currentEmail", currentEmail);
@@ -124,20 +111,16 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
         preferences.putBool("isRegistered", isRegistered);
         preferences.putBool("codeValidated", codeValidated);
         preferences.putString("currentName", currentName);
-        preferences.putInt("signType", signType);
         preferences.putInt("auth_state", state);
 
         if (state != LOGGED_IN && getIsResumed() == false) {
             return;
         }
 
-        this.state = state;
+        this.authState = state;
 
         switch (state) {
             case AUTH_START:
-                updateState(SIGN_UP);
-                break;
-            case SIGN_UP:
                 startAuth();
                 break;
             case AUTH_NAME:
@@ -155,7 +138,6 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                 break;
             case CODE_VALIDATION_PHONE:
             case CODE_VALIDATION_EMAIL:
-
                 if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.READ_SMS},
@@ -166,7 +148,6 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                 Bundle args = new Bundle();
 
                 args.putString("authType", state == CODE_VALIDATION_EMAIL ? ValidateCodeFragment.AUTH_TYPE_EMAIL : ValidateCodeFragment.AUTH_TYPE_PHONE);
-                args.putBoolean(ValidateCodeFragment.AUTH_TYPE_SIGN, signType == SIGN_TYPE_IN);
                 args.putString("authId", state == CODE_VALIDATION_EMAIL ? currentEmail : Long.toString(currentPhone));
                 validateCodeFragment.setArguments(args);
                 showFragment(validateCodeFragment, false);
@@ -176,6 +157,18 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
                 ActorSDK.sharedActor().startAfterLoginActivity(this);
                 break;
         }
+    }
+
+    public void startAuth() {
+        availableAuthType = ActorSDK.sharedActor().getAuthType();
+        int authState = AUTH_PHONE;
+
+        if ((availableAuthType & AUTH_TYPE_PHONE) == AUTH_TYPE_PHONE) {
+            authState = AUTH_PHONE;
+        } else if ((availableAuthType & AUTH_TYPE_EMAIL) == AUTH_TYPE_EMAIL) {
+            authState = AUTH_EMAIL;
+        }
+        updateState(authState);
     }
 
     public void startAuth(String name) {
@@ -191,23 +184,12 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
             } else {
                 return;
             }
+
             updateState(authState);
+
         } else {
             signUp(messenger().doSignup(currentName, currentSex != 0 ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
         }
-    }
-
-    public void startAuth() {
-        availableAuthType = ActorSDK.sharedActor().getAuthType();
-        int authState = AUTH_PHONE;
-
-        if ((availableAuthType & AUTH_TYPE_PHONE) == AUTH_TYPE_PHONE) {
-            authState = AUTH_PHONE;
-        } else if ((availableAuthType & AUTH_TYPE_EMAIL) == AUTH_TYPE_EMAIL) {
-            authState = AUTH_EMAIL;
-        }
-
-        updateState(authState);
     }
 
     public void startPhoneAuth(Promise<AuthStartRes> promise, long phone) {
@@ -224,216 +206,147 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
 
     private void startAuth(Promise<AuthStartRes> res) {
         showProgress();
-        res.then(new Consumer<AuthStartRes>() {
-            @Override
-            public void apply(AuthStartRes authStartRes) {
-                if (dismissProgress()) {
-                    transactionHash = authStartRes.getTransactionHash();
-                    isRegistered = authStartRes.isRegistered();
-                    switch (authStartRes.getAuthMode()) {
-                        case AuthMode.OTP:
-                            switch (currentAuthType) {
-                                case AUTH_TYPE_PHONE:
-                                    updateState(CODE_VALIDATION_PHONE);
-                                    break;
-                                case AUTH_TYPE_EMAIL:
-                                    updateState(CODE_VALIDATION_EMAIL);
-                                    break;
-                            }
-                            break;
-                        default:
-                    }
+        res.then(authStartRes -> {
+            if (dismissProgress()) {
+                transactionHash = authStartRes.getTransactionHash();
+                isRegistered = authStartRes.isRegistered();
+                switch (authStartRes.getAuthMode()) {
+                    case AuthMode.OTP:
+                        switch (currentAuthType) {
+                            case AUTH_TYPE_PHONE:
+                                updateState(CODE_VALIDATION_PHONE);
+                                break;
+                            case AUTH_TYPE_EMAIL:
+                                updateState(CODE_VALIDATION_EMAIL);
+                                break;
+                        }
+                        break;
+                    default:
                 }
             }
-        }).failure(new Consumer<Exception>() {
-            @Override
-            public void apply(Exception e) {
-                handleAuthError(e);
-            }
-        });
+        }).failure(e -> handleAuthError(e));
     }
-
 
     public void validateCode(Promise<AuthCodeRes> promise, String code) {
         currentCode = code;
         showProgress();
-        promise.then(new Consumer<AuthCodeRes>() {
-            @Override
-            public void apply(AuthCodeRes authCodeRes) {
-                if (dismissProgress()) {
-                    codeValidated = true;
-                    transactionHash = authCodeRes.getTransactionHash();
-                    if (!authCodeRes.isNeedToSignup()) {
-                        messenger().doCompleteAuth(authCodeRes.getResult()).then(new Consumer<Boolean>() {
-                            @Override
-                            public void apply(Boolean aBoolean) {
-                                updateState(LOGGED_IN);
-                            }
-                        }).failure(new Consumer<Exception>() {
-                            @Override
-                            public void apply(Exception e) {
-                                handleAuthError(e);
-                            }
-                        });
+        promise.then(authCodeRes -> {
+            if (dismissProgress()) {
+                codeValidated = true;
+                transactionHash = authCodeRes.getTransactionHash();
+                if (!authCodeRes.isNeedToSignup()) {
+                    messenger().doCompleteAuth(authCodeRes.getResult()).then(aBoolean -> updateState(LOGGED_IN)).failure(e -> handleAuthError(e));
+                } else {
+                    if (currentName == null || currentName.isEmpty()) {
+                        updateState(AUTH_NAME);
                     } else {
-                        if (currentName == null || currentName.isEmpty()) {
-                            //updateState(SIGN_UP, true);
-                            updateState(AUTH_NAME);
-                        } else {
-                            signUp(messenger().doSignup(currentName, currentSex != 0 ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
-                        }
+                        signUp(messenger().doSignup(currentName, currentSex != 0 ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
                     }
                 }
             }
-        }).failure(new Consumer<Exception>() {
-            @Override
-            public void apply(Exception e) {
-                handleAuthError(e);
-            }
-        });
+        }).failure(e -> handleAuthError(e));
     }
 
     public void signUp(Promise<AuthRes> promise, String name, int sex) {
         currentName = name;
         currentSex = sex;
-        promise.then(new Consumer<AuthRes>() {
-            @Override
-            public void apply(AuthRes authRes) {
-                dismissProgress();
-                messenger().doCompleteAuth(authRes).then(new Consumer<Boolean>() {
-                    @Override
-                    public void apply(Boolean aBoolean) {
-                        updateState(LOGGED_IN);
-                    }
-                }).failure(new Consumer<Exception>() {
-                    @Override
-                    public void apply(Exception e) {
-                        handleAuthError(e);
-                    }
-                });
+        promise.then(authRes -> {
+            dismissProgress();
+            messenger().doCompleteAuth(authRes).then(aBoolean -> updateState(LOGGED_IN)).failure(e -> handleAuthError(e));
 
-            }
-        }).failure(new Consumer<Exception>() {
-            @Override
-            public void apply(Exception e) {
-                handleAuthError(e);
-            }
-        });
+        }).failure(e -> handleAuthError(e));
     }
 
     public void handleAuthError(final Exception e) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (dismissProgress()) {
-                    boolean canTryAgain = false;
-                    boolean keepState = false;
-                    String message = getString(R.string.error_unknown);
-                    String tag = "UNKNOWN";
-                    if (e instanceof RpcException) {
-                        RpcException re = (RpcException) e;
-                        if (re instanceof RpcInternalException) {
-                            message = getString(R.string.error_unknown);
-                            canTryAgain = true;
-                        } else if (re instanceof RpcTimeoutException) {
-                            message = getString(R.string.error_connection);
-                            canTryAgain = true;
+        runOnUiThread(() -> {
+            if (dismissProgress()) {
+                boolean canTryAgain = false;
+                boolean keepState = false;
+                String message = getString(R.string.error_unknown);
+                String tag = "UNKNOWN";
+                if (e instanceof RpcException) {
+                    RpcException re = (RpcException) e;
+                    if (re instanceof RpcInternalException) {
+                        message = getString(R.string.error_unknown);
+                        canTryAgain = true;
+                    } else if (re instanceof RpcTimeoutException) {
+                        message = getString(R.string.error_connection);
+                        canTryAgain = true;
+                    } else {
+                        if ("PHONE_CODE_EXPIRED".equals(re.getTag()) || "EMAIL_CODE_EXPIRED".equals(re.getTag())) {
+                            currentCode = "";
+                            message = getString(R.string.auth_error_code_expired);
+                            canTryAgain = false;
+                        } else if ("PHONE_CODE_INVALID".equals(re.getTag()) || "EMAIL_CODE_INVALID".equals(re.getTag())) {
+                            message = getString(R.string.auth_error_code_invalid);
+                            canTryAgain = false;
+                            keepState = true;
+                        } else if ("FAILED_GET_OAUTH2_TOKEN".equals(re.getTag())) {
+                            message = getString(R.string.auth_error_failed_get_oauth2_token);
+                            canTryAgain = false;
                         } else {
-                            if ("PHONE_CODE_EXPIRED".equals(re.getTag()) || "EMAIL_CODE_EXPIRED".equals(re.getTag())) {
-                                currentCode = "";
-                                message = getString(R.string.auth_error_code_expired);
-                                canTryAgain = false;
-                            } else if ("PHONE_CODE_INVALID".equals(re.getTag()) || "EMAIL_CODE_INVALID".equals(re.getTag())) {
-                                message = getString(R.string.auth_error_code_invalid);
-                                canTryAgain = false;
-                                keepState = true;
-                            } else if ("FAILED_GET_OAUTH2_TOKEN".equals(re.getTag())) {
-                                message = getString(R.string.auth_error_failed_get_oauth2_token);
-                                canTryAgain = false;
-                            } else {
-                                message = re.getMessage();
-                                canTryAgain = re.isCanTryAgain();
-                            }
+                            message = re.getMessage();
+                            canTryAgain = re.isCanTryAgain();
                         }
                     }
+                }
 
-
-                    try {
-                        if (canTryAgain) {
-                            new AlertDialog.Builder(AuthActivity.this)
-                                    .setMessage(message)
-                                    .setPositiveButton(R.string.dialog_try_again, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dismissAlert();
-                                            switch (state) {
-                                                case AUTH_EMAIL:
-                                                case AUTH_PHONE:
-                                                    switch (currentAuthType) {
-                                                        case AUTH_TYPE_PHONE:
-                                                            startAuth(messenger().doStartPhoneAuth(currentPhone));
-                                                            break;
-
-                                                        case AUTH_TYPE_EMAIL:
-                                                            startAuth(messenger().doStartEmailAuth(currentEmail));
-
-                                                            break;
-                                                    }
+                try {
+                    if (canTryAgain) {
+                        new AlertDialog.Builder(AuthActivity.this)
+                                .setMessage(message)
+                                .setPositiveButton(R.string.dialog_try_again, (dialog, which) -> {
+                                    dismissAlert();
+                                    switch (authState) {
+                                        case AUTH_EMAIL:
+                                        case AUTH_PHONE:
+                                            switch (currentAuthType) {
+                                                case AUTH_TYPE_PHONE:
+                                                    startAuth(messenger().doStartPhoneAuth(currentPhone));
                                                     break;
-                                                case CODE_VALIDATION_EMAIL:
-                                                case CODE_VALIDATION_PHONE:
-                                                    validateCode(messenger().doValidateCode(currentCode, transactionHash), currentCode);
-                                                    break;
-
-                                                case SIGN_UP:
-                                                    signUp(messenger().doSignup(currentName, currentSex != 0 ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
+                                                case AUTH_TYPE_EMAIL:
+                                                    startAuth(messenger().doStartEmailAuth(currentEmail));
                                                     break;
                                             }
+                                            break;
+                                        case CODE_VALIDATION_EMAIL:
+                                        case CODE_VALIDATION_PHONE:
+                                            validateCode(messenger().doValidateCode(currentCode, transactionHash), currentCode);
+                                            break;
+                                    }
 
-                                        }
-                                    })
-                                    .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dismissAlert();
+                                })
+                                .setNegativeButton(R.string.dialog_cancel, (dialog, which) -> {
+                                    dismissAlert();
+                                    updateState(AUTH_START);
+                                }).setCancelable(false)
+                                .show()
+                                .setCanceledOnTouchOutside(false);
+                    } else {
+                        final boolean finalKeepState = keepState;
+                        new AlertDialog.Builder(AuthActivity.this)
+                                .setMessage(message)
+                                .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+                                    dismissAlert();
+                                    if (finalKeepState) {
+                                        updateState(authState, true);
+                                    } else {
+                                        if (currentAuthType == AUTH_TYPE_EMAIL) {
+                                            switchToEmailAuth();
+                                        } else if (currentAuthType == AUTH_TYPE_PHONE) {
+                                            switchToPhoneAuth();
+                                        } else {
                                             updateState(AUTH_START);
                                         }
-                                    }).setCancelable(false)
-                                    .show()
-                                    .setCanceledOnTouchOutside(false);
-                        } else {
-                            final boolean finalKeepState = keepState;
-                            new AlertDialog.Builder(AuthActivity.this)
-                                    .setMessage(message)
-                                    .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dismissAlert();
-                                            if (finalKeepState) {
-                                                updateState(state, true);
-                                            } else if (signType == SIGN_TYPE_UP) {
-                                                if (currentAuthType == AUTH_TYPE_EMAIL) {
-                                                    switchToEmailAuth();
-                                                } else if (currentAuthType == AUTH_TYPE_PHONE) {
-                                                    switchToPhoneAuth();
-                                                } else {
-                                                    updateState(AUTH_START);
-                                                }
-                                            } else if (signType == SIGN_TYPE_IN) {
-                                                startSignIn();
-                                            } else {
-                                                updateState(AUTH_START);
-                                            }
+                                    }
 
-                                        }
-                                    })
-                                    .setCancelable(false)
-                                    .show()
-                                    .setCanceledOnTouchOutside(false);
-                        }
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                                })
+                                .setCancelable(false)
+                                .show()
+                                .setCanceledOnTouchOutside(false);
                     }
+                } catch (Exception ex) {
+                    Log.e(TAG, ex);
                 }
             }
         });
@@ -447,19 +360,6 @@ public class AuthActivity extends BaseFragmentActivity implements Observer {
     public void switchToPhoneAuth() {
         updateState(AUTH_PHONE);
     }
-
-
-    public void startSignIn() {
-        signType = SIGN_TYPE_IN;
-        updateState(AUTH_START, true);
-    }
-
-
-    public void startSignUp() {
-        signType = SIGN_TYPE_UP;
-        updateState(AUTH_START, true);
-    }
-
 
     public void showProgress() {
         dismissProgress();

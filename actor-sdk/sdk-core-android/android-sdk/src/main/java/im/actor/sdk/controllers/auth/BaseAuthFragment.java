@@ -14,22 +14,30 @@ import android.text.style.ClickableSpan;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
 import im.actor.core.entity.AuthRes;
+import im.actor.runtime.Log;
+import im.actor.runtime.mtproto.ConnectionEndpointArray;
 import im.actor.runtime.promise.Promise;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
+import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.BaseUrlSpan;
 import im.actor.sdk.view.CustomClicableSpan;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 public abstract class BaseAuthFragment extends BaseFragment {
+
+    private static final String TAG = BaseAuthFragment.class.getSimpleName();
 
     private static final int PERMISSIONS_REQUEST_ACCOUNT = 1;
     public static final boolean USE_SUGGESTED_EMAIL = false;
@@ -39,21 +47,13 @@ public abstract class BaseAuthFragment extends BaseFragment {
         setRootFragment(true);
     }
 
-//    protected void setTitle(int resId) {
-//        ((BaseFragmentActivity) getActivity()).getSupportActionBar().setTitle(resId);
+//    protected void startSignIn() {
+//        ((AuthActivity) getActivity()).startSignIn();
 //    }
 //
-//    protected void setTitle(String title) {
-//        ((BaseFragmentActivity) getActivity()).getSupportActionBar().setTitle(title);
+//    protected void startSignUp() {
+//        ((AuthActivity) getActivity()).startSignUp();
 //    }
-
-    protected void startSignIn() {
-        ((AuthActivity) getActivity()).startSignIn();
-    }
-
-    protected void startSignUp() {
-        ((AuthActivity) getActivity()).startSignUp();
-    }
 
     protected void startPhoneAuth(long phone) {
         messenger().getPreferences().putString("sign_in_auth_id", Long.toString(phone));
@@ -70,14 +70,18 @@ public abstract class BaseAuthFragment extends BaseFragment {
         activity.validateCode(messenger().doValidateCode(code, activity.getTransactionHash()), code);
     }
 
-    protected void signUp(String name, int sex) {
-        AuthActivity activity = (AuthActivity) getActivity();
-        Promise<AuthRes> promise = messenger().doSignup(name, sex, activity.getTransactionHash());
-        ((AuthActivity) getActivity()).signUp(promise, name, sex);
-    }
+//    protected void signUp(String name, int sex) {
+//        AuthActivity activity = (AuthActivity) getActivity();
+//        Promise<AuthRes> promise = messenger().doSignup(name, sex, activity.getTransactionHash());
+//        ((AuthActivity) getActivity()).signUp(promise, name, sex);
+//    }
 
     protected void startAuth(String name) {
         ((AuthActivity) getActivity()).startAuth(name);
+    }
+
+    protected void startAuth() {
+        ((AuthActivity) getActivity()).startAuth();
     }
 
     protected void switchToEmail() {
@@ -187,21 +191,11 @@ public abstract class BaseAuthFragment extends BaseFragment {
         if (urlAvailable) {
             span = new BaseUrlSpan(ActorSDK.sharedActor().getTosUrl(), false);
         } else {
-            span = new CustomClicableSpan(new CustomClicableSpan.SpanClickListener() {
-                @Override
-                public void onClick() {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.auth_tos_index)
-                            .setMessage(ActorSDK.sharedActor().getTosText())
-                            .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
-                }
-            });
+            span = new CustomClicableSpan(() -> new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.auth_tos_index)
+                    .setMessage(ActorSDK.sharedActor().getTosText())
+                    .setPositiveButton(R.string.dialog_ok, (dialog, which) -> dialog.dismiss())
+                    .show());
         }
         builder.setSpan(span, index, index + tosIndex.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
     }
@@ -213,67 +207,58 @@ public abstract class BaseAuthFragment extends BaseFragment {
         if (urlAvailable) {
             span = new BaseUrlSpan(ActorSDK.sharedActor().getPrivacyUrl(), false);
         } else {
-            span = new CustomClicableSpan(new CustomClicableSpan.SpanClickListener() {
-                @Override
-                public void onClick() {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.auth_privacy_index)
-                            .setMessage(ActorSDK.sharedActor().getPrivacyText())
-                            .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
-                }
-            });
+            span = new CustomClicableSpan(() -> new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.auth_privacy_index)
+                    .setMessage(ActorSDK.sharedActor().getPrivacyText())
+                    .setPositiveButton(R.string.dialog_ok, (dialog, which) -> dialog.dismiss())
+                    .show());
         }
         builder.setSpan(span, index, index + ppIndex.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+    }
+
+    private void changeEndpoint(){AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.auth_change_endpoint);
+
+            final EditText input = new EditText(getActivity());
+            input.setText("tcp://");
+            input.setSelection(input.getText().length());
+
+            int padding = Screen.dp(25);
+            FrameLayout inputContainer = new FrameLayout(getActivity());
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(padding, padding, padding, 0);
+            inputContainer.addView(input, params);
+            builder.setView(inputContainer);
+
+            builder.setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+                try {
+                    messenger().changeEndpoint(input.getText().toString());
+                } catch (ConnectionEndpointArray.UnknownSchemeException e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            builder.setNegativeButton(R.string.auth_reset_default_endpoint, (dialog, which) -> {
+                try {
+                    messenger().changeEndpoint(null);
+                } catch (ConnectionEndpointArray.UnknownSchemeException e) {
+                    Log.e(TAG, e);
+                }
+            });
+
+            builder.show();
+            input.requestFocus();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
-        if (i == R.id.sign_in) {
-            startSignIn();
+        if(i == R.id.email) {
+            switchToEmail();
             return true;
-        } else if (i == R.id.sign_up) {
-            startSignUp();
+        } else if(i == R.id.phone) {
+            switchToPhone();
             return true;
 //        } else if (i == R.id.change_endpoint) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//            builder.setTitle(R.string.auth_change_endpoint);
-//
-//            final EditText input = new EditText(getActivity());
-//            input.setText("tcp://");
-//            input.setSelection(input.getText().length());
-//
-//            int padding = Screen.dp(25);
-//            FrameLayout inputContainer = new FrameLayout(getActivity());
-//            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            params.setMargins(padding, padding, padding, 0);
-//            inputContainer.addView(input, params);
-//            builder.setView(inputContainer);
-//
-//            builder.setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
-//                try {
-//                    messenger().changeEndpoint(input.getText().toString());
-//                } catch (ConnectionEndpointArray.UnknownSchemeException e) {
-//                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            });
-//            builder.setNegativeButton(R.string.auth_reset_default_endpoint, (dialog, which) -> {
-//                try {
-//                    messenger().changeEndpoint(null);
-//                } catch (ConnectionEndpointArray.UnknownSchemeException e) {
-//                    e.printStackTrace();
-//                }
-//            });
-//
-//            builder.show();
-//            input.requestFocus();
-//
 //            return true;
         } else {
             return super.onOptionsItemSelected(item);

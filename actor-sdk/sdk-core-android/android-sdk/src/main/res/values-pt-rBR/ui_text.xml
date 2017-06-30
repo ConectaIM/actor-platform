@@ -65,6 +65,9 @@
     <string name="tour_secure_title">Seguro e Privado</string>
     <string name="tour_secure_text">Tenha certeza de que ninguém vai ler suas mensagens. Compartilhe documentos, arquivos e fotos sem medo de que elas terminem em mãos erradas.</string>
 
+    <string name="email">EMAIL</string>
+    <string name="phone">TELEFONE</string>
+
     <!-- Phone Sign Fragment -->
     <string name="auth_phone_title">Entrar com Telefone</string>
     <string name="auth_phone_hint">Por favor confirme o código do seu país e insira o número do seu telefone.</string>
@@ -92,7 +95,7 @@
 
 
     <!-- Email Sign Fragment -->
-    <string name="auth_email_title">Verificar e-mail</string>
+    <string name="auth_email_title">Entrar com e-mail</string>
     <string name="auth_email_hint">Por favor insira seu e-mail.</string>
     <string name="auth_email_edit_text_hint">E-mail</string>
     <string name="auth_email_get_code">CONFIRMAR E-MAIL</string>

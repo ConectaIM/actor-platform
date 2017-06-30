@@ -34,12 +34,11 @@ android {
     }
 
     productFlavors {
+        production{}
         avell {
-            applicationIdSuffix ".avell"
             applicationIdSuffix ".avell"
         }
         desenv {
-            applicationIdSuffix ".desenv"
             applicationIdSuffix ".desenv"
         }
     }
