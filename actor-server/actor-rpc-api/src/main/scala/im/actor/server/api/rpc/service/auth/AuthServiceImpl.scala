@@ -155,6 +155,7 @@ final class AuthServiceImpl(val oauth2Service: GoogleProvider)(
     apiKey:             String,
     deviceHash:         Array[Byte],
     deviceTitle:        String,
+    systemName:         String,
     timeZone:           Option[String],
     preferredLanguages: IndexedSeq[String],
     clientData:         ClientData
@@ -183,7 +184,7 @@ final class AuthServiceImpl(val oauth2Service: GoogleProvider)(
             _ ← fromDBIO(AuthPhoneTransactionRepo.create(phoneAuthTransaction))
           } yield transactionHash
       }
-      _ ← fromDBIOEither[Unit, CodeFailure](AuthErrors.activationFailure)(sendSmsCode(normalizedPhone, transactionHash))
+      _ ← fromDBIOEither[Unit, CodeFailure](AuthErrors.activationFailure)(sendSmsCode(normalizedPhone, transactionHash, systemName))
       isRegistered = optPhone.isDefined
     } yield ResponseStartPhoneAuth(transactionHash, isRegistered, Some(ApiPhoneActivationType.CODE))
     db.run(action.value)

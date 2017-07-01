@@ -227,9 +227,9 @@ trait AuthHelpers extends Helpers {
     } yield userStruct
   }
 
-  protected def sendSmsCode(phoneNumber: Long, txHash: String)(implicit system: ActorSystem): DBIO[CodeFailure Xor Unit] = {
+  protected def sendSmsCode(phoneNumber: Long, txHash: String, systemName: String)(implicit system: ActorSystem): DBIO[CodeFailure Xor Unit] = {
     log.info("Sending sms code to {}", phoneNumber)
-    DBIO.from(activationContext.send(txHash, SmsCode(phoneNumber)))
+    DBIO.from(activationContext.send(txHash, SmsCode(phoneNumber, "", systemName)))
   }
 
   protected def sendCallCode(phoneNumber: Long, txHash: String, language: String)(implicit system: ActorSystem): DBIO[CodeFailure Xor Unit] = {
