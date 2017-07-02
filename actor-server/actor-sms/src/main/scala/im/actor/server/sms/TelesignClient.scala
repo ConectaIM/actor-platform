@@ -18,7 +18,7 @@ import scala.util.Failure
 object TelesignClient {
   private val BaseUrl = "https://rest.telesign.com"
   private val ApiVersion = "v1"
-  val DefaultSmsTemplate: String = "$$SERVER_NAME$$ activation code: $$CODE$$"
+  val DefaultSmsTemplate: String = "$$SYSTEM_NAME$$ activation code: $$CODE$$"
   val DefaultLanguage = "en"
   val CallLanguages: Set[String] = "af sq ar ar-EG hy bn eu be bn-BD bs bg ca ku zh-HK zh-CN zh-TW hr cs da fa-AF nl egx en-AU en-GB en-US et fil fi fr fr-CA gl ka de el gu ha he hi hu is id zu it ja kn kk km sw ko ko ky lv ln lt lb mk ms ml mr ne no or fa pl pt pt-BR pt-PT pa-IN pa-PK ro ru sr sr-BA sd sk sk-SK sl es es-ES es-CL es-419 es-ES sv gsw ta te th tr uk ur vi cy".split(" ").toSet
 }
@@ -40,12 +40,12 @@ final class TelesignClient(config: Config)(implicit system: ActorSystem) {
 
   private implicit val ec: ExecutionContext = system.dispatcher
 
-  def sendSmsCode(phoneNumber: Long, code: String, template: String): Future[Unit] = {
+  def sendSmsCode(phoneNumber: Long, code: String, template: String, systemName:String): Future[Unit] = {
     postRequest("/verify/sms", Map(
       "phone_number" → phoneNumber.toString,
       "ucid" → "BACS",
       "verify_code" → code,
-      "template" → template.replace("$$SERVER_NAME$$", ActorConfig.projectName)
+      "template" → template.replace("$$SYSTEM_NAME$$", systemName)
     )) map { _ ⇒
       system.log.debug("Message sent via telesign")
     }

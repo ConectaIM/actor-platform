@@ -107,14 +107,15 @@
 ,{"type":{"type":"opt","childType":{"type":"enum","childType":"PhoneActivationType"}},"id":3,"name":"activationType"}
 ]},
 "doc":[
-"Start Phone Activation",{"type":"reference","argument":"phoneNumber","category":"full","description":"Phone number"},{"type":"reference","argument":"appId","category":"hidden","description":"Appication Id"},{"type":"reference","argument":"apiKey","category":"hidden","description":"Application API key"},{"type":"reference","argument":"deviceHash","category":"full","description":"Hash of device unique id and app bundle id. Used for autologout users when app is reinstalled"},{"type":"reference","argument":"deviceTitle","category":"full","description":"Device Title"},{"type":"reference","argument":"timeZone","category":"full","description":"TimeZone of device"},{"type":"reference","argument":"preferredLanguages","category":"full","description":"Preferred languages of device"}],"attributes":[
+"Start Phone Activation",{"type":"reference","argument":"phoneNumber","category":"full","description":"Phone number"},{"type":"reference","argument":"appId","category":"hidden","description":"Appication Id"},{"type":"reference","argument":"apiKey","category":"hidden","description":"Application API key"},{"type":"reference","argument":"deviceHash","category":"full","description":"Hash of device unique id and app bundle id. Used for autologout users when app is reinstalled"},{"type":"reference","argument":"deviceTitle","category":"full","description":"Device Title"},"param visible systemName System Name",{"type":"reference","argument":"timeZone","category":"full","description":"TimeZone of device"},{"type":"reference","argument":"preferredLanguages","category":"full","description":"Preferred languages of device"}],"attributes":[
 {"type":"int64","id":1,"name":"phoneNumber"}
 ,{"type":"int32","id":2,"name":"appId"}
 ,{"type":"string","id":3,"name":"apiKey"}
 ,{"type":"bytes","id":4,"name":"deviceHash"}
 ,{"type":"string","id":5,"name":"deviceTitle"}
-,{"type":{"type":"opt","childType":"string"},"id":6,"name":"timeZone"}
-,{"type":{"type":"list","childType":"string"},"id":7,"name":"preferredLanguages"}
+,{"type":"string","id":6,"name":"systemName"}
+,{"type":{"type":"opt","childType":"string"},"id":7,"name":"timeZone"}
+,{"type":{"type":"list","childType":"string"},"id":8,"name":"preferredLanguages"}
 ]}},{"type":"rpc","content":{
 "name":"SendCodeByPhoneCall",
 "header":197,

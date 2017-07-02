@@ -118,26 +118,7 @@ private[session] class RpcHandler(authId: Long, sessionId: Long, config: RpcConf
                   FastFuture.successful(Response(messageId, RpcErrors.RequestNotSupported, clientData))
                 }
             }
-
             responseFuture.pipeTo(self)
-
-//          val responseFuture =
-//            RequestCodec.decode(requestBytes) match {
-//              case Attempt.Successful(DecodeResult(request, _)) ⇒
-//                log.debug("Request messageId {}: {}, userId: {}", messageId, request, userIdOpt)
-//
-//                val resultFuture = handleRequest(request, clientData) map Xor.right recover {
-//                  case e: Throwable ⇒ Xor.left(ResponseFailure(messageId, request, e, clientData))
-//                }
-//                responseCache.put(messageId, resultFuture)
-//
-//                resultFuture.map(_ map (Response(messageId, _, clientData)) fold (identity, identity))
-//              case Attempt.Failure(err) ⇒
-//                log.warning("Failed to decode request: {}", err.messageWithContext)
-//                FastFuture.successful(Response(messageId, RpcErrors.RequestNotSupported, clientData))
-//            }
-//
-//          responseFuture.pipeTo(self)
       }
     case OnComplete ⇒
       context.stop(self)

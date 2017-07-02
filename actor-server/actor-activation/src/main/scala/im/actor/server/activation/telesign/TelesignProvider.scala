@@ -31,7 +31,7 @@ private[activation] final class TelesignProvider(implicit system: ActorSystem) e
 
   private val smsStateActor = system.actorOf(ActivationStateActor.props[Long, SmsCode](
     repeatLimit = activationConfig.repeatLimit,
-    sendAction = (code: SmsCode) ⇒ smsEngine.sendCode(code.phone, code.code),
+    sendAction = (code: SmsCode) ⇒ smsEngine.sendCode(code.phone, code.systemName, code.code),
     id = (code: SmsCode) ⇒ code.phone
   ), "telesign-sms-state")
 

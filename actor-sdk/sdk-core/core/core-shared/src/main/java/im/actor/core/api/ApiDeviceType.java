@@ -28,25 +28,16 @@ public enum ApiDeviceType {
     }
 
     public static ApiDeviceType parse(int value) throws IOException {
-        switch (value) {
-            case 1:
-                return ApiDeviceType.GENERIC;
-            case 2:
-                return ApiDeviceType.PC;
-            case 3:
-                return ApiDeviceType.MOBILE;
-            case 4:
-                return ApiDeviceType.TABLET;
-            case 5:
-                return ApiDeviceType.WATCH;
-            case 6:
-                return ApiDeviceType.MIRROR;
-            case 7:
-                return ApiDeviceType.CAR;
-            case 8:
-                return ApiDeviceType.TABLE;
-            default:
-                return ApiDeviceType.UNSUPPORTED_VALUE;
+        switch(value) {
+            case 1: return ApiDeviceType.GENERIC;
+            case 2: return ApiDeviceType.PC;
+            case 3: return ApiDeviceType.MOBILE;
+            case 4: return ApiDeviceType.TABLET;
+            case 5: return ApiDeviceType.WATCH;
+            case 6: return ApiDeviceType.MIRROR;
+            case 7: return ApiDeviceType.CAR;
+            case 8: return ApiDeviceType.TABLE;
+            default: return ApiDeviceType.UNSUPPORTED_VALUE;
         }
     }
 }
