@@ -180,6 +180,7 @@ public class Authentication {
                 apiConfiguration.getAppKey(),
                 deviceHash,
                 apiConfiguration.getDeviceTitle(),
+                apiConfiguration.getAppTitle(),
                 modules.getConfiguration().getTimeZone(),
                 langs), new RpcCallback<ResponseStartPhoneAuth>() {
             @Override
@@ -416,6 +417,7 @@ public class Authentication {
                     apiConfiguration.getAppKey(),
                     deviceHash,
                     apiConfiguration.getDeviceTitle(),
+                    apiConfiguration.getAppTitle(),
                     modules.getConfiguration().getTimeZone(),
                     langs1
             ), new RpcCallback<ResponseStartPhoneAuth>() {

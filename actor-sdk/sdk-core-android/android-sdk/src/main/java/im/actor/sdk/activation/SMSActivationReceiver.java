@@ -33,6 +33,7 @@ public class SMSActivationReceiver extends BroadcastReceiver {
 
                     for (int i = 0; i < msgs.length; i++) {
                         String format = bundle.getString("format");
+
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i], format);
                         } else {
