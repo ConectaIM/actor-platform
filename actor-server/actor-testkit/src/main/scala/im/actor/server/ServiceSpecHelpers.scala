@@ -75,6 +75,7 @@ trait ServiceSpecHelpers extends PersistenceHelpers with UserStructExtensions wi
       apiKey = "appKey",
       deviceHash = Random.nextLong.toBinaryString.getBytes,
       deviceTitle = "Specs virtual device",
+      systemName = "",
       timeZone = None,
       preferredLanguages = Vector.empty
     ))(_.toOption.get.transactionHash)
@@ -124,6 +125,7 @@ trait ServiceSpecHelpers extends PersistenceHelpers with UserStructExtensions wi
         apiKey = "appKey",
         deviceHash = Random.nextLong.toBinaryString.getBytes,
         deviceTitle = "Specs Has You",
+        systemName = "",
         timeZone = None,
         preferredLanguages = Vector.empty
       ))(_.toOption.get.transactionHash)

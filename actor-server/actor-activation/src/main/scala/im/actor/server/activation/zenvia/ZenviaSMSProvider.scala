@@ -8,17 +8,17 @@ import cats.data.Xor
 import im.actor.config.ActorConfig
 import im.actor.server.activation.common.ActivationStateActor.{Send, SendAck}
 import im.actor.server.activation.common._
-import im.actor.server.db.{DbExtension}
+import im.actor.server.db.DbExtension
 import im.actor.server.sms.{ZenviaClient, ZenviaSmsEngine}
 import im.actor.util.misc.PhoneNumberUtils.isTestPhone
-
 import akka.pattern.ask
+import akka.util.Timeout
 import im.actor.server.persist.auth.{BypassSmsNumbersRepo, GateAuthCodeRepo}
 
-import scala.concurrent._
+import scala.concurrent.Future
+import scala.concurrent.duration._
 
-
-private[activation] final class LotericaSmsProvider(implicit system: ActorSystem)
+private[activation] final class ZenviaSMSProvider(implicit system: ActorSystem)
   extends ActivationProvider with CommonAuthCodes {
 
   protected val activationConfig = ActivationConfig.load.getOrElse(throw new RuntimeException("Failed to load activation config"))
@@ -31,6 +31,7 @@ private[activation] final class LotericaSmsProvider(implicit system: ActorSystem
   private val zenviaClient = new ZenviaClient(ActorConfig.load().getConfig("services.zenvia"))
   private val smsEngine = new ZenviaSmsEngine(zenviaClient)
 
+  private implicit val timeout = Timeout(20.seconds)
 
   private val smsStateActor = system.actorOf(ActivationStateActor.props[Long, SmsCode](
     repeatLimit = activationConfig.repeatLimit,
