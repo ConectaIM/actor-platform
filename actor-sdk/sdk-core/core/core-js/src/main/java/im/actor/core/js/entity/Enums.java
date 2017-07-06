@@ -10,7 +10,6 @@ import static im.actor.core.AuthState.CODE_VALIDATION_PHONE;
 import static im.actor.core.AuthState.COMPLETE_OAUTH;
 import static im.actor.core.AuthState.GET_OAUTH_PARAMS;
 import static im.actor.core.AuthState.LOGGED_IN;
-import static im.actor.core.AuthState.SIGN_UP;
 import static im.actor.core.entity.MessageState.ERROR;
 import static im.actor.core.entity.MessageState.PENDING;
 import static im.actor.core.entity.MessageState.SENT;
@@ -30,8 +29,6 @@ public class Enums {
                 return "get_oauth_params";
             case COMPLETE_OAUTH:
                 return "complete_oauth";
-            case SIGN_UP:
-                return "signup";
             case LOGGED_IN:
                 return "logged_in";
         }

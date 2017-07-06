@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
@@ -317,10 +318,17 @@ public class ViewAvatarActivity extends BaseActivity {
     }
 
     private void startCamera() {
-        startActivityForResult(
-                new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(externalFile))),
-                REQUEST_PHOTO);
+        if (Build.VERSION.SDK_INT >= 23) {
+            startActivityForResult(
+                    new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            .putExtra(MediaStore.EXTRA_OUTPUT, Files.getUri(this, externalFile)),
+                    REQUEST_PHOTO);
+        }else{
+            startActivityForResult(
+                    new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(externalFile))),
+                    REQUEST_PHOTO);
+        }
     }
 
     @Override

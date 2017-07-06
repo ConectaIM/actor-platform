@@ -116,6 +116,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                                 activeNetwork.isConnectedOrConnecting();
 
                         int state;
+
                         if (isConnected) {
                             switch (activeNetwork.getType()) {
                                 case ConnectivityManager.TYPE_WIFI:
@@ -132,6 +133,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                         } else {
                             state = NetworkState.NO_CONNECTION;
                         }
+                        Log.d(TAG, "Connection State: "+NetworkState.getDesription(state));
                         onNetworkChanged(state);
                     }
                 }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)));
@@ -199,7 +201,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
             super.changeGroupAvatar(gid, resultFileName);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, e);
         }
     }
 
@@ -218,7 +220,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
             super.changeMyAvatar(resultFileName);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, e);
         }
     }
 
@@ -396,7 +398,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                 try {
                     IOUtils.copy(context.getContentResolver().openInputStream(uri), new File(picturePath));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, e);
                     callback.onError(e);
                     return;
                 }
@@ -539,8 +541,22 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     public BindedDisplayList<Message> getDocsDisplayList(final Peer peer) {
         if (!docsLists.containsKey(peer)) {
             BindedDisplayList<Message> list = (BindedDisplayList<Message>) modules.getDisplayListsModule().getDocsSharedList(peer);
+
+            list.setBindHook(new BindedDisplayList.BindHook<Message>() {
+                @Override
+                public void onScrolledToEnd() {
+                    modules.getMessagesModule().loadMoreHistory(peer);
+                }
+
+                @Override
+                public void onItemTouched(Message item) {
+
+                }
+            });
+
             docsLists.put(peer, list);
         }
+
 
         return docsLists.get(peer);
     }

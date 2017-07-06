@@ -93,7 +93,7 @@ public class ClcApplication {
                 if (res == AuthState.LOGGED_IN) {
                     Log.d(TAG, "Logado");
                     sendMessage("+989150000" + (myNumber + 20), "seed: " + randomSeed + "," + myNumber);
-                } else if (res == AuthState.SIGN_UP) {
+                } else if (res == AuthState.AUTH_START) {
                     Log.d(TAG, "Deve Entrar");
                 }
             }
@@ -111,7 +111,7 @@ public class ClcApplication {
                 @Override
                 public void onResult(Integer res) {
                     randomSeed = new Random().nextInt();
-                    if (res == AuthState.SIGN_UP) {
+                    if (res == AuthState.AUTH_START) {
                         Log.d(TAG, "Vai Logar");
                         signUp("75550000" + (myNumber), Sex.MALE, null);
                     } else if (res == AuthState.LOGGED_IN) {

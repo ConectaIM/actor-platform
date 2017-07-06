@@ -158,7 +158,6 @@ public class AsyncTcpConnection extends AsyncConnection {
             Log.d(TAG, "onRawReceived: Not connected");
             return;
         }
-
         onReceived(data);
     }
 

@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import com.soundcloud.android.crop.Crop;
@@ -26,9 +27,11 @@ import java.util.List;
 
 import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.ActorSDK;
+import im.actor.sdk.BuildConfig;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
 import im.actor.sdk.controllers.pickers.file.FilePickerActivity;
+import im.actor.sdk.util.Files;
 import im.actor.sdk.util.Randoms;
 
 public class MediaPickerFragment extends BaseFragment {
@@ -78,12 +81,18 @@ public class MediaPickerFragment extends BaseFragment {
             return;
         }
 
-
         //
         // Requesting Photo
         //
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(pendingFile)));
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Files.getUri(getContext(), pendingFile));
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }else{
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(pendingFile)));
+        }
+
         startActivityForResult(intent, REQUEST_PHOTO);
     }
 
@@ -103,7 +112,14 @@ public class MediaPickerFragment extends BaseFragment {
         // Requesting Video
         //
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(pendingFile)));
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Files.getUri(getContext(), pendingFile));
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }else{
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(pendingFile)));
+        }
+
         startActivityForResult(intent, REQUEST_VIDEO);
     }
 

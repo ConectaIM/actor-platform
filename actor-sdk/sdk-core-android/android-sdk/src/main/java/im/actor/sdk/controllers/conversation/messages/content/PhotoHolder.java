@@ -433,7 +433,7 @@ public class PhotoHolder extends MessageHolder {
     public void playVideo(DocumentContent document, FileSystemReference reference) {
         Activity activity = getAdapter().getMessagesFragment().getActivity();
         if (activity != null) {
-            activity.startActivity(Intents.openDoc(document.getName(), reference.getDescriptor()));
+            activity.startActivity(Intents.openDoc(activity, document.getName(), reference.getDescriptor()));
         }
     }
 

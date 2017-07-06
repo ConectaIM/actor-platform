@@ -23,7 +23,14 @@ public class ManagedNetworkProvider implements NetworkRuntime {
     }
 
     @Override
-    public void createConnection(int connectionId, int mtprotoVersion, int apiMajorVersion, int apiMinorVersion, ConnectionEndpoint endpoint, ConnectionCallback callback, final CreateConnectionCallback createCallback) {
+    public void createConnection(int connectionId,
+                                 int mtprotoVersion,
+                                 int apiMajorVersion,
+                                 int apiMinorVersion,
+                                 ConnectionEndpoint endpoint,
+                                 final ConnectionCallback callback,
+                                 final CreateConnectionCallback createCallback) {
+
         final ManagedConnection managedConnection = new ManagedConnection(connectionId, mtprotoVersion,
                 apiMajorVersion, apiMinorVersion, endpoint, callback, new ManagedConnectionCreateCallback() {
             @Override
@@ -42,6 +49,7 @@ public class ManagedNetworkProvider implements NetworkRuntime {
                 }
             }
         }, factory);
+
         synchronized (pendingConnections) {
             pendingConnections.add(managedConnection);
         }

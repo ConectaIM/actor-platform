@@ -215,13 +215,15 @@ public class ManagerActor extends Actor {
 
         if (currentConnection != null) {
             currentConnection.close();
-            currentConnectionId = 0;
+            currentConnection = null;
+            currentConnectionId = -1;
         }
 
         currentConnectionId = id;
         currentConnection = connection;
         outSeq = 0;
         inSeq = 0;
+
         connectionStateChanged();
 
         backoff.onSuccess();
@@ -233,9 +235,7 @@ public class ManagerActor extends Actor {
 
     private void onConnectionCreateFailure() {
         Log.w(TAG, "Connection create failure");
-
-        currentConnectionId = 0;
-
+        currentConnectionId = -1;
         backoff.onFailure();
         isCheckingConnections = false;
         requestCheckConnection(backoff.exponentialWait());
@@ -245,7 +245,7 @@ public class ManagerActor extends Actor {
         Log.w(TAG, "Connection #" + id + " dies");
 
         if (currentConnectionId == id) {
-            currentConnectionId = 0;
+            currentConnectionId = -1;
             currentConnection = null;
             outSeq = 0;
             inSeq = 0;
@@ -272,7 +272,9 @@ public class ManagerActor extends Actor {
     }
 
     private void requestCheckConnection(long wait) {
-        if (!isCheckingConnections && !isInDozing()) {
+        Log.d(TAG, "isCheckingConnections: "+isCheckingConnections + ", isInDozing: "+isInDozing());
+
+        if (!isCheckingConnections && !this.isInDozing()) {
             if (currentConnection == null) {
                 if (wait == 0) {
                     Log.w(TAG, "Requesting connection creating");
@@ -301,15 +303,21 @@ public class ManagerActor extends Actor {
             return;
         }
 
-        if (isInDozing()) {
+        if (this.isInDozing()) {
             return;
         }
 
+        Log.d(TAG, "Checking Connection");
+
         if (currentConnection == null) {
+            Log.d(TAG, "currentConnection is null");
+            Log.d(TAG, "Connection networkState: "+NetworkState.getDesription(networkState));
+
             if (networkState == NetworkState.NO_CONNECTION) {
                 Log.d(TAG, "Not trying to create connection: Not network available");
                 return;
             }
+
             Log.d(TAG, "Trying to create connection...");
 
             isCheckingConnections = true;
@@ -319,6 +327,7 @@ public class ManagerActor extends Actor {
             if (dozeActivated) {
                 qtdReconnectionTriedDoze++;
             }
+
             Network.createConnection(id, ActorApi.MTPROTO_VERSION,
                     ActorApi.API_MAJOR_VERSION,
                     ActorApi.API_MINOR_VERSION,
@@ -402,26 +411,24 @@ public class ManagerActor extends Actor {
                 try {
                     currentConnection.close();
                 } catch (Exception e2) {
-                    e2.printStackTrace();
+                    Log.e(TAG, e2);
                 }
                 currentConnection = null;
                 currentConnectionId = 0;
                 outSeq = 0;
                 inSeq = 0;
-                // Log.d(TAG, "Set connection #" + 0);
             }
+
             checkConnection();
         }
     }
 
     private void onOutMessage(byte[] data, int offset, int len) {
-        // Log.d(TAG, "Out message");
 
-        // Cleanup bad connection
         if (currentConnection != null && currentConnection.isClosed()) {
             currentConnection = null;
-            // Log.d(TAG, "Set connection #" + 0);
-            currentConnectionId = 0;
+            Log.d(TAG, "Cleaning bad connection #" + currentConnectionId);
+            currentConnectionId = -1;
             outSeq = 0;
             inSeq = 0;
             checkConnection();
@@ -450,8 +457,6 @@ public class ManagerActor extends Actor {
                     bos.writeBytes(cipherData, 0, cipherData.length);
                     byte[] pkg = bos.toByteArray();
                     currentConnection.post(pkg, 0, pkg.length);
-
-                    // Log.d(TAG, "Package encrypted in " + (Runtime.getActorTime() - start) + " ms, size: " + len);
                 } else {
                     DataOutput bos = new DataOutput();
                     bos.writeLong(authId);
@@ -460,7 +465,6 @@ public class ManagerActor extends Actor {
                     byte[] pkg = bos.toByteArray();
                     currentConnection.post(pkg, 0, pkg.length);
                 }
-                // Log.d(TAG, "Posted message to connection #" + currentConnectionId);
             }
         } catch (IOException e) {
             Log.w(TAG, "Closing connection: exception during push");
@@ -476,7 +480,6 @@ public class ManagerActor extends Actor {
                 currentConnectionId = 0;
                 outSeq = 0;
                 inSeq = 0;
-                // Log.d(TAG, "Set connection #" + 0);
             }
             checkConnection();
         }

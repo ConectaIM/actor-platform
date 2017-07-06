@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -24,6 +26,7 @@ import im.actor.sdk.controllers.group.InviteLinkActivity;
 import im.actor.sdk.controllers.pickers.TakePhotoActivity;
 import im.actor.sdk.controllers.settings.EditAboutActivity;
 import im.actor.sdk.controllers.settings.EditNameActivity;
+import im.actor.sdk.util.Files;
 
 public class Intents {
 
@@ -144,15 +147,25 @@ public class Intents {
         return Uri.parse("content://im.actor.avatar/" + location.getFileId());
     }
 
-    public static Intent openDoc(String fileName, String downloadFileName) {
+    public static Intent openDoc(Context ctx, String fileName, String downloadFileName) {
         String mimeType = MimeTypeMap.getSingleton()
                 .getMimeTypeFromExtension(IOUtils.getFileExtension(fileName));
+
         if (mimeType == null) {
             mimeType = "*/*";
         }
 
-        return new Intent(Intent.ACTION_VIEW)
-                .setDataAndType(Uri.fromFile(new File(downloadFileName)), mimeType);
+        Intent intent = null;
+        if (Build.VERSION.SDK_INT >= 23) {
+            intent = new Intent(Intent.ACTION_VIEW)
+                    .setDataAndType(Files.getUri(ctx, downloadFileName), mimeType);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }else{
+            intent = new Intent(Intent.ACTION_VIEW)
+                    .setDataAndType(Uri.fromFile(new File(downloadFileName)), mimeType);
+        }
+
+       return intent;
     }
 
     public static Intent shareDoc(String fileName, String downloadFileName) {

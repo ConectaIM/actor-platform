@@ -1,5 +1,9 @@
 package im.actor.sdk.util;
 
+import android.content.Context;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,6 +33,7 @@ public class Files {
     public static String getInternalTempFile(String prefix, String postfix) {
         String externalPath;
         File externalFile = AndroidContext.getContext().getFilesDir();
+
         if (externalFile == null) {
             externalPath = "data/data/".concat(AndroidContext.getContext().getPackageName()).concat("/files");
         } else {
@@ -54,5 +59,9 @@ public class Files {
         }
         in.close();
         out.close();
+    }
+
+    public static Uri getUri(Context ctx, String filePath){
+        return FileProvider.getUriForFile(ctx, "im.actor.sdk.android.provider", new File(filePath));
     }
 }

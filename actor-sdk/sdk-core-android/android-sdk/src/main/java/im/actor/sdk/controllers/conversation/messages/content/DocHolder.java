@@ -336,7 +336,7 @@ public class DocHolder extends MessageHolder {
                             } else {
                                 try {
                                     Activity activity = getAdapter().getMessagesFragment().getActivity();
-                                    activity.startActivity(Intents.openDoc(document.getName(), reference.getDescriptor()));
+                                    activity.startActivity(Intents.openDoc(activity, document.getName(), reference.getDescriptor()));
                                 } catch (Exception e) {
                                     Toast.makeText(getAdapter().getMessagesFragment().getActivity(), R.string.toast_unable_open, Toast.LENGTH_LONG).show();
                                     e.printStackTrace();
