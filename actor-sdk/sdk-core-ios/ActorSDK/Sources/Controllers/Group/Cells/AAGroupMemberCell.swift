@@ -70,7 +70,7 @@ open class AAGroupMemberCell: AATableViewCell {
                 
                 if value != nil {
                     self.onlineLabel.showView()
-                    self.onlineLabel.text = Actor.getFormatter().formatPresence(value!, with: user.getSex())
+                    self.onlineLabel.text = Actor.getFormatter().formatPresence(value!, withSex: user.getSex())
                     if value!.state.ordinal() == ACUserPresence_State.online().ordinal() {
                         self.onlineLabel.textColor = self.appStyle.userOnlineColor
                     } else {

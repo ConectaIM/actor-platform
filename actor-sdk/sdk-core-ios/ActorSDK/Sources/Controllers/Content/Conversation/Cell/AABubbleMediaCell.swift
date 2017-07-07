@@ -134,8 +134,8 @@ open class AABubbleMediaCell : AABubbleBaseFileCell, NYTPhotosViewControllerDele
         // Update status
         if (isOut) {
             statusView.isHidden = false
-            switch(message.messageState.toNSEnum()) {
-            case .SENT:
+            switch(message.messageState) {
+            case ACMessageState_SENT:
                 if message.sortDate <= readDate {
                     self.statusView.image = appStyle.chatIconCheck2
                     self.statusView.tintColor = appStyle.chatStatusMediaRead
@@ -147,7 +147,7 @@ open class AABubbleMediaCell : AABubbleBaseFileCell, NYTPhotosViewControllerDele
                     self.statusView.tintColor = appStyle.chatStatusMediaSent
                 }
                 break
-            case .ERROR:
+            case ACMessageState_ERROR:
                 self.statusView.image = appStyle.chatIconError
                 self.statusView.tintColor = appStyle.chatStatusMediaError
                 break

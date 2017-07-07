@@ -193,8 +193,8 @@ open class AABubbleVoiceCell: AABubbleBaseFileCell,AAModernConversationAudioPlay
         // Update status
         if (isOut) {
             statusView.isHidden = false
-            switch(message.messageState.toNSEnum()) {
-            case .SENT:
+            switch(message.messageState) {
+            case ACMessageState_SENT:
                 if message.sortDate <= readDate {
                     self.statusView.image = appStyle.chatIconCheck2
                     self.statusView.tintColor = appStyle.chatStatusRead
@@ -205,7 +205,7 @@ open class AABubbleVoiceCell: AABubbleBaseFileCell,AAModernConversationAudioPlay
                     self.statusView.image = appStyle.chatIconCheck1
                     self.statusView.tintColor = appStyle.chatStatusSent
                 }
-            case .ERROR:
+            case ACMessageState_ERROR:
                 self.statusView.image = appStyle.chatIconError
                 self.statusView.tintColor = appStyle.chatStatusError
                 break

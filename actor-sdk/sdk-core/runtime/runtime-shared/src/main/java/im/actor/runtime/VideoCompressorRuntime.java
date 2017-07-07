@@ -13,7 +13,7 @@ import im.actor.runtime.video.CompressedVideo;
 
 public interface VideoCompressorRuntime {
 
-    @ObjectiveCName("compressVideo:withId:withOriginalPath:withSender:withCallback")
+    @ObjectiveCName("compressVideo:withOriginalPath:withSender:withCallback:")
     Promise<CompressedVideo> compressVideo(long rid, String originalPath, ActorRef sender, CompressorProgressListener progressCallback);
 }
 

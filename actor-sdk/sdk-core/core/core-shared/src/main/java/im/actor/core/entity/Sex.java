@@ -4,8 +4,6 @@
 
 package im.actor.core.entity;
 
-import org.jetbrains.annotations.NotNull;
-
 import im.actor.core.api.ApiSex;
 
 public abstract class Sex {
@@ -13,7 +11,6 @@ public abstract class Sex {
     public static final int MALE = 2;
     public static final int FEMALE = 3;
 
-    @NotNull
     public static int fromValue(int value) {
         switch (value) {
             default:

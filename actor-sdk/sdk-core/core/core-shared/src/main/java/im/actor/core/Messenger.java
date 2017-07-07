@@ -138,7 +138,6 @@ public class Messenger {
      *
      * @return current Authentication state
      */
-    @NotNull
     @Deprecated
     public int getAuthState() {
         return modules.getAuthModule().getAuthState();
@@ -682,7 +681,7 @@ public class Messenger {
      * @param state New network state
      */
     @ObjectiveCName("onNetworkChanged:")
-    public void onNetworkChanged(@NotNull int state) {
+    public void onNetworkChanged(int state) {
         modules.getActorApi().onNetworkChanged(state);
     }
 

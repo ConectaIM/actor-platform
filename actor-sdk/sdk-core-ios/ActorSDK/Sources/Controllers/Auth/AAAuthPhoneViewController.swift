@@ -224,7 +224,7 @@ class AAAuthPhoneViewController: AAAuthViewController, AACountryViewControllerDe
         let number = phoneNumberLabel.phoneNumber.toJLong()
         
         Actor.doStartAuth(withPhone: number).startUserAction().then { (res: ACAuthStartRes!) -> () in
-            if res.authMode.toNSEnum() == .OTP {
+            if res.authMode == ACAuthMode_OTP {
                 self.navigateNext(AAAuthOTPViewController(phone: numberStr!, name: self.name, transactionHash: res.transactionHash))
             } else {
                 self.alertUser(AALocalized("AuthUnsupported").replace("{app_name}", dest: ActorSDK.sharedActor().appName))

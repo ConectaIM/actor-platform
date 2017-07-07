@@ -190,7 +190,7 @@ open class AAAuthOTPViewController: AAAuthViewController, MFMailComposeViewContr
                 if self.name == nil {
                     self.navigateNext(AAAuthNameViewController(transactionHash: r.transactionHash))
                 } else {
-                    let promise = Actor.doSignup(withName: self.name, with: ACSex.unknown(), withTransaction: r.transactionHash)
+                    let promise = Actor.doSignup(withName: self.name, withSex: ACSex.unknown(), withTransaction: r.transactionHash)
                     promise.then { (r: ACAuthRes!) -> () in
                         Actor.doCompleteAuth(r).startUserAction().then { (r: JavaLangBoolean!) -> () in
                             self.codeField.resignFirstResponder()

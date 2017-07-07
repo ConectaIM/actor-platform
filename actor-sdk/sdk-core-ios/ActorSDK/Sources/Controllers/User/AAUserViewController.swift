@@ -38,7 +38,7 @@ open class AAUserViewController: AAContentTableController {
                     r.avatar = self.user.getAvatarModel().get()
                     
                     let presence = self.user.getPresenceModel().get()
-                    let presenceText = Actor.getFormatter().formatPresence(presence, with: self.user.getSex())
+                    let presenceText = Actor.getFormatter().formatPresence(presence, withSex: self.user.getSex())
                     
                     if !self.isBot {
                         r.subtitle = presenceText

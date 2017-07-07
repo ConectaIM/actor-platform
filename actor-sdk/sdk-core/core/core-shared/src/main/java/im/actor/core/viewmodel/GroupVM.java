@@ -198,7 +198,6 @@ public class GroupVM extends BaseValueModel<Group> {
      *
      * @return Group Type
      */
-    @NotNull
     @ObjectiveCName("getGroupType")
     public int getGroupType() {
         return groupType;

@@ -15,7 +15,7 @@ public class DialogBuilder {
     private Avatar dialogAvatar;
     private int unreadCount;
     private long rid;
-    private int messageType;
+    private Integer messageType;
     private String text;
     private int senderId;
     private long time;

@@ -217,9 +217,8 @@ public class ConfigurationBuilder {
      * @param platformType App Type
      * @return this
      */
-    @NotNull
     @ObjectiveCName("setPlatformType:")
-    public ConfigurationBuilder setPlatformType(@NotNull int platformType) {
+    public ConfigurationBuilder setPlatformType(int platformType) {
         this.platformType = platformType;
         return this;
     }
@@ -230,9 +229,8 @@ public class ConfigurationBuilder {
      * @param deviceCategory Device Type
      * @return this
      */
-    @NotNull
     @ObjectiveCName("setDeviceCategory:")
-    public ConfigurationBuilder setDeviceCategory(@NotNull int deviceCategory) {
+    public ConfigurationBuilder setDeviceCategory(int deviceCategory) {
         this.deviceCategory = deviceCategory;
         return this;
     }

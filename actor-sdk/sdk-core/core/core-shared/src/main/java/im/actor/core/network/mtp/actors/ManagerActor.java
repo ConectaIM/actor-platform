@@ -11,6 +11,7 @@ import java.io.IOException;
 import im.actor.core.network.ActorApi;
 import im.actor.core.network.Endpoints;
 import im.actor.core.network.NetworkState;
+import im.actor.core.network.api.ApiBroker;
 import im.actor.core.network.mtp.MTProto;
 import im.actor.core.network.mtp.entity.EncryptedCBCPackage;
 import im.actor.core.network.mtp.entity.EncryptedPackage;
@@ -151,7 +152,12 @@ public class ManagerActor extends Actor {
         } else if (message instanceof ConnectionDie) {
             onConnectionDie(((ConnectionDie) message).connectionId);
         } else if (message instanceof PerformConnectionCheck) {
-            checkConnection();
+            PerformConnectionCheck connectionCheck = (PerformConnectionCheck) message;
+            if(connectionCheck.delay != null){
+                requestCheckConnection(connectionCheck.delay);
+            }else{
+                checkConnection();
+            }
         } else if (message instanceof PerformConnectionCheckDoze) {
             checkConnectionDoze();
         } else if (message instanceof NetworkChanged) {
@@ -315,6 +321,7 @@ public class ManagerActor extends Actor {
 
             if (networkState == NetworkState.NO_CONNECTION) {
                 Log.d(TAG, "Not trying to create connection: Not network available");
+                self().send(new ManagerActor.PerformConnectionCheck(1000L));
                 return;
             }
 
@@ -546,6 +553,13 @@ public class ManagerActor extends Actor {
     }
 
     public static class PerformConnectionCheck {
+        public Long delay = null;
+
+        public PerformConnectionCheck(){}
+
+        public PerformConnectionCheck(Long delay){
+            this.delay = delay;
+        }
 
     }
 

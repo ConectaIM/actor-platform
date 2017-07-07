@@ -249,7 +249,6 @@ public class UserVM extends BaseValueModel<User> {
      *
      * @return User Sex
      */
-    @NotNull
     @ObjectiveCName("getSex")
     public int getSex() {
         return sex;

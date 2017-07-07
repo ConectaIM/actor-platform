@@ -24,6 +24,6 @@ public interface ModuleCreateListener {
      * @param messenger     Messenger
      * @param configuration Configuration
      */
-    @ObjectiveCName("onLoggedInWithContext:withFirst")
+    @ObjectiveCName("createModules:withConfiguration:")
     Modules createModules(Messenger messenger, Configuration configuration);
 }

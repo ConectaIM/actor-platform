@@ -338,7 +338,7 @@ open class AACallViewController: AAViewController, RTCEAGLVideoViewDelegate {
         // Binding Title
         //
         
-        if (call.peer.peerType.toNSEnum() == ACPeerType_Enum.PRIVATE) {
+        if (call.peer.peerType == ACPeerType_PRIVATE) {
             let user = Actor.getUserWithUid(call.peer.peerId)
             binder.bind(user.getNameModel(), closure: { (value: String?) -> () in
                 self.peerTitle.text = value
@@ -346,7 +346,7 @@ open class AACallViewController: AAViewController, RTCEAGLVideoViewDelegate {
             binder.bind(user.getAvatarModel(), closure: { (value: ACAvatar?) -> () in
                 self.senderAvatar.bind(user.getNameModel().get(), id: Int(user.getId()), avatar: value)
             })
-        } else if (call.peer.peerType.toNSEnum() == ACPeerType_Enum.GROUP) {
+        } else if (call.peer.peerType == ACPeerType_GROUP) {
             let group = Actor.getGroupWithGid(call.peer.peerId)
             binder.bind(group.getNameModel(), closure: { (value: String?) -> () in
                 self.peerTitle.text = value

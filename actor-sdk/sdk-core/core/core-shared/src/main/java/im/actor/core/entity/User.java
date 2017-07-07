@@ -60,7 +60,7 @@ public class User extends WrapperExtEntity<ApiFullUser, ApiUser> implements KeyV
     @Nullable
     @Property("readonly, nonatomic")
     private Avatar avatar;
-    @NotNull
+
     @Property("readonly, nonatomic")
     @SuppressWarnings("NullableProblems")
     private int sex;
@@ -143,7 +143,6 @@ public class User extends WrapperExtEntity<ApiFullUser, ApiUser> implements KeyV
         return avatar;
     }
 
-    @NotNull
     public int getSex() {
         return sex;
     }

@@ -321,7 +321,7 @@ final public class ConversationViewController:
         super.viewWillAppear(animated)
         
         // Installing bindings
-        if (peer.peerType.ordinal() == ACPeerType.private().ordinal()) {
+        if (peer.peerType == ACPeerType.private()) {
 
             let user = Actor.getUserWithUid(peer.peerId)
             let nameModel = user.getNameModel()
@@ -345,7 +345,7 @@ final public class ConversationViewController:
                         self.subtitleView.text = "bot"
                         self.subtitleView.textColor = self.appStyle.userOnlineNavigationColor
                     } else {
-                        let stateText = Actor.getFormatter().formatPresence(presence, with: user.getSex())
+                        let stateText = Actor.getFormatter().formatPresence(presence, withSex: user.getSex())
                         self.subtitleView.text = stateText;
                         let state = presence!.state.ordinal()
                         if (state == ACUserPresence_State.online().ordinal()) {
@@ -358,7 +358,7 @@ final public class ConversationViewController:
             })
             
             self.inputOverlay.isHidden = true
-        } else if (peer.peerType.ordinal() == ACPeerType.group().ordinal()) {
+        } else if (peer.peerType == ACPeerType.group()) {
             let group = Actor.getGroupWithGid(peer.peerId)
             let nameModel = group.getNameModel()
             
@@ -533,12 +533,12 @@ final public class ConversationViewController:
     func onAvatarTap() {
         let id = Int(peer.peerId)
         var controller: AAViewController!
-        if (peer.peerType.ordinal() == ACPeerType.private().ordinal()) {
+        if (peer.peerType == ACPeerType.private()) {
             controller = ActorSDK.sharedActor().delegate.actorControllerForUser(id)
             if controller == nil {
                 controller = AAUserViewController(uid: id)
             }
-        } else if (peer.peerType.ordinal() == ACPeerType.group().ordinal()) {
+        } else if (peer.peerType == ACPeerType.group()) {
             controller = ActorSDK.sharedActor().delegate.actorControllerForGroup(id)
             if controller == nil {
                 controller = AAGroupViewController(gid: id)
@@ -692,7 +692,7 @@ final public class ConversationViewController:
     ////////////////////////////////////////////////////////////
     
     override open func didChangeAutoCompletionPrefix(_ prefix: String!, andWord word: String!) {
-        if self.peer.peerType.ordinal() == ACPeerType.group().ordinal() {
+        if self.peer.peerType == ACPeerType.group() {
             if prefix == "@" {
                 
                 let oldCount = filteredMembers.count

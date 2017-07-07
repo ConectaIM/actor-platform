@@ -1,9 +1,14 @@
 package im.actor.runtime;
 
+import com.google.j2objc.annotations.ObjectiveCName;
+
 /**
  * Created by diego on 23/05/17.
  */
 
 public interface CompressorProgressListener {
-    void onProgress(long rid, float v);
+
+    @ObjectiveCName("onProgress:withValue:")
+    void onProgress(long rid, float value);
+
 }

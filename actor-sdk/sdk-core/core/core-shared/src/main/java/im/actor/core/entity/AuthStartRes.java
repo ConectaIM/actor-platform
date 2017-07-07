@@ -9,13 +9,14 @@ public class AuthStartRes {
     @NotNull
     @Property("readonly, nonatomic")
     private final String transactionHash;
-    @NotNull
+
     @Property("readonly, nonatomic")
     private final int authMode;
+
     @Property("readonly, nonatomic")
     private final boolean isRegistered;
 
-    public AuthStartRes(@NotNull String transactionHash, @NotNull int authMode, boolean isRegistered) {
+    public AuthStartRes(@NotNull String transactionHash, int authMode, boolean isRegistered) {
         this.transactionHash = transactionHash;
         this.authMode = authMode;
         this.isRegistered = isRegistered;
@@ -26,7 +27,6 @@ public class AuthStartRes {
         return transactionHash;
     }
 
-    @NotNull
     public int getAuthMode() {
         return authMode;
     }

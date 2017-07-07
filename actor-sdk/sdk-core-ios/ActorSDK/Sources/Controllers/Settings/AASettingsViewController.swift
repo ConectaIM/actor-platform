@@ -43,7 +43,7 @@ open class AASettingsViewController: AAContentTableController {
                     let upload = Actor.getOwnAvatarVM()!.uploadState.get() as? ACAvatarUploadState
                     let avatar = self.user.getAvatarModel().get()
                     let presence = self.user.getPresenceModel().get()
-                    let presenceText = Actor.getFormatter().formatPresence(presence, with: self.user.getSex())
+                    let presenceText = Actor.getFormatter().formatPresence(presence, withSex: self.user.getSex())
                     let name = self.user.getNameModel().get()
                     
                     r.id = self.uid

@@ -112,7 +112,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         //
         // Checking dialog rebinding
         //
-        if (item.peer.peerType.ordinal() == ACPeerType.private().ordinal()) {
+        if (item.peer.peerType == ACPeerType.private()) {
             let user = Actor.getUserWithUid(item.peer.peerId)
             binder.bind(Actor.getTypingWithUid(item.peer.peerId), valueModel2: user.getPresenceModel(), closure:{ (typing:JavaLangBoolean?, presence:ACUserPresence?) -> () in
                 if (typing != nil && typing!.booleanValue()) {
@@ -126,7 +126,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
                 self.cellRenderer.cancelRender()
                 self.setNeedsLayout()
             })
-        } else if (item.peer.peerType.ordinal() == ACPeerType.group().ordinal()) {
+        } else if (item.peer.peerType == ACPeerType.group()) {
             let group = Actor.getGroupWithGid(item.peer.peerId)
             binder.bind(Actor.getGroupTyping(withGid: group.getId()), valueModel2: group.membersCount, valueModel3: group.getPresenceModel(), closure: { (typingValue:IOSIntArray?, membersCount: JavaLangInteger?, onlineCount:JavaLangInteger?) -> () in
                 if (group.isMemberModel().get().booleanValue()) {
@@ -382,7 +382,7 @@ final class AADialogCell: AATableViewCell, AABindedCell {
         
         let message = NSMutableAttributedString(string: Actor.getFormatter().formatDialogText(config.item))
         message.yy_font = UIFont.systemFont(ofSize: 16)
-        if config.item.messageType.ordinal() != ACContentType.text().ordinal() {
+        if config.item.messageType != ACContentType.text() {
             message.yy_color = dialogTextActiveColor
         } else {
             message.yy_color = dialogTextColor

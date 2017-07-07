@@ -171,7 +171,7 @@ open class AAAuthEmailViewController: AAAuthViewController {
         }
         
         Actor.doStartAuth(withEmail: email).startUserAction().then { (res: ACAuthStartRes!) -> () in
-            if res.authMode.toNSEnum() == .OTP {
+            if res.authMode == ACAuthMode_OTP {
                 self.navigateNext(AAAuthOTPViewController(email: email, name: self.name, transactionHash: res.transactionHash))
             } else {
                 self.alertUser(AALocalized("AuthUnsupported").replace("{app_name}", dest: ActorSDK.sharedActor().appName))

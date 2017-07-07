@@ -75,7 +75,7 @@ public class Group extends WrapperExtEntity<ApiGroupFull, ApiGroup> implements K
     @NotNull
     @Property("readonly, nonatomic")
     @SuppressWarnings("NullableProblems")
-    private int groupType;
+    private Integer groupType;
 
     //
     // Ext
@@ -211,7 +211,7 @@ public class Group extends WrapperExtEntity<ApiGroupFull, ApiGroup> implements K
     }
 
     @NotNull
-    public int getGroupType() {
+    public Integer getGroupType() {
         return groupType;
     }
 

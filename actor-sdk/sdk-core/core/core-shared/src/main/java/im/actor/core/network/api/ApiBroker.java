@@ -501,6 +501,13 @@ public class ApiBroker extends AskcableActor {
     }
 
     public static class PerformCheckConnection {
+        public long delay;
+
+        public PerformCheckConnection(){}
+
+        public PerformCheckConnection(Long delay){
+            this.delay = delay;
+        }
 
     }
 
@@ -744,6 +751,7 @@ public class ApiBroker extends AskcableActor {
         } else if (message instanceof ForceNetworkCheck) {
             forceNetworkCheck();
         } else if (message instanceof PerformCheckConnection) {
+            PerformCheckConnection performCheckConnection = (PerformCheckConnection) message;
             checkConnection();
         } else if (message instanceof PerformCheckConnectionDoze) {
             checkConnectionDoze();

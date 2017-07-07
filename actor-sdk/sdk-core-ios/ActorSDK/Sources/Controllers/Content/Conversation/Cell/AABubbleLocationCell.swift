@@ -86,8 +86,8 @@ open class AABubbleLocationCell: AABubbleCell {
         // Update status
         if (isOut) {
             statusView.isHidden = false
-            switch(message.messageState.toNSEnum()) {
-            case .SENT:
+            switch(message.messageState) {
+            case ACMessageState_SENT:
                 if message.sortDate <= readDate {
                     self.statusView.image = appStyle.chatIconCheck2
                     self.statusView.tintColor = appStyle.chatStatusMediaRead
@@ -98,11 +98,11 @@ open class AABubbleLocationCell: AABubbleCell {
                     self.statusView.image = appStyle.chatIconCheck1
                     self.statusView.tintColor = appStyle.chatStatusMediaSent
                 }
-            case .ERROR:
+            case ACMessageState_ERROR:
                 self.statusView.image = appStyle.chatIconError
                 self.statusView.tintColor = appStyle.chatStatusMediaError
                 break
-            case .PENDING:
+            case ACMessageState_PENDING:
                 self.statusView.image = appStyle.chatIconClock
                 self.statusView.tintColor = appStyle.chatStatusMediaSending
                 break

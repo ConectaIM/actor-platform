@@ -84,7 +84,7 @@ open class AAAuthLogInViewController: AAAuthViewController {
         if ActorSDK.sharedActor().authStrategy == .emailOnly || ActorSDK.sharedActor().authStrategy == .phoneEmail {
             if (AATools.isValidEmail(value)) {
                 Actor.doStartAuth(withEmail: value).startUserAction().then { (res: ACAuthStartRes!) -> () in
-                    if res.authMode.toNSEnum() == .OTP {
+                    if res.authMode == ACAuthMode_OTP {
                         self.navigateNext(AAAuthOTPViewController(email: value, transactionHash: res.transactionHash))
                     } else {
                         self.alertUser(AALocalized("AuthUnsupported").replace("{app_name}", dest: ActorSDK.sharedActor().appName))
@@ -99,7 +99,7 @@ open class AAAuthLogInViewController: AAAuthViewController {
             let stripped = value.strip(numbersSet)
             if let parsed = Int64(stripped) {
                 Actor.doStartAuth(withPhone: jlong(parsed)).startUserAction().then { (res: ACAuthStartRes!) -> () in
-                    if res.authMode.toNSEnum() == .OTP {
+                    if res.authMode == ACAuthMode_OTP {
                         let formatted = RMPhoneFormat().format("\(parsed)")!
                         self.navigateNext(AAAuthOTPViewController(phone: formatted, transactionHash: res.transactionHash))
                     } else {

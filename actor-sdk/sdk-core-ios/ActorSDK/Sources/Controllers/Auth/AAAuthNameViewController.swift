@@ -81,7 +81,7 @@ open class AAAuthNameViewController: AAAuthViewController {
         let name = field.text!.trim()
         if name.length > 0 {
             if transactionHash != nil {
-                let promise = Actor.doSignup(withName: name, with: ACSex.unknown(), withTransaction: transactionHash!)
+                let promise = Actor.doSignup(withName: name, withSex: ACSex.unknown(), withTransaction: transactionHash!)
                 promise.then { (r: ACAuthRes!) -> () in
                     let promise = Actor.doCompleteAuth(r).startUserAction()
                     promise.then { (r: JavaLangBoolean!) -> () in

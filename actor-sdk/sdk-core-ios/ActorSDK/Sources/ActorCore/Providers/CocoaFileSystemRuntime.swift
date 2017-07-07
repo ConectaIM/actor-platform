@@ -16,7 +16,8 @@ open class CocoaFiles {
 // Implementation of FileSystem storage
 
 @objc class CocoaFileSystemRuntime : NSObject, ARFileSystemRuntime {
-    
+   
+       
     let manager = FileManager.default
     
     override init() {
@@ -65,8 +66,18 @@ open class CocoaFiles {
         return CocoaFile(path: descriptor)
     }
     
+    
     func isFsPersistent() -> Bool {
         return true
+    }
+    
+    /*!
+     @brief Remove file from descriptor
+     @param descriptor descriptor
+     @return the is file removed
+     */
+    func remove(fromDescriptor descriptor: String!) -> jboolean {
+        return true;
     }
 }
 

@@ -159,8 +159,8 @@ open class AABubbleTextCell : AABubbleCell {
         
         if (isOut) {
             NSLog("UPDATE_MSG atualizando o status da mensagem")
-            switch(message.messageState.toNSEnum()) {
-            case .SENT:
+            switch(message.messageState) {
+            case ACMessageState_SENT:
                 if message.sortDate <= readDate {
                     self.statusView.image = appStyle.chatIconCheck2
                     self.statusView.tintColor = appStyle.chatStatusRead
@@ -172,11 +172,11 @@ open class AABubbleTextCell : AABubbleCell {
                     self.statusView.tintColor = appStyle.chatStatusSent
                 }
                 break
-            case .ERROR:
+            case ACMessageState_ERROR:
                 self.statusView.image = appStyle.chatIconError
                 self.statusView.tintColor = appStyle.chatStatusError
                 break
-            case .PENDING:
+            case ACMessageState_PENDING:
                 self.statusView.image = appStyle.chatIconClock
                 self.statusView.tintColor = appStyle.chatStatusSending
                 break
@@ -204,7 +204,7 @@ open class AABubbleTextCell : AABubbleCell {
         }
         
         if action == #selector(AABubbleTextCell.edit(_:)) {
-            if(isOut && self.bindedMessage?.messageState.toNSEnum() == .SENT){
+            if(isOut && self.bindedMessage?.messageState == ACMessageState_SENT){
                 return true
             }
         }
