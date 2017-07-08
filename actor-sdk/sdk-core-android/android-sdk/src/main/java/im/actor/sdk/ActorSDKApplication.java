@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import im.actor.runtime.Log;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.util.Screen;
 
@@ -12,6 +13,8 @@ import im.actor.sdk.util.Screen;
  * managing Actor SDK
  */
 public class ActorSDKApplication extends Application {
+
+    private static final String TAG = ActorSDKApplication.class.getSimpleName();
 
     @Override
     public void onCreate() {
@@ -38,7 +41,6 @@ public class ActorSDKApplication extends Application {
      * Override this method for implementing Actor SDK Implementation
      */
     public void onConfigureActorSDK() {
-
     }
 
     @Override
@@ -47,7 +49,7 @@ public class ActorSDKApplication extends Application {
         try {
             Screen.checkDisplaySize(getApplicationContext(), newConfig);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e);
         }
     }
 }

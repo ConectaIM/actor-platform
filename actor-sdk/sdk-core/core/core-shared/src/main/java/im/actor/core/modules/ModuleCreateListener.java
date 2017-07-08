@@ -11,12 +11,7 @@ import im.actor.core.Messenger;
 
 public interface ModuleCreateListener {
 
-    ModuleCreateListener stub = new ModuleCreateListener() {
-        @Override
-        public Modules createModules(Messenger messenger, Configuration configuration) {
-            return new Modules(messenger, configuration);
-        }
-    };
+    ModuleCreateListener stub = (messenger, configuration) -> new Modules(messenger, configuration);
 
     /**
      * Called to create module

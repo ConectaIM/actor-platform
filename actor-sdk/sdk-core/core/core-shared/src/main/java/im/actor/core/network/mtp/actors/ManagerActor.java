@@ -203,6 +203,9 @@ public class ManagerActor extends Actor {
 
     private void onConnectionCreated(int id, Connection connection) {
 
+        isCheckingConnections = false;
+        backoff.onSuccess();
+
         if (connection.isClosed()) {
             if (isEnableLog) {
                 Log.w(TAG, "Unable to register connection #" + id + ": already closed");
@@ -232,10 +235,7 @@ public class ManagerActor extends Actor {
 
         connectionStateChanged();
 
-        backoff.onSuccess();
-        isCheckingConnections = false;
         requestCheckConnection();
-
         sender.send(new PusherActor.ConnectionCreated());
     }
 
@@ -261,7 +261,7 @@ public class ManagerActor extends Actor {
     }
 
     private void onNetworkChanged(int state) {
-        Log.w(TAG, "Network configuration changed: " + state);
+        Log.w(TAG, "Network configuration changed: " + NetworkState.getDesription(state));
         this.networkState = state;
         backoff.reset();
         checkConnection();
@@ -305,10 +305,12 @@ public class ManagerActor extends Actor {
     }
 
     private void checkConnection() {
+        Log.d(TAG, "isCheckingConnections: "+isCheckingConnections);
         if (isCheckingConnections) {
             return;
         }
 
+        Log.d(TAG, "isInDozing: "+isCheckingConnections);
         if (this.isInDozing()) {
             return;
         }
@@ -321,7 +323,6 @@ public class ManagerActor extends Actor {
 
             if (networkState == NetworkState.NO_CONNECTION) {
                 Log.d(TAG, "Not trying to create connection: Not network available");
-                self().send(new ManagerActor.PerformConnectionCheck(1000L));
                 return;
             }
 
