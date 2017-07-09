@@ -18,6 +18,7 @@ object ActivationStateActor {
     def phone(phone: Long) = ForgetSentCode(phone)
     def email(email: String) = ForgetSentCode(email)
   }
+
   private[activation] final case class ForgetSentCode[T](codeId: T)
 
   def props[Id, CodeType <: Code](repeatLimit: Duration, sendAction: CodeType ⇒ Future[Unit], id: CodeType ⇒ Id) =
@@ -25,7 +26,9 @@ object ActivationStateActor {
 
 }
 
-private[activation] final class ActivationStateActor[Id, CodeType <: Code](repeatLimit: Duration, send: CodeType ⇒ Future[Unit], extractId: CodeType ⇒ Id) extends Actor with ActorLogging {
+private[activation] final class ActivationStateActor[Id, CodeType <: Code](repeatLimit: Duration, send: CodeType ⇒ Future[Unit], extractId: CodeType ⇒ Id)
+  extends Actor with ActorLogging {
+
   implicit val system = context.system
   implicit val ec = context.dispatcher
 
@@ -57,9 +60,11 @@ private[activation] final class ActivationStateActor[Id, CodeType <: Code](repea
         forgetSentCodeAfterDelay(code)
         Xor.right(())
       } recover {
-        case e ⇒
+        case e ⇒ {
+          forgetSentCodeAfterDelay(code)
           log.error(e, "Failed to send code: {}", code)
           Xor.left(SendFailure("Unable to send code"))
+        }
       }
     } else {
       log.debug(s"Ignoring send $code")

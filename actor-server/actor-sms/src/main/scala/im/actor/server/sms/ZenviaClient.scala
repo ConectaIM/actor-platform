@@ -30,22 +30,19 @@ final class ZenviaClient(config: Config)(implicit system: ActorSystem) {
 
   def sendSmsCode(phoneNumber: Long, code: String, systemName: String, template: String): Future[Unit] = {
     postRequest(zenviaUrlBase, Map(
-      "sendSmsRequest" → Map("to" -> phoneNumber, "msg" -> template.replace("$$SYSTEM_NAME$$", systemName).replace("$$CODE$$", code))
+      "sendSmsRequest" → JSONObject(Map("to" -> phoneNumber, "msg" -> template.replace("$$SYSTEM_NAME$$", systemName).replace("$$CODE$$", code)))
     )) map { _ ⇒
       system.log.debug("Message sent via Zenvia")
     }
   }
 
-  private def postRequest(resourcePath: String, params: Map[String, Map[String, Any]]): Future[Response] = {
+  private def postRequest(resourcePath: String, params: Map[String, Any]): Future[Response] = {
     val body = JSONObject(params).toString(JSONFormat.defaultFormatter)
 
     val resUrl = url(resourcePath)
-    val request = (resUrl.POST.setContentType("application/json", "charset=utf-8").setBody(body))
-
-    val base64Key = Base64.getEncoder.encodeToString(s"${customerId}:${apiKey}".getBytes("utf-8"))
-
-    val requestWithAuth = request
-      .addHeader("Authorization", base64Key)
+    val request = (resUrl.POST.setContentType("application/json", "UTF-8").setHeader("Accept","application/json").setBody(body))
+    val base64Key = Base64.getEncoder.encodeToString(s"${customerId}:${apiKey}".getBytes("UTF-8"))
+    val requestWithAuth = request.addHeader("Authorization", base64Key)
 
     http(requestWithAuth).map { resp ⇒
       if (resp.getStatusCode < 199 || resp.getStatusCode > 299) {
@@ -54,8 +51,9 @@ final class ZenviaClient(config: Config)(implicit system: ActorSystem) {
         resp
       }
     } andThen {
-      case Failure(e) ⇒
-        system.log.error(e, "Failed to make request to telesign")
+      case Failure(e) ⇒ {
+        system.log.error(e, "Failed to make request to zenvia")
+      }
     }
   }
 
