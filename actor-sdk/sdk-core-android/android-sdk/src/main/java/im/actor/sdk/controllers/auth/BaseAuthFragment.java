@@ -119,14 +119,16 @@ public abstract class BaseAuthFragment extends BaseFragment {
     }
 
     protected void focus(final EditText editText) {
-        editText.post(new Runnable() {
-            @Override
-            public void run() {
-                editText.requestFocus();
+        editText.postDelayed(() -> {
+            editText.requestFocus();
+            if(editText.getText().toString().indexOf('-') > 0){
+                editText.setSelection(editText.getText().toString().indexOf('-'));
+            }else{
                 editText.setSelection(editText.getText().length());
             }
-        });
+        }, 1000);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
