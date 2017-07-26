@@ -24,7 +24,7 @@ object Dependencies {
     val actorUtil               = "im.actor"                      %% "actor-util"                    % V.actorCommons
     val actorCatsSlick          = "im.actor"                      %% "actor-cats-slick"              % V.actorCommons
     val actorStorageSlick       = "im.actor"                      %% "actor-storage-slick"           % V.actorCommons
-    val actorBotkit             = "im.actor"                      %  "actor-botkit"                  % V.actorBotkit
+    val actorBotkit             = "im.actor.server"               %  "actor-botkit"                  % V.actorBotkit
     val shardakka               = "im.actor"                      %% "shardakka"                     % V.shardakka
     val scalapbSer              = "im.actor"                      %% "akka-scalapb-serialization"    % V.scalapbSer
 
