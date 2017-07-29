@@ -15,6 +15,11 @@ object PlivioClient{
   val DefaultSmsTemplate: String = "$$SYSTEM_NAME$$: Your activation code is $$CODE$$"
 }
 
+/**
+  * Plivio Client for Plivio Provider
+  * @param config
+  * @param system
+  */
 final class PlivioClient(config: Config)(implicit system: ActorSystem) {
 
   import PlivioClient._
