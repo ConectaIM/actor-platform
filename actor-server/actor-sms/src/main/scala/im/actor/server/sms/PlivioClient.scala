@@ -12,7 +12,6 @@ import dispatch.{Http, url}
 
 object PlivioClient{
   private val plivioUrlBase = "https://api.plivo.com/v1/Account/$$ACCOUNT_ID$$/Message/"
-  val DefaultSmsTemplate: String = "$$SYSTEM_NAME$$: Your activation code is $$CODE$$"
 }
 
 /**
@@ -27,6 +26,7 @@ final class PlivioClient(config: Config)(implicit system: ActorSystem) {
   private val authId = config.getString("auth-id")
   private val authToken = config.getString("auth-token")
   private val srcNumber = config.getString("src-number")
+  private val messageTemplate = config.getString("message-template")
 
   private lazy val http = new Http()
 
@@ -34,10 +34,10 @@ final class PlivioClient(config: Config)(implicit system: ActorSystem) {
 
   private implicit val ec: ExecutionContext = system.dispatcher
 
-  def sendSmsCode(phoneNumber: Long, code: String, systemName: String, template: String): Future[Unit] = {
+  def sendSmsCode(phoneNumber: Long, code: String, systemName: String): Future[Unit] = {
     postRequest(plivioUrlBase.replace("$$ACCOUNT_ID$$", authId),Map("src"-> srcNumber,
         "dst" -> phoneNumber,
-        "text" -> template.replace("$$SYSTEM_NAME$$", systemName).replace("$$CODE$$", code))
+        "text" -> messageTemplate.replace("$$SYSTEM_NAME$$", systemName).replace("$$CODE$$", code))
     ) map { _ ⇒
       system.log.debug("Message sent via Plivio")
     }
