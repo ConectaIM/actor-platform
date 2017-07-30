@@ -239,7 +239,8 @@ import UserNotifications
         // Api Connections
         let deviceKey = UUID().uuidString
         let deviceName = UIDevice.current.name
-        let appTitle = "XlotoMensageiro"
+       // let appTitle = "XlotoMensageiro"
+        
         for url in endpoints {
             builder.addEndpoint(url)
         }
@@ -249,7 +250,7 @@ import UserNotifications
         
         builder.setOnClientPrivacyEnabled(jboolean(delegate.useOnClientPrivacy()))
         
-        builder.setApiConfiguration(ACApiConfiguration(appTitle: appTitle, withAppId: jint(apiId), withAppKey: apiKey, withDeviceTitle: deviceName, withDeviceId: deviceKey))
+        builder.setApiConfiguration(ACApiConfiguration(appTitle: appName, withAppId: jint(apiId), withAppKey: apiKey, withDeviceTitle: deviceName, withDeviceId: deviceKey))
         
         // Providers
         builder.setPhoneBookProvider(PhoneBookProvider())
