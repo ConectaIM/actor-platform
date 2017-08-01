@@ -12,12 +12,16 @@ import im.actor.server.activation.common._
 import im.actor.server.db.DbExtension
 import im.actor.server.model.AuthPhoneTransaction
 import im.actor.server.persist.auth.{AuthTransactionRepo, BypassSmsNumbersRepo}
-import im.actor.server.sms.{PlivioClient, PlivioSmsEngine, ZenviaClient, ZenviaSmsEngine}
+import im.actor.server.sms.{PlivioClient, PlivioSmsEngine}
 import im.actor.util.misc.PhoneNumberUtils.isTestPhone
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
+/**
+  * Plivio SMS Provider
+  * @param system
+  */
 private[activation] final class PlivioSMSProvider(implicit system: ActorSystem)
   extends ActivationProvider with CommonAuthCodes {
 

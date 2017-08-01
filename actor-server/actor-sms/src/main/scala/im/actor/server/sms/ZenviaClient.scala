@@ -12,7 +12,6 @@ import dispatch.{Http, url}
 
 object ZenviaClient{
   private val zenviaUrlBase = "https://api-rest.zenvia360.com.br/services/send-sms"
-  val DefaultSmsTemplate: String = "$$SYSTEM_NAME$$: Seu codigo de ativação é $$CODE$$"
 }
 
 final class ZenviaClient(config: Config)(implicit system: ActorSystem) {
@@ -21,6 +20,7 @@ final class ZenviaClient(config: Config)(implicit system: ActorSystem) {
 
   private val customerId = config.getString("customer-id")
   private val apiKey = config.getString("api-key")
+  private val messageTemplate = config.getString("message-template")
 
   private lazy val http = new Http()
 
@@ -28,9 +28,9 @@ final class ZenviaClient(config: Config)(implicit system: ActorSystem) {
 
   private implicit val ec: ExecutionContext = system.dispatcher
 
-  def sendSmsCode(phoneNumber: Long, code: String, systemName: String, template: String): Future[Unit] = {
+  def sendSmsCode(phoneNumber: Long, code: String, systemName: String): Future[Unit] = {
     postRequest(zenviaUrlBase, Map(
-      "sendSmsRequest" → JSONObject(Map("to" -> phoneNumber, "msg" -> template.replace("$$SYSTEM_NAME$$", systemName).replace("$$CODE$$", code)))
+      "sendSmsRequest" → JSONObject(Map("to" -> phoneNumber, "msg" -> messageTemplate.replace("$$SYSTEM_NAME$$", systemName).replace("$$CODE$$", code)))
     )) map { _ ⇒
       system.log.debug("Message sent via Zenvia")
     }
