@@ -651,4 +651,6 @@
     </string>
     <string name="error_view_url">Tipo de URL desconhecida</string>
 
+    <string name="connecting">Conectando</string>
+    <string name="syncing">Sincronizando</string>
 </resources>

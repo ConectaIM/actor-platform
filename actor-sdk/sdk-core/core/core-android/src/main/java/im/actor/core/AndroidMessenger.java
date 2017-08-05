@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.hardware.display.DisplayManager;
 import android.media.MediaMetadataRetriever;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -108,33 +109,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                     @Override
                     public void onReceive(Context context, Intent intent) {
                         Log.d(TAG, "Network Connection Changed");
-                        ConnectivityManager cm =
-                                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                        boolean isConnected = activeNetwork != null &&
-                                activeNetwork.isConnectedOrConnecting();
-
-                        int state;
-
-                        if (isConnected) {
-                            switch (activeNetwork.getType()) {
-                                case ConnectivityManager.TYPE_WIFI:
-                                case ConnectivityManager.TYPE_WIMAX:
-                                case ConnectivityManager.TYPE_ETHERNET:
-                                    state = NetworkState.WI_FI;
-                                    break;
-                                case ConnectivityManager.TYPE_MOBILE:
-                                    state = NetworkState.MOBILE;
-                                    break;
-                                default:
-                                    state = NetworkState.UNKNOWN;
-                            }
-                        } else {
-                            state = NetworkState.NO_CONNECTION;
-                        }
-                        Log.d(TAG, "Connection State: "+NetworkState.getDesription(state));
-                        onNetworkChanged(state);
+                        verifyNetworkState(context);
                     }
                 }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)));
 
@@ -143,17 +118,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                     @Override
                     public void onReceive(Context context, Intent intent) {
                         Log.d(TAG, "Idle Mode is changed");
-
-                        if (Build.VERSION.SDK_INT >= 23) {
-                            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                            if (pm.isDeviceIdleMode()) {
-                                Log.d(TAG, "Idle Mode Active");
-                                onDozeStart();
-                            } else {
-                                Log.d(TAG, "Idle Mode Inactive");
-                                onDozeStop();
-                            }
-                        }
+                        verifyNetworkState(context);
                     }
                 }, new IntentFilter(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED)));
 
@@ -179,7 +144,36 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                 appStateActor.send(new AppStateActor.OnScreenOff());
             }
         });
+    }
 
+    private void verifyNetworkState(Context ctx){
+        ConnectivityManager cm =
+                (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        int state;
+
+        if (isConnected) {
+            switch (activeNetwork.getType()) {
+                case ConnectivityManager.TYPE_WIFI:
+                case ConnectivityManager.TYPE_WIMAX:
+                case ConnectivityManager.TYPE_ETHERNET:
+                    state = NetworkState.WI_FI;
+                    break;
+                case ConnectivityManager.TYPE_MOBILE:
+                    state = NetworkState.MOBILE;
+                    break;
+                default:
+                    state = NetworkState.UNKNOWN;
+            }
+        } else {
+            state = NetworkState.NO_CONNECTION;
+        }
+
+        Log.d(TAG, "Connection State: "+NetworkState.getDesription(state));
+        onNetworkChanged(state);
     }
 
     public Context getContext() {

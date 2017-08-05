@@ -106,7 +106,7 @@ public class SequenceActor extends ModuleActor {
             return;
         }
 
-        context().getApiModule().getActorApi().checkConnectionDoze();
+        context().getApiModule().getActorApi().checkConnection(true);
 
         if (authId != 0) {
             context().getApiModule().checkIsCurrentAuthId(authId).then(same -> {

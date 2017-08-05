@@ -653,5 +653,7 @@
     </string>
     <string name="error_view_url">Unknown URL type</string>
 
+    <string name="connecting">Connecting</string>
+    <string name="syncing">Syncing</string>
 
 </resources>

@@ -11,7 +11,6 @@ import java.io.IOException;
 import im.actor.core.network.ActorApi;
 import im.actor.core.network.Endpoints;
 import im.actor.core.network.NetworkState;
-import im.actor.core.network.api.ApiBroker;
 import im.actor.core.network.mtp.MTProto;
 import im.actor.core.network.mtp.entity.EncryptedCBCPackage;
 import im.actor.core.network.mtp.entity.EncryptedPackage;
@@ -72,11 +71,6 @@ public class ManagerActor extends Actor {
     private int outSeq = 0;
     private int inSeq = 0;
 
-    // Doze mode
-    private boolean dozeActivated = false;
-    private final int MAX_CONNECTION_RETRIES_DOZE = 1;
-    private int qtdReconnectionTriedDoze = MAX_CONNECTION_RETRIES_DOZE;
-
     // Creating
     private boolean isCheckingConnections = false;
     private final ExponentialBackoff backoff;
@@ -125,7 +119,7 @@ public class ManagerActor extends Actor {
         receiver = ReceiverActor.receiver(mtProto);
         sender = PusherActor.senderActor(mtProto);
         connectionStateChanged();
-        checkConnection();
+        checkConnection(false);
     }
 
     @Override
@@ -153,13 +147,7 @@ public class ManagerActor extends Actor {
             onConnectionDie(((ConnectionDie) message).connectionId);
         } else if (message instanceof PerformConnectionCheck) {
             PerformConnectionCheck connectionCheck = (PerformConnectionCheck) message;
-            if(connectionCheck.delay != null){
-                requestCheckConnection(connectionCheck.delay);
-            }else{
-                checkConnection();
-            }
-        } else if (message instanceof PerformConnectionCheckDoze) {
-            checkConnectionDoze();
+            checkConnection(connectionCheck.ignoreNetworkState);
         } else if (message instanceof NetworkChanged) {
             onNetworkChanged(((NetworkChanged) message).state);
         } else if (message instanceof ForceNetworkCheck) {
@@ -172,38 +160,15 @@ public class ManagerActor extends Actor {
         } else if (message instanceof InMessage) {
             InMessage m = (InMessage) message;
             onInMessage(m.data, m.offset, m.len);
-        } else if (message instanceof OnDozeStart) {
-            startDoze();
-        } else if (message instanceof OnDozeStop) {
-            stopDoze();
         } else {
             super.onReceive(message);
         }
     }
 
-    private void startDoze() {
-        Log.d(TAG, "Start Doze");
-        this.dozeActivated = true;
-        this.qtdReconnectionTriedDoze = MAX_CONNECTION_RETRIES_DOZE;
-    }
-
-    private void stopDoze() {
-        Log.d(TAG, "Stop Doze");
-        this.dozeActivated = false;
-        this.qtdReconnectionTriedDoze = MAX_CONNECTION_RETRIES_DOZE;
-        requestCheckConnection();
-    }
-
-    private boolean isInDozing() {
-        if (dozeActivated && (qtdReconnectionTriedDoze >= MAX_CONNECTION_RETRIES_DOZE)) {
-            return true;
-        }
-        return false;
-    }
-
     private void onConnectionCreated(int id, Connection connection) {
 
         isCheckingConnections = false;
+
         backoff.onSuccess();
 
         if (connection.isClosed()) {
@@ -241,20 +206,21 @@ public class ManagerActor extends Actor {
 
     private void onConnectionCreateFailure() {
         Log.w(TAG, "Connection create failure");
-        currentConnectionId = -1;
-        backoff.onFailure();
         isCheckingConnections = false;
+        currentConnectionId = -1;
+        currentConnection = null;
+        backoff.onFailure();
         requestCheckConnection(backoff.exponentialWait());
     }
 
     private void onConnectionDie(int id) {
         Log.w(TAG, "Connection #" + id + " dies");
-
         if (currentConnectionId == id) {
             currentConnectionId = -1;
             currentConnection = null;
             outSeq = 0;
             inSeq = 0;
+            isCheckingConnections = false;
             connectionStateChanged();
             requestCheckConnection();
         }
@@ -264,12 +230,14 @@ public class ManagerActor extends Actor {
         Log.w(TAG, "Network configuration changed: " + NetworkState.getDesription(state));
         this.networkState = state;
         backoff.reset();
-        checkConnection();
+        checkConnection(false);
     }
 
     private void forceNetworkCheck() {
         if (currentConnection != null) {
             currentConnection.checkConnection();
+        }else{
+            self().send(new PerformConnectionCheck(true));
         }
     }
 
@@ -278,9 +246,9 @@ public class ManagerActor extends Actor {
     }
 
     private void requestCheckConnection(long wait) {
-        Log.d(TAG, "isCheckingConnections: "+isCheckingConnections + ", isInDozing: "+isInDozing());
+        Log.d(TAG, "isCheckingConnections: "+isCheckingConnections);
 
-        if (!isCheckingConnections && !this.isInDozing()) {
+        if (!isCheckingConnections) {
             if (currentConnection == null) {
                 if (wait == 0) {
                     Log.w(TAG, "Requesting connection creating");
@@ -296,22 +264,10 @@ public class ManagerActor extends Actor {
         }
     }
 
-    private void checkConnectionDoze() {
-        if(dozeActivated){
-            Log.d(TAG, "Checking Doze Connection");
-            qtdReconnectionTriedDoze = 0;
-            requestCheckConnection();
-        }
-    }
-
-    private void checkConnection() {
+    private void checkConnection(boolean forceCheck) {
         Log.d(TAG, "isCheckingConnections: "+isCheckingConnections);
-        if (isCheckingConnections) {
-            return;
-        }
 
-        Log.d(TAG, "isInDozing: "+isCheckingConnections);
-        if (this.isInDozing()) {
+        if (isCheckingConnections && !forceCheck) {
             return;
         }
 
@@ -321,20 +277,15 @@ public class ManagerActor extends Actor {
             Log.d(TAG, "currentConnection is null");
             Log.d(TAG, "Connection networkState: "+NetworkState.getDesription(networkState));
 
-            if (networkState == NetworkState.NO_CONNECTION) {
+            if ((networkState == NetworkState.NO_CONNECTION) && !forceCheck) {
                 Log.d(TAG, "Not trying to create connection: Not network available");
                 return;
             }
 
             Log.d(TAG, "Trying to create connection...");
-
             isCheckingConnections = true;
 
             final int id = NEXT_CONNECTION.getAndIncrement();
-
-            if (dozeActivated) {
-                qtdReconnectionTriedDoze++;
-            }
 
             Network.createConnection(id, ActorApi.MTPROTO_VERSION,
                     ActorApi.API_MAJOR_VERSION,
@@ -377,7 +328,6 @@ public class ManagerActor extends Actor {
 
     @AutoreleasePool
     private void onInMessage(byte[] data, int offset, int len) {
-        //Log.d(TAG, "Received package");
         DataInput bis = new DataInput(data, offset, len);
         try {
             long authId = bis.readLong();
@@ -426,8 +376,7 @@ public class ManagerActor extends Actor {
                 outSeq = 0;
                 inSeq = 0;
             }
-
-            checkConnection();
+            checkConnection(false);
         }
     }
 
@@ -439,7 +388,7 @@ public class ManagerActor extends Actor {
             currentConnectionId = -1;
             outSeq = 0;
             inSeq = 0;
-            checkConnection();
+            checkConnection(false);
         }
 
         try {
@@ -489,7 +438,7 @@ public class ManagerActor extends Actor {
                 outSeq = 0;
                 inSeq = 0;
             }
-            checkConnection();
+            checkConnection(false);
         }
     }
 
@@ -543,37 +492,20 @@ public class ManagerActor extends Actor {
 
     public static class NetworkChanged {
         private int state;
-
         public NetworkChanged(int state) {
             this.state = state;
         }
     }
 
-    public static class ForceNetworkCheck {
-
-    }
+    public static class ForceNetworkCheck {}
 
     public static class PerformConnectionCheck {
-        public Long delay = null;
-
-        public PerformConnectionCheck(){}
-
-        public PerformConnectionCheck(Long delay){
-            this.delay = delay;
+        boolean ignoreNetworkState = false;
+        public PerformConnectionCheck(){
         }
-
-    }
-
-    public static class PerformConnectionCheckDoze {
-
-    }
-
-    public static class OnDozeStart {
-
-    }
-
-    public static class OnDozeStop {
-
+        public PerformConnectionCheck(boolean ignoreNetworkState){
+            this.ignoreNetworkState = ignoreNetworkState;
+        }
     }
 
     private static class ConnectionDie {

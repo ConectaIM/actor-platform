@@ -146,27 +146,9 @@ public class ApiBroker extends AskcableActor {
         }
     }
 
-    private void checkConnection() {
+    private void checkConnection(boolean ignoreNetworkState) {
         if (proto != null) {
-            proto.performCheckConnection();
-        }
-    }
-
-    private void checkConnectionDoze() {
-        if (proto != null) {
-            proto.performCheckConnectionDoze();
-        }
-    }
-
-    private void onDozeStop() {
-        if (proto != null) {
-            proto.onDozeStop();
-        }
-    }
-
-    private void onDozeStart() {
-        if (proto != null) {
-            proto.onDozeStart();
+            proto.performCheckConnection(ignoreNetworkState);
         }
     }
 
@@ -488,30 +470,18 @@ public class ApiBroker extends AskcableActor {
         }
     }
 
-    public static class OnDozeStart {
-
-    }
-
-    public static class OnDozeStop {
-
-    }
-
     public static class ForceNetworkCheck {
 
     }
 
     public static class PerformCheckConnection {
-        public long delay;
+        public boolean ignoreNetworkState;
 
         public PerformCheckConnection(){}
 
-        public PerformCheckConnection(Long delay){
-            this.delay = delay;
+        public PerformCheckConnection(boolean ignoreNetworkState){
+            this.ignoreNetworkState = ignoreNetworkState;
         }
-
-    }
-
-    public static class PerformCheckConnectionDoze {
 
     }
 
@@ -752,9 +722,7 @@ public class ApiBroker extends AskcableActor {
             forceNetworkCheck();
         } else if (message instanceof PerformCheckConnection) {
             PerformCheckConnection performCheckConnection = (PerformCheckConnection) message;
-            checkConnection();
-        } else if (message instanceof PerformCheckConnectionDoze) {
-            checkConnectionDoze();
+            checkConnection(performCheckConnection.ignoreNetworkState);
         } else if (message instanceof ConnectionsCountChanged) {
             connectionCountChanged(((ConnectionsCountChanged) message).getCount());
         } else if (message instanceof AuthKeyActor.KeyCreated) {
@@ -762,10 +730,6 @@ public class ApiBroker extends AskcableActor {
                     ((AuthKeyActor.KeyCreated) message).getAuthKey());
         } else if (message instanceof ChangeEndpoints) {
             changeEndpoints(((ChangeEndpoints) message).getEndpoints());
-        } else if (message instanceof OnDozeStart) {
-            onDozeStart();
-        } else if (message instanceof OnDozeStop) {
-            onDozeStop();
         } else {
             super.onReceive(message);
         }

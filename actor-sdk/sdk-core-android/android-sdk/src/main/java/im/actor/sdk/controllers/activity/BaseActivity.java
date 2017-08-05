@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import im.actor.core.entity.Avatar;
 import im.actor.core.viewmodel.Command;
@@ -36,7 +38,6 @@ public class BaseActivity extends AppCompatActivity {
     public static final ActorStyle STYLE = ActorSDK.sharedActor().style;
 
     private final ActorBinder BINDER = new ActorBinder();
-
     private boolean isResumed = false;
 
     @Override
@@ -51,7 +52,6 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         changeStatusBarColor();
-
     }
 
     public void changeStatusBarColor() {
@@ -95,11 +95,23 @@ public class BaseActivity extends AppCompatActivity {
         notifyOnPause();
     }
 
-
     // Binding
-
     protected void onPerformBind() {
-
+        BINDER.bind(ActorSDK.sharedActor().getMessenger().getGlobalState().getIsConnecting(),
+            ActorSDK.sharedActor().getMessenger().getGlobalState().getIsSyncing(),(isConnecting, isSyncing) -> {
+                if(isConnecting || isSyncing){
+                    if(isConnecting){
+                        if(getSupportActionBar() != null)
+                            getSupportActionBar().setSubtitle(" "+getResources().getString(R.string.connecting)+"...");
+                    }else{
+                        if(getSupportActionBar() != null)
+                            getSupportActionBar().setSubtitle(" "+getResources().getString(R.string.syncing)+"...");
+                    }
+                }else{
+                    if(getSupportActionBar() != null)
+                        getSupportActionBar().setSubtitle("");
+                }
+        });
     }
 
     public void bind(final TextView textView, Value<String> value) {
@@ -157,7 +169,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     // Toolbar
-
     protected void setToolbar(int text, boolean enableBack) {
         if (getSupportActionBar() == null) {
             throw new RuntimeException("Action bar is not set!");
@@ -260,9 +271,7 @@ public class BaseActivity extends AppCompatActivity {
                 .failure(e -> dismissDialog(dialog));
     }
 
-
     // Tools
-
     public void dismissDialog(ProgressDialog progressDialog) {
         try {
             progressDialog.dismiss();

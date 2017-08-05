@@ -392,7 +392,7 @@ public class ManagedConnection implements Connection {
 
     @Override
     public synchronized void close() {
-        // Log.w(TAG, "close");
+        //Log.w(TAG, "close");
         if (isClosed) {
             return;
         }
@@ -412,6 +412,7 @@ public class ManagedConnection implements Connection {
         }
 
         pingTask.cancel();
+
         connectionTimeout.cancel();
         handshakeTimeout.cancel();
 
@@ -449,7 +450,6 @@ public class ManagedConnection implements Connection {
 
     // Timer runanbles
     private class PingRunnable implements Runnable {
-
         @Override
         public void run() {
             sendPingMessage();
@@ -457,10 +457,8 @@ public class ManagedConnection implements Connection {
     }
 
     private class TimeoutRunnable implements Runnable {
-
         @Override
         public void run() {
-            // Log.d(TAG, "Timeout " + this);
             close();
         }
     }

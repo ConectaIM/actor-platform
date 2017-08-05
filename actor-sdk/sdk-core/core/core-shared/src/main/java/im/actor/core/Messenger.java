@@ -685,16 +685,6 @@ public class Messenger {
         modules.getActorApi().onNetworkChanged(state);
     }
 
-    @ObjectiveCName("onDozeStart")
-    public void onDozeStart() {
-        modules.getActorApi().onDozeStart();
-    }
-
-    @ObjectiveCName("onDozeStop")
-    public void onDozeStop() {
-        modules.getActorApi().onDozeStop();
-    }
-
     /**
      * MUST be called when external push received
      *
