@@ -150,7 +150,7 @@ public class AndroidNotifications implements NotificationProvider {
             // Single conversation notification
             String sender = getNotificationSender(topNotification);
             builder.setContentTitle(sender);
-            builder.setContentText(messagesCount + context.getString(R.string.notifications_single_conversation_аfter_messages_count));
+            builder.setContentText(messagesCount + context.getString(R.string.notifications_single_conversation_after_messages_count));
             visiblePeer = topNotification.getPeer();
 
             final NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
@@ -161,7 +161,7 @@ public class AndroidNotifications implements NotificationProvider {
                     inboxStyle.addLine(messenger.getFormatter().formatNotificationText(n));
                 }
             }
-            inboxStyle.setSummaryText(messagesCount + context.getString(R.string.notifications_single_conversation_аfter_messages_count));
+            inboxStyle.setSummaryText(messagesCount + context.getString(R.string.notifications_single_conversation_after_messages_count));
             Avatar avatar = null;
             int id = 0;
             String avatarTitle = "";

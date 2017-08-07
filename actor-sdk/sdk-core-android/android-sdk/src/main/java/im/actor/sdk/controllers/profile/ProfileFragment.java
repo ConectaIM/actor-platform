@@ -251,6 +251,12 @@ public class ProfileFragment extends BaseFragment {
 
 
         //
+        // Midia components
+        //
+
+
+
+        //
         // Contact Information
         //
 

@@ -543,7 +543,7 @@
     <string name="not_sound_picker_subtitle">Configurar som da notificação.</string>
     <string name="notification_multiple_canversations_after_msg_count">" mensagem em "</string>
     <string name="notifications_multiple_canversations_after_coversations_count">" conversas"</string>
-    <string name="notifications_single_conversation_аfter_messages_count">" mensagems"</string>
+    <string name="notifications_single_conversation_after_messages_count">" mensagems"</string>
 
 
     <!-- Pick user -->
