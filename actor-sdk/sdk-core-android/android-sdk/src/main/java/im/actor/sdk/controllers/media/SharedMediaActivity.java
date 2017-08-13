@@ -1,5 +1,7 @@
 package im.actor.sdk.controllers.media;
 
+import android.os.Bundle;
+
 import im.actor.sdk.controllers.activity.BaseActivity;
 
 /**
@@ -8,4 +10,11 @@ import im.actor.sdk.controllers.activity.BaseActivity;
 
 public class SharedMediaActivity extends BaseActivity {
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        
+    }
 }
