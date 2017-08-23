@@ -535,7 +535,6 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     public BindedDisplayList<Message> getDocsDisplayList(final Peer peer) {
         if (!docsLists.containsKey(peer)) {
             BindedDisplayList<Message> list = (BindedDisplayList<Message>) modules.getDisplayListsModule().getDocsSharedList(peer);
-
             list.setBindHook(new BindedDisplayList.BindHook<Message>() {
                 @Override
                 public void onScrolledToEnd() {
@@ -547,11 +546,8 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
                 }
             });
-
             docsLists.put(peer, list);
         }
-
-
         return docsLists.get(peer);
     }
 

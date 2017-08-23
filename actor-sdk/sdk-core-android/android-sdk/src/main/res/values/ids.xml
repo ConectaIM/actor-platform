@@ -12,5 +12,6 @@
     <item type="id" name="sticker_indicator_container" />
     <item type="id" name="back_to_smiles" />
     <item type="id" name="sticker_switch_container" />
+    <item type="id" name="shared_media_fragment" />
 
 </resources>

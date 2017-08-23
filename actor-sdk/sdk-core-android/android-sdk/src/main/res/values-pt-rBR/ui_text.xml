@@ -653,4 +653,10 @@
 
     <string name="connecting">Conectando</string>
     <string name="syncing">Sincronizando</string>
+
+    <array name="shared_media_tabs">
+        <item>Fotos</item>
+        <item>Vídeos</item>
+        <item>Documentos</item>
+    </array>
 </resources>
