@@ -175,6 +175,14 @@
             android:theme="@style/ProfileActivityTheme"
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
 
+        <activity
+            android:name=".controllers.docs.DocsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/NoBarActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
+
+        </activity>
+
         <!-- Compose -->
 
         <activity
@@ -353,7 +361,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="im.actor.sdk.android.provider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

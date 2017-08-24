@@ -33,7 +33,6 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
 
     public DocsAdapter(BindedDisplayList<Message> displayList, Context context) {
         super(displayList);
-
         this.context = context;
     }
 

@@ -17,6 +17,7 @@ import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.DisplayListFragment;
+import im.actor.sdk.controllers.conversation.ChatFragment;
 import im.actor.sdk.controllers.conversation.messages.MessagesAdapter;
 import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;
 import im.actor.sdk.util.Screen;
@@ -27,18 +28,31 @@ import static im.actor.sdk.util.ActorSDKMessenger.messenger;
  * Created by dsilv on 06/08/2017.
  */
 
-public class DocsFragment extends DisplayListFragment<Message, AbsMessageViewHolder> {
+public class DocsFragment extends DisplayListFragment<Message, DocsAdapter.DocsViewHolder> {
 
     protected Peer peer;
     private CircularProgressBar progressView;
+    private DocsAdapter docsAdapter;
+
+
+    public static DocsFragment create(Peer peer) {
+        DocsFragment res = new DocsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("peer", peer.getUnuqueId());
+        res.setArguments(bundle);
+        return res;
+    }
 
     @Override
-    protected BindedListAdapter<Message, AbsMessageViewHolder> onCreateAdapter(BindedDisplayList<Message> displayList, Activity activity) {
-        messagesAdapter = new MessagesAdapter(displayList, this, activity);
-        if (firstUnread != -1 && messagesAdapter.getFirstUnread() == -1) {
-            messagesAdapter.setFirstUnread(firstUnread);
-        }
-        return messagesAdapter;
+    public void onCreate(Bundle saveInstance) {
+        super.onCreate(saveInstance);
+        peer = Peer.fromUniqueId(getArguments().getLong("peer"));
+    }
+
+    @Override
+    protected BindedListAdapter<Message, DocsAdapter.DocsViewHolder> onCreateAdapter(BindedDisplayList<Message> displayList, Activity activity) {
+        docsAdapter = new DocsAdapter(displayList, activity);
+        return docsAdapter;
     }
 
     protected BindedDisplayList<Message> onCreateDisplayList() {
@@ -51,15 +65,6 @@ public class DocsFragment extends DisplayListFragment<Message, AbsMessageViewHol
     //
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        //
-        // Loading arguments
-        //
-        try {
-            peer = Peer.fromBytes(getArguments().getByteArray("EXTRA_PEER"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         //
         // Display List

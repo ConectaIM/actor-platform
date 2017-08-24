@@ -13,9 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
 import im.actor.core.entity.Peer;
+import im.actor.sdk.ActorSDK;
+import im.actor.sdk.ActorStyle;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.activity.BaseActivity;
+import im.actor.sdk.controllers.conversation.ChatFragment;
 
 /**
  * Created by diego on 10/08/17.
@@ -25,10 +32,12 @@ public class DocsActivity extends BaseActivity {
 
     public static final String EXTRA_CHAT_PEER = "chat_peer";
 
-    private Toolbar mToolbar;
     private ViewPager mPager;
-    private TabLayout mTabs;
-    private AppBarLayout appBarLayout;
+    private TabLayout tabLayout;
+    private Map<Integer, Fragment> fragments = new HashMap<>();
+    private Peer peer;
+    private ActorStyle style;
+
 
     public static Intent build(Peer peer, Context context) {
         final Intent intent = new Intent(context, DocsActivity.class);
@@ -40,16 +49,33 @@ public class DocsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shared_media);
+        style = ActorSDK.sharedActor().style;
         setupTabs();
+        peer = Peer.fromUniqueId(getIntent().getExtras().getLong(EXTRA_CHAT_PEER));
+
     }
 
     private void setupTabs() {
         mPager = (ViewPager) findViewById(R.id.pager);
         TabsPageAdapter pagerAdapter = new TabsPageAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setSelectedTabIndicatorColor(style.getAccentColor());
+        tabLayout.setBackgroundColor(style.getMainColor());
+        tabLayout.setTabTextColors(style.getTabTextPrimaryColor(), style.getTabTextPrimaryColor());
+
         tabLayout.setupWithViewPager(mPager);
     }
+
+    private Fragment getFragmentAtPosition(int position){
+        if(fragments.containsKey(position)){
+            return fragments.get(position);
+        }
+        Fragment fragment = DocsFragment.create(peer);
+        fragments.put(position,fragment);
+        return  fragment;
+    }
+
 
     class TabsPageAdapter extends FragmentPagerAdapter {
 
@@ -62,26 +88,12 @@ public class DocsActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return getMapaFragment();
-                case 1:
-                    return getEventosFragment();
-                case 2:
-                    return getEventosFragment();
-            }
-            return null;
+            return getFragmentAtPosition(position);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getSpanable(position);
-                case 1:
-                    return getSpanable(position);
-            }
-            return null;
+            return getSpanable(position);
         }
 
         public CharSequence getSpanable(int position) {

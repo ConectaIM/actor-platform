@@ -260,10 +260,7 @@ public class ProfileFragment extends BaseFragment {
         sharedMidiaTitle.setTextColor(style.getTextPrimaryColor());
         sharedMidiaCountTitle.setTextColor(style.getTextPrimaryColor());
 
-        sharedMidiaView.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), DocsActivity.class));
-        });
-
+        sharedMidiaView.setOnClickListener(v -> startActivity(DocsActivity.build(Peer.user(uid), getActivity())));
 
         //
         // Contact Information
