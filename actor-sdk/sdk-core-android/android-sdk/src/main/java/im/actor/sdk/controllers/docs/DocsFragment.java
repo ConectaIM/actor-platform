@@ -3,6 +3,9 @@ package im.actor.sdk.controllers.docs;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,5 +91,18 @@ public class DocsFragment extends DisplayListFragment<Message, DocsAdapter.DocsV
         addFooterView(header); // Add Header as Footer because of reverse layout
 
         return res;
+    }
+
+    @Override
+    protected void configureRecyclerView(RecyclerView recyclerView) {
+        recyclerView.setHasFixedSize(true);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+
+        gridLayoutManager.setRecycleChildrenOnDetach(false);
+        gridLayoutManager.setSmoothScrollbarEnabled(false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setHorizontalScrollBarEnabled(false);
+        recyclerView.setVerticalScrollBarEnabled(true);
     }
 }
