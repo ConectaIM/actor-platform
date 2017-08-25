@@ -16,6 +16,7 @@ import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.ActorBinder;
+import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedData;
 
 /**
  * Created by diego on 23/08/17.
@@ -40,12 +41,12 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
     public int getItemViewType(int position) {
         AbsContent content = getItem(position).getContent();
 
-        if(content instanceof PhotoContent){
-            return 1;
-        }else if(content instanceof DocumentContent){
-            return 2;
-        }else if(content instanceof VideoContent){
-            return 3;
+        if(content.getClass().isAssignableFrom(PhotoContent.class)){
+            return VIEW_TYPE_PHOTO;
+        }else if(content.getClass().isAssignableFrom(VideoContent.class)){
+            return VIEW_TYPE_VIDEO;
+        }else if(content.getClass().isAssignableFrom(DocumentContent.class)){
+            return VIEW_TYPE_DOCUMENT;
         }
 
         return -1;
@@ -77,6 +78,18 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
     @Override
     public void onBindViewHolder(DocsViewHolder docsViewHolder, int index, Message item) {
 
+        Message prev = null;
+        Message next = null;
+
+        if (index > 1) {
+            next = getItem(index - 1);
+        }
+
+        if (index < getItemCount() - 1) {
+            prev = getItem(index + 1);
+        }
+
+        docsViewHolder.bindData(item, prev, next);
     }
 
     @Override
@@ -93,6 +106,9 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
         public DocsViewHolder(View itemView) {
             super(itemView);
         }
+
+        public abstract void bindData(Message message, Message prev, Message next);
+
         public abstract void unbind();
     }
 
@@ -100,6 +116,13 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
         public DefaultViewHolder(View itemView) {
             super(itemView);
         }
+
+        @Override
+        public void bindData(Message message, Message prev, Message next) {
+
+        }
+
+
         @Override
         public void unbind() {
 
@@ -107,9 +130,17 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
     }
 
     class PhotoViewHolder extends DocsViewHolder{
+
         public PhotoViewHolder(View itemView) {
             super(itemView);
         }
+
+        @Override
+        public void bindData(Message message, Message prev, Message next) {
+
+        }
+
+
         @Override
         public void unbind() {
 
@@ -120,6 +151,13 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
         public DocumentViewHolder(View itemView) {
             super(itemView);
         }
+
+        @Override
+        public void bindData(Message message, Message prev, Message next) {
+
+        }
+
+
         @Override
         public void unbind() {
 
@@ -130,6 +168,12 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
         public VideoViewHolder(View itemView) {
             super(itemView);
         }
+
+        @Override
+        public void bindData(Message message, Message prev, Message next) {
+
+        }
+
         @Override
         public void unbind() {
 

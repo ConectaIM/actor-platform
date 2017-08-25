@@ -34,10 +34,9 @@ public class DocsActivity extends BaseActivity {
 
     private ViewPager mPager;
     private TabLayout tabLayout;
+    private Toolbar toolbar;
     private Map<Integer, Fragment> fragments = new HashMap<>();
     private Peer peer;
-    private ActorStyle style;
-
 
     public static Intent build(Peer peer, Context context) {
         final Intent intent = new Intent(context, DocsActivity.class);
@@ -49,20 +48,26 @@ public class DocsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shared_media);
-        style = ActorSDK.sharedActor().style;
         setupTabs();
         peer = Peer.fromUniqueId(getIntent().getExtras().getLong(EXTRA_CHAT_PEER));
 
     }
 
     private void setupTabs() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(STYLE.getToolBarColor());
+        toolbar.setTitleTextColor(STYLE.getTabTextPrimaryColor());
+
+        setSupportActionBar(toolbar);
+        setToolbar(R.string.shared_media, true);
+
         mPager = (ViewPager) findViewById(R.id.pager);
         TabsPageAdapter pagerAdapter = new TabsPageAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setSelectedTabIndicatorColor(style.getAccentColor());
-        tabLayout.setBackgroundColor(style.getMainColor());
-        tabLayout.setTabTextColors(style.getTabTextPrimaryColor(), style.getTabTextPrimaryColor());
+        tabLayout.setSelectedTabIndicatorColor(STYLE.getAccentColor());
+        tabLayout.setBackgroundColor(STYLE.getMainColor());
+        tabLayout.setTabTextColors(STYLE.getTabTextPrimaryColor(), STYLE.getTabTextPrimaryColor());
 
         tabLayout.setupWithViewPager(mPager);
     }

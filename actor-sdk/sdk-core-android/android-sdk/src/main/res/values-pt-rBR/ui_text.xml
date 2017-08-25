@@ -659,4 +659,6 @@
         <item>Vídeos</item>
         <item>Documentos</item>
     </array>
+
+    <string name="shared_media">Mídia Compartilhada</string>
 </resources>
