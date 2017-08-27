@@ -43,21 +43,15 @@ public abstract class DisplayListFragment<T extends BserObject & ListEngineItem,
         this.displayList = displayList;
         configureRecyclerView(collection);
 
-        // emptyCollection = res.findViewById(R.id.emptyCollection);
-
         adapter = onCreateAdapter(displayList, getActivity());
 
         collection.setAdapter(adapter);
 
-//        if (emptyCollection != null) {
-//            emptyCollection.setVisibility(View.GONE);
-//        }
     }
 
     public void setAnimationsEnabled(boolean isEnabled) {
         if (isEnabled) {
             DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
-            // CustomItemAnimator itemAnimator = new CustomItemAnimator();
             itemAnimator.setSupportsChangeAnimations(false);
             itemAnimator.setMoveDuration(200);
             itemAnimator.setAddDuration(150);
@@ -153,7 +147,6 @@ public abstract class DisplayListFragment<T extends BserObject & ListEngineItem,
             adapter = null;
         }
 
-        // emptyCollection = null;
         collection = null;
     }
 }

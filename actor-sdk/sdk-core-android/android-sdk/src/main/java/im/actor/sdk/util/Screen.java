@@ -27,6 +27,10 @@ public class Screen {
         return (int) (dp * getDensity() + .5f);
     }
 
+    public static int dpFromPixels(float px) {
+        return (int) (px / getDensity() + .5f);
+    }
+
     public static int sp(float sp) {
         if (scaledDensity == 0f)
             scaledDensity = AndroidContext.getContext().getResources().getDisplayMetrics().scaledDensity;
@@ -117,6 +121,10 @@ public class Screen {
 
     public static float getPixelsInCM(float cm, boolean isX) {
         return (cm / 2.54f) * (isX ? displayMetrics.xdpi : displayMetrics.ydpi);
+    }
+
+    public static int getOrientation(){
+       return AndroidContext.getContext().getResources().getConfiguration().orientation;
     }
 
 }

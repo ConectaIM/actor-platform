@@ -1,10 +1,10 @@
 package im.actor.sdk.controllers.docs;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +31,7 @@ public class DocsFragment extends DisplayListFragment<Message, DocsAdapter.DocsV
     protected Peer peer;
     private CircularProgressBar progressView;
     private DocsAdapter docsAdapter;
+    private int adapterViewSize = 0;
 
 
     public static DocsFragment create(Peer peer) {
@@ -41,6 +42,7 @@ public class DocsFragment extends DisplayListFragment<Message, DocsAdapter.DocsV
         return res;
     }
 
+
     @Override
     public void onCreate(Bundle saveInstance) {
         super.onCreate(saveInstance);
@@ -49,7 +51,7 @@ public class DocsFragment extends DisplayListFragment<Message, DocsAdapter.DocsV
 
     @Override
     protected BindedListAdapter<Message, DocsAdapter.DocsViewHolder> onCreateAdapter(BindedDisplayList<Message> displayList, Activity activity) {
-        docsAdapter = new DocsAdapter(displayList, activity);
+        docsAdapter = new DocsAdapter(displayList, activity, adapterViewSize);
         return docsAdapter;
     }
 
@@ -78,7 +80,6 @@ public class DocsFragment extends DisplayListFragment<Message, DocsAdapter.DocsV
         progressView.setIndeterminate(true);
         progressView.setVisibility(View.INVISIBLE);
 
-
         //
         // List Padding
         //
@@ -94,13 +95,47 @@ public class DocsFragment extends DisplayListFragment<Message, DocsAdapter.DocsV
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        int orientation = newConfig.orientation;
+        int spanCount;
+
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            spanCount = 6;
+        }else{
+            spanCount = 4;
+        }
+
+        int screenSize = Screen.getWidth();
+        this.adapterViewSize = Math.round(screenSize/spanCount);
+
+        ((DocsAdapter)getAdapter()).setViewSize(this.adapterViewSize);
+        ((GridLayoutManager)getCollection().getLayoutManager()).setSpanCount(spanCount);
+
+    }
+
+    @Override
     protected void configureRecyclerView(RecyclerView recyclerView) {
         recyclerView.setHasFixedSize(true);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+        int orientation = Screen.getOrientation();
+        int spanCount;
+
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            spanCount = 6;
+        }else{
+            spanCount = 4;
+        }
+
+        int screenSize = Screen.getWidth();
+        this.adapterViewSize = Math.round(screenSize/spanCount);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), spanCount);
 
         gridLayoutManager.setRecycleChildrenOnDetach(false);
         gridLayoutManager.setSmoothScrollbarEnabled(false);
+
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setHorizontalScrollBarEnabled(false);
         recyclerView.setVerticalScrollBarEnabled(true);

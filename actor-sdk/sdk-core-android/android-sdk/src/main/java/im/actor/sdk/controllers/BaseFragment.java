@@ -22,6 +22,7 @@ import java.util.List;
 
 import im.actor.core.viewmodel.Command;
 import im.actor.core.viewmodel.CommandCallback;
+import im.actor.runtime.Log;
 import im.actor.runtime.function.Consumer;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.PromiseFunc;
@@ -148,7 +149,6 @@ public class BaseFragment extends BinderCompatFragment implements MediaPickerCal
     @Override
     public void onCreate(Bundle saveInstance) {
         super.onCreate(saveInstance);
-        // setHasOptionsMenu(true);
     }
 
     public void goneView(View view) {
@@ -221,12 +221,7 @@ public class BaseFragment extends BinderCompatFragment implements MediaPickerCal
     }
 
     public void onClick(View view, final View.OnClickListener listener) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onClick(v);
-            }
-        });
+        view.setOnClickListener(v -> listener.onClick(v));
     }
 
     public <T> void executeSilent(Command<T> cmd, final CommandCallback<T> callback) {
@@ -278,13 +273,11 @@ public class BaseFragment extends BinderCompatFragment implements MediaPickerCal
             @Override
             public void onResult(T res) {
                 dismissDialog(dialog);
-                ;
             }
 
             @Override
             public void onError(Exception e) {
                 dismissDialog(dialog);
-                ;
             }
         });
     }
@@ -401,7 +394,7 @@ public class BaseFragment extends BinderCompatFragment implements MediaPickerCal
         try {
             progressDialog.dismiss();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Log.e(getTag(), ex);
         }
     }
 

@@ -1,6 +1,8 @@
 package im.actor.sdk.controllers.docs;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,23 +33,25 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
     private ActorBinder BINDER = new ActorBinder();
     private Context context;
     private Peer peer;
+    private int viewSize;
 
-    public DocsAdapter(BindedDisplayList<Message> displayList, Context context) {
+    public DocsAdapter(BindedDisplayList<Message> displayList, Context context, int viewSize) {
         super(displayList);
         this.context = context;
+        this.viewSize = viewSize;
     }
 
     @Override
     public int getItemViewType(int position) {
         AbsContent content = getItem(position).getContent();
 
-        if(content.getClass().isAssignableFrom(PhotoContent.class)){
-            return VIEW_TYPE_PHOTO;
-        }else if(content.getClass().isAssignableFrom(VideoContent.class)){
-            return VIEW_TYPE_VIDEO;
-        }else if(content.getClass().isAssignableFrom(DocumentContent.class)){
-            return VIEW_TYPE_DOCUMENT;
-        }
+//        if(content.getClass().isAssignableFrom(PhotoContent.class)){
+//            return VIEW_TYPE_PHOTO;
+//        }else if(content.getClass().isAssignableFrom(VideoContent.class)){
+//            return VIEW_TYPE_VIDEO;
+//        }else if(content.getClass().isAssignableFrom(DocumentContent.class)){
+//            return VIEW_TYPE_DOCUMENT;
+//        }
 
         return -1;
     }
@@ -89,7 +93,18 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
             prev = getItem(index + 1);
         }
 
+        if(viewSize > 0){
+            GridLayoutManager.LayoutParams params = (GridLayoutManager.LayoutParams) docsViewHolder.itemView.getLayoutParams();
+            params.width = viewSize;
+            params.height = viewSize;
+            docsViewHolder.itemView.setLayoutParams(params);
+        }
+
         docsViewHolder.bindData(item, prev, next);
+    }
+
+    public void setViewSize(int viewSize) {
+        this.viewSize = viewSize;
     }
 
     @Override
