@@ -30,6 +30,10 @@ import im.actor.sdk.controllers.conversation.ChatFragment;
 
 public class DocsActivity extends BaseActivity {
 
+    public static final int VIEW_TYPE_PHOTO = 1;
+    public static final int VIEW_TYPE_DOCUMENT = 2;
+    public static final int VIEW_TYPE_VIDEO = 3;
+
     public static final String EXTRA_CHAT_PEER = "chat_peer";
 
     private ViewPager mPager;
@@ -76,7 +80,7 @@ public class DocsActivity extends BaseActivity {
         if(fragments.containsKey(position)){
             return fragments.get(position);
         }
-        Fragment fragment = DocsFragment.create(peer);
+        Fragment fragment = PhotoFragment.create(peer);
         fragments.put(position,fragment);
         return  fragment;
     }

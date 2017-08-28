@@ -1,6 +1,7 @@
 package im.actor.sdk.controllers.docs;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,65 +19,24 @@ import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.ActorBinder;
-import im.actor.sdk.controllers.conversation.messages.content.preprocessor.PreprocessedData;
+import im.actor.sdk.util.Screen;
+
 
 /**
  * Created by diego on 23/08/17.
  */
 
-public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsViewHolder>{
+public abstract class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsViewHolder>{
 
-    public static final int VIEW_TYPE_PHOTO = 1;
-    public static final int VIEW_TYPE_DOCUMENT = 2;
-    public static final int VIEW_TYPE_VIDEO = 3;
 
-    private ActorBinder BINDER = new ActorBinder();
-    private Context context;
-    private Peer peer;
-    private int viewSize;
+    protected ActorBinder BINDER = new ActorBinder();
+    protected Context context;
+    protected Peer peer;
 
-    public DocsAdapter(BindedDisplayList<Message> displayList, Context context, int viewSize) {
+
+    public DocsAdapter(BindedDisplayList<Message> displayList, Context context) {
         super(displayList);
         this.context = context;
-        this.viewSize = viewSize;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        AbsContent content = getItem(position).getContent();
-
-//        if(content.getClass().isAssignableFrom(PhotoContent.class)){
-//            return VIEW_TYPE_PHOTO;
-//        }else if(content.getClass().isAssignableFrom(VideoContent.class)){
-//            return VIEW_TYPE_VIDEO;
-//        }else if(content.getClass().isAssignableFrom(DocumentContent.class)){
-//            return VIEW_TYPE_DOCUMENT;
-//        }
-
-        return -1;
-    }
-
-    @Override
-    public DocsViewHolder onCreateViewHolder(final ViewGroup viewGroup, int viewType) {
-        View itemView = null;
-        switch (viewType){
-            case VIEW_TYPE_PHOTO :
-                itemView = LayoutInflater.from(context)
-                        .inflate(R.layout.adapter_docs_photo, viewGroup, false);
-                return new PhotoViewHolder(itemView);
-            case VIEW_TYPE_DOCUMENT:
-                itemView = LayoutInflater.from(context)
-                        .inflate(R.layout.adapter_docs_document, viewGroup, false);
-                return new DocumentViewHolder(itemView);
-            case VIEW_TYPE_VIDEO:
-                itemView = LayoutInflater.from(context)
-                        .inflate(R.layout.adapter_docs_video, viewGroup, false);
-                return new DocumentViewHolder(itemView);
-            default:
-                itemView = LayoutInflater.from(context)
-                        .inflate(R.layout.adapter_docs_default, viewGroup, false);
-                return new DefaultViewHolder(itemView);
-        }
     }
 
     @Override
@@ -93,28 +53,22 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
             prev = getItem(index + 1);
         }
 
-        if(viewSize > 0){
-            GridLayoutManager.LayoutParams params = (GridLayoutManager.LayoutParams) docsViewHolder.itemView.getLayoutParams();
-            params.width = viewSize;
-            params.height = viewSize;
-            docsViewHolder.itemView.setLayoutParams(params);
-        }
-
         docsViewHolder.bindData(item, prev, next);
     }
 
-    public void setViewSize(int viewSize) {
-        this.viewSize = viewSize;
-    }
 
     @Override
     public void onViewRecycled(DocsViewHolder holder) {
         holder.unbind();
     }
 
+    public abstract void onConfigurationChanged(Configuration newConfig);
+
+
     public ActorBinder getBinder() {
         return BINDER;
     }
+
 
     //Holders
     abstract class DocsViewHolder extends RecyclerView.ViewHolder{
@@ -137,25 +91,6 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
 
         }
 
-
-        @Override
-        public void unbind() {
-
-        }
-    }
-
-    class PhotoViewHolder extends DocsViewHolder{
-
-        public PhotoViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        @Override
-        public void bindData(Message message, Message prev, Message next) {
-
-        }
-
-
         @Override
         public void unbind() {
 
@@ -172,27 +107,11 @@ public class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsView
 
         }
 
-
         @Override
         public void unbind() {
 
         }
     }
 
-    class VideoViewHolder extends DocsViewHolder{
-        public VideoViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        @Override
-        public void bindData(Message message, Message prev, Message next) {
-
-        }
-
-        @Override
-        public void unbind() {
-
-        }
-    }
 
 }
