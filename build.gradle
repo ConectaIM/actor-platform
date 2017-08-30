@@ -1,13 +1,18 @@
 allprojects {
-
     repositories {
         jcenter()
         maven { url "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/"}
+        maven{
+            url "https://maven.google.com"
+        }
     }
 
     buildscript {
         repositories {
             jcenter()
+            maven{
+                url "https://maven.google.com"
+            }
         }
     }
 }

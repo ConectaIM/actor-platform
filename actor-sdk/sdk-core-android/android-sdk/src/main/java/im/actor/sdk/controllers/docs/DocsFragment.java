@@ -40,7 +40,7 @@ public abstract class DocsFragment extends DisplayListFragment<Message, DocsAdap
 
 
     protected BindedDisplayList<Message> onCreateDisplayList() {
-        BindedDisplayList<Message> displayList = messenger().getMessageDisplayList(peer);
+        BindedDisplayList<Message> displayList = messenger().getDocsDisplayList(peer);
         return displayList;
     }
 

@@ -32,6 +32,7 @@ import im.actor.core.entity.PeerType;
 import im.actor.core.entity.Reaction;
 import im.actor.core.entity.User;
 import im.actor.core.entity.content.AbsContent;
+import im.actor.core.entity.content.DocumentContent;
 import im.actor.core.entity.content.TextContent;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleActor;
@@ -425,6 +426,8 @@ public class RouterActor extends ModuleActor {
 
         // Processing all new messages
         ArrayList<Message> updated = new ArrayList<>();
+        ArrayList<Message> docsUpdated = new ArrayList<>();
+
         for (Message historyMessage : messages) {
             // Ignore already present messages
             if (conversation(peer).getValue(historyMessage.getEngineId()) != null) {
@@ -433,6 +436,11 @@ public class RouterActor extends ModuleActor {
 
             updated.add(historyMessage);
 
+            if(historyMessage.getContent().getClass().isAssignableFrom(DocumentContent.class)){
+                docsUpdated.add(historyMessage);
+            }
+
+
             if (historyMessage.getSenderId() != myUid()) {
                 maxMessageDate = Math.max(maxMessageDate, historyMessage.getSortDate());
             }
@@ -440,6 +448,7 @@ public class RouterActor extends ModuleActor {
 
         // Writing messages
         conversation(peer).addOrUpdateItems(updated);
+        docs(peer).addOrUpdateItems(docsUpdated);
 
         // Updating conversation state
         ConversationState state = conversationStates.getValue(peer.getUnuqueId());
@@ -774,6 +783,10 @@ public class RouterActor extends ModuleActor {
 
     private ListEngine<Message> conversation(Peer peer) {
         return context().getMessagesModule().getConversationEngine(peer);
+    }
+
+    private ListEngine<Message> docs(Peer peer) {
+        return context().getMessagesModule().getConversationDocsEngine(peer);
     }
 
     private void notifyActiveDialogsVM() {

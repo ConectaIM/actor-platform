@@ -104,19 +104,24 @@ public class ConversationHistoryActor extends ModuleActor {
         long maxLoadedDate = Long.MAX_VALUE;
         long maxReadDate = 0;
         long maxReceiveDate = 0;
+
         for (ApiMessageContainer historyMessage : history) {
 
             AbsContent content = AbsContent.fromMessage(historyMessage.getMessage());
+
             int state = EntityConverter.convert(historyMessage.getState());
             ArrayList<Reaction> reactions = new ArrayList<>();
+
             for (ApiMessageReaction r : historyMessage.getReactions()) {
                 reactions.add(new Reaction(r.getCode(), r.getUsers()));
             }
+
             messages.add(new Message(historyMessage.getRid(), historyMessage.getDate(),
                     historyMessage.getDate(), historyMessage.getSenderUid(),
                     state, content, reactions, 0));
 
             maxLoadedDate = Math.min(historyMessage.getDate(), maxLoadedDate);
+
             if (historyMessage.getState() == ApiMessageState.RECEIVED) {
                 maxReceiveDate = Math.max(historyMessage.getDate(), maxReceiveDate);
             } else if (historyMessage.getState() == ApiMessageState.READ) {
@@ -129,6 +134,7 @@ public class ConversationHistoryActor extends ModuleActor {
 
         // Sending updates to conversation actor
         final long finalMaxLoadedDate = maxLoadedDate;
+
         return context().getMessagesModule().getRouter()
                 .onChatHistoryLoaded(peer, messages, maxReceiveDate, maxReadDate, isEnded)
                 .map(r -> {

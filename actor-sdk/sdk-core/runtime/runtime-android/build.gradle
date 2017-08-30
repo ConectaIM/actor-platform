@@ -13,12 +13,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '26.0.0'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
     }
 }
 
@@ -48,11 +48,11 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:recyclerview-v7:24.0.0'
-    compile 'com.squareup.okhttp:okhttp:2+'
+    compile 'com.android.support:recyclerview-v7:26.0.1'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'io.pristine:libjingle:11139@aar'
 
     //Video Compressor
-    compile 'br.com.diegosilva:vclibrary:1.0.09-SNAPSHOT'
+    compile 'br.com.diegosilva:vclibrary:1.0.10-SNAPSHOT'
 
 }

@@ -20,8 +20,8 @@ def baseVersion = "3.0"
 
 android {
 
-    compileSdkVersion 25
-    buildToolsVersion '26.0.0'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         minSdkVersion 15
@@ -92,20 +92,19 @@ dependencies {
 
     // Core
     compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2'
 
     // Android Support
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:support-v13:25.3.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:palette-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:customtabs:25.3.1'
+    compile 'com.android.support:support-v4:26.0.1'
+    compile 'com.android.support:support-v13:26.0.1'
+    compile 'com.android.support:appcompat-v7:26.0.1'
+    compile 'com.android.support:palette-v7:26.0.1'
+    compile 'com.android.support:recyclerview-v7:26.0.1'
+    compile 'com.android.support:design:26.0.1'
+    compile 'com.android.support:customtabs:26.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     //Video Compressor
-    compile 'br.com.diegosilva:vclibrary:1.0.09-SNAPSHOT'
+    compile 'br.com.diegosilva:vclibrary:1.0.10-SNAPSHOT'
 }
 
 //
