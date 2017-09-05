@@ -6,8 +6,8 @@ import akka.http.scaladsl.util.FastFuture
 import im.actor.api.rpc.PeerHelpers._
 import im.actor.api.rpc._
 import im.actor.api.rpc.messaging._
-import im.actor.api.rpc.misc.{ ResponseSeq, ResponseVoid }
-import im.actor.api.rpc.peers.{ ApiOutPeer, ApiPeerType }
+import im.actor.api.rpc.misc.{ResponseSeq, ResponseVoid}
+import im.actor.api.rpc.peers.{ApiOutPeer, ApiPeerType}
 import im.actor.api.rpc.sequence.ApiUpdateOptimization
 import im.actor.server.dialog.HistoryUtils
 import im.actor.server.group.CanSendMessageInfo
@@ -222,6 +222,55 @@ trait HistoryHandlers {
             }
           ((users, userPeers), (groups, groupPeers)) ← DBIO.from(usersAndGroupsByIds(groupIds, userIds, stripEntities, loadGroupMembers))
         } yield Ok(ResponseLoadHistory(
+          history = messages,
+          users = users,
+          userPeers = userPeers,
+          groups = groups,
+          groupPeers = groupPeers
+        ))
+        db.run(action)
+      }
+    }
+
+  /** Loading docs history of chat */
+  override protected def doHandleLoadDocsHistory(
+                           peer:          ApiOutPeer,
+                           date:          Long,
+                           mode:          Option[ApiListLoadMode.Value],
+                           limit:         Int,
+                           clientData:    ClientData
+                         ): Future[HandlerResult[ResponseLoadDocsHistory]] =
+    authorized(clientData) { implicit client ⇒
+      withOutPeer(peer) {
+        val modelPeer = peer.asModel
+
+        val action = for {
+          historyOwner ← DBIO.from(getHistoryOwner(modelPeer, client.userId))
+          (lastReceivedAt, lastReadAt) ← getLastReceiveReadDates(modelPeer)
+
+          messageModels <- HistoryMessageRepo.find(historyOwner, modelPeer, endDateTimeFrom(date), limit, 3)
+
+          reactions ← dialogExt.fetchReactions(modelPeer, client.userId, messageModels.map(_.randomId).toSet)
+
+          (messages, userIds, groupIds) = messageModels.view
+            .map(_.ofUser(client.userId))
+            .foldLeft(Vector.empty[ApiMessageContainer], Set.empty[Int], Set.empty[Int]) {
+              case ((msgs, uids, guids), message) ⇒
+                message.asStruct(lastReceivedAt, lastReadAt, reactions.getOrElse(message.randomId, Vector.empty)).toOption match {
+                  case Some(messageStruct) ⇒
+                    val newMsgs = msgs :+ messageStruct
+
+                    val newUserIds = relatedUsers(messageStruct.message) ++
+                      (if (message.senderUserId != client.userId)
+                        uids + message.senderUserId
+                      else
+                        uids)
+                    (newMsgs, newUserIds, guids ++ messageStruct._relatedGroupIds)
+                  case None ⇒ (msgs, uids, guids)
+                }
+            }
+          ((users, userPeers), (groups, groupPeers)) ← DBIO.from(usersAndGroupsByIds(groupIds, userIds, true, true))
+        } yield Ok(ResponseLoadDocsHistory(
           history = messages,
           users = users,
           userPeers = userPeers,

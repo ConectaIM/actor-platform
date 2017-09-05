@@ -51,6 +51,7 @@ import im.actor.core.modules.messaging.actions.MessageDeleteActor;
 import im.actor.core.modules.messaging.actions.SenderActor;
 import im.actor.core.modules.messaging.dialogs.DialogsInt;
 import im.actor.core.modules.messaging.history.ArchivedDialogsActor;
+import im.actor.core.modules.messaging.history.ConversationDocsHistory;
 import im.actor.core.modules.messaging.history.ConversationHistory;
 import im.actor.core.modules.messaging.history.DialogsHistoryActor;
 import im.actor.core.modules.messaging.router.RouterInt;
@@ -90,7 +91,9 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
     private ActorRef sendMessageActor;
     private ActorRef deletionsActor;
     private RouterInt router;
+
     private final HashMap<Peer, ConversationHistory> historyLoaderActors = new HashMap<>();
+    private final HashMap<Peer, ConversationDocsHistory> historyDocsLoaderActors = new HashMap<>();
 
     private MVVMCollection<ConversationState, ConversationVM> conversationStates;
 
@@ -150,6 +153,15 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
                 historyLoaderActors.put(peer, new ConversationHistory(peer, context()));
             }
             return historyLoaderActors.get(peer);
+        }
+    }
+
+    public ConversationDocsHistory getDocsHistoryActor(final Peer peer) {
+        synchronized (historyDocsLoaderActors) {
+            if (!historyDocsLoaderActors.containsKey(peer)) {
+                historyDocsLoaderActors.put(peer, new ConversationDocsHistory(peer, context()));
+            }
+            return historyDocsLoaderActors.get(peer);
         }
     }
 
@@ -432,6 +444,10 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
 
     public void loadMoreHistory(final Peer peer) {
         im.actor.runtime.Runtime.dispatch(() -> getHistoryActor(peer).loadMore());
+    }
+
+    public void loadMoreDocsHistory(final Peer peer){
+        im.actor.runtime.Runtime.dispatch(() -> getDocsHistoryActor(peer).loadMore());
     }
 
     //

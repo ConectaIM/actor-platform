@@ -1,15 +1,16 @@
 package im.actor.server.persist
 
 import com.github.tototoshi.slick.PostgresJodaSupport._
-import im.actor.server.model.{ Peer, PeerType, HistoryMessage }
+import im.actor.server.model.{HistoryMessage, Peer, PeerType}
 import org.joda.time.DateTime
-import slick.dbio.Effect.{ Write, Read }
+import slick.dbio.Effect.{Read, Write}
 import slick.driver.PostgresDriver
 import slick.driver.PostgresDriver.api._
 import slick.jdbc.GetResult
-import slick.profile.{ SqlStreamingAction, SqlAction, FixedSqlStreamingAction, FixedSqlAction }
+import slick.profile.{FixedSqlAction, FixedSqlStreamingAction, SqlAction, SqlStreamingAction}
 
 final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "history_messages") {
+
   def userId = column[Int]("user_id", O.PrimaryKey)
 
   def peerType = column[Int]("peer_type", O.PrimaryKey)
@@ -86,7 +87,23 @@ object HistoryMessageRepo {
       case None ⇒
         baseQuery.sortBy(_.date.asc)
     }
+    query.take(limit).result
+  }
 
+  def find(userId: Int, peer: Peer, dateOpt: Option[DateTime], limit: Int, messageType:Int): FixedSqlStreamingAction[Seq[HistoryMessage], HistoryMessage, Read] = {
+    val baseQuery = notDeletedMessages
+      .filter(m ⇒
+        m.userId === userId &&
+          m.peerType === peer.typ.value &&
+          m.peerId === peer.id &&
+          m.messageContentHeader === messageType)
+
+    val query = dateOpt match {
+      case Some(date) ⇒
+        baseQuery.filter(_.date <= date).sortBy(_.date.desc)
+      case None ⇒
+        baseQuery.sortBy(_.date.asc)
+    }
     query.take(limit).result
   }
 

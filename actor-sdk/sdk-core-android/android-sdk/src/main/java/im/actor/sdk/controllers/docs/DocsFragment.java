@@ -69,7 +69,4 @@ public abstract class DocsFragment extends DisplayListFragment<Message, DocsAdap
         recyclerView.setVerticalScrollBarEnabled(true);
     }
 
-
-
-
 }

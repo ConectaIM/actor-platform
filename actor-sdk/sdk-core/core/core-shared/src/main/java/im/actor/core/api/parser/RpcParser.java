@@ -68,6 +68,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 210: return RequestMessageSetReaction.fromBytes(payload);
             case 220: return RequestMessageRemoveReaction.fromBytes(payload);
             case 118: return RequestLoadHistory.fromBytes(payload);
+            case 262: return RequestLoadDocsHistory.fromBytes(payload);
             case 104: return RequestLoadDialogs.fromBytes(payload);
             case 2651: return RequestLoadArchived.fromBytes(payload);
             case 225: return RequestLoadGroupedDialogs.fromBytes(payload);
@@ -198,6 +199,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 2639: return ResponseLoadBlockedUsers.fromBytes(payload);
             case 219: return ResponseReactionsResponse.fromBytes(payload);
             case 119: return ResponseLoadHistory.fromBytes(payload);
+            case 263: return ResponseLoadDocsHistory.fromBytes(payload);
             case 105: return ResponseLoadDialogs.fromBytes(payload);
             case 2652: return ResponseLoadArchived.fromBytes(payload);
             case 226: return ResponseLoadGroupedDialogs.fromBytes(payload);

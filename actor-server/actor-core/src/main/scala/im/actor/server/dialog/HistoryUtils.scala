@@ -2,18 +2,16 @@ package im.actor.server.dialog
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.util.FastFuture
-import im.actor.server.group.{ GroupExtension, GroupUtils }
-import im.actor.server.model.{ HistoryMessage, Peer, PeerType }
+import im.actor.server.group.{GroupExtension}
+import im.actor.server.model.{HistoryMessage, Peer, PeerType}
 import im.actor.server.persist.HistoryMessageRepo
 import org.joda.time.DateTime
 import slick.dbio.DBIO
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.control.NoStackTrace
 
 object HistoryUtils {
-
-  import GroupUtils._
 
   // User for writing history in public groups
   val SharedUserId = 0
