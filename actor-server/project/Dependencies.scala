@@ -11,6 +11,7 @@ object Dependencies {
     val akkaHttpJson = "1.10.0"
     val cats = "0.7.2"
     val circe = "0.5.1"
+    val elastic4s = "2.4.0"
     val kamon = "0.5.2"
     val slick = "3.1.1"
     val slickPg = "0.14.3"
@@ -38,6 +39,10 @@ object Dependencies {
     val akkaHttpPlayJson        = "de.heikoseeberger"             %% "akka-http-play-json"           % V.akkaHttpJson
     val akkaHttpCirce           = "de.heikoseeberger"             %% "akka-http-circe"               % V.akkaHttpJson
     val akkaSlf4j               = "com.typesafe.akka"             %% "akka-slf4j"                    % V.akka
+    val autolink                = "org.nibor.autolink"            %  "autolink"                      % "0.6.0"
+//    val elastic4sCirce          = "com.sksamuel.elastic4s"        %% "elastic4s-circe"               % V.elastic4s
+    val elastic4sCore           = "com.sksamuel.elastic4s"        %% "elastic4s-core"                % V.elastic4s
+    val languageDetector        = "com.optimaize.languagedetector" % "language-detector"             % "0.6"
 
     val sprayClient             = "io.spray"                      %% "spray-client"                  % "1.3.3"
     val sprayWebsocket          = "com.wandoulabs.akka"           %% "spray-websocket"               % "0.1.4"
@@ -189,6 +194,13 @@ object Dependencies {
   val email = shared ++ Seq(akkaActor, apacheEmail)
 
   val oauth = shared ++ Seq(akkaActor, akkaHttp, playJson)
+
+  val search = shared ++ Seq(
+    autolink,
+//    elastic4sCirce,
+    elastic4sCore,
+    languageDetector
+  )
 
   val session = shared ++ Seq(
     akkaSlf4j, akkaActor, akkaStream, scodecCore

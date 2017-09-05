@@ -1,5 +1,5 @@
 import com.typesafe.sbt.SbtMultiJvm.MultiJvmKeys.MultiJvm
-import im.actor.{Configs, Dependencies, Versioning, Resolvers, SbtActorApi}
+import im.actor.{Configs, Dependencies, Resolvers, SbtActorApi, Versioning}
 import sbt.Keys.{baseDirectory, libraryDependencies, unmanagedResourceDirectories}
 
 val ScalaVersion = "2.11.11"
@@ -78,7 +78,8 @@ lazy val protobuffSettings = Seq(
     file("actor-fs-adapters/src/main/protobuf"),
     file("actor-session-messages/src/main/protobuf"),
     file("actor-bots/src/main/protobuf"),
-    file("actor-notify/src/main/protobuf")
+    file("actor-notify/src/main/protobuf"),
+    file("actor-search/src/main/protobuf")
     ),
 
     PB.targets in Compile := Seq(
@@ -246,6 +247,12 @@ lazy val actorOAuth = Project(
 )
   .dependsOn(actorPersist)
 
+lazy val actorSearch = Project(
+  id = "actor-search",
+  base = file("actor-search"),
+  settings = defaultSettingsServer ++ Seq(libraryDependencies ++= Dependencies.search)
+).dependsOn(actorRpcApi)
+
 lazy val actorSession = Project(
   id = "actor-session",
   base = file("actor-session"),
@@ -386,6 +393,7 @@ lazy val actorServerSdk = Project(
   actorPersist,
   actorRpcApi,
   actorRuntime,
+  actorSearch,
   actorSession,
   actorSessionMessages,
   actorSms
