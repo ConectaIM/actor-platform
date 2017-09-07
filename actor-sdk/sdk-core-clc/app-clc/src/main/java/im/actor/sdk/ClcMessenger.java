@@ -73,4 +73,8 @@ public class ClcMessenger extends Messenger {
         return ((ClcJavaPreferenceStorage) modules.getPreferences()).getPref();
     }
 
+    public static ClcMessenger messenger(){
+        return (ClcMessenger) ActorSDK.sharedActor().getMessenger();
+    }
+
 }

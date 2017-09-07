@@ -203,7 +203,6 @@ public class ClcApplication {
             public void onResult(Integer res) {
                 Log.d(TAG, res.toString());
                 sendCode("0000");
-
             }
 
             @Override
