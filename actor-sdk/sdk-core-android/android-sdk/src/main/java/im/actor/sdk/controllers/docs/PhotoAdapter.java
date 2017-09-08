@@ -42,13 +42,11 @@ public class PhotoAdapter extends DocsAdapter {
     @Override
     public int getItemViewType(int position) {
         AbsContent content = getItem(position).getContent();
-
         if(content.getClass().isAssignableFrom(PhotoContent.class)){
             return VIEW_TYPE_PHOTO;
         }else if(content.getClass().isAssignableFrom(VideoContent.class)){
             return VIEW_TYPE_VIDEO;
         }
-
         return -1;
     }
 

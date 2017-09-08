@@ -538,7 +538,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
             list.setBindHook(new BindedDisplayList.BindHook<Message>() {
                 @Override
                 public void onScrolledToEnd() {
-                    modules.getMessagesModule().loadMoreHistory(peer);
+                    modules.getMessagesModule().loadMoreDocsHistory(peer);
                 }
 
                 @Override

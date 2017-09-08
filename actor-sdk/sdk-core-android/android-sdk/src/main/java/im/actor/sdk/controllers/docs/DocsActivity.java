@@ -2,6 +2,8 @@ package im.actor.sdk.controllers.docs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -12,6 +14,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,6 +28,7 @@ import im.actor.sdk.ActorStyle;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.controllers.conversation.ChatFragment;
+import im.actor.sdk.view.ActorToolbar;
 
 /**
  * Created by diego on 10/08/17.
@@ -38,7 +44,7 @@ public class DocsActivity extends BaseActivity {
 
     private ViewPager mPager;
     private TabLayout tabLayout;
-    private Toolbar toolbar;
+    private ActorToolbar toolbar;
     private Map<Integer, Fragment> fragments = new HashMap<>();
     private Peer peer;
 
@@ -58,9 +64,17 @@ public class DocsActivity extends BaseActivity {
     }
 
     private void setupTabs() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(STYLE.getToolBarColor());
-        toolbar.setTitleTextColor(STYLE.getTabTextPrimaryColor());
+        toolbar = (ActorToolbar) findViewById(R.id.toolbar);
+
+        final TypedArray styledAttributes = getTheme().obtainStyledAttributes(new int[]{R.attr.actionBarSize});
+        int actionBarSize = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+
+        toolbar.setLayoutParams(new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, actionBarSize));
+        toolbar.setMinimumHeight(actionBarSize);
+        toolbar.setId(R.id.toolbar);
+        toolbar.setBackgroundColor(ActorSDK.sharedActor().style.getToolBarColor());
+        toolbar.setItemColor(STYLE.getTabTextPrimaryColor());
 
         setSupportActionBar(toolbar);
         setToolbar(R.string.shared_media, true);
