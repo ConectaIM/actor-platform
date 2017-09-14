@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import im.actor.core.entity.Message;
@@ -17,6 +18,7 @@ import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.DisplayListFragment;
+import im.actor.sdk.controllers.docs.holders.DocsViewHolder;
 import im.actor.sdk.util.Screen;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
@@ -25,7 +27,7 @@ import static im.actor.sdk.util.ActorSDKMessenger.messenger;
  * Created by dsilv on 06/08/2017.
  */
 
-public abstract class DocsFragment extends DisplayListFragment<Message, DocsAdapter.DocsViewHolder> {
+public abstract class DocsFragment extends DisplayListFragment<Message, DocsViewHolder> {
 
 
     protected Peer peer;

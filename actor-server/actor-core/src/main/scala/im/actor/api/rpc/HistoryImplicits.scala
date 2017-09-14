@@ -43,6 +43,27 @@ trait HistoryImplicits {
         case e: Exception ⇒ Xor.Left(e.getMessage)
       }
     }
+
+    def asStruct2(attributes: Option[ApiMessageAttributes] = None
+                 ): Xor[String, ApiMessageContainer] = {
+      val in = CodedInputStream.newInstance(model.messageContentData)
+      try {
+        Xor.fromEither(ApiMessage.parseFrom(in)) map { messageContent ⇒
+          ApiMessageContainer(
+            senderUserId = model.senderUserId,
+            randomId = model.randomId,
+            date = model.date.getMillis,
+            message = messageContent,
+            state = None,
+            reactions = Vector.empty,
+            attribute = attributes,
+            quotedMessage = None
+          )
+        }
+      } catch {
+        case e: Exception ⇒ Xor.Left(e.getMessage)
+      }
+    }
   }
 
 }

@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.hardware.display.DisplayManager;
 import android.media.MediaMetadataRetriever;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -146,7 +145,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         });
     }
 
-    private void verifyNetworkState(Context ctx){
+    private void verifyNetworkState(Context ctx) {
         ConnectivityManager cm =
                 (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -172,7 +171,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
             state = NetworkState.NO_CONNECTION;
         }
 
-        Log.d(TAG, "Connection State: "+NetworkState.getDesription(state));
+        Log.d(TAG, "Connection State: " + NetworkState.getDesription(state));
         onNetworkChanged(state);
     }
 

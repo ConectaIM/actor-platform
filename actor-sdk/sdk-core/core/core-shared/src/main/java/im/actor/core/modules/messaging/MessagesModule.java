@@ -462,8 +462,10 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
     public void onBusEvent(Event event) {
         if (event instanceof PeerChatOpened) {
             getHistoryActor(((PeerChatOpened) event).getPeer());
+            getDocsHistoryActor(((PeerChatOpened) event).getPeer());
         } else if (event instanceof PeerChatPreload) {
             getHistoryActor(((PeerChatPreload) event).getPeer());
+            getDocsHistoryActor(((PeerChatOpened) event).getPeer());
         }
     }
 }

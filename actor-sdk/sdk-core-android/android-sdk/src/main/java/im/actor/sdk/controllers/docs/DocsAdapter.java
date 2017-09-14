@@ -15,24 +15,23 @@ import im.actor.core.entity.content.AbsContent;
 import im.actor.core.entity.content.DocumentContent;
 import im.actor.core.entity.content.PhotoContent;
 import im.actor.core.entity.content.VideoContent;
+import im.actor.core.viewmodel.FileVM;
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
-import im.actor.sdk.R;
 import im.actor.sdk.controllers.ActorBinder;
-import im.actor.sdk.util.Screen;
+import im.actor.sdk.controllers.docs.holders.DocsViewHolder;
 
 
 /**
  * Created by diego on 23/08/17.
  */
 
-public abstract class DocsAdapter extends BindedListAdapter<Message, DocsAdapter.DocsViewHolder>{
+public abstract class DocsAdapter extends BindedListAdapter<Message, DocsViewHolder>{
 
 
     protected ActorBinder BINDER = new ActorBinder();
     protected Context context;
     protected Peer peer;
-
 
     public DocsAdapter(BindedDisplayList<Message> displayList, Context context) {
         super(displayList);
@@ -53,7 +52,7 @@ public abstract class DocsAdapter extends BindedListAdapter<Message, DocsAdapter
             prev = getItem(index + 1);
         }
 
-        docsViewHolder.bindData(item, prev, next);
+        docsViewHolder.bindData(item);
     }
 
 
@@ -69,49 +68,8 @@ public abstract class DocsAdapter extends BindedListAdapter<Message, DocsAdapter
         return BINDER;
     }
 
-
-    //Holders
-    abstract class DocsViewHolder extends RecyclerView.ViewHolder{
-        public DocsViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        public abstract void bindData(Message message, Message prev, Message next);
-
-        public abstract void unbind();
+    public Context getContext() {
+        return context;
     }
-
-    class DefaultViewHolder extends DocsViewHolder{
-        public DefaultViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        @Override
-        public void bindData(Message message, Message prev, Message next) {
-
-        }
-
-        @Override
-        public void unbind() {
-
-        }
-    }
-
-    class DocumentViewHolder extends DocsViewHolder{
-        public DocumentViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        @Override
-        public void bindData(Message message, Message prev, Message next) {
-
-        }
-
-        @Override
-        public void unbind() {
-
-        }
-    }
-
-
+    
 }

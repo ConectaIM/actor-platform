@@ -70,38 +70,33 @@ public class MessagesAdapter extends BindedListAdapter<Message, AbsMessageViewHo
         readDate = conversationVM.getReadDate().get();
         receiveDate = conversationVM.getReceiveDate().get();
 
-        BINDER.bind(conversationVM.getReadDate(), new ValueChangedListener<Long>() {
-            @Override
-            public void onChanged(Long val, Value<Long> valueModel) {
-                if (val != readDate) {
-                    for (int i = 0; i < displayList.getSize(); i++) {
-                        long date = displayList.getItem(i).getSortDate();
-                        if (date > readDate && date <= val) {
-                            notifyItemChanged(i);
-                        }
-                        if (date <= readDate) {
-                            break;
-                        }
+        BINDER.bind(conversationVM.getReadDate(), (val, valueModel) -> {
+            if (val != readDate) {
+                for (int i = 0; i < displayList.getSize(); i++) {
+                    long date = displayList.getItem(i).getSortDate();
+                    if (date > readDate && date <= val) {
+                        notifyItemChanged(i);
                     }
-                    readDate = val;
+                    if (date <= readDate) {
+                        break;
+                    }
                 }
+                readDate = val;
             }
         });
-        BINDER.bind(conversationVM.getReceiveDate(), new ValueChangedListener<Long>() {
-            @Override
-            public void onChanged(Long val, Value<Long> valueModel) {
-                if (val != receiveDate) {
-                    for (int i = 0; i < displayList.getSize(); i++) {
-                        long date = displayList.getItem(i).getSortDate();
-                        if (date > receiveDate && date <= val) {
-                            notifyItemChanged(i);
-                        }
-                        if (date <= receiveDate) {
-                            break;
-                        }
+
+        BINDER.bind(conversationVM.getReceiveDate(), (val, valueModel) -> {
+            if (val != receiveDate) {
+                for (int i = 0; i < displayList.getSize(); i++) {
+                    long date = displayList.getItem(i).getSortDate();
+                    if (date > receiveDate && date <= val) {
+                        notifyItemChanged(i);
                     }
-                    receiveDate = val;
+                    if (date <= receiveDate) {
+                        break;
+                    }
                 }
+                receiveDate = val;
             }
         });
     }

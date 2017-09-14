@@ -1,15 +1,7 @@
 package clc;
 
-import im.actor.core.Configuration;
-import im.actor.core.ConfigurationBuilder;
-import im.actor.core.Messenger;
-import im.actor.core.modules.ModuleCreateListener;
-import im.actor.core.modules.Modules;
-import im.actor.core.providers.PhoneBookProvider;
 import im.actor.runtime.Log;
 import im.actor.sdk.ActorSDK;
-import im.actor.sdk.ActorSDKCreateListener;
-import im.actor.sdk.ClcMessenger;
 import im.actor.sdk.controller.RootController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-
 
 
 public class FxClcApplication extends Application {

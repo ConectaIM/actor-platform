@@ -246,37 +246,32 @@ trait HistoryHandlers {
 
         val action = for {
           historyOwner ← DBIO.from(getHistoryOwner(modelPeer, client.userId))
+
           (lastReceivedAt, lastReadAt) ← getLastReceiveReadDates(modelPeer)
 
           messageModels <- HistoryMessageRepo.find(historyOwner, modelPeer, endDateTimeFrom(date), limit, 3)
-
-          reactions ← dialogExt.fetchReactions(modelPeer, client.userId, messageModels.map(_.randomId).toSet)
 
           (messages, userIds, groupIds) = messageModels.view
             .map(_.ofUser(client.userId))
             .foldLeft(Vector.empty[ApiMessageContainer], Set.empty[Int], Set.empty[Int]) {
               case ((msgs, uids, guids), message) ⇒
-                message.asStruct(lastReceivedAt, lastReadAt, reactions.getOrElse(message.randomId, Vector.empty)).toOption match {
+                message.asStruct2().toOption match {
                   case Some(messageStruct) ⇒
                     val newMsgs = msgs :+ messageStruct
-
-                    val newUserIds = relatedUsers(messageStruct.message) ++
-                      (if (message.senderUserId != client.userId)
-                        uids + message.senderUserId
-                      else
-                        uids)
-                    (newMsgs, newUserIds, guids ++ messageStruct._relatedGroupIds)
-                  case None ⇒ (msgs, uids, guids)
+                    (newMsgs, Set.empty, Set.empty)
+                  case None ⇒ (msgs, Set.empty, Set.empty)
                 }
             }
-          ((users, userPeers), (groups, groupPeers)) ← DBIO.from(usersAndGroupsByIds(groupIds, userIds, true, true))
+
+          //((users, userPeers), (groups, groupPeers)) ← DBIO.from(usersAndGroupsByIds(groupIds, userIds, true, true))
         } yield Ok(ResponseLoadDocsHistory(
           history = messages,
-          users = users,
-          userPeers = userPeers,
-          groups = groups,
-          groupPeers = groupPeers
+          users = Vector.empty,
+          userPeers = Vector.empty,
+          groups = Vector.empty,
+          groupPeers = Vector.empty
         ))
+
         db.run(action)
       }
     }

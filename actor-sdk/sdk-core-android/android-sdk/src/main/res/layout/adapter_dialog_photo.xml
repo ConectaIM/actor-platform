@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<im.actor.sdk.controllers.conversation.view.BubbleContainer
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<im.actor.sdk.controllers.conversation.view.BubbleContainer xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

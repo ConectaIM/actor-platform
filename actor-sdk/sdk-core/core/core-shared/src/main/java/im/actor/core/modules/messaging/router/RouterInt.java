@@ -17,6 +17,7 @@ import im.actor.core.modules.messaging.router.entity.RouterAppHidden;
 import im.actor.core.modules.messaging.router.entity.RouterAppVisible;
 import im.actor.core.modules.messaging.router.entity.RouterApplyChatHistory;
 import im.actor.core.modules.messaging.router.entity.RouterApplyDialogsHistory;
+import im.actor.core.modules.messaging.router.entity.RouterApplyDocsHistory;
 import im.actor.core.modules.messaging.router.entity.RouterChangedContent;
 import im.actor.core.modules.messaging.router.entity.RouterConversationHidden;
 import im.actor.core.modules.messaging.router.entity.RouterConversationVisible;
@@ -120,6 +121,10 @@ public class RouterInt extends ActorInterface implements BusSubscriber {
 
     public Promise<Void> onChatHistoryLoaded(Peer peer, List<Message> history, Long maxReceivedDate, Long maxReadDate, boolean isEnded) {
         return ask(new RouterApplyChatHistory(peer, history, maxReceivedDate, maxReadDate, isEnded));
+    }
+
+    public Promise<Void> onDocsHistoryLoaded(Peer peer, List<Message> history, Long maxReceivedDate, Long maxReadDate, boolean isEnded) {
+        return ask(new RouterApplyDocsHistory(peer, history, maxReceivedDate, maxReadDate, isEnded));
     }
 
 

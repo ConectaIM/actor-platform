@@ -10,6 +10,7 @@ import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
+import im.actor.sdk.controllers.docs.holders.DocsViewHolder;
 import im.actor.sdk.util.Screen;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
@@ -29,7 +30,7 @@ public class PhotoFragment extends DocsFragment implements PhotoAdapter.SpanCoun
     }
 
     @Override
-    protected BindedListAdapter<Message, DocsAdapter.DocsViewHolder> onCreateAdapter(BindedDisplayList<Message> displayList, Activity activity) {
+    protected BindedListAdapter<Message, DocsViewHolder> onCreateAdapter(BindedDisplayList<Message> displayList, Activity activity) {
         return new PhotoAdapter(displayList, activity, this);
     }
 

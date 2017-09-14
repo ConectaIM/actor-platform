@@ -1,6 +1,9 @@
 package im.actor.sdk.controller;
 
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import im.actor.core.entity.AuthRes;
 import im.actor.runtime.Log;
 import javafx.fxml.FXML;
@@ -11,9 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static im.actor.sdk.ClcMessenger.messenger;
 import static javafx.application.Platform.runLater;
@@ -53,7 +53,7 @@ public class ValidarCodigoController implements Initializable {
         runLater(() -> {
             messenger().doCompleteAuth(authRes)
                     .then(v -> {
-                        runLater(()->{
+                        runLater(() -> {
                             try {
                                 Log.d(TAG, "Entrou");
 

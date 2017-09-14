@@ -1,5 +1,6 @@
 package im.actor.sdk.controllers;
 
+import android.net.Uri;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -216,7 +217,7 @@ public class ActorBinder {
                     avatarView.bind(val);
                 } else {
                     avatarView.unbind();
-                    avatarView.setImageURI(null);
+                    avatarView.setImageURI(Uri.EMPTY);
                 }
             }
         });

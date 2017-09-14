@@ -49,6 +49,7 @@ import im.actor.core.modules.messaging.router.entity.RouterAppHidden;
 import im.actor.core.modules.messaging.router.entity.RouterAppVisible;
 import im.actor.core.modules.messaging.router.entity.RouterApplyChatHistory;
 import im.actor.core.modules.messaging.router.entity.RouterApplyDialogsHistory;
+import im.actor.core.modules.messaging.router.entity.RouterApplyDocsHistory;
 import im.actor.core.modules.messaging.router.entity.RouterChangedContent;
 import im.actor.core.modules.messaging.router.entity.RouterConversationHidden;
 import im.actor.core.modules.messaging.router.entity.RouterConversationVisible;
@@ -218,6 +219,9 @@ public class RouterActor extends ModuleActor {
         int unreadCount = 0;
         long maxInReadDate = 0;
         long maxInDate = 0;
+
+        List<Message> docsMessages = new ArrayList<>();
+
         for (Message m : messages) {
             if (topMessage == null || topMessage.getSortDate() < m.getSortDate()) {
                 topMessage = m;
@@ -231,6 +235,12 @@ public class RouterActor extends ModuleActor {
                     maxInDate = Math.max(maxInDate, m.getSortDate());
                 }
             }
+
+            if(m.getContent() instanceof DocumentContent){
+                docsMessages.add(m);
+            }
+
+
         }
 
 
@@ -239,6 +249,8 @@ public class RouterActor extends ModuleActor {
         //
         conversation(peer).addOrUpdateItems(messages);
 
+        //docs messages
+        docs(peer).addOrUpdateItems(docsMessages);
 
         //
         // Update Chat State
@@ -421,12 +433,9 @@ public class RouterActor extends ModuleActor {
                                               Long maxReceiveDate, boolean isEnded) {
 
         Log.d(TAG, "History Loaded");
-
         long maxMessageDate = 0;
-
         // Processing all new messages
         ArrayList<Message> updated = new ArrayList<>();
-        ArrayList<Message> docsUpdated = new ArrayList<>();
 
         for (Message historyMessage : messages) {
             // Ignore already present messages
@@ -436,11 +445,6 @@ public class RouterActor extends ModuleActor {
 
             updated.add(historyMessage);
 
-            if(historyMessage.getContent().getClass().isAssignableFrom(DocumentContent.class)){
-                docsUpdated.add(historyMessage);
-            }
-
-
             if (historyMessage.getSenderId() != myUid()) {
                 maxMessageDate = Math.max(maxMessageDate, historyMessage.getSortDate());
             }
@@ -448,7 +452,6 @@ public class RouterActor extends ModuleActor {
 
         // Writing messages
         conversation(peer).addOrUpdateItems(updated);
-        docs(peer).addOrUpdateItems(docsUpdated);
 
         // Updating conversation state
         ConversationState state = conversationStates.getValue(peer.getUnuqueId());
@@ -480,6 +483,33 @@ public class RouterActor extends ModuleActor {
 
         // Reading messages if needed
         markAsReadIfNeeded(peer);
+
+        return Promise.success(null);
+    }
+
+    private Promise<Void> onChatDocsLoaded(Peer peer, List<Message> messages, Long maxReadDate,
+                                              Long maxReceiveDate, boolean isEnded) {
+
+        Log.d(TAG, "History Docs Loaded");
+        long maxMessageDate = 0;
+        // Processing all new messages
+        ArrayList<Message> updated = new ArrayList<>();
+
+        for (Message historyMessage : messages) {
+            // Ignore already present messages
+            if (docs(peer).getValue(historyMessage.getEngineId()) != null) {
+                continue;
+            }
+
+            updated.add(historyMessage);
+
+            if (historyMessage.getSenderId() != myUid()) {
+                maxMessageDate = Math.max(maxMessageDate, historyMessage.getSortDate());
+            }
+        }
+
+        // Writing messages
+        docs(peer).addOrUpdateItems(updated);
 
         return Promise.success(null);
     }
@@ -986,6 +1016,14 @@ public class RouterActor extends ModuleActor {
         } else if (message instanceof RouterApplyChatHistory) {
             RouterApplyChatHistory chatHistory = (RouterApplyChatHistory) message;
             return onChatHistoryLoaded(
+                    chatHistory.getPeer(),
+                    chatHistory.getMessages(),
+                    chatHistory.getMaxReadDate(),
+                    chatHistory.getMaxReceiveDate(),
+                    chatHistory.isEnded());
+        } else if (message instanceof RouterApplyDocsHistory) {
+            RouterApplyDocsHistory chatHistory = (RouterApplyDocsHistory) message;
+            return onChatDocsLoaded(
                     chatHistory.getPeer(),
                     chatHistory.getMessages(),
                     chatHistory.getMaxReadDate(),

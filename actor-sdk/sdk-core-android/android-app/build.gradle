@@ -34,7 +34,7 @@ android {
     }
 
     productFlavors {
-        production{}
+        production {}
         avell {
             applicationIdSuffix ".avell"
         }

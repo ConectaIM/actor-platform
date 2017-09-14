@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
@@ -43,7 +44,7 @@ import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.util.Files;
 import im.actor.sdk.util.images.common.ImageLoadException;
 import im.actor.sdk.util.images.ops.ImageLoading;
-import uk.co.senab.photoview.PhotoView;
+//import uk.co.senab.photoview.PhotoView;
 
 import static im.actor.sdk.util.ActorSDKMessenger.groups;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;

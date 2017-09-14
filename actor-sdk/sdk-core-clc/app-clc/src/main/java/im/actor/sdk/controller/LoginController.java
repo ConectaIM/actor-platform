@@ -1,6 +1,9 @@
 package im.actor.sdk.controller;
 
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import im.actor.core.AuthState;
 import im.actor.runtime.Log;
 import im.actor.sdk.ActorSDK;
@@ -12,9 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static javafx.application.Platform.runLater;
 
@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
 
     public void exibirTelaValidacaoCodigo(String transactionHash) {
 
-        runLater(()->{
+        runLater(() -> {
             try {
                 Stage stage = (Stage) btnEntrar.getScene().getWindow();
 

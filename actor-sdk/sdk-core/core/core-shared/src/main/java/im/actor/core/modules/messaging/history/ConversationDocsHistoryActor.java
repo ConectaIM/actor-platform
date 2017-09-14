@@ -142,7 +142,7 @@ public class ConversationDocsHistoryActor extends ModuleActor {
         final long finalMaxLoadedDate = maxLoadedDate;
 
         return context().getMessagesModule().getRouter()
-                .onChatHistoryLoaded(peer, messages, maxReceiveDate, maxReadDate, isEnded)
+                .onDocsHistoryLoaded(peer, messages, maxReceiveDate, maxReadDate, isEnded)
                 .map(r -> {
                     // Saving Internal State
                     if (isEnded) {

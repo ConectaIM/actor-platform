@@ -102,7 +102,7 @@ public class CallBackgroundAvatarView extends SimpleDraweeView {
             bindedFile = null;
         }
 
-        setImageURI(null);
+        setImageURI(Uri.EMPTY);
 
         if (avatar == null || getImage(avatar) == null) {
             currentId = 0;
@@ -176,6 +176,6 @@ public class CallBackgroundAvatarView extends SimpleDraweeView {
         }
         currentId = 0;
 
-        setImageURI(null);
+        setImageURI(Uri.EMPTY);
     }
 }

@@ -91,12 +91,12 @@ public class DocsActivity extends BaseActivity {
     }
 
     private Fragment getFragmentAtPosition(int position){
-        if(fragments.containsKey(position)){
-            return fragments.get(position);
+        if(!fragments.containsKey(position)){
+            Fragment fragment = PhotoFragment.create(peer);
+            fragments.put(position,fragment);
         }
-        Fragment fragment = PhotoFragment.create(peer);
-        fragments.put(position,fragment);
-        return  fragment;
+
+        return  fragments.get(position);
     }
 
 
