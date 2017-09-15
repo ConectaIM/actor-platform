@@ -33,7 +33,9 @@ import im.actor.core.entity.Reaction;
 import im.actor.core.entity.User;
 import im.actor.core.entity.content.AbsContent;
 import im.actor.core.entity.content.DocumentContent;
+import im.actor.core.entity.content.PhotoContent;
 import im.actor.core.entity.content.TextContent;
+import im.actor.core.entity.content.VideoContent;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
@@ -74,6 +76,7 @@ import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.KeyValueEngine;
 import im.actor.runtime.storage.ListEngine;
+import im.actor.sdk.controllers.docs.PhotoAdapter;
 
 import static im.actor.core.entity.EntityConverter.convert;
 import static im.actor.core.util.AssertUtils.assertTrue;
@@ -221,6 +224,8 @@ public class RouterActor extends ModuleActor {
         long maxInDate = 0;
 
         List<Message> docsMessages = new ArrayList<>();
+        List<Message> photoMessages = new ArrayList<>();
+        List<Message> videoMessages = new ArrayList<>();
 
         for (Message m : messages) {
             if (topMessage == null || topMessage.getSortDate() < m.getSortDate()) {
@@ -236,10 +241,20 @@ public class RouterActor extends ModuleActor {
                 }
             }
 
-            if(m.getContent() instanceof DocumentContent){
-                docsMessages.add(m);
-            }
+            if(m.getContent() instanceof VideoContent
+                    || m.getContent() instanceof PhotoContent){
+                if(m.getContent() instanceof VideoContent){
+                    videoMessages.add(m);
+                }
 
+                if(m.getContent() instanceof PhotoContent){
+                    photoMessages.add(m);
+                }
+            }else{
+                if(m.getContent() instanceof DocumentContent){
+                    docsMessages.add(m);
+                }
+            }
 
         }
 
@@ -250,6 +265,8 @@ public class RouterActor extends ModuleActor {
         conversation(peer).addOrUpdateItems(messages);
 
         //docs messages
+        photos(peer).addOrUpdateItems(photoMessages);
+        videos(peer).addOrUpdateItems(videoMessages);
         docs(peer).addOrUpdateItems(docsMessages);
 
         //
@@ -493,7 +510,9 @@ public class RouterActor extends ModuleActor {
         Log.d(TAG, "History Docs Loaded");
         long maxMessageDate = 0;
         // Processing all new messages
-        ArrayList<Message> updated = new ArrayList<>();
+        ArrayList<Message> docsMessages = new ArrayList<>();
+        ArrayList<Message> videoMessages = new ArrayList<>();
+        ArrayList<Message> photoMessages = new ArrayList<>();
 
         for (Message historyMessage : messages) {
             // Ignore already present messages
@@ -501,15 +520,31 @@ public class RouterActor extends ModuleActor {
                 continue;
             }
 
-            updated.add(historyMessage);
+            // Writing messages
+            if(historyMessage.getContent() instanceof VideoContent
+                    || historyMessage.getContent() instanceof PhotoContent){
+                if(historyMessage.getContent() instanceof VideoContent){
+                    videoMessages.add(historyMessage);
+                }
+
+                if(historyMessage.getContent() instanceof PhotoContent){
+                    photoMessages.add(historyMessage);
+                }
+            }else{
+                if(historyMessage.getContent() instanceof DocumentContent){
+                    docsMessages.add(historyMessage);
+                }
+            }
 
             if (historyMessage.getSenderId() != myUid()) {
                 maxMessageDate = Math.max(maxMessageDate, historyMessage.getSortDate());
             }
         }
 
-        // Writing messages
-        docs(peer).addOrUpdateItems(updated);
+        //docs messages
+        photos(peer).addOrUpdateItems(photoMessages);
+        videos(peer).addOrUpdateItems(videoMessages);
+        docs(peer).addOrUpdateItems(docsMessages);
 
         return Promise.success(null);
     }
@@ -819,6 +854,13 @@ public class RouterActor extends ModuleActor {
         return context().getMessagesModule().getConversationDocsEngine(peer);
     }
 
+    private ListEngine<Message> photos(Peer peer) {
+        return context().getMessagesModule().getConversationPhotosEngine(peer);
+    }
+
+    private ListEngine<Message> videos(Peer peer) {
+        return context().getMessagesModule().getConversationVideosEngine(peer);
+    }
     private void notifyActiveDialogsVM() {
         int counter = 0;
         ArrayList<DialogGroup> groups = new ArrayList<>();

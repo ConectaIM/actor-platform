@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import im.actor.core.api.ApiDocsHistoryType;
 import im.actor.core.api.ApiMessage;
 import im.actor.core.api.ApiPeer;
 import im.actor.core.api.ApiTextMessage;
@@ -94,11 +95,15 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
 
     private final HashMap<Peer, ConversationHistory> historyLoaderActors = new HashMap<>();
     private final HashMap<Peer, ConversationDocsHistory> historyDocsLoaderActors = new HashMap<>();
+    private final HashMap<Peer, ConversationDocsHistory> historyPhotosLoaderActors = new HashMap<>();
+    private final HashMap<Peer, ConversationDocsHistory> historyVideosLoaderActors = new HashMap<>();
 
     private MVVMCollection<ConversationState, ConversationVM> conversationStates;
 
     private final HashMap<Peer, ListEngine<Message>> conversationEngines = new HashMap<>();
     private final HashMap<Peer, ListEngine<Message>> conversationDocsEngines = new HashMap<>();
+    private final HashMap<Peer, ListEngine<Message>> conversationPhotosEngines = new HashMap<>();
+    private final HashMap<Peer, ListEngine<Message>> conversationVideosEngines = new HashMap<>();
 
     private final SyncKeyValue cursorStorage;
 
@@ -159,9 +164,27 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
     public ConversationDocsHistory getDocsHistoryActor(final Peer peer) {
         synchronized (historyDocsLoaderActors) {
             if (!historyDocsLoaderActors.containsKey(peer)) {
-                historyDocsLoaderActors.put(peer, new ConversationDocsHistory(peer, context()));
+                historyDocsLoaderActors.put(peer, new ConversationDocsHistory(peer, context(), ApiDocsHistoryType.DOCUMENT));
             }
             return historyDocsLoaderActors.get(peer);
+        }
+    }
+
+    public ConversationDocsHistory getPhotosHistoryActor(final Peer peer) {
+        synchronized (historyPhotosLoaderActors) {
+            if (!historyPhotosLoaderActors.containsKey(peer)) {
+                historyPhotosLoaderActors.put(peer, new ConversationDocsHistory(peer, context(), ApiDocsHistoryType.PHOTO));
+            }
+            return historyPhotosLoaderActors.get(peer);
+        }
+    }
+
+    public ConversationDocsHistory getVideosHistoryActor(final Peer peer) {
+        synchronized (historyVideosLoaderActors) {
+            if (!historyVideosLoaderActors.containsKey(peer)) {
+                historyVideosLoaderActors.put(peer, new ConversationDocsHistory(peer, context(), ApiDocsHistoryType.VIDEO));
+            }
+            return historyVideosLoaderActors.get(peer);
         }
     }
 
@@ -187,9 +210,29 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
         synchronized (conversationDocsEngines) {
             if (!conversationDocsEngines.containsKey(peer)) {
                 conversationDocsEngines.put(peer,
-                        Storage.createList(STORAGE_CHAT_DOCS_PREFIX + peer.getUnuqueId(), Message.CREATOR));
+                        Storage.createList(STORAGE_CHAT_DOCS_PREFIX + ApiDocsHistoryType.DOCUMENT + peer.getUnuqueId(), Message.CREATOR));
             }
             return conversationDocsEngines.get(peer);
+        }
+    }
+
+    public ListEngine<Message> getConversationPhotosEngine(Peer peer) {
+        synchronized (conversationPhotosEngines) {
+            if (!conversationPhotosEngines.containsKey(peer)) {
+                conversationPhotosEngines.put(peer,
+                        Storage.createList(STORAGE_CHAT_DOCS_PREFIX + ApiDocsHistoryType.PHOTO + peer.getUnuqueId(), Message.CREATOR));
+            }
+            return conversationPhotosEngines.get(peer);
+        }
+    }
+
+    public ListEngine<Message> getConversationVideosEngine(Peer peer) {
+        synchronized (conversationVideosEngines) {
+            if (!conversationVideosEngines.containsKey(peer)) {
+                conversationVideosEngines.put(peer,
+                        Storage.createList(STORAGE_CHAT_DOCS_PREFIX + ApiDocsHistoryType.VIDEO + peer.getUnuqueId(), Message.CREATOR));
+            }
+            return conversationVideosEngines.get(peer);
         }
     }
 
@@ -450,6 +493,14 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
         im.actor.runtime.Runtime.dispatch(() -> getDocsHistoryActor(peer).loadMore());
     }
 
+    public void loadMorePhotosHistory(final Peer peer){
+        im.actor.runtime.Runtime.dispatch(() -> getPhotosHistoryActor(peer).loadMore());
+    }
+
+    public void loadMoreVideosHistory(final Peer peer){
+        im.actor.runtime.Runtime.dispatch(() -> getVideosHistoryActor(peer).loadMore());
+    }
+
     //
     // Misc
     //
@@ -462,9 +513,13 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
     public void onBusEvent(Event event) {
         if (event instanceof PeerChatOpened) {
             getHistoryActor(((PeerChatOpened) event).getPeer());
+            getPhotosHistoryActor(((PeerChatOpened) event).getPeer());
+            getVideosHistoryActor(((PeerChatOpened) event).getPeer());
             getDocsHistoryActor(((PeerChatOpened) event).getPeer());
         } else if (event instanceof PeerChatPreload) {
             getHistoryActor(((PeerChatPreload) event).getPeer());
+            getPhotosHistoryActor(((PeerChatOpened) event).getPeer());
+            getVideosHistoryActor(((PeerChatOpened) event).getPeer());
             getDocsHistoryActor(((PeerChatOpened) event).getPeer());
         }
     }

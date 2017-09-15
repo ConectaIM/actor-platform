@@ -1404,22 +1404,38 @@
 ,{"type":{"type":"opt","childType":{"type":"enum","childType":"ListLoadMode"}},"id":5,"name":"loadMode"}
 ,{"type":"int32","id":4,"name":"limit"}
 ,{"type":{"type":"list","childType":{"type":"enum","childType":"UpdateOptimization"}},"id":6,"name":"optimizations"}
-]}},{"type":"rpc","content":{
+]}},        {
+          "type": "enum",
+          "content": {
+            "name": "DocsHistoryType",
+            "values": [
+              {
+                "name": "Photo",
+                "id": 1
+              },
+              {
+                "name": "Video",
+                "id": 2
+              },
+              {
+                "name": "Document",
+                "id": 3
+              }
+          ]
+        }
+      },{"type":"rpc","content":{
 "name":"LoadDocsHistory",
 "header":262,
 "response":{"type":"anonymous","header":263, "doc":[
 "Loaded docs history"] ,"attributes":[{"type":{"type":"list","childType":{"type":"struct","childType":"MessageContainer"}},"id":1,"name":"history"}
-,{"type":{"type":"list","childType":{"type":"struct","childType":"User"}},"id":2,"name":"users"}
-,{"type":{"type":"list","childType":{"type":"struct","childType":"UserOutPeer"}},"id":4,"name":"userPeers"}
-,{"type":{"type":"list","childType":{"type":"struct","childType":"Group"}},"id":5,"name":"groups"}
-,{"type":{"type":"list","childType":{"type":"struct","childType":"GroupOutPeer"}},"id":6,"name":"groupPeers"}
 ]},
 "doc":[
 "Loading docs history of chat"],"attributes":[
 {"type":{"type":"struct","childType":"OutPeer"},"id":1,"name":"peer"}
 ,{"type":{"type":"alias","childType":"date"},"id":3,"name":"date"}
-,{"type":{"type":"opt","childType":{"type":"enum","childType":"ListLoadMode"}},"id":5,"name":"loadMode"}
-,{"type":"int32","id":4,"name":"limit"}
+,{"type":{"type":"opt","childType":{"type":"enum","childType":"ListLoadMode"}},"id":4,"name":"loadMode"}
+,{"type":"int32","id":5,"name":"limit"}
+,{"type":{"type":"enum","childType":"DocsHistoryType"},"id":6,"name":"docType"}
 ]}},     {
        "type":"struct",
        "content": {

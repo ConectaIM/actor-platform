@@ -1,5 +1,6 @@
 package im.actor.core.modules.messaging.history;
 
+import im.actor.core.api.ApiDocsHistoryType;
 import im.actor.core.entity.Peer;
 import im.actor.core.modules.ModuleContext;
 import im.actor.runtime.actors.ActorInterface;
@@ -10,9 +11,9 @@ import static im.actor.runtime.actors.ActorSystem.system;
 
 public class ConversationDocsHistory extends ActorInterface {
 
-    public ConversationDocsHistory(Peer peer, ModuleContext context) {
-        setDest(system().actorOf("historyDocs/" + peer, () -> {
-            return new ConversationDocsHistoryActor(peer, context);
+    public ConversationDocsHistory(Peer peer, ModuleContext context, ApiDocsHistoryType docType) {
+        setDest(system().actorOf("historyDocs/"+docType+"/"+ peer, () -> {
+            return new ConversationDocsHistoryActor(peer, context, docType);
         }));
     }
 

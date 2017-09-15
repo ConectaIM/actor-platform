@@ -39,4 +39,5 @@ final class MessagingServiceImpl(implicit protected val actorSystem: ActorSystem
       RpcError(406, "DIALOG_ALREADY_SHOWN", "Dialog is already shown.", canTryAgain = false, None)
     case NotUniqueRandomId ⇒ MessagingRpcErors.NotUniqueRandomId
   }
+
 }

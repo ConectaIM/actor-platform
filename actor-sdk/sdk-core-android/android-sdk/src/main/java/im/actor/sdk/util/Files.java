@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import im.actor.runtime.android.AndroidContext;
-import im.actor.sdk.BuildConfig;
 
 public class Files {
 
@@ -62,7 +61,7 @@ public class Files {
         out.close();
     }
 
-    public static Uri getUri(Context ctx, String filePath){
-        return FileProvider.getUriForFile(ctx, ctx.getPackageName()+".provider", new File(filePath));
+    public static Uri getUri(Context ctx, String filePath) {
+        return FileProvider.getUriForFile(ctx, ctx.getPackageName() + ".provider", new File(filePath));
     }
 }

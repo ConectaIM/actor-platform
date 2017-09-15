@@ -38,7 +38,7 @@ import im.actor.sdk.R;
 import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.conversation.view.FastBitmapDrawable;
 import im.actor.sdk.controllers.conversation.view.FastThumbLoader;
-import im.actor.sdk.controllers.docs.DocsAdapter;
+import im.actor.sdk.controllers.docs.AbsDocsAdapter;
 import im.actor.sdk.controllers.docs.PhotoAdapter;
 import im.actor.sdk.util.Screen;
 
@@ -50,7 +50,7 @@ import static im.actor.sdk.util.ViewUtils.showView;
  * Created by diego on 14/09/17.
  */
 
-public class PhotoViewHolder extends DocsViewHolder{
+public class PhotoViewHolder extends AbsDocsViewHolder {
 
     //Content Views
     protected SimpleDraweeView previewView;
@@ -70,7 +70,7 @@ public class PhotoViewHolder extends DocsViewHolder{
     private final ControllerListener animationController;
     private Animatable anim;
 
-    public PhotoViewHolder(View itemView, DocsAdapter adapter) {
+    public PhotoViewHolder(View itemView, AbsDocsAdapter adapter) {
         super(itemView, adapter);
 
         previewView = itemView.findViewById(R.id.image);
@@ -115,23 +115,16 @@ public class PhotoViewHolder extends DocsViewHolder{
 
         DocumentContent fileMessage = (DocumentContent) message.getContent();
 
-        int w, h;
         if (message.getContent() instanceof PhotoContent) {
-            w = ((PhotoContent) message.getContent()).getW();
-            h = ((PhotoContent) message.getContent()).getH();
             isPhoto = true;
             isAnimation = false;
             duration.setVisibility(View.GONE);
         } else if (message.getContent() instanceof AnimationContent) {
-            w = ((AnimationContent) message.getContent()).getW();
-            h = ((AnimationContent) message.getContent()).getH();
             isPhoto = true;
             isAnimation = true;
             duration.setVisibility(View.VISIBLE);
             duration.setText("");
         } else if (message.getContent() instanceof VideoContent) {
-            w = ((VideoContent) message.getContent()).getW();
-            h = ((VideoContent) message.getContent()).getH();
             isPhoto = false;
             isAnimation = false;
             duration.setVisibility(View.VISIBLE);
@@ -140,15 +133,6 @@ public class PhotoViewHolder extends DocsViewHolder{
             throw new RuntimeException("Unsupported content");
         }
 
-//        int maxHeight = adapter.getContext().getResources().getDisplayMetrics().heightPixels - Screen.dp(96 + 32);
-//        maxHeight = Math.min(Screen.dp(360), maxHeight);
-//        int maxWidth = adapter.getContext().getResources().getDisplayMetrics().widthPixels - Screen.dp(32 + 48);
-//        maxWidth = Math.min(Screen.dp(360), maxWidth);
-//
-//        float scale = Math.min(maxWidth / (float) w, maxHeight / (float) h);
-//
-//        int bubbleW = (int) (scale * w);
-//        int bubbleH = (int) (scale * h);
         previewView.setLayoutParams(new ConstraintLayout.LayoutParams(getAdapter().getViewSize(), getAdapter().getViewSize()));
 
         progressContainer.setVisibility(View.GONE);
@@ -170,7 +154,7 @@ public class PhotoViewHolder extends DocsViewHolder{
         }
     }
 
-    private PhotoAdapter getAdapter(){
+    private PhotoAdapter getAdapter() {
         return (PhotoAdapter) adapter;
     }
 

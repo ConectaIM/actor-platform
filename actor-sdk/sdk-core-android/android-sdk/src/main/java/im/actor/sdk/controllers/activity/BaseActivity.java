@@ -106,20 +106,20 @@ public class BaseActivity extends AppCompatActivity {
     // Binding
     protected void onPerformBind() {
         BINDER.bind(ActorSDK.sharedActor().getMessenger().getGlobalState().getIsConnecting(),
-            ActorSDK.sharedActor().getMessenger().getGlobalState().getIsSyncing(),(isConnecting, isSyncing) -> {
-                if(isConnecting || isSyncing){
-                    if(isConnecting){
-                        if(getSupportActionBar() != null)
-                            getSupportActionBar().setSubtitle(" "+getResources().getString(R.string.connecting)+"...");
-                    }else{
-                        if(getSupportActionBar() != null)
-                            getSupportActionBar().setSubtitle(" "+getResources().getString(R.string.syncing)+"...");
+                ActorSDK.sharedActor().getMessenger().getGlobalState().getIsSyncing(), (isConnecting, isSyncing) -> {
+                    if (isConnecting || isSyncing) {
+                        if (isConnecting) {
+                            if (getSupportActionBar() != null)
+                                getSupportActionBar().setSubtitle(" " + getResources().getString(R.string.connecting) + "...");
+                        } else {
+                            if (getSupportActionBar() != null)
+                                getSupportActionBar().setSubtitle(" " + getResources().getString(R.string.syncing) + "...");
+                        }
+                    } else {
+                        if (getSupportActionBar() != null)
+                            getSupportActionBar().setSubtitle("");
                     }
-                }else{
-                    if(getSupportActionBar() != null)
-                        getSupportActionBar().setSubtitle("");
-                }
-        });
+                });
     }
 
     public void bind(final TextView textView, Value<String> value) {

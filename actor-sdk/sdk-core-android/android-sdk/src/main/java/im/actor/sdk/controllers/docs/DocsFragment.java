@@ -3,72 +3,51 @@ package im.actor.sdk.controllers.docs;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
-import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
-import im.actor.sdk.R;
-import im.actor.sdk.controllers.DisplayListFragment;
-import im.actor.sdk.controllers.docs.holders.DocsViewHolder;
-import im.actor.sdk.util.Screen;
+import im.actor.sdk.controllers.docs.holders.AbsDocsViewHolder;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 /**
- * Created by dsilv on 06/08/2017.
+ * Created by diego on 28/08/17.
  */
 
-public abstract class DocsFragment extends DisplayListFragment<Message, DocsViewHolder> {
+public class DocsFragment extends AbsDocsFragment {
 
-
-    protected Peer peer;
-    private CircularProgressBar progressView;
-    private DocsAdapter docsAdapter;
-
-    @Override
-    public void onCreate(Bundle saveInstance) {
-        super.onCreate(saveInstance);
-        peer = Peer.fromUniqueId(getArguments().getLong("peer"));
+    public static DocsFragment create(Peer peer) {
+        DocsFragment res = new DocsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("peer", peer.getUnuqueId());
+        res.setArguments(bundle);
+        return res;
     }
 
+    @Override
+    protected BindedListAdapter<Message, AbsDocsViewHolder> onCreateAdapter(BindedDisplayList<Message> displayList, Activity activity) {
+        return new DocsAdapter(displayList, activity);
+    }
 
+    @Override
     protected BindedDisplayList<Message> onCreateDisplayList() {
         BindedDisplayList<Message> displayList = messenger().getDocsDisplayList(peer);
         return displayList;
     }
 
-    //
-    // View
-    //
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        BindedDisplayList<Message> displayList = onCreateDisplayList();
-
-        View res = inflate(inflater, container, R.layout.fragment_shared_media, displayList);
-
-        progressView = (CircularProgressBar) res.findViewById(R.id.loadingProgress);
-        progressView.setIndeterminate(true);
-        progressView.setVisibility(View.INVISIBLE);
-
-        return res;
-    }
-
     @Override
     protected void configureRecyclerView(RecyclerView recyclerView) {
         super.configureRecyclerView(recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setHorizontalScrollBarEnabled(false);
-        recyclerView.setVerticalScrollBarEnabled(true);
+
+        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getActivity());
+        gridLayoutManager.setRecycleChildrenOnDetach(false);
+        gridLayoutManager.setSmoothScrollbarEnabled(false);
+        recyclerView.setLayoutManager(gridLayoutManager);
     }
 
 }

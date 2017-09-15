@@ -238,6 +238,7 @@ trait HistoryHandlers {
                            date:          Long,
                            mode:          Option[ApiListLoadMode.Value],
                            limit:         Int,
+                           docType: ApiDocsHistoryType.ApiDocsHistoryType,
                            clientData:    ClientData
                          ): Future[HandlerResult[ResponseLoadDocsHistory]] =
     authorized(clientData) { implicit client ⇒
@@ -247,29 +248,32 @@ trait HistoryHandlers {
         val action = for {
           historyOwner ← DBIO.from(getHistoryOwner(modelPeer, client.userId))
 
-          (lastReceivedAt, lastReadAt) ← getLastReceiveReadDates(modelPeer)
-
           messageModels <- HistoryMessageRepo.find(historyOwner, modelPeer, endDateTimeFrom(date), limit, 3)
 
-          (messages, userIds, groupIds) = messageModels.view
+          messages = messageModels.view
             .map(_.ofUser(client.userId))
-            .foldLeft(Vector.empty[ApiMessageContainer], Set.empty[Int], Set.empty[Int]) {
-              case ((msgs, uids, guids), message) ⇒
+            .foldLeft(Vector.empty[ApiMessageContainer]) {
+              case ((msgs), message) ⇒
                 message.asStruct2().toOption match {
                   case Some(messageStruct) ⇒
-                    val newMsgs = msgs :+ messageStruct
-                    (newMsgs, Set.empty, Set.empty)
-                  case None ⇒ (msgs, Set.empty, Set.empty)
+                    messageStruct.message.asInstanceOf[ApiDocumentMessage].ext match {
+                        case Some(_: ApiDocumentExPhoto) if (docType == ApiDocsHistoryType.Photo) ⇒ { //Photo
+                          msgs :+ messageStruct
+                        }
+                        case Some(_: ApiDocumentExVideo) if (docType == ApiDocsHistoryType.Video) ⇒ { //Video
+                          msgs :+ messageStruct
+                        }
+                        case None if (docType == ApiDocsHistoryType.Document) ⇒ { //Generic document
+                          msgs :+ messageStruct
+                        }
+                        case _ ⇒
+                          msgs
+                    }
+                  case None ⇒ msgs
                 }
             }
-
-          //((users, userPeers), (groups, groupPeers)) ← DBIO.from(usersAndGroupsByIds(groupIds, userIds, true, true))
         } yield Ok(ResponseLoadDocsHistory(
-          history = messages,
-          users = Vector.empty,
-          userPeers = Vector.empty,
-          groups = Vector.empty,
-          groupPeers = Vector.empty
+          history = messages
         ))
 
         db.run(action)

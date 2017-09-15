@@ -66,10 +66,10 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     private final Random random = new Random();
     private ActorRef appStateActor;
     private BindedDisplayList<Dialog> dialogList;
-    //    private BindedDisplayList<Sticker> stickersList;
-//    private BindedDisplayList<StickerPack> stickerPacksList;
     private HashMap<Peer, BindedDisplayList<Message>> messagesLists = new HashMap<>();
     private HashMap<Peer, BindedDisplayList<Message>> docsLists = new HashMap<>();
+    private HashMap<Peer, BindedDisplayList<Message>> photosList = new HashMap<>();
+    private HashMap<Peer, BindedDisplayList<Message>> videosLists = new HashMap<>();
     private HashMap<String, BindedDisplayList> customLists = new HashMap<>();
     private GalleryVM galleryVM;
     private ActorRef galleryScannerActor;
@@ -548,6 +548,44 @@ public class AndroidMessenger extends im.actor.core.Messenger {
             docsLists.put(peer, list);
         }
         return docsLists.get(peer);
+    }
+
+    public BindedDisplayList<Message> getPhotosDisplayList(final Peer peer) {
+        if (!photosList.containsKey(peer)) {
+            BindedDisplayList<Message> list = (BindedDisplayList<Message>) modules.getDisplayListsModule().getPhotosSharedList(peer);
+            list.setBindHook(new BindedDisplayList.BindHook<Message>() {
+                @Override
+                public void onScrolledToEnd() {
+                    modules.getMessagesModule().loadMorePhotosHistory(peer);
+                }
+
+                @Override
+                public void onItemTouched(Message item) {
+
+                }
+            });
+            photosList.put(peer, list);
+        }
+        return photosList.get(peer);
+    }
+
+    public BindedDisplayList<Message> getVideosDisplayList(final Peer peer) {
+        if (!videosLists.containsKey(peer)) {
+            BindedDisplayList<Message> list = (BindedDisplayList<Message>) modules.getDisplayListsModule().getVideoSharedList(peer);
+            list.setBindHook(new BindedDisplayList.BindHook<Message>() {
+                @Override
+                public void onScrolledToEnd() {
+                    modules.getMessagesModule().loadMoreVideosHistory(peer);
+                }
+
+                @Override
+                public void onItemTouched(Message item) {
+
+                }
+            });
+            videosLists.put(peer, list);
+        }
+        return videosLists.get(peer);
     }
 
     public GalleryVM getGalleryVM() {

@@ -3,7 +3,6 @@ package im.actor.sdk.controllers.auth;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,10 +21,8 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
-import im.actor.core.entity.AuthRes;
 import im.actor.runtime.Log;
 import im.actor.runtime.mtproto.ConnectionEndpointArray;
-import im.actor.runtime.promise.Promise;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
@@ -121,9 +118,9 @@ public abstract class BaseAuthFragment extends BaseFragment {
     protected void focus(final EditText editText) {
         editText.postDelayed(() -> {
             editText.requestFocus();
-            if(editText.getText().toString().indexOf('-') > 0){
+            if (editText.getText().toString().indexOf('-') > 0) {
                 editText.setSelection(editText.getText().toString().indexOf('-'));
-            }else{
+            } else {
                 editText.setSelection(editText.getText().length());
             }
         }, 1000);
@@ -218,46 +215,47 @@ public abstract class BaseAuthFragment extends BaseFragment {
         builder.setSpan(span, index, index + ppIndex.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
     }
 
-    private void changeEndpoint(){AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.auth_change_endpoint);
+    private void changeEndpoint() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.auth_change_endpoint);
 
-            final EditText input = new EditText(getActivity());
-            input.setText("tcp://");
-            input.setSelection(input.getText().length());
+        final EditText input = new EditText(getActivity());
+        input.setText("tcp://");
+        input.setSelection(input.getText().length());
 
-            int padding = Screen.dp(25);
-            FrameLayout inputContainer = new FrameLayout(getActivity());
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(padding, padding, padding, 0);
-            inputContainer.addView(input, params);
-            builder.setView(inputContainer);
+        int padding = Screen.dp(25);
+        FrameLayout inputContainer = new FrameLayout(getActivity());
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(padding, padding, padding, 0);
+        inputContainer.addView(input, params);
+        builder.setView(inputContainer);
 
-            builder.setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
-                try {
-                    messenger().changeEndpoint(input.getText().toString());
-                } catch (ConnectionEndpointArray.UnknownSchemeException e) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-            builder.setNegativeButton(R.string.auth_reset_default_endpoint, (dialog, which) -> {
-                try {
-                    messenger().changeEndpoint(null);
-                } catch (ConnectionEndpointArray.UnknownSchemeException e) {
-                    Log.e(TAG, e);
-                }
-            });
+        builder.setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+            try {
+                messenger().changeEndpoint(input.getText().toString());
+            } catch (ConnectionEndpointArray.UnknownSchemeException e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton(R.string.auth_reset_default_endpoint, (dialog, which) -> {
+            try {
+                messenger().changeEndpoint(null);
+            } catch (ConnectionEndpointArray.UnknownSchemeException e) {
+                Log.e(TAG, e);
+            }
+        });
 
-            builder.show();
-            input.requestFocus();
+        builder.show();
+        input.requestFocus();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
-        if(i == R.id.email) {
+        if (i == R.id.email) {
             switchToEmail();
             return true;
-        } else if(i == R.id.phone) {
+        } else if (i == R.id.phone) {
             switchToPhone();
             return true;
 //        } else if (i == R.id.change_endpoint) {

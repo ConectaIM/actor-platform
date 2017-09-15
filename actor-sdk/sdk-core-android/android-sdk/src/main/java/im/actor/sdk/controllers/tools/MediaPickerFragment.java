@@ -16,7 +16,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import com.soundcloud.android.crop.Crop;
@@ -27,7 +26,6 @@ import java.util.List;
 
 import im.actor.runtime.android.AndroidContext;
 import im.actor.sdk.ActorSDK;
-import im.actor.sdk.BuildConfig;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
 import im.actor.sdk.controllers.pickers.file.FilePickerActivity;
@@ -89,7 +87,7 @@ public class MediaPickerFragment extends BaseFragment {
         if (Build.VERSION.SDK_INT >= 23) {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Files.getUri(getContext(), pendingFile));
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        }else{
+        } else {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(pendingFile)));
         }
 
@@ -116,7 +114,7 @@ public class MediaPickerFragment extends BaseFragment {
         if (Build.VERSION.SDK_INT >= 23) {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Files.getUri(getContext(), pendingFile));
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        }else{
+        } else {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(pendingFile)));
         }
 

@@ -7,11 +7,11 @@ package im.actor.core.modules.messaging.history;
 import java.util.ArrayList;
 import java.util.List;
 
+import im.actor.core.api.ApiDocsHistoryType;
 import im.actor.core.api.ApiMessageContainer;
 import im.actor.core.api.ApiMessageReaction;
 import im.actor.core.api.ApiMessageState;
 import im.actor.core.api.rpc.RequestLoadDocsHistory;
-import im.actor.core.api.rpc.RequestLoadHistory;
 import im.actor.core.entity.EntityConverter;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
@@ -19,7 +19,6 @@ import im.actor.core.entity.Reaction;
 import im.actor.core.entity.content.AbsContent;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
-import im.actor.core.modules.api.ApiSupportConfiguration;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.ask.AskMessage;
 import im.actor.runtime.actors.messages.Void;
@@ -44,12 +43,15 @@ public class ConversationDocsHistoryActor extends ModuleActor {
 
     private boolean isFreezed = false;
 
-    public ConversationDocsHistoryActor(Peer peer, ModuleContext context) {
+    private ApiDocsHistoryType docType;
+
+    public ConversationDocsHistoryActor(Peer peer, ModuleContext context, ApiDocsHistoryType docType) {
         super(context);
         this.peer = peer;
-        this.KEY_LOADED_DATE = "conv_docs_" + peer + "_history_date";
-        this.KEY_LOADED = "conv_docs_" + peer + "_history_loaded";
-        this.KEY_LOADED_INIT = "conv_docs_" + peer + "_history_inited";
+        this.docType = docType;
+        this.KEY_LOADED_DATE = docType+"_conv_docs_" + peer + "_history_date";
+        this.KEY_LOADED = docType+"_conv_docs_" + peer + "_history_loaded";
+        this.KEY_LOADED_INIT = docType+"_conv_docs_" + peer + "_history_inited";
     }
 
     @Override
@@ -69,9 +71,7 @@ public class ConversationDocsHistoryActor extends ModuleActor {
             return;
         }
         isFreezed = true;
-        api(new RequestLoadDocsHistory(buidOutPeer(peer), historyMaxDate, null, LIMIT))
-                .chain(r -> updates().applyRelatedData(r.getUsers(), r.getGroups()))
-                .chain(r -> updates().loadRequiredPeers(r.getUserPeers(), r.getGroupPeers()))
+        api(new RequestLoadDocsHistory(buidOutPeer(peer), historyMaxDate, null, LIMIT, docType))
                 .flatMap(r -> {
                     Log.d(TAG, "Apply " + historyMaxDate);
                     return applyHistory(peer, r.getHistory());
@@ -176,6 +176,7 @@ public class ConversationDocsHistoryActor extends ModuleActor {
     @Override
     public void onReceive(Object message) {
         if (message instanceof LoadMore) {
+
             onLoadMore();
         } else {
             super.onReceive(message);
@@ -183,7 +184,6 @@ public class ConversationDocsHistoryActor extends ModuleActor {
     }
 
     public static class LoadMore {
-
     }
 
     public static class Reset implements AskMessage<Void> {

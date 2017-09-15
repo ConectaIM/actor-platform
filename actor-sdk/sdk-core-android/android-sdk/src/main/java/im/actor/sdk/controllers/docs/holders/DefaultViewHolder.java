@@ -3,14 +3,14 @@ package im.actor.sdk.controllers.docs.holders;
 import android.view.View;
 
 import im.actor.core.entity.Message;
-import im.actor.sdk.controllers.docs.DocsAdapter;
+import im.actor.sdk.controllers.docs.AbsDocsAdapter;
 
 /**
  * Created by diego on 14/09/17.
  */
 
-public class DefaultViewHolder extends DocsViewHolder{
-    public DefaultViewHolder(View itemView, DocsAdapter adapter) {
+public class DefaultViewHolder extends AbsDocsViewHolder {
+    public DefaultViewHolder(View itemView, AbsDocsAdapter adapter) {
         super(itemView, adapter);
     }
 

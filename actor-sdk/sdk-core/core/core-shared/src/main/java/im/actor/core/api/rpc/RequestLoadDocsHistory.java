@@ -26,12 +26,14 @@ public class RequestLoadDocsHistory extends Request<ResponseLoadDocsHistory> {
     private long date;
     private ApiListLoadMode loadMode;
     private int limit;
+    private ApiDocsHistoryType docType;
 
-    public RequestLoadDocsHistory(@NotNull ApiOutPeer peer, long date, @Nullable ApiListLoadMode loadMode, int limit) {
+    public RequestLoadDocsHistory(@NotNull ApiOutPeer peer, long date, @Nullable ApiListLoadMode loadMode, int limit, @NotNull ApiDocsHistoryType docType) {
         this.peer = peer;
         this.date = date;
         this.loadMode = loadMode;
         this.limit = limit;
+        this.docType = docType;
     }
 
     public RequestLoadDocsHistory() {
@@ -56,15 +58,21 @@ public class RequestLoadDocsHistory extends Request<ResponseLoadDocsHistory> {
         return this.limit;
     }
 
+    @NotNull
+    public ApiDocsHistoryType getDocType() {
+        return this.docType;
+    }
+
     @Override
     public void parse(BserValues values) throws IOException {
         this.peer = values.getObj(1, new ApiOutPeer());
         this.date = values.getLong(3);
-        int val_loadMode = values.getInt(5, 0);
+        int val_loadMode = values.getInt(4, 0);
         if (val_loadMode != 0) {
             this.loadMode = ApiListLoadMode.parse(val_loadMode);
         }
-        this.limit = values.getInt(4);
+        this.limit = values.getInt(5);
+        this.docType = ApiDocsHistoryType.parse(values.getInt(6));
     }
 
     @Override
@@ -75,9 +83,13 @@ public class RequestLoadDocsHistory extends Request<ResponseLoadDocsHistory> {
         writer.writeObject(1, this.peer);
         writer.writeLong(3, this.date);
         if (this.loadMode != null) {
-            writer.writeInt(5, this.loadMode.getValue());
+            writer.writeInt(4, this.loadMode.getValue());
         }
-        writer.writeInt(4, this.limit);
+        writer.writeInt(5, this.limit);
+        if (this.docType == null) {
+            throw new IOException();
+        }
+        writer.writeInt(6, this.docType.getValue());
     }
 
     @Override

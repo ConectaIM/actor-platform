@@ -3,7 +3,6 @@ package im.actor.sdk.controllers.docs;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -11,23 +10,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 import im.actor.core.entity.Peer;
 import im.actor.sdk.ActorSDK;
-import im.actor.sdk.ActorStyle;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.activity.BaseActivity;
-import im.actor.sdk.controllers.conversation.ChatFragment;
 import im.actor.sdk.view.ActorToolbar;
 
 /**
@@ -90,13 +83,21 @@ public class DocsActivity extends BaseActivity {
         tabLayout.setupWithViewPager(mPager);
     }
 
-    private Fragment getFragmentAtPosition(int position){
-        if(!fragments.containsKey(position)){
-            Fragment fragment = PhotoFragment.create(peer);
-            fragments.put(position,fragment);
+    private Fragment getFragmentAtPosition(int position) {
+        if (!fragments.containsKey(position)) {
+            switch (position){
+                case 0:
+                    fragments.put(position, PhotoFragment.create(peer, DocsActivity.VIEW_TYPE_PHOTO));
+                    break;
+                case 1:
+                    fragments.put(position, PhotoFragment.create(peer, DocsActivity.VIEW_TYPE_VIDEO));
+                    break;
+                case 2:
+                    fragments.put(position, DocsFragment.create(peer));
+                    break;
+            }
         }
-
-        return  fragments.get(position);
+        return fragments.get(position);
     }
 
 

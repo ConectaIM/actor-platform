@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -160,12 +159,12 @@ public class Intents {
             intent = new Intent(Intent.ACTION_VIEW)
                     .setDataAndType(Files.getUri(ctx, downloadFileName), mimeType);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }else{
+        } else {
             intent = new Intent(Intent.ACTION_VIEW)
                     .setDataAndType(Uri.fromFile(new File(downloadFileName)), mimeType);
         }
 
-       return intent;
+        return intent;
     }
 
     public static Intent shareDoc(String fileName, String downloadFileName) {

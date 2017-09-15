@@ -44,7 +44,6 @@ import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.util.Files;
 import im.actor.sdk.util.images.common.ImageLoadException;
 import im.actor.sdk.util.images.ops.ImageLoading;
-//import uk.co.senab.photoview.PhotoView;
 
 import static im.actor.sdk.util.ActorSDKMessenger.groups;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
@@ -52,6 +51,8 @@ import static im.actor.sdk.util.ActorSDKMessenger.myUid;
 import static im.actor.sdk.util.ActorSDKMessenger.users;
 import static im.actor.sdk.util.ViewUtils.goneView;
 import static im.actor.sdk.util.ViewUtils.showView;
+
+//import uk.co.senab.photoview.PhotoView;
 
 public class ViewAvatarActivity extends BaseActivity {
 
@@ -324,7 +325,7 @@ public class ViewAvatarActivity extends BaseActivity {
                     new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                             .putExtra(MediaStore.EXTRA_OUTPUT, Files.getUri(this, externalFile)),
                     REQUEST_PHOTO);
-        }else{
+        } else {
             startActivityForResult(
                     new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                             .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(externalFile))),

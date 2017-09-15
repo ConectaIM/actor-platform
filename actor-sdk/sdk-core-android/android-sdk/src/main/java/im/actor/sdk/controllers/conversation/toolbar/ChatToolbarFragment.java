@@ -128,7 +128,7 @@ public class ChatToolbarFragment extends BaseFragment {
         barAvatar.init(Screen.dp(32), 18);
 
         barView.findViewById(R.id.titleContainer).setOnClickListener(v -> {
-            switch (peer.getPeerType()){
+            switch (peer.getPeerType()) {
                 case PeerType.PRIVATE:
                     ActorSDKLauncher.startProfileActivity(getActivity(), peer.getPeerId());
                     break;

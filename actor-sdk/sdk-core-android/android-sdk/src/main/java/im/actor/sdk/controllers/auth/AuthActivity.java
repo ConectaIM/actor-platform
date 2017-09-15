@@ -39,7 +39,6 @@ import static im.actor.core.AuthState.AUTH_START;
 import static im.actor.core.AuthState.CODE_VALIDATION_EMAIL;
 import static im.actor.core.AuthState.CODE_VALIDATION_PHONE;
 import static im.actor.core.AuthState.LOGGED_IN;
-
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 public class AuthActivity extends BaseFragmentActivity implements Observer {

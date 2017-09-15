@@ -49,10 +49,11 @@ import im.actor.sdk.util.images.common.ImageLoadException;
 import im.actor.sdk.util.images.ops.ImageLoading;
 import im.actor.sdk.view.MaterialInterpolator;
 import im.actor.sdk.view.avatar.AvatarView;
-//import uk.co.senab.photoview.DefaultOnDoubleTapListener;
-//import uk.co.senab.photoview.PhotoViewAttacher;
 
 import static im.actor.sdk.util.ActorSDKMessenger.users;
+
+//import uk.co.senab.photoview.DefaultOnDoubleTapListener;
+//import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class PictureActivity extends BaseActivity {
 

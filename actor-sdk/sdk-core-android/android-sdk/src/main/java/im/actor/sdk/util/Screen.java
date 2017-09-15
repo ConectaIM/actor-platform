@@ -123,8 +123,8 @@ public class Screen {
         return (cm / 2.54f) * (isX ? displayMetrics.xdpi : displayMetrics.ydpi);
     }
 
-    public static int getOrientation(){
-       return AndroidContext.getContext().getResources().getConfiguration().orientation;
+    public static int getOrientation() {
+        return AndroidContext.getContext().getResources().getConfiguration().orientation;
     }
 
 }

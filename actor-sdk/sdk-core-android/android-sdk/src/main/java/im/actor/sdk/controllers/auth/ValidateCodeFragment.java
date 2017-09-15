@@ -4,10 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.Html;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +64,7 @@ public class ValidateCodeFragment extends BaseAuthFragment {
             }
 
             sendHint.setText((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) ?
-                Html.fromHtml(getString(R.string.auth_code_phone_hint).replace("{0}", "<b>" + phoneNumber + "</b>"),Html.FROM_HTML_MODE_LEGACY) :
+                    Html.fromHtml(getString(R.string.auth_code_phone_hint).replace("{0}", "<b>" + phoneNumber + "</b>"), Html.FROM_HTML_MODE_LEGACY) :
                     Html.fromHtml(getString(R.string.auth_code_phone_hint).replace("{0}", "<b>" + phoneNumber + "</b>")));
 
         } else if (authType.equals(AUTH_TYPE_EMAIL)) {

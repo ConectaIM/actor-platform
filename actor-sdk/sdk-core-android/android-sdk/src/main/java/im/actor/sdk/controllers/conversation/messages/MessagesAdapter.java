@@ -11,8 +11,6 @@ import im.actor.core.entity.content.AbsContent;
 import im.actor.core.viewmodel.ConversationVM;
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
-import im.actor.runtime.mvvm.Value;
-import im.actor.runtime.mvvm.ValueChangedListener;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.controllers.ActorBinder;
 import im.actor.sdk.controllers.conversation.messages.content.AbsMessageViewHolder;

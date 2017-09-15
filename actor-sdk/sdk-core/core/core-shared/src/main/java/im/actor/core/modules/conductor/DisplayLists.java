@@ -24,6 +24,8 @@ public class DisplayLists extends AbsModule {
 
     private HashMap<Peer, PlatformDisplayList<Message>> chatsGlobalLists = new HashMap<>();
     private HashMap<Peer, PlatformDisplayList<Message>> chatsDocsGlobalLists = new HashMap<>();
+    private HashMap<Peer, PlatformDisplayList<Message>> chatsPhotosGlobalLists = new HashMap<>();
+    private HashMap<Peer, PlatformDisplayList<Message>> chatsVideosGlobalLists = new HashMap<>();
 
     public DisplayLists(ModuleContext context) {
         super(context);
@@ -69,6 +71,22 @@ public class DisplayLists extends AbsModule {
         return chatsDocsGlobalLists.get(peer);
     }
 
+    public PlatformDisplayList<Message> getPhotosSharedList(Peer peer) {
+        im.actor.runtime.Runtime.checkMainThread();
+        if (!chatsPhotosGlobalLists.containsKey(peer)) {
+            chatsPhotosGlobalLists.put(peer, buildChatPhotosList(peer, true));
+        }
+        return chatsPhotosGlobalLists.get(peer);
+    }
+
+    public PlatformDisplayList<Message> getVideoSharedList(Peer peer) {
+        im.actor.runtime.Runtime.checkMainThread();
+        if (!chatsVideosGlobalLists.containsKey(peer)) {
+            chatsVideosGlobalLists.put(peer, buildChatVideosList(peer, true));
+        }
+        return chatsVideosGlobalLists.get(peer);
+    }
+
     public PlatformDisplayList<Dialog> buildDialogsList(boolean isShared) {
         im.actor.runtime.Runtime.checkMainThread();
 
@@ -110,6 +128,28 @@ public class DisplayLists extends AbsModule {
         im.actor.runtime.Runtime.checkMainThread();
 
         PlatformDisplayList<Message> res = Storage.createDisplayList(context().getMessagesModule().getConversationDocsEngine(peer),
+                isShared, Message.ENTITY_NAME);
+
+        res.initTop();
+
+        return res;
+    }
+
+    public PlatformDisplayList<Message> buildChatPhotosList(final Peer peer, boolean isShared) {
+        im.actor.runtime.Runtime.checkMainThread();
+
+        PlatformDisplayList<Message> res = Storage.createDisplayList(context().getMessagesModule().getConversationPhotosEngine(peer),
+                isShared, Message.ENTITY_NAME);
+
+        res.initTop();
+
+        return res;
+    }
+
+    public PlatformDisplayList<Message> buildChatVideosList(final Peer peer, boolean isShared) {
+        im.actor.runtime.Runtime.checkMainThread();
+
+        PlatformDisplayList<Message> res = Storage.createDisplayList(context().getMessagesModule().getConversationVideosEngine(peer),
                 isShared, Message.ENTITY_NAME);
 
         res.initTop();
