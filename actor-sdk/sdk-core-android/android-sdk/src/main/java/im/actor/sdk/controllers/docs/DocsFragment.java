@@ -44,10 +44,10 @@ public class DocsFragment extends AbsDocsFragment {
     protected void configureRecyclerView(RecyclerView recyclerView) {
         super.configureRecyclerView(recyclerView);
 
-        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getActivity());
-        gridLayoutManager.setRecycleChildrenOnDetach(false);
-        gridLayoutManager.setSmoothScrollbarEnabled(false);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setRecycleChildrenOnDetach(false);
+        linearLayoutManager.setSmoothScrollbarEnabled(false);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
 }

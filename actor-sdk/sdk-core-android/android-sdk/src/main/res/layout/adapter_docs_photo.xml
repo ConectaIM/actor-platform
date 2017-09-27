@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,17 +24,17 @@
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|left"
         android:drawableLeft="@drawable/conv_video"
         android:drawablePadding="4dp"
         android:text="10:50"
         android:textColor="@android:color/white"
         android:textSize="12sp"
-        android:layout_marginRight="12dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+
 
     <FrameLayout
         android:id="@+id/progressBg"
@@ -48,7 +49,10 @@
         <com.droidkit.progress.CircularView
             android:id="@+id/progressView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
 
         <TextView
             android:id="@+id/progressValue"
@@ -64,6 +68,8 @@
             android:id="@+id/contentIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:src="@drawable/conv_video_play" />
 
     </FrameLayout>

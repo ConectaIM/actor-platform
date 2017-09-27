@@ -141,7 +141,7 @@ project.afterEvaluate {
                 mavenDeployer {
 //                    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                    repository(url: "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/") {
+                    repository(url: "http://nexus.diegosilva.com.br:8081/content/repositories/snapshots/") {
                         authentication(userName: ossrhUsername, password: ossrhPassword)
                     }
 

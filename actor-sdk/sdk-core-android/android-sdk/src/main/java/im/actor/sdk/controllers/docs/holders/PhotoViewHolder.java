@@ -25,13 +25,19 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.io.File;
 
+import im.actor.core.entity.FileReference;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.content.AnimationContent;
 import im.actor.core.entity.content.DocumentContent;
+import im.actor.core.entity.content.FileLocalSource;
 import im.actor.core.entity.content.FileRemoteSource;
 import im.actor.core.entity.content.PhotoContent;
 import im.actor.core.entity.content.VideoContent;
+import im.actor.core.viewmodel.CompressVideoCallback;
+import im.actor.core.viewmodel.FileCallback;
 import im.actor.core.viewmodel.FileVMCallback;
+import im.actor.core.viewmodel.UploadFileCallback;
+import im.actor.runtime.Log;
 import im.actor.runtime.files.FileSystemReference;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
@@ -69,6 +75,8 @@ public class PhotoViewHolder extends AbsDocsViewHolder {
 
     private final ControllerListener animationController;
     private Animatable anim;
+
+    private boolean playRequested = false;
 
     public PhotoViewHolder(View itemView, AbsDocsAdapter adapter) {
         super(itemView, adapter);
@@ -111,47 +119,68 @@ public class PhotoViewHolder extends AbsDocsViewHolder {
     }
 
     @Override
-    public void bindData(Message message) {
+    public void bindData(Message message, boolean isNewMessage) {
 
         DocumentContent fileMessage = (DocumentContent) message.getContent();
 
-        if (message.getContent() instanceof PhotoContent) {
-            isPhoto = true;
-            isAnimation = false;
-            duration.setVisibility(View.GONE);
-        } else if (message.getContent() instanceof AnimationContent) {
-            isPhoto = true;
-            isAnimation = true;
-            duration.setVisibility(View.VISIBLE);
-            duration.setText("");
-        } else if (message.getContent() instanceof VideoContent) {
-            isPhoto = false;
-            isAnimation = false;
-            duration.setVisibility(View.VISIBLE);
-            duration.setText(messenger().getFormatter().formatDuration(((VideoContent) message.getContent()).getDuration()));
-        } else {
-            throw new RuntimeException("Unsupported content");
-        }
-
-        previewView.setLayoutParams(new ConstraintLayout.LayoutParams(getAdapter().getViewSize(), getAdapter().getViewSize()));
-
-        progressContainer.setVisibility(View.GONE);
-        progressView.setVisibility(View.GONE);
-        progressValue.setVisibility(View.GONE);
-        progressIcon.setVisibility(View.GONE);
-
-        if (fileMessage.getSource() instanceof FileRemoteSource) {
-            boolean autoDownload = false;
-            if (fileMessage instanceof PhotoContent) {
-                autoDownload = messenger().isImageAutoDownloadEnabled();
-            } else if (fileMessage instanceof AnimationContent) {
-                autoDownload = messenger().isAnimationAutoPlayEnabled();
-            } else if (fileMessage instanceof VideoContent) {
-                autoDownload = messenger().isVideoAutoDownloadEnabled();
+        if (isNewMessage) {
+            if (message.getContent() instanceof PhotoContent) {
+                isPhoto = true;
+                isAnimation = false;
+                duration.setVisibility(View.GONE);
+            } else if (message.getContent() instanceof AnimationContent) {
+                isPhoto = true;
+                isAnimation = true;
+                duration.setVisibility(View.VISIBLE);
+                duration.setText("");
+            } else if (message.getContent() instanceof VideoContent) {
+                isPhoto = false;
+                isAnimation = false;
+                duration.setVisibility(View.VISIBLE);
+                duration.setText(messenger().getFormatter().formatDuration(((VideoContent) message.getContent()).getDuration()));
+            } else {
+                throw new RuntimeException("Unsupported content");
             }
-            downloadFileVM = messenger().bindFile(((FileRemoteSource) fileMessage.getSource()).getFileReference(),
-                    autoDownload, new PhotoViewHolder.DownloadVMCallback(fileMessage));
+
+            previewView.setLayoutParams(new ConstraintLayout.LayoutParams(getAdapter().getViewSize(), getAdapter().getViewSize()));
         }
+
+        boolean needRebind = false;
+
+        if (isNewMessage) {
+            fastThumbLoader.cancel();
+
+            if (downloadFileVM != null) {
+                downloadFileVM.detach();
+                downloadFileVM = null;
+            }
+
+            needRebind = true;
+        }
+
+        if (needRebind) {
+
+            playRequested = false;
+
+            progressContainer.setVisibility(View.GONE);
+            progressView.setVisibility(View.GONE);
+            progressValue.setVisibility(View.GONE);
+            progressIcon.setVisibility(View.GONE);
+
+            if (fileMessage.getSource() instanceof FileRemoteSource) {
+                boolean autoDownload = false;
+                if (fileMessage instanceof PhotoContent) {
+                    autoDownload = messenger().isImageAutoDownloadEnabled();
+                } else if (fileMessage instanceof AnimationContent) {
+                    autoDownload = messenger().isAnimationAutoPlayEnabled();
+                } else if (fileMessage instanceof VideoContent) {
+                    autoDownload = messenger().isVideoAutoDownloadEnabled();
+                }
+                downloadFileVM = messenger().bindFile(((FileRemoteSource) fileMessage.getSource()).getFileReference(),
+                        autoDownload, new PhotoViewHolder.DownloadVMCallback(fileMessage));
+            }
+        }
+
     }
 
     private PhotoAdapter getAdapter() {
@@ -159,7 +188,95 @@ public class PhotoViewHolder extends AbsDocsViewHolder {
     }
 
     @Override
+    public void onClick(View view) {
+        final DocumentContent document = (DocumentContent) currentMessage.getContent();
+        if (document.getSource() instanceof FileRemoteSource) {
+            FileRemoteSource remoteSource = (FileRemoteSource) document.getSource();
+            final FileReference location = remoteSource.getFileReference();
+            messenger().requestState(location.getFileId(), new FileCallback() {
+                @Override
+                public void onNotDownloaded() {
+                    messenger().startDownloading(location);
+                    playRequested = true;
+                }
+
+                @Override
+                public void onDownloading(float progress) {
+                    messenger().cancelDownloading(location.getFileId());
+                }
+
+                @Override
+                public void onDownloaded(final FileSystemReference reference) {
+                    im.actor.runtime.Runtime.postToMainThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (document instanceof PhotoContent) {
+                                Intents.openMedia(getAdapter().getContext(), previewView, reference.getDescriptor(), currentMessage.getSenderId());
+                            } else if (document instanceof VideoContent) {
+                                playVideo(document, reference);
+                            } else if (document instanceof AnimationContent) {
+                                toggleAnimation();
+                            }
+                        }
+                    });
+                }
+            });
+        } else if (document.getSource() instanceof FileLocalSource) {
+            if (document instanceof VideoContent
+                    && !((VideoContent) document).isCompressed()) {
+                messenger().requestVideoCompressState(currentMessage.getRid(), new CompressVideoCallback() {
+                    @Override
+                    public void onNotConpressing() {
+                        messenger().resumeVideoCompressing(currentMessage.getRid());
+                    }
+
+                    @Override
+                    public void onCompressing(float progress) {
+                        //Nothing to do
+                    }
+
+                    @Override
+                    public void onCompressed() {
+                        //Nothing to do
+                    }
+                });
+
+            } else {
+                messenger().requestUploadState(currentMessage.getRid(), new UploadFileCallback() {
+                    @Override
+                    public void onNotUploading() {
+                        messenger().resumeUpload(currentMessage.getRid());
+                    }
+
+                    @Override
+                    public void onUploading(float progress) {
+                        messenger().pauseUpload(currentMessage.getRid());
+                    }
+
+                    @Override
+                    public void onUploaded() {
+                        // Nothing to do
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
     public void unbind() {
+
+        // Unbinding model
+        if (downloadFileVM != null) {
+            downloadFileVM.detach();
+            downloadFileVM = null;
+        }
+
+        // Releasing images
+        fastThumbLoader.cancel();
+        previewView.setImageURI(Uri.EMPTY);
+        previewView.destroyDrawingCache();
+
+        playRequested = false;
 
     }
 
@@ -252,10 +369,10 @@ public class PhotoViewHolder extends AbsDocsViewHolder {
                 }
             } else {
                 checkFastThumb();
-//                if (playRequested) {
-//                    playRequested = false;
-//                    playVideo((DocumentContent) currentMessage.getContent(), reference);
-//                }
+                if (playRequested) {
+                    playRequested = false;
+                    playVideo((DocumentContent) currentMessage.getContent(), reference);
+                }
             }
 
             progressValue.setText(100 + "");

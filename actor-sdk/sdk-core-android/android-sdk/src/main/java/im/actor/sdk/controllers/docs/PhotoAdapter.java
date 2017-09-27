@@ -1,5 +1,6 @@
 package im.actor.sdk.controllers.docs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v7.widget.GridLayoutManager;
@@ -36,7 +37,7 @@ public class PhotoAdapter extends AbsDocsAdapter {
     private int spanCount = 4;
     private SpanCountListener spanCountListener;
 
-    public PhotoAdapter(BindedDisplayList<Message> displayList, Context context,
+    public PhotoAdapter(BindedDisplayList<Message> displayList, Activity context,
                         SpanCountListener spanCountListener) {
         super(displayList, context);
         this.spanCountListener = spanCountListener;
@@ -65,7 +66,7 @@ public class PhotoAdapter extends AbsDocsAdapter {
             case VIEW_TYPE_VIDEO:
                 itemView = LayoutInflater.from(context)
                         .inflate(R.layout.adapter_docs_photo, viewGroup, false);
-                return new DocsViewHolder(itemView, this);
+                return new PhotoViewHolder(itemView, this);
             default:
                 itemView = LayoutInflater.from(context)
                         .inflate(R.layout.adapter_docs_default, viewGroup, false);

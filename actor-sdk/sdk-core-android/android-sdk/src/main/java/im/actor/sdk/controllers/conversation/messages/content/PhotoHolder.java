@@ -147,8 +147,8 @@ public class PhotoHolder extends MessageHolder {
         };
 
         fastThumbLoader = new FastThumbLoader(previewView);
-        time = (TextView) itemView.findViewById(R.id.time);
-        duration = (TextView) itemView.findViewById(R.id.duration);
+        time = itemView.findViewById(R.id.time);
+        duration = itemView.findViewById(R.id.duration);
 
         stateIcon = (TintImageView) itemView.findViewById(R.id.stateIcon);
 

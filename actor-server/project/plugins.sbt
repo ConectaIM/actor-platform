@@ -2,8 +2,8 @@ resolvers ++= Seq(
   "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
   "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases/",
   "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
-  "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/releases/",
-  "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/",
+  "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/content/repositories/releases/",
+  "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/content/repositories/snapshots/",
 //  Resolver.url("actor-sbt-plugins", url("https://dl.bintray.com/actor/sbt-plugins"))(Resolver.ivyStylePatterns),
   "Flyway" at "http://flywaydb.org/repo",
   "Era7 maven releases" at "https://s3-eu-west-1.amazonaws.com/releases.era7.com",
@@ -14,7 +14,7 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.8.2")
 
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
 
-addSbtPlugin("im.actor" %% "sbt-actor-api" % "0.7.33-SNAPSHOT")
+addSbtPlugin("im.actor" %% "sbt-actor-api" % "0.7.34-SNAPSHOT")
 
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
 

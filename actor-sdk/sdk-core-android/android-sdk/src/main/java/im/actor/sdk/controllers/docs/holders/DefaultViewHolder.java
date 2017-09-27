@@ -15,9 +15,10 @@ public class DefaultViewHolder extends AbsDocsViewHolder {
     }
 
     @Override
-    public void bindData(Message message) {
+    protected void bindData(Message message, boolean isUpdated) {
 
     }
+
 
     @Override
     public void unbind() {

@@ -1,5 +1,6 @@
 package im.actor.sdk.controllers.docs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,7 +29,7 @@ import static im.actor.sdk.controllers.docs.DocsActivity.VIEW_TYPE_VIDEO;
 public class DocsAdapter extends AbsDocsAdapter {
 
 
-    public DocsAdapter(BindedDisplayList<Message> displayList, Context context) {
+    public DocsAdapter(BindedDisplayList<Message> displayList, Activity context) {
         super(displayList, context);
     }
 

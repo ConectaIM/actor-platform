@@ -1,5 +1,6 @@
 package im.actor.sdk.controllers.docs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 
@@ -19,10 +20,10 @@ public abstract class AbsDocsAdapter extends BindedListAdapter<Message, AbsDocsV
 
 
     protected ActorBinder BINDER = new ActorBinder();
-    protected Context context;
+    protected Activity context;
     protected Peer peer;
 
-    public AbsDocsAdapter(BindedDisplayList<Message> displayList, Context context) {
+    public AbsDocsAdapter(BindedDisplayList<Message> displayList, Activity context) {
         super(displayList);
         this.context = context;
     }
@@ -57,7 +58,7 @@ public abstract class AbsDocsAdapter extends BindedListAdapter<Message, AbsDocsV
         return BINDER;
     }
 
-    public Context getContext() {
+    public Activity getContext() {
         return context;
     }
 
