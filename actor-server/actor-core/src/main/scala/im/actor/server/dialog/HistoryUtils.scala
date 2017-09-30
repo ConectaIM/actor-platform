@@ -2,8 +2,8 @@ package im.actor.server.dialog
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.util.FastFuture
-import im.actor.server.group.{GroupExtension}
-import im.actor.server.model.{HistoryMessage, Peer, PeerType}
+import im.actor.server.group.GroupExtension
+import im.actor.server.model.{HistoryMessage, MessageType, Peer, PeerType}
 import im.actor.server.persist.HistoryMessageRepo
 import org.joda.time.DateTime
 import slick.dbio.DBIO
@@ -82,7 +82,8 @@ object HistoryUtils {
     dateMillis:           Long,
     randomId:             Long,
     messageContentHeader: Int,
-    messageContentData:   Array[Byte]
+    messageContentData:   Array[Byte],
+    messageType: MessageType
   )(implicit ec: ExecutionContext): DBIO[Unit] = {
     for {
       _ ← HistoryMessageRepo.create(HistoryMessage(
@@ -93,7 +94,8 @@ object HistoryUtils {
         randomId = randomId,
         messageContentHeader = messageContentHeader,
         messageContentData = messageContentData,
-        deletedAt = None
+        deletedAt = None,
+        messageType = messageType
       ))
     } yield ()
   }

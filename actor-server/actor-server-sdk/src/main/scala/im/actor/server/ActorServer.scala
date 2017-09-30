@@ -109,7 +109,6 @@ final case class ActorServerBuilder(defaultConfig: Config = ConfigFactory.empty(
 
       if (system.settings.config.getList("akka.cluster.seed-nodes").isEmpty) {
         system.log.info("Going to a single-node cluster mode")
-
         Cluster(system).join(Cluster(system).selfAddress)
       }
 

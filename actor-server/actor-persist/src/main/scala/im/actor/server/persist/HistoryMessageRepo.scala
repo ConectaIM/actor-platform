@@ -1,7 +1,7 @@
 package im.actor.server.persist
 
 import com.github.tototoshi.slick.PostgresJodaSupport._
-import im.actor.server.model.{HistoryMessage, Peer, PeerType}
+import im.actor.server.model.{HistoryMessage, MessageType, Peer, PeerType}
 import org.joda.time.DateTime
 import slick.dbio.Effect.{Read, Write}
 import slick.driver.PostgresDriver
@@ -29,11 +29,13 @@ final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "hi
 
   def deletedAt = column[Option[DateTime]]("deleted_at")
 
-  def * = (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt) <>
+  def messageType = column[MessageType]("message_type")
+
+  def * = (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) <>
     (applyHistoryMessage.tupled, unapplyHistoryMessage)
 
-  private def applyHistoryMessage: (Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime]) ⇒ HistoryMessage = {
-    case (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt) ⇒
+  private def applyHistoryMessage: (Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime], MessageType) ⇒ HistoryMessage = {
+    case (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) ⇒
       HistoryMessage(
         userId = userId,
         peer = Peer(PeerType.fromValue(peerType), peerId),
@@ -42,14 +44,15 @@ final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "hi
         randomId = randomId,
         messageContentHeader = messageContentHeader,
         messageContentData = messageContentData,
-        deletedAt = deletedAt
+        deletedAt = deletedAt,
+        messageType = messageType
       )
   }
 
-  private def unapplyHistoryMessage: HistoryMessage ⇒ Option[(Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime])] = { historyMessage ⇒
+  private def unapplyHistoryMessage: HistoryMessage ⇒ Option[(Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime], MessageType)] = { historyMessage ⇒
     HistoryMessage.unapply(historyMessage) map {
-      case (userId, peer, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt) ⇒
-        (userId, peer.typ.value, peer.id, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt)
+      case (userId, peer, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) ⇒
+        (userId, peer.typ.value, peer.id, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType)
     }
   }
 }
@@ -200,7 +203,8 @@ object HistoryMessageRepo {
       randomId = r.nextLong,
       messageContentHeader = r.nextInt,
       messageContentData = r.nextBytes,
-      deletedAt = getDatetimeOptionResult(r)
+      deletedAt = getDatetimeOptionResult(r),
+      messageType = MessageType(r.nextInt())
     ))
   private val ServiceHeader = 2
 
