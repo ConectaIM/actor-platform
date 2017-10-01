@@ -9,7 +9,6 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
-
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
@@ -38,6 +37,9 @@ android {
         avell {
             applicationIdSuffix ".avell"
         }
+        mac {
+            applicationIdSuffix ".mac"
+        }
         desenv {
             applicationIdSuffix ".desenv"
         }
@@ -45,6 +47,10 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 
     compileOptions {
