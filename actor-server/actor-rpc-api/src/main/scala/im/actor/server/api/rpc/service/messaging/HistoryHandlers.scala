@@ -11,7 +11,7 @@ import im.actor.api.rpc.peers.{ApiOutPeer, ApiPeerType}
 import im.actor.api.rpc.sequence.ApiUpdateOptimization
 import im.actor.server.dialog.HistoryUtils
 import im.actor.server.group.CanSendMessageInfo
-import im.actor.server.model.Peer
+import im.actor.server.model.{MessageType, Peer}
 import im.actor.server.persist.contact.UserContactRepo
 import im.actor.server.persist.HistoryMessageRepo
 import im.actor.server.sequence.SeqState
@@ -244,38 +244,22 @@ trait HistoryHandlers {
     authorized(clientData) { implicit client ⇒
       withOutPeer(peer) {
         val modelPeer = peer.asModel
-
         val action = for {
           historyOwner ← DBIO.from(getHistoryOwner(modelPeer, client.userId))
-
-          messageModels <- HistoryMessageRepo.find(historyOwner, modelPeer, endDateTimeFrom(date), limit, 3)
-
+          messageModels <- HistoryMessageRepo.find(historyOwner, modelPeer, endDateTimeFrom(date), limit, MessageType(docType.id))
           messages = messageModels.view
             .map(_.ofUser(client.userId))
             .foldLeft(Vector.empty[ApiMessageContainer]) {
               case ((msgs), message) ⇒
                 message.asStruct2().toOption match {
                   case Some(messageStruct) ⇒
-                    messageStruct.message.asInstanceOf[ApiDocumentMessage].ext match {
-                        case Some(_: ApiDocumentExPhoto) if (docType == ApiDocsHistoryType.Photo) ⇒ { //Photo
-                          msgs :+ messageStruct
-                        }
-                        case Some(_: ApiDocumentExVideo) if (docType == ApiDocsHistoryType.Video) ⇒ { //Video
-                          msgs :+ messageStruct
-                        }
-                        case None if (docType == ApiDocsHistoryType.Document) ⇒ { //Generic document
-                          msgs :+ messageStruct
-                        }
-                        case _ ⇒
-                          msgs
-                    }
+                    msgs :+ messageStruct
                   case None ⇒ msgs
                 }
             }
         } yield Ok(ResponseLoadDocsHistory(
           history = messages
         ))
-
         db.run(action)
       }
     }

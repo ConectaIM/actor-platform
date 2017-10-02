@@ -60,7 +60,7 @@ trait DialogCommandHandlers extends PeersImplicits with UserAcl {
                   SendMessageAck(updatedSender) ← dialogExt.ackSendMessage(peer, sm.withDate(sendDate))
                   finalPeer = updatedSender getOrElse selfPeer
 
-                  _ ← db.run(writeHistoryMessage(finalPeer, peer, sendDate, sm.randomId, message.header, message.toByteArray))
+                  _ ← db.run(writeHistoryMessage(finalPeer, peer, sendDate, sm.randomId, message.header, message.toByteArray, HistoryUtils.getMessageType(message)))
                   _ ← dialogExt.bump(userId, peer)
                   SeqState(seq, state) ← deliveryExt.senderDelivery(
                     senderUserId = userId,
@@ -76,7 +76,7 @@ trait DialogCommandHandlers extends PeersImplicits with UserAcl {
 
                 failed =
                   for {
-                      _ ← db.run(writeHistoryMessageSelf(userId, peer, userId, sendDate, sm.randomId, message.header, message.toByteArray))
+                      _ ← db.run(writeHistoryMessageSelf(userId, peer, userId, sendDate, sm.randomId, message.header, message.toByteArray, HistoryUtils.getMessageType(message)))
                       SeqState(seq, state) ← deliveryExt.senderDelivery(userId, optClientAuthId, peer, sm.randomId, sendDate, message, sm.isFat, sm.deliveryTag)
                   } yield {
                     SeqStateDate(seq, state, sendDate)
@@ -140,7 +140,8 @@ trait DialogCommandHandlers extends PeersImplicits with UserAcl {
             dateMillis,
             randomId,
             message.header,
-            message.toByteArray
+            message.toByteArray,
+            HistoryUtils.getMessageType(message)
           ))
         } yield WriteMessageSelfAck()) pipeTo sender()
       }

@@ -2,6 +2,7 @@ package im.actor.server.dialog
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.util.FastFuture
+import im.actor.api.rpc.messaging._
 import im.actor.server.group.GroupExtension
 import im.actor.server.model.{HistoryMessage, MessageType, Peer, PeerType}
 import im.actor.server.persist.HistoryMessageRepo
@@ -22,7 +23,8 @@ object HistoryUtils {
     dateMillis:           Long,
     randomId:             Long,
     messageContentHeader: Int,
-    messageContentData:   Array[Byte]
+    messageContentData:   Array[Byte],
+    messageType: MessageType
   )(implicit system: ActorSystem): DBIO[Unit] = {
     import system.dispatcher
     requirePrivatePeer(fromPeer)
@@ -39,7 +41,8 @@ object HistoryUtils {
         randomId = randomId,
         messageContentHeader = messageContentHeader,
         messageContentData = messageContentData,
-        deletedAt = None
+        deletedAt = None,
+        messageType = messageType
       )
 
       val messages =
@@ -59,12 +62,12 @@ object HistoryUtils {
       for {
         isHistoryShared ← DBIO.from(GroupExtension(system).isHistoryShared(toPeer.id))
         _ ← if (isHistoryShared) {
-          val historyMessage = HistoryMessage(SharedUserId, toPeer, date, fromPeer.id, randomId, messageContentHeader, messageContentData, None)
+          val historyMessage = HistoryMessage(SharedUserId, toPeer, date, fromPeer.id, randomId, messageContentHeader, messageContentData, None, messageType)
           HistoryMessageRepo.create(historyMessage) map (_ ⇒ ())
         } else {
           DBIO.from(GroupExtension(system).getMemberIds(toPeer.id)) map (_._1) flatMap { groupUserIds ⇒
             val historyMessages = groupUserIds.map { groupUserId ⇒
-              HistoryMessage(groupUserId, toPeer, date, fromPeer.id, randomId, messageContentHeader, messageContentData, None)
+              HistoryMessage(groupUserId, toPeer, date, fromPeer.id, randomId, messageContentHeader, messageContentData, None, messageType)
             }
             HistoryMessageRepo.create(historyMessages) map (_ ⇒ ())
           }
@@ -117,5 +120,18 @@ object HistoryUtils {
   private def requirePrivatePeer(peer: Peer) = {
     if (peer.typ != PeerType.Private)
       throw new RuntimeException("sender should be Private peer")
+  }
+
+  def getMessageType(apiMessage: ApiMessage):MessageType = {
+    apiMessage.asInstanceOf[ApiDocumentMessage].ext match {
+      case Some(_: ApiDocumentExPhoto) ⇒ {
+        MessageType.Photo
+      }
+      case Some(_: ApiDocumentExVideo) ⇒ {
+        MessageType.Video
+      }
+      case _ ⇒
+        MessageType.Document
+    }
   }
 }

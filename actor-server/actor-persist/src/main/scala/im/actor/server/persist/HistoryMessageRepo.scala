@@ -8,6 +8,7 @@ import slick.driver.PostgresDriver
 import slick.driver.PostgresDriver.api._
 import slick.jdbc.GetResult
 import slick.profile.{FixedSqlAction, FixedSqlStreamingAction, SqlAction, SqlStreamingAction}
+import MessageTypeColumnType._
 
 final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "history_messages") {
 
@@ -93,13 +94,13 @@ object HistoryMessageRepo {
     query.take(limit).result
   }
 
-  def find(userId: Int, peer: Peer, dateOpt: Option[DateTime], limit: Int, messageType:Int): FixedSqlStreamingAction[Seq[HistoryMessage], HistoryMessage, Read] = {
+  def find(userId: Int, peer: Peer, dateOpt: Option[DateTime], limit: Int, messageType:MessageType): FixedSqlStreamingAction[Seq[HistoryMessage], HistoryMessage, Read] = {
     val baseQuery = notDeletedMessages
       .filter(m ⇒
         m.userId === userId &&
           m.peerType === peer.typ.value &&
           m.peerId === peer.id &&
-          m.messageContentHeader === messageType)
+          m.messageType === messageType)
 
     val query = dateOpt match {
       case Some(date) ⇒
