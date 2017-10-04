@@ -5,10 +5,10 @@ import java.time.Instant
 
 import akka.actor._
 import akka.cluster.Cluster
-import com.typesafe.config.{ Config, ConfigException, ConfigFactory }
+import com.typesafe.config.{Config, ConfigException, ConfigFactory}
 import im.actor.config.ActorConfig
 import im.actor.env.ActorEnv
-import im.actor.server.api.http.{ HttpApi, HttpApiConfig }
+import im.actor.server.api.http.{HttpApi, HttpApiConfig}
 import im.actor.server.api.rpc.RpcApiExtension
 import im.actor.server.api.rpc.service.auth.AuthServiceImpl
 import im.actor.server.api.rpc.service.configs.ConfigsServiceImpl
@@ -18,31 +18,32 @@ import im.actor.server.api.rpc.service.encryption.EncryptionServiceImpl
 import im.actor.server.api.rpc.service.eventbus.EventbusServiceImpl
 import im.actor.server.api.rpc.service.features.FeaturesServiceImpl
 import im.actor.server.api.rpc.service.files.FilesServiceImpl
-import im.actor.server.api.rpc.service.groups.{ GroupInviteConfig, GroupsServiceImpl }
+import im.actor.server.api.rpc.service.groups.{GroupInviteConfig, GroupsServiceImpl}
 import im.actor.server.api.rpc.service.messaging.MessagingServiceImpl
 import im.actor.server.api.rpc.service.privacy.PrivacyServiceImpl
 import im.actor.server.api.rpc.service.profile.ProfileServiceImpl
 import im.actor.server.api.rpc.service.push.PushServiceImpl
-import im.actor.server.api.rpc.service.sequence.{ SequenceServiceConfig, SequenceServiceImpl }
+import im.actor.server.api.rpc.service.sequence.{SequenceServiceConfig, SequenceServiceImpl}
 import im.actor.server.api.rpc.service.stickers.StickersServiceImpl
 import im.actor.server.api.rpc.service.users.UsersServiceImpl
 import im.actor.server.api.rpc.service.weak.WeakServiceImpl
 import im.actor.server.api.rpc.service.webactions.WebactionsServiceImpl
 import im.actor.server.api.rpc.service.webhooks.IntegrationsServiceImpl
 import im.actor.server.api.rpc.service.webrtc.WebrtcServiceImpl
-import im.actor.server.bot.{ ActorBot, BotExtension }
+import im.actor.server.bot.{ActorBot, BotExtension}
 import im.actor.server.cli.ActorCliService
 import im.actor.server.db.DbExtension
 import im.actor.server.dialog.DialogExtension
-import im.actor.server.enrich.{ RichMessageConfig, RichMessageWorker }
+import im.actor.server.enrich.{RichMessageConfig, RichMessageWorker}
 import im.actor.server.frontend.Frontend
 import im.actor.server.group._
+import im.actor.server.messaging.HistoryMessagesMigrator
 import im.actor.server.migrations._
-import im.actor.server.migrations.v2.{ MigrationNameList, MigrationTsActions }
-import im.actor.server.oauth.{ GoogleProvider, OAuth2GoogleConfig }
-import im.actor.server.presences.{ GroupPresenceExtension, PresenceExtension }
+import im.actor.server.migrations.v2.{MigrationNameList, MigrationTsActions}
+import im.actor.server.oauth.{GoogleProvider, OAuth2GoogleConfig}
+import im.actor.server.presences.{GroupPresenceExtension, PresenceExtension}
 import im.actor.server.sequence._
-import im.actor.server.session.{ Session, SessionConfig, SessionMessage }
+import im.actor.server.session.{Session, SessionConfig, SessionMessage}
 import im.actor.server.social.SocialExtension
 import im.actor.server.stickers.StickerMessages
 import im.actor.server.user._
@@ -123,6 +124,7 @@ final case class ActorServerBuilder(defaultConfig: Config = ConfigFactory.empty(
       LocalNamesFromKVMigrator.migrate()
       FillUserSequenceMigrator.migrate()
       FixUserSequenceMigrator.migrate()
+      HistoryMessagesMigrator.migrate()
 
       system.log.debug("Writing migration timestamps")
       // multi sequence introduced

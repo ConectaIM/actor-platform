@@ -30,12 +30,12 @@ final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "hi
 
   def deletedAt = column[Option[DateTime]]("deleted_at")
 
-  def messageType = column[MessageType]("message_type")
+  def messageType = column[Option[MessageType]]("message_type")
 
   def * = (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) <>
     (applyHistoryMessage.tupled, unapplyHistoryMessage)
 
-  private def applyHistoryMessage: (Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime], MessageType) ⇒ HistoryMessage = {
+  private def applyHistoryMessage: (Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime], Option[MessageType]) ⇒ HistoryMessage = {
     case (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) ⇒
       HistoryMessage(
         userId = userId,
@@ -50,7 +50,7 @@ final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "hi
       )
   }
 
-  private def unapplyHistoryMessage: HistoryMessage ⇒ Option[(Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime], MessageType)] = { historyMessage ⇒
+  private def unapplyHistoryMessage: HistoryMessage ⇒ Option[(Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime], Option[MessageType])] = { historyMessage ⇒
     HistoryMessage.unapply(historyMessage) map {
       case (userId, peer, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) ⇒
         (userId, peer.typ.value, peer.id, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType)
@@ -65,6 +65,8 @@ object HistoryMessageRepo {
   val messagesC = Compiled(messages)
 
   val notDeletedMessages = messages.filter(_.deletedAt.isEmpty)
+
+  val nullMessageType = messages.filter(_.messageType.isEmpty).result
 
   val withoutServiceMessages = notDeletedMessages.filter(_.messageContentHeader =!= 2)
 
@@ -195,6 +197,15 @@ object HistoryMessageRepo {
       .map(m ⇒ (m.messageContentHeader, m.messageContentData))
       .update((messageContentHeader, messageContentData))
 
+  def updateMessageType(userId: Int, randomId: Long, peerType: PeerType, peerId: Int,
+                        messageType: Option[MessageType]): FixedSqlAction[Int, NoStream, Write] =
+    messages
+      .filter(m ⇒ m.randomId === randomId && m.peerType === peerType.value)
+      .filter(_.peerId === peerId)
+      .filter(_.userId === userId)
+      .map(_.messageType)
+      .update(messageType)
+
   private implicit val getMessageResult: GetResult[HistoryMessage] = GetResult(r ⇒
     HistoryMessage(
       userId = r.nextInt,
@@ -205,7 +216,10 @@ object HistoryMessageRepo {
       messageContentHeader = r.nextInt,
       messageContentData = r.nextBytes,
       deletedAt = getDatetimeOptionResult(r),
-      messageType = MessageType(r.nextInt())
+      messageType = r.nextIntOption() match {
+        case i:Some[Int] => Some(MessageType(i.get))
+        case _ => None
+      }
     ))
   private val ServiceHeader = 2
 

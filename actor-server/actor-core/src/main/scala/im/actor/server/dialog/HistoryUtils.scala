@@ -24,7 +24,7 @@ object HistoryUtils {
     randomId:             Long,
     messageContentHeader: Int,
     messageContentData:   Array[Byte],
-    messageType: MessageType
+    messageType: Option[MessageType]
   )(implicit system: ActorSystem): DBIO[Unit] = {
     import system.dispatcher
     requirePrivatePeer(fromPeer)
@@ -86,7 +86,7 @@ object HistoryUtils {
     randomId:             Long,
     messageContentHeader: Int,
     messageContentData:   Array[Byte],
-    messageType: MessageType
+    messageType: Option[MessageType]
   )(implicit ec: ExecutionContext): DBIO[Unit] = {
     for {
       _ ← HistoryMessageRepo.create(HistoryMessage(
@@ -122,16 +122,24 @@ object HistoryUtils {
       throw new RuntimeException("sender should be Private peer")
   }
 
-  def getMessageType(apiMessage: ApiMessage):MessageType = {
-    apiMessage.asInstanceOf[ApiDocumentMessage].ext match {
-      case Some(_: ApiDocumentExPhoto) ⇒ {
-        MessageType.Photo
+  def getMessageType(apiMessage: ApiMessage):Option[MessageType] = {
+    apiMessage match {
+      case mess :ApiDocumentMessage => {
+        mess.ext match {
+          case Some(_:ApiDocumentExVideo) =>{
+            Some(MessageType.Video)
+          }
+          case Some(_: ApiDocumentExPhoto) => {
+            Some(MessageType.Photo)
+          }
+          case _ => {
+            Some(MessageType.Document)
+          }
+        }
       }
-      case Some(_: ApiDocumentExVideo) ⇒ {
-        MessageType.Video
+      case _ => {
+        Some(MessageType.Undefined)
       }
-      case _ ⇒
-        MessageType.Document
     }
   }
 }
