@@ -1,7 +1,6 @@
 package im.actor.server.messaging
 
 import akka.actor.ActorSystem
-import akka.http.scaladsl.util.FastFuture
 import cats.data.Xor
 import im.actor.api.rpc.messaging._
 import im.actor.server.db.DbExtension
