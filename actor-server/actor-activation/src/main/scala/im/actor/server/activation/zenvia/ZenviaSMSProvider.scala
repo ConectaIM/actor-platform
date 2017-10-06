@@ -1,6 +1,5 @@
 package im.actor.server.activation.zenvia
 
-
 import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.http.scaladsl.util.FastFuture
@@ -19,15 +18,13 @@ import im.actor.server.persist.auth.{AuthTransactionRepo, BypassSmsNumbersRepo, 
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
-private[activation] final class ZenviaSMSProvider(implicit system: ActorSystem)
-  extends ActivationProvider with CommonAuthCodes {
+private[activation] final class ZenviaSMSProvider(implicit system: ActorSystem) extends ActivationProvider with CommonAuthCodes {
 
+  protected implicit val ec = system.dispatcher
   protected val activationConfig = ActivationConfig.load.getOrElse(throw new RuntimeException("Failed to load activation config"))
 
   private val log = Logging(system, getClass)
   protected val db = DbExtension(system).db
-
-  protected implicit val ec = system.dispatcher
 
   private val zenviaClient = new ZenviaClient(ActorConfig.load().getConfig("services.zenvia"))
   private val smsEngine = new ZenviaSmsEngine(zenviaClient)
