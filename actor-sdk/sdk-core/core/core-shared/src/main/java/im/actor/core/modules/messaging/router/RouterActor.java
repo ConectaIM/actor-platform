@@ -76,7 +76,6 @@ import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.KeyValueEngine;
 import im.actor.runtime.storage.ListEngine;
-import im.actor.sdk.controllers.docs.PhotoAdapter;
 
 import static im.actor.core.entity.EntityConverter.convert;
 import static im.actor.core.util.AssertUtils.assertTrue;

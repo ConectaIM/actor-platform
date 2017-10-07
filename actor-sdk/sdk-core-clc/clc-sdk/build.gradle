@@ -6,8 +6,6 @@ apply plugin: 'io.codearte.nexus-staging'
 
 sourceCompatibility = 1.8
 
-//mainClassName = "clc.FxClcApplication"
-
 sourceSets {
     main {
         resources.srcDirs = ['src/main/resources',
