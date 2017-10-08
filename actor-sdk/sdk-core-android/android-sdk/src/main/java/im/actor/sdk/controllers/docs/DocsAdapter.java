@@ -31,8 +31,7 @@ public class DocsAdapter extends AbsDocsAdapter {
     @Override
     public int getItemViewType(int position) {
         AbsContent content = getItem(position).getContent();
-        if (content.getClass().isAssignableFrom(DocumentContent.class) ||
-                content instanceof DocumentContent) {
+        if (DocumentContent.class.isAssignableFrom(content.getClass())) {
             return VIEW_TYPE_DOCUMENT;
         }
         return -1;

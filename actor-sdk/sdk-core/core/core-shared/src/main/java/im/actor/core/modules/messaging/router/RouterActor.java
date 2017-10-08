@@ -202,6 +202,29 @@ public class RouterActor extends ModuleActor {
         unstashAll();
     }
 
+    private void updateDocsMessages(Peer peer, List<Message> messages){
+        List<Message> docsMessages = new ArrayList<>();
+        List<Message> photoMessages = new ArrayList<>();
+        List<Message> videoMessages = new ArrayList<>();
+
+        for (Message m : messages) {
+            if(VideoContent.class.isAssignableFrom(m.getContent().getClass())) {
+                videoMessages.add(m);
+            }else if(PhotoContent.class.isAssignableFrom(m.getContent().getClass())){
+                photoMessages.add(m);
+            }else if(DocumentContent.class.isAssignableFrom(m.getContent().getClass())){
+                docsMessages.add(m);
+            }
+        }
+
+        //docs messages
+        photos(peer).addOrUpdateItems(photoMessages);
+        videos(peer).addOrUpdateItems(videoMessages);
+        docs(peer).addOrUpdateItems(docsMessages);
+
+    }
+
+
 
     //
     // Incoming Messages
@@ -222,14 +245,11 @@ public class RouterActor extends ModuleActor {
         long maxInReadDate = 0;
         long maxInDate = 0;
 
-        List<Message> docsMessages = new ArrayList<>();
-        List<Message> photoMessages = new ArrayList<>();
-        List<Message> videoMessages = new ArrayList<>();
-
         for (Message m : messages) {
             if (topMessage == null || topMessage.getSortDate() < m.getSortDate()) {
                 topMessage = m;
             }
+
             if (m.getSenderId() != myUid()) {
                 if (m.getSortDate() > state.getInReadDate()) {
                     unreadCount++;
@@ -239,34 +259,12 @@ public class RouterActor extends ModuleActor {
                     maxInDate = Math.max(maxInDate, m.getSortDate());
                 }
             }
-
-            if(m.getContent() instanceof VideoContent
-                    || m.getContent() instanceof PhotoContent){
-                if(m.getContent() instanceof VideoContent){
-                    videoMessages.add(m);
-                }
-
-                if(m.getContent() instanceof PhotoContent){
-                    photoMessages.add(m);
-                }
-            }else{
-                if(m.getContent() instanceof DocumentContent){
-                    docsMessages.add(m);
-                }
-            }
-
         }
-
 
         //
         // Writing to Conversation
         //
         conversation(peer).addOrUpdateItems(messages);
-
-        //docs messages
-        photos(peer).addOrUpdateItems(photoMessages);
-        videos(peer).addOrUpdateItems(videoMessages);
-        docs(peer).addOrUpdateItems(docsMessages);
 
         //
         // Update Chat State
@@ -365,6 +363,8 @@ public class RouterActor extends ModuleActor {
                 }
             }
         }
+
+        updateDocsMessages(peer, messages);
 
         return res;
     }
@@ -507,43 +507,7 @@ public class RouterActor extends ModuleActor {
                                               Long maxReceiveDate, boolean isEnded) {
 
         Log.d(TAG, "History Docs Loaded");
-        long maxMessageDate = 0;
-        // Processing all new messages
-        ArrayList<Message> docsMessages = new ArrayList<>();
-        ArrayList<Message> videoMessages = new ArrayList<>();
-        ArrayList<Message> photoMessages = new ArrayList<>();
-
-        for (Message historyMessage : messages) {
-            // Ignore already present messages
-            if (docs(peer).getValue(historyMessage.getEngineId()) != null) {
-                continue;
-            }
-
-            // Writing messages
-            if(historyMessage.getContent() instanceof VideoContent
-                    || historyMessage.getContent() instanceof PhotoContent){
-                if(historyMessage.getContent() instanceof VideoContent){
-                    videoMessages.add(historyMessage);
-                }
-
-                if(historyMessage.getContent() instanceof PhotoContent){
-                    photoMessages.add(historyMessage);
-                }
-            }else{
-                if(historyMessage.getContent() instanceof DocumentContent){
-                    docsMessages.add(historyMessage);
-                }
-            }
-
-            if (historyMessage.getSenderId() != myUid()) {
-                maxMessageDate = Math.max(maxMessageDate, historyMessage.getSortDate());
-            }
-        }
-
-        //docs messages
-        photos(peer).addOrUpdateItems(photoMessages);
-        videos(peer).addOrUpdateItems(videoMessages);
-        docs(peer).addOrUpdateItems(docsMessages);
+        updateDocsMessages(peer, messages);
 
         return Promise.success(null);
     }

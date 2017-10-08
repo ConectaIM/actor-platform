@@ -44,6 +44,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="100"
+            android:lines="1"
+            android:maxLines="1"
             android:textSize="18sp" />
     </FrameLayout>
 
@@ -69,6 +71,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="middle"
             android:lines="1"
+            android:singleLine="true"
             android:paddingRight="24dp"
             android:maxLines="1"
             android:text="file.txt"
