@@ -1,9 +1,7 @@
 package im.actor.sdk.controllers.docs;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 

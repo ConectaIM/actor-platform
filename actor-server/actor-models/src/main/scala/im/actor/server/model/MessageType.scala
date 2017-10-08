@@ -6,4 +6,6 @@ object MessageType {
   val Photo = MessageType(1)
   val Video = MessageType(2)
   val Document = MessageType(3)
+  val Animation = MessageType(4)
+  val Voice = MessageType(5)
 }

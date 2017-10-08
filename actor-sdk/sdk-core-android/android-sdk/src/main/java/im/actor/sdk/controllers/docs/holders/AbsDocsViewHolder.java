@@ -12,7 +12,7 @@ import im.actor.sdk.controllers.docs.AbsDocsAdapter;
  */
 
 public abstract class AbsDocsViewHolder extends RecyclerView.ViewHolder
-    implements View.OnClickListener{
+        implements View.OnClickListener {
 
     protected FileVM downloadFileVM;
     protected Message currentMessage;

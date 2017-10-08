@@ -21,7 +21,7 @@ import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 public class PhotoFragment extends AbsDocsFragment implements PhotoAdapter.SpanCountListener {
 
-    private  int mediaType;
+    private int mediaType;
 
     public static PhotoFragment create(Peer peer, int mediaType) {
         PhotoFragment res = new PhotoFragment();
@@ -39,9 +39,9 @@ public class PhotoFragment extends AbsDocsFragment implements PhotoAdapter.SpanC
 
     @Override
     protected BindedDisplayList<Message> onCreateDisplayList() {
-        if(mediaType == DocsActivity.VIEW_TYPE_PHOTO){
+        if (mediaType == DocsActivity.VIEW_TYPE_PHOTO) {
             return messenger().getPhotosDisplayList(peer);
-        }else if(mediaType == DocsActivity.VIEW_TYPE_VIDEO){
+        } else if (mediaType == DocsActivity.VIEW_TYPE_VIDEO) {
             return messenger().getVideosDisplayList(peer);
         }
 

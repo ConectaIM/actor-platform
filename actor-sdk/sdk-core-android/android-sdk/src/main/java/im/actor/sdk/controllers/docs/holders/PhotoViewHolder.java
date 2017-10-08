@@ -37,7 +37,6 @@ import im.actor.core.viewmodel.CompressVideoCallback;
 import im.actor.core.viewmodel.FileCallback;
 import im.actor.core.viewmodel.FileVMCallback;
 import im.actor.core.viewmodel.UploadFileCallback;
-import im.actor.runtime.Log;
 import im.actor.runtime.files.FileSystemReference;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;

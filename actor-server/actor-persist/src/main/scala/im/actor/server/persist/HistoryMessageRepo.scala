@@ -68,6 +68,8 @@ object HistoryMessageRepo {
 
   val nullMessageType = messages.filter(_.messageType.isEmpty).result
 
+  val documentsMessageType = messages.filter(_.messageType === MessageType.Document).result
+
   val withoutServiceMessages = notDeletedMessages.filter(_.messageContentHeader =!= 2)
 
   def byUserIdPeer(userId: Rep[Int], peerType: Rep[Int], peerId: Rep[Int]) =

@@ -1,7 +1,6 @@
 package im.actor.sdk.controllers.docs;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
@@ -14,9 +13,8 @@ import im.actor.core.entity.content.PhotoContent;
 import im.actor.core.entity.content.VideoContent;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.R;
-import im.actor.sdk.controllers.docs.holders.DefaultViewHolder;
 import im.actor.sdk.controllers.docs.holders.AbsDocsViewHolder;
-import im.actor.sdk.controllers.docs.holders.DocsViewHolder;
+import im.actor.sdk.controllers.docs.holders.DefaultViewHolder;
 import im.actor.sdk.controllers.docs.holders.PhotoViewHolder;
 import im.actor.sdk.util.Screen;
 

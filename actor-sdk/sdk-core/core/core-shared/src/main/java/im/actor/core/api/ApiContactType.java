@@ -24,12 +24,17 @@ public enum ApiContactType {
     }
 
     public static ApiContactType parse(int value) throws IOException {
-        switch(value) {
-            case 1: return ApiContactType.PHONE;
-            case 2: return ApiContactType.EMAIL;
-            case 3: return ApiContactType.WEB;
-            case 4: return ApiContactType.SOCIAL;
-            default: return ApiContactType.UNSUPPORTED_VALUE;
+        switch (value) {
+            case 1:
+                return ApiContactType.PHONE;
+            case 2:
+                return ApiContactType.EMAIL;
+            case 3:
+                return ApiContactType.WEB;
+            case 4:
+                return ApiContactType.SOCIAL;
+            default:
+                return ApiContactType.UNSUPPORTED_VALUE;
         }
     }
 }

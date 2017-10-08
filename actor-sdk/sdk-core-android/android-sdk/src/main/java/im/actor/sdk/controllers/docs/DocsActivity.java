@@ -85,7 +85,7 @@ public class DocsActivity extends BaseActivity {
 
     private Fragment getFragmentAtPosition(int position) {
         if (!fragments.containsKey(position)) {
-            switch (position){
+            switch (position) {
                 case 0:
                     fragments.put(position, PhotoFragment.create(peer, DocsActivity.VIEW_TYPE_PHOTO));
                     break;

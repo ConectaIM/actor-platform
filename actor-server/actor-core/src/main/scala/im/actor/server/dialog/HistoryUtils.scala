@@ -132,7 +132,16 @@ object HistoryUtils {
           case Some(_: ApiDocumentExPhoto) => {
             Some(MessageType.Photo)
           }
-          case _ => {
+          case Some(_: ApiDocumentExAnimation) => {
+            Some(MessageType.Animation)
+          }
+          case Some(_: ApiDocumentExAnimationVid) => {
+            Some(MessageType.Animation)
+          }
+          case Some(_: ApiDocumentExVoice) => {
+            Some(MessageType.Voice)
+          }
+          case None => {
             Some(MessageType.Document)
           }
         }

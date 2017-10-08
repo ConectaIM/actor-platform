@@ -23,11 +23,15 @@ public enum ApiSex {
     }
 
     public static ApiSex parse(int value) throws IOException {
-        switch(value) {
-            case 1: return ApiSex.UNKNOWN;
-            case 2: return ApiSex.MALE;
-            case 3: return ApiSex.FEMALE;
-            default: return ApiSex.UNSUPPORTED_VALUE;
+        switch (value) {
+            case 1:
+                return ApiSex.UNKNOWN;
+            case 2:
+                return ApiSex.MALE;
+            case 3:
+                return ApiSex.FEMALE;
+            default:
+                return ApiSex.UNSUPPORTED_VALUE;
         }
     }
 }

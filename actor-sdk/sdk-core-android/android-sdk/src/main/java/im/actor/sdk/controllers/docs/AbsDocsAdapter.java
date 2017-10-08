@@ -1,7 +1,6 @@
 package im.actor.sdk.controllers.docs;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Configuration;
 
 import im.actor.core.entity.Message;

@@ -37,7 +37,7 @@ import im.actor.server.dialog.DialogExtension
 import im.actor.server.enrich.{RichMessageConfig, RichMessageWorker}
 import im.actor.server.frontend.Frontend
 import im.actor.server.group._
-import im.actor.server.messaging.HistoryMessagesMigrator
+import im.actor.server.messaging.{HistoryMessagesDocumentsMigrator, HistoryMessagesMigrator}
 import im.actor.server.migrations._
 import im.actor.server.migrations.v2.{MigrationNameList, MigrationTsActions}
 import im.actor.server.oauth.{GoogleProvider, OAuth2GoogleConfig}
@@ -125,6 +125,7 @@ final case class ActorServerBuilder(defaultConfig: Config = ConfigFactory.empty(
       FillUserSequenceMigrator.migrate()
       FixUserSequenceMigrator.migrate()
       HistoryMessagesMigrator.migrate()
+      HistoryMessagesDocumentsMigrator.migrate()
 
       system.log.debug("Writing migration timestamps")
       // multi sequence introduced

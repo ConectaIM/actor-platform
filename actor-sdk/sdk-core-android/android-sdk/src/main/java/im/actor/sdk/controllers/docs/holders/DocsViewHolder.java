@@ -267,55 +267,55 @@ public class DocsViewHolder extends AbsDocsViewHolder {
     @Override
     public void onClick(View view) {
 
-            if (document.getSource() instanceof FileRemoteSource) {
-                FileRemoteSource remoteSource = (FileRemoteSource) document.getSource();
-                final FileReference location = remoteSource.getFileReference();
-                messenger().requestState(location.getFileId(), new FileCallback() {
-                    @Override
-                    public void onNotDownloaded() {
-                        messenger().startDownloading(location);
-                    }
+        if (document.getSource() instanceof FileRemoteSource) {
+            FileRemoteSource remoteSource = (FileRemoteSource) document.getSource();
+            final FileReference location = remoteSource.getFileReference();
+            messenger().requestState(location.getFileId(), new FileCallback() {
+                @Override
+                public void onNotDownloaded() {
+                    messenger().startDownloading(location);
+                }
 
-                    @Override
-                    public void onDownloading(float progress) {
-                        messenger().cancelDownloading(location.getFileId());
-                    }
+                @Override
+                public void onDownloading(float progress) {
+                    messenger().cancelDownloading(location.getFileId());
+                }
 
-                    @Override
-                    public void onDownloaded(final FileSystemReference reference) {
-                        im.actor.runtime.Runtime.postToMainThread(() -> {
-                            if (document instanceof PhotoContent) {
-                                Intents.openMedia(getAdapter().getContext(), fileIcon, reference.getDescriptor(), currentMessage.getSenderId());
-                            } else {
-                                try {
-                                    Activity activity = getAdapter().getContext();
-                                    activity.startActivity(Intents.openDoc(activity, document.getName(), reference.getDescriptor()));
-                                } catch (Exception e) {
-                                    Log.e(TAG, e);
-                                    Toast.makeText(getAdapter().getContext(), R.string.toast_unable_open, Toast.LENGTH_LONG).show();
-                                }
+                @Override
+                public void onDownloaded(final FileSystemReference reference) {
+                    im.actor.runtime.Runtime.postToMainThread(() -> {
+                        if (document instanceof PhotoContent) {
+                            Intents.openMedia(getAdapter().getContext(), fileIcon, reference.getDescriptor(), currentMessage.getSenderId());
+                        } else {
+                            try {
+                                Activity activity = getAdapter().getContext();
+                                activity.startActivity(Intents.openDoc(activity, document.getName(), reference.getDescriptor()));
+                            } catch (Exception e) {
+                                Log.e(TAG, e);
+                                Toast.makeText(getAdapter().getContext(), R.string.toast_unable_open, Toast.LENGTH_LONG).show();
                             }
-                        });
-                    }
-                });
-            } else if (document.getSource() instanceof FileLocalSource) {
-                messenger().requestUploadState(currentMessage.getRid(), new UploadFileCallback() {
-                    @Override
-                    public void onNotUploading() {
-                        messenger().resumeUpload(currentMessage.getRid());
-                    }
+                        }
+                    });
+                }
+            });
+        } else if (document.getSource() instanceof FileLocalSource) {
+            messenger().requestUploadState(currentMessage.getRid(), new UploadFileCallback() {
+                @Override
+                public void onNotUploading() {
+                    messenger().resumeUpload(currentMessage.getRid());
+                }
 
-                    @Override
-                    public void onUploading(float progress) {
-                        messenger().pauseUpload(currentMessage.getRid());
-                    }
+                @Override
+                public void onUploading(float progress) {
+                    messenger().pauseUpload(currentMessage.getRid());
+                }
 
-                    @Override
-                    public void onUploaded() {
-                        // Nothing to do
-                    }
-                });
-            }
+                @Override
+                public void onUploaded() {
+                    // Nothing to do
+                }
+            });
+        }
 
     }
 

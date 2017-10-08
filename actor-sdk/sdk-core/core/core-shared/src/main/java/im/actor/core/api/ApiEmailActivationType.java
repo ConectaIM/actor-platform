@@ -23,11 +23,15 @@ public enum ApiEmailActivationType {
     }
 
     public static ApiEmailActivationType parse(int value) throws IOException {
-        switch(value) {
-            case 1: return ApiEmailActivationType.CODE;
-            case 2: return ApiEmailActivationType.OAUTH2;
-            case 3: return ApiEmailActivationType.PASSWORD;
-            default: return ApiEmailActivationType.UNSUPPORTED_VALUE;
+        switch (value) {
+            case 1:
+                return ApiEmailActivationType.CODE;
+            case 2:
+                return ApiEmailActivationType.OAUTH2;
+            case 3:
+                return ApiEmailActivationType.PASSWORD;
+            default:
+                return ApiEmailActivationType.UNSUPPORTED_VALUE;
         }
     }
 }
