@@ -221,7 +221,16 @@ public class RouterActor extends ModuleActor {
         photos(peer).addOrUpdateItems(photoMessages);
         videos(peer).addOrUpdateItems(videoMessages);
         docs(peer).addOrUpdateItems(docsMessages);
+    }
 
+    private void updateDocMessage(Peer peer, Message message){
+        if(VideoContent.class.isAssignableFrom(message.getContent().getClass())) {
+            videos(peer).addOrUpdateItem(message);
+        }else if(PhotoContent.class.isAssignableFrom(message.getContent().getClass())){
+            photos(peer).addOrUpdateItem(message);
+        }else if(DocumentContent.class.isAssignableFrom(message.getContent().getClass())){
+            docs(peer).addOrUpdateItem(message);
+        }
     }
 
 
@@ -376,6 +385,7 @@ public class RouterActor extends ModuleActor {
 
     private Promise<Void> onOutgoingMessage(Peer peer, Message message) {
         conversation(peer).addOrUpdateItem(message);
+        updateDocMessage(peer, message);
         updateChatState(peer);
         return Promise.success(null);
     }
@@ -389,7 +399,9 @@ public class RouterActor extends ModuleActor {
             Message updatedMsg = msg
                     .changeAllDate(date)
                     .changeState(MessageState.SENT);
+
             conversation(peer).addOrUpdateItem(updatedMsg);
+            updateDocMessage(peer, updatedMsg);
 
             ConversationState state = conversationStates.getValue(peer.getUnuqueId());
             conversationStates.addOrUpdateItem(state.changeOutSendDate(date));
@@ -412,6 +424,7 @@ public class RouterActor extends ModuleActor {
             Message updatedMsg = msg
                     .changeState(MessageState.ERROR);
             conversation(peer).addOrUpdateItem(updatedMsg);
+            updateDocMessage(peer, updatedMsg);
 
             updateChatState(peer);
         }
@@ -488,7 +501,9 @@ public class RouterActor extends ModuleActor {
             state = state.changeIsLoaded(isEnded);
             isChanged = true;
         }
+
         boolean isEmpty = conversation(peer).isEmpty();
+
         if (state.isEmpty() != isEmpty) {
             state = state.changeIsEmpty(isEmpty);
             isChanged = true;
