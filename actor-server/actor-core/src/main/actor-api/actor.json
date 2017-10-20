@@ -1679,6 +1679,15 @@
 ,{"type":{"type":"alias","childType":"date"},"id":10,"name":"createDate", "deprecated":"true"}
 ,{"type":{"type":"opt","childType":"string"},"id":17,"name":"theme", "deprecated":"true"}
 ,{"type":{"type":"opt","childType":"string"},"id":18,"name":"about", "deprecated":"true"}
+]}},{"type":"rpc","content":{
+"name":"LoadGroups",
+"header":593,
+"response":{"type":"anonymous","header":594, "doc":[
+"List of groups"] ,"attributes":[{"type":{"type":"list","childType":{"type":"struct","childType":"Group"}},"id":2,"name":"groups"}
+]},
+"doc":[
+"Load groups"],"attributes":[
+{"type":{"type":"list","childType":{"type":"struct","childType":"GroupOutPeer"}},"id":1,"name":"groups"}
 ]}},     {
        "type":"struct",
        "content": {
@@ -2199,6 +2208,49 @@
 ,{"type":{"type":"alias","childType":"userId"},"id":2,"name":"uid"}
 ,{"type":{"type":"opt","childType":{"type":"struct","childType":"Avatar"}},"id":3,"name":"avatar"}
 ,{"type":{"type":"alias","childType":"date"},"id":4,"name":"date"}
+]}}]},    {
+      "title": "Surveys",
+      "package": "surveys",
+      "doc": [
+        "Surveys"
+      ],
+      "items": [
+     {
+       "type":"struct",
+       "content": {
+         "name":"SurveyAnswer",
+"doc":[
+"survey answer"],"attributes":[
+{"type":"int32","id":1,"name":"id"}
+,{"type":"string","id":2,"name":"name"}
+,{"type":{"type":"list","childType":{"type":"alias","childType":"userId"}},"id":3,"name":"votes"}
+]}},     {
+       "type":"struct",
+       "content": {
+         "name":"Survey",
+"doc":[
+"Survey"],"attributes":[
+{"type":"int32","id":1,"name":"id"}
+,{"type":"string","id":2,"name":"name"}
+,{"type":{"type":"list","childType":{"type":"struct","childType":"SurveyAnswer"}},"id":3,"name":"answers"}
+,{"type":"int64","id":4,"name":"creationDate"}
+,{"type":"int64","id":5,"name":"availableDate"}
+,{"type":{"type":"list","childType":{"type":"alias","childType":"userId"}},"id":6,"name":"admins"}
+,{"type":{"type":"alias","childType":"userId"},"id":7,"name":"creatorId"}
+]}},{"type":"rpc","content":{
+"name":"CreateSurvey",
+"header":1281,
+"response":{"type":"anonymous","header":1282, "doc":[
+"returning related data"] ,"attributes":[{"type":"int32","id":1,"name":"seq"}
+,{"type":{"type":"alias","childType":"seq_state"},"id":2,"name":"state"}
+,{"type":{"type":"list","childType":{"type":"struct","childType":"User"}},"id":3,"name":"relatedUsers"}
+,{"type":{"type":"list","childType":{"type":"struct","childType":"Group"}},"id":4,"name":"relatedGroups"}
+]},
+"doc":[
+"Create a survey"],"attributes":[
+{"type":"int32","id":1,"name":"randomId"}
+,{"type":"string","id":2,"name":"surveyName"}
+,{"type":{"type":"list","childType":"string"},"id":3,"name":"answers"}
 ]}}]},    {
       "title": "Stickers",
       "package": "stickers",

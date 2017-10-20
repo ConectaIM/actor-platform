@@ -21,11 +21,9 @@ public enum ApiTypingType {
     }
 
     public static ApiTypingType parse(int value) throws IOException {
-        switch (value) {
-            case 0:
-                return ApiTypingType.TEXT;
-            default:
-                return ApiTypingType.UNSUPPORTED_VALUE;
+        switch(value) {
+            case 0: return ApiTypingType.TEXT;
+            default: return ApiTypingType.UNSUPPORTED_VALUE;
         }
     }
 }

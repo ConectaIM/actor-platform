@@ -71,15 +71,15 @@ final class GroupsServiceImpl(groupInviteConfig: GroupInviteConfig)(implicit act
       }
     }
 
-  protected def doHandleLoadGroups(
-                                    groups:     IndexedSeq[ApiGroupOutPeer],
-                                                 clientData: ClientData
-                                               ): Future[HandlerResult[ResponseLoadFullGroups]] =
+  override protected def doHandleLoadGroups(
+    groups:     IndexedSeq[ApiGroupOutPeer],
+    clientData: ClientData
+  ): Future[HandlerResult[ResponseLoadGroups]] =
     authorized(clientData) { implicit client ⇒
       withGroupOutPeers(groups) {
         for {
           apiGroups ← FutureExt.ftraverse(groups)(group ⇒ groupExt.getApiStruct(group.groupId, client.userId))
-        } yield Ok(ResponseLoadFullGroups(apiGroups.toVector))
+        } yield Ok(ResponseLoadGroups(apiGroups.toVector))
       }
     }
 

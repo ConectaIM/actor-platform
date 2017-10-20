@@ -23,15 +23,11 @@ public enum ApiMessageState {
     }
 
     public static ApiMessageState parse(int value) throws IOException {
-        switch (value) {
-            case 1:
-                return ApiMessageState.SENT;
-            case 2:
-                return ApiMessageState.RECEIVED;
-            case 3:
-                return ApiMessageState.READ;
-            default:
-                return ApiMessageState.UNSUPPORTED_VALUE;
+        switch(value) {
+            case 1: return ApiMessageState.SENT;
+            case 2: return ApiMessageState.RECEIVED;
+            case 3: return ApiMessageState.READ;
+            default: return ApiMessageState.UNSUPPORTED_VALUE;
         }
     }
 }

@@ -23,15 +23,11 @@ public enum ApiDocsHistoryType {
     }
 
     public static ApiDocsHistoryType parse(int value) throws IOException {
-        switch (value) {
-            case 1:
-                return ApiDocsHistoryType.PHOTO;
-            case 2:
-                return ApiDocsHistoryType.VIDEO;
-            case 3:
-                return ApiDocsHistoryType.DOCUMENT;
-            default:
-                return ApiDocsHistoryType.UNSUPPORTED_VALUE;
+        switch(value) {
+            case 1: return ApiDocsHistoryType.PHOTO;
+            case 2: return ApiDocsHistoryType.VIDEO;
+            case 3: return ApiDocsHistoryType.DOCUMENT;
+            default: return ApiDocsHistoryType.UNSUPPORTED_VALUE;
         }
     }
 }

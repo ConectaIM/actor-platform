@@ -23,15 +23,11 @@ public enum ApiListLoadMode {
     }
 
     public static ApiListLoadMode parse(int value) throws IOException {
-        switch (value) {
-            case 1:
-                return ApiListLoadMode.FORWARD;
-            case 2:
-                return ApiListLoadMode.BACKWARD;
-            case 3:
-                return ApiListLoadMode.BOTH;
-            default:
-                return ApiListLoadMode.UNSUPPORTED_VALUE;
+        switch(value) {
+            case 1: return ApiListLoadMode.FORWARD;
+            case 2: return ApiListLoadMode.BACKWARD;
+            case 3: return ApiListLoadMode.BOTH;
+            default: return ApiListLoadMode.UNSUPPORTED_VALUE;
         }
     }
 }

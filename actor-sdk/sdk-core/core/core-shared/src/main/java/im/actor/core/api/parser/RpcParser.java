@@ -77,6 +77,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 224: return RequestFavouriteDialog.fromBytes(payload);
             case 227: return RequestUnfavouriteDialog.fromBytes(payload);
             case 2785: return RequestNotifyDialogOpened.fromBytes(payload);
+            case 593: return RequestLoadGroups.fromBytes(payload);
             case 2782: return RequestLoadFullGroups.fromBytes(payload);
             case 2786: return RequestLoadMembers.fromBytes(payload);
             case 230: return RequestCreateGroup.fromBytes(payload);
@@ -105,6 +106,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 65: return RequestCreateGroupObsolete.fromBytes(payload);
             case 199: return RequestEnterGroupObsolete.fromBytes(payload);
             case 214: return RequestMakeUserAdminObsolete.fromBytes(payload);
+            case 1281: return RequestCreateSurvey.fromBytes(payload);
             case 238: return RequestLoadOwnStickers.fromBytes(payload);
             case 244: return RequestAddStickerCollection.fromBytes(payload);
             case 245: return RequestRemoveStickerCollection.fromBytes(payload);
@@ -204,6 +206,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 2652: return ResponseLoadArchived.fromBytes(payload);
             case 226: return ResponseLoadGroupedDialogs.fromBytes(payload);
             case 235: return ResponseDialogsOrder.fromBytes(payload);
+            case 594: return ResponseLoadGroups.fromBytes(payload);
             case 2783: return ResponseLoadFullGroups.fromBytes(payload);
             case 2787: return ResponseLoadMembers.fromBytes(payload);
             case 216: return ResponseCreateGroup.fromBytes(payload);
@@ -214,6 +217,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 66: return ResponseCreateGroupObsolete.fromBytes(payload);
             case 200: return ResponseEnterGroupObsolete.fromBytes(payload);
             case 215: return ResponseMakeUserAdminObsolete.fromBytes(payload);
+            case 1282: return ResponseCreateSurvey.fromBytes(payload);
             case 240: return ResponseStickersReponse.fromBytes(payload);
             case 239: return ResponseLoadOwnStickers.fromBytes(payload);
             case 247: return ResponseLoadStickerCollection.fromBytes(payload);
