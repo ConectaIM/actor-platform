@@ -535,7 +535,7 @@ public class JSONTokener {
      * <li>a newline character '\n'
      * <li>a carriage return '\r'
      * </ul>
-     * <p/>
+     * <p>
      * <p>The returned string shares its backing character array with this
      * tokener's input string. If a reference to the returned string may be held
      * indefinitely, you should use {@code new String(result)} to copy it first

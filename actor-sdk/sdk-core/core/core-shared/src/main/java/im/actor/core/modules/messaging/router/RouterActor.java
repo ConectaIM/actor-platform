@@ -32,10 +32,12 @@ import im.actor.core.entity.PeerType;
 import im.actor.core.entity.Reaction;
 import im.actor.core.entity.User;
 import im.actor.core.entity.content.AbsContent;
+import im.actor.core.entity.content.AnimationContent;
 import im.actor.core.entity.content.DocumentContent;
 import im.actor.core.entity.content.PhotoContent;
 import im.actor.core.entity.content.TextContent;
 import im.actor.core.entity.content.VideoContent;
+import im.actor.core.entity.content.VoiceContent;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
@@ -208,12 +210,16 @@ public class RouterActor extends ModuleActor {
         List<Message> videoMessages = new ArrayList<>();
 
         for (Message m : messages) {
-            if(VideoContent.class.isAssignableFrom(m.getContent().getClass())) {
+            if(m.getContent() instanceof VideoContent){
                 videoMessages.add(m);
-            }else if(PhotoContent.class.isAssignableFrom(m.getContent().getClass())){
+            }else if(m.getContent() instanceof PhotoContent){
                 photoMessages.add(m);
-            }else if(DocumentContent.class.isAssignableFrom(m.getContent().getClass())){
-                docsMessages.add(m);
+            }else{
+                if((m.getContent() instanceof DocumentContent)
+                        && !(m.getContent() instanceof VoiceContent)
+                        && !(m.getContent() instanceof AnimationContent)){
+                    docsMessages.add(m);
+                }
             }
         }
 
@@ -224,16 +230,18 @@ public class RouterActor extends ModuleActor {
     }
 
     private void updateDocMessage(Peer peer, Message message){
-        if(VideoContent.class.isAssignableFrom(message.getContent().getClass())) {
+        if(message.getContent() instanceof VideoContent){
             videos(peer).addOrUpdateItem(message);
-        }else if(PhotoContent.class.isAssignableFrom(message.getContent().getClass())){
+        }else if(message.getContent() instanceof PhotoContent){
             photos(peer).addOrUpdateItem(message);
-        }else if(DocumentContent.class.isAssignableFrom(message.getContent().getClass())){
-            docs(peer).addOrUpdateItem(message);
+        }else{
+            if((message.getContent() instanceof DocumentContent)
+                    && !(message.getContent() instanceof VoiceContent)
+                    && !(message.getContent() instanceof AnimationContent)){
+                docs(peer).addOrUpdateItem(message);
+            }
         }
     }
-
-
 
     //
     // Incoming Messages

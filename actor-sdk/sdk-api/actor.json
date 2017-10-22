@@ -1131,13 +1131,6 @@
 "Message Out Reference",{"type":"reference","argument":"peer","category":"full","description":"  Out Peer of message"},{"type":"reference","argument":"rid","category":"full","description":"  Message random id"}],"attributes":[
 {"type":{"type":"struct","childType":"OutPeer"},"id":1,"name":"peer"}
 ,{"type":{"type":"alias","childType":"randomId"},"id":2,"name":"rid"}
-]}},     {
-       "type":"struct",
-       "content": {
-         "name":"SurveyMessage",
-"doc":[
-"Survey Message"],"trait":{"name":"Message","key":35},"expandable":"true","attributes":[
-{"type":"int64","id":1,"name":"surveyId"}
 ]}},{"type":"rpc","content":{
 "name":"SendMessage",
 "header":92,
@@ -2219,14 +2212,15 @@
       "title": "Surveys",
       "package": "surveys",
       "doc": [
-        "Surveys support in Actor"
+        "Surveys"
       ],
       "items": [
      {
        "type":"struct",
        "content": {
          "name":"SurveyAnswer",
-"attributes":[
+"doc":[
+"survey answer"],"attributes":[
 {"type":"int32","id":1,"name":"id"}
 ,{"type":"string","id":2,"name":"name"}
 ,{"type":{"type":"list","childType":{"type":"alias","childType":"userId"}},"id":3,"name":"votes"}
@@ -2234,7 +2228,8 @@
        "type":"struct",
        "content": {
          "name":"Survey",
-"attributes":[
+"doc":[
+"Survey"],"attributes":[
 {"type":"int32","id":1,"name":"id"}
 ,{"type":"string","id":2,"name":"name"}
 ,{"type":{"type":"list","childType":{"type":"struct","childType":"SurveyAnswer"}},"id":3,"name":"answers"}
@@ -2245,12 +2240,14 @@
 ]}},{"type":"rpc","content":{
 "name":"CreateSurvey",
 "header":1281,
-"response":{"type":"anonymous","header":1282, "attributes":[{"type":"int32","id":1,"name":"seq"}
+"response":{"type":"anonymous","header":1282, "doc":[
+"returning related data"] ,"attributes":[{"type":"int32","id":1,"name":"seq"}
 ,{"type":{"type":"alias","childType":"seq_state"},"id":2,"name":"state"}
 ,{"type":{"type":"list","childType":{"type":"struct","childType":"User"}},"id":3,"name":"relatedUsers"}
 ,{"type":{"type":"list","childType":{"type":"struct","childType":"Group"}},"id":4,"name":"relatedGroups"}
 ]},
-"attributes":[
+"doc":[
+"Create a survey"],"attributes":[
 {"type":"int32","id":1,"name":"randomId"}
 ,{"type":"string","id":2,"name":"surveyName"}
 ,{"type":{"type":"list","childType":"string"},"id":3,"name":"answers"}
