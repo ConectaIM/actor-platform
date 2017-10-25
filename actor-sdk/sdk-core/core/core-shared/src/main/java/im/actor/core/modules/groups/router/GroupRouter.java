@@ -37,7 +37,7 @@ import im.actor.core.modules.groups.router.entity.RouterApplyGroups;
 import im.actor.core.modules.groups.router.entity.RouterFetchMissingGroups;
 import im.actor.core.modules.groups.router.entity.RouterGroupUpdate;
 import im.actor.core.modules.groups.router.entity.RouterLoadFullGroup;
-import im.actor.core.modules.messaging.router.RouterInt;
+import im.actor.core.modules.messaging.router.MessageRouterInt;
 import im.actor.core.network.parser.Update;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.annotations.Verified;
@@ -268,7 +268,7 @@ public class GroupRouter extends ModuleActor {
         return getRouter().onGroupChanged(group);
     }
 
-    private RouterInt getRouter() {
+    private MessageRouterInt getRouter() {
         return context().getMessagesModule().getRouter();
     }
 

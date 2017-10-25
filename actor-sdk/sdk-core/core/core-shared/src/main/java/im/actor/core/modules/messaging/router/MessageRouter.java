@@ -82,9 +82,9 @@ import im.actor.runtime.storage.ListEngine;
 import static im.actor.core.entity.EntityConverter.convert;
 import static im.actor.core.util.AssertUtils.assertTrue;
 
-public class RouterActor extends ModuleActor {
+public class MessageRouter extends ModuleActor {
 
-    private static final String TAG = "RouterActor";
+    private static final String TAG = "MessageRouter";
 
     // j2objc workaround
     private static final Void DUMB = null;
@@ -100,7 +100,7 @@ public class RouterActor extends ModuleActor {
     private ActiveDialogStorage activeDialogStorage;
 
 
-    public RouterActor(ModuleContext context) {
+    public MessageRouter(ModuleContext context) {
         super(context);
     }
 

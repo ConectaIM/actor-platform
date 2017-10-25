@@ -39,13 +39,13 @@ import im.actor.runtime.promise.Promise;
 
 import static im.actor.runtime.actors.ActorSystem.system;
 
-public class RouterInt extends ActorInterface implements BusSubscriber {
+public class MessageRouterInt extends ActorInterface implements BusSubscriber {
 
     private final ModuleContext context;
 
-    public RouterInt(final ModuleContext context) {
+    public MessageRouterInt(final ModuleContext context) {
         this.context = context;
-        setDest(system().actorOf("actor/router", () -> new RouterActor(context)));
+        setDest(system().actorOf("actor/router", () -> new MessageRouter(context)));
 
         context.getEvents().subscribe(this, PeerChatOpened.EVENT);
         context.getEvents().subscribe(this, PeerChatClosed.EVENT);

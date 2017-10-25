@@ -55,7 +55,7 @@ import im.actor.core.modules.messaging.history.ArchivedDialogsActor;
 import im.actor.core.modules.messaging.history.ConversationDocsHistory;
 import im.actor.core.modules.messaging.history.ConversationHistory;
 import im.actor.core.modules.messaging.history.DialogsHistoryActor;
-import im.actor.core.modules.messaging.router.RouterInt;
+import im.actor.core.modules.messaging.router.MessageRouterInt;
 import im.actor.core.network.RpcCallback;
 import im.actor.core.viewmodel.ConversationVM;
 import im.actor.core.viewmodel.DialogGroupsVM;
@@ -91,7 +91,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
     private ActorRef plainReceiverActor;
     private ActorRef sendMessageActor;
     private ActorRef deletionsActor;
-    private RouterInt router;
+    private MessageRouterInt router;
 
     private final HashMap<Peer, ConversationHistory> historyLoaderActors = new HashMap<>();
     private final HashMap<Peer, ConversationDocsHistory> historyDocsLoaderActors = new HashMap<>();
@@ -121,7 +121,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
 
     public void run() {
 
-        this.router = new RouterInt(context());
+        this.router = new MessageRouterInt(context());
 
         this.dialogsInt = new DialogsInt(context());
         this.dialogsHistoryActor = system().actorOf("actor/dialogs/history", () -> new DialogsHistoryActor(context()));
@@ -192,7 +192,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
         return cursorStorage;
     }
 
-    public RouterInt getRouter() {
+    public MessageRouterInt getRouter() {
         return router;
     }
 
