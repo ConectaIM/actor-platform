@@ -19,7 +19,6 @@ import im.actor.runtime.mvvm.PlatformDisplayList;
 public class DisplayLists extends AbsModule {
 
     private PlatformDisplayList<Dialog> dialogGlobalList;
-
     private PlatformDisplayList<Contact> contactsGlobalList;
 
     private HashMap<Peer, PlatformDisplayList<Message>> chatsGlobalLists = new HashMap<>();

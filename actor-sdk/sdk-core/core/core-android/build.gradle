@@ -1,57 +1,45 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
+//apply plugin: 'com.android.library'
+//
+//android {
+//    compileSdkVersion 26
+//    buildToolsVersion '26.0.2'
+//
+//    defaultConfig {
+//        minSdkVersion 15
+//        targetSdkVersion 25
+//    }
+//}
+//
+//android {
+//
+//    sourceSets {
+//        main {
+//            java {
+//                srcDirs = ['src/main/java',
+//                           '../core-shared/src/main/java',
+//                           '../core-shared/src/ext/java']
+//            }
+//            assets {
+//                srcDirs = ['../core-shared/src/main/resources']
+//            }
+//        }
+//
+//    }
+//
+//    lintOptions {
+//        abortOnError false
+//    }
+//
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+//}
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-    }
-}
-
-apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
-
-android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
-
-    defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
-    }
-}
-
-android {
-
-    sourceSets {
-        main {
-            java {
-                srcDirs = ['src/main/java',
-                           '../core-shared/src/main/java',
-                           '../core-shared/src/ext/java']
-            }
-            assets {
-                srcDirs = ['../core-shared/src/main/resources']
-            }
-        }
-
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-}
-
-dependencies {
-    compile project(':actor-sdk:sdk-core:runtime:runtime-android')
-    compile 'com.android.support:recyclerview-v7:26.0.1'
-    compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'io.pristine:libjingle:11139@aar'
-
-}
+//dependencies {
+//    implementation project(':actor-sdk:sdk-core:runtime:runtime-android')
+//    implementation 'com.android.support:recyclerview-v7:26.0.2'
+//    implementation 'com.squareup.okhttp:okhttp:2.5.0'
+//    implementation 'io.pristine:libjingle:11139@aar'
+//
+//}

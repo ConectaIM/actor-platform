@@ -1,18 +1,6 @@
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.github.dcendents:android-maven-plugin:1.2'
-        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
-        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-        classpath "com.google.gms:google-services:3.0.0"
-    }
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: 'io.codearte.nexus-staging'
-apply plugin: 'me.tatarka.retrolambda'
 
 group = 'im.actor'
 version = '0.0.1'
@@ -21,7 +9,7 @@ def baseVersion = "3.0"
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         minSdkVersion 15
@@ -46,12 +34,11 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.0.1'
+    implementation 'com.android.support:appcompat-v7:26.0.2'
 
-    //compile 'im.actor:android-sdk:0.1.30'
-    compile project(':actor-sdk:sdk-core-android:android-sdk')
+    implementation project(':actor-sdk:sdk-core-android:android-sdk')
 
-    compile 'com.google.android.gms:play-services-gcm:9.6.1'
+    implementation 'com.google.android.gms:play-services-gcm:9.6.1'
 }
 
 //

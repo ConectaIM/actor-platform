@@ -1,58 +1,42 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-    }
-}
-
-apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
-
-android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
-
-    defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
-    }
-}
-
-retrolambda {
-    defaultMethods true
-}
-
-android {
-    sourceSets {
-        main {
-            java {
-                srcDirs = ['src/main/java',
-                           '../runtime-shared/src/main/java',
-                           '../runtime-generic/src/main/java']
-            }
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-}
-
-dependencies {
-    compile 'com.android.support:recyclerview-v7:26.0.1'
-    compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'io.pristine:libjingle:11139@aar'
-
-    //Video Compressor
-    compile 'br.com.diegosilva:vclibrary:1.0.10-SNAPSHOT'
-
-}
+//apply plugin: 'com.android.library'
+//
+//android {
+//    compileSdkVersion 26
+//    buildToolsVersion '26.0.2'
+//
+//    defaultConfig {
+//        minSdkVersion 15
+//        targetSdkVersion 25
+//    }
+//}
+//
+//android {
+//    sourceSets {
+//        main {
+//            java {
+//                srcDirs = ['src/main/java',
+//                           '../runtime-shared/src/main/java',
+//                           '../runtime-generic/src/main/java']
+//            }
+//        }
+//    }
+//
+//    lintOptions {
+//        abortOnError false
+//    }
+//
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+//}
+//
+//dependencies {
+//    implementation 'com.android.support:recyclerview-v7:26.0.2'
+//    implementation 'com.squareup.okhttp:okhttp:2.5.0'
+//    implementation 'io.pristine:libjingle:11139@aar'
+//
+//    //Video Compressor
+//    implementation 'br.com.diegosilva:vclibrary:1.0.10-SNAPSHOT'
+//
+//}
