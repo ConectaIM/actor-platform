@@ -62,9 +62,9 @@ dependencies {
     implementation 'io.pristine:libjingle:11139@aar'
 
     // UI
-    implementation 'com.facebook.fresco:fresco:1.5.0'
-    implementation 'com.facebook.fresco:animated-gif:1.5.0'
-    implementation 'com.facebook.fresco:webpsupport:1.5.0' // Not Enabling animated WebP yet
+    api 'com.facebook.fresco:fresco:1.5.0'
+    api 'com.facebook.fresco:animated-gif:1.5.0'
+    api 'com.facebook.fresco:webpsupport:1.5.0' // Not Enabling animated WebP yet
     implementation 'com.github.castorflex.smoothprogressbar:library-circular:1.2.0'
     implementation 'com.facebook.rebound:rebound:0.3.8'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'

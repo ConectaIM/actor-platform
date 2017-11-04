@@ -92,7 +92,7 @@ private[group] trait MemberCommandHandlers extends GroupsImplicits {
             val serviceMessage = GroupServiceMessages.userInvited(cmd.inviteeUserId)
 
             //TODO: remove deprecated
-            db.run(GroupUserRepo.create(groupId, cmd.inviteeUserId, cmd.inviterUserId, evt.ts, None, isAdmin = false): @silent)
+            //db.run(GroupUserRepo.create(groupId, cmd.inviteeUserId, cmd.inviterUserId, evt.ts, None, isAdmin = false): @silent)
 
             def inviteGROUPUpdates: Future[SeqStateDate] =
               for {
