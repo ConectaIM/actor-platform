@@ -6,8 +6,8 @@ val ScalaVersion = "2.11.11"
 val BotKitVersion = Versioning.getVersion
 
 resolvers ++= Seq(
-  "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/releases/",
-  "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/"
+  "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/content/repositories/releases/",
+  "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/content/repositories/snapshots/"
 )
 
 lazy val buildSettings =
@@ -29,8 +29,8 @@ lazy val buildSettings =
       //        ),
       parallelExecution := true,
       resolvers ++= Seq(
-        "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/releases/",
-        "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/"
+        "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/content/repositories/releases/",
+        "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/content/repositories/snapshots/"
       )
     ) //++ im.actor.Sonatype.sonatypeSettings
 
