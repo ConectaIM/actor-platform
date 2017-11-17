@@ -3,19 +3,20 @@ package im.actor.server.api
 import java.net.InetAddress
 import java.time.Instant
 
-import akka.actor.{ ActorRef, ActorSystem, ExtendedActorSystem }
+import akka.actor.{ActorRef, ActorSystem, ExtendedActorSystem}
 import akka.serialization.Serialization
-import com.google.protobuf.wrappers.{ BytesValue, Int64Value }
-import com.google.protobuf.{ ByteString, CodedInputStream }
+import com.google.protobuf.wrappers.{BytesValue, Int64Value}
+import com.google.protobuf.{ByteString, CodedInputStream}
 import com.trueaccord.scalapb.TypeMapper
 import im.actor.api.rpc.files.ApiAvatar
-import im.actor.api.rpc.groups.{ ApiAdminSettings, ApiGroup, ApiGroupFull }
+import im.actor.api.rpc.grouppre.ApiGroupPre
+import im.actor.api.rpc.groups.{ApiAdminSettings, ApiGroup, ApiGroupFull}
 import im.actor.api.rpc.messaging.ApiMessage
 import im.actor.api.rpc.misc.ApiExtension
 import im.actor.api.rpc.peers.ApiPeer
 import im.actor.api.rpc.sequence.SeqUpdate
 import im.actor.api.rpc.users.ApiSex.ApiSex
-import im.actor.api.rpc.users.{ ApiFullUser, ApiUser, ApiSex ⇒ S }
+import im.actor.api.rpc.users.{ApiFullUser, ApiUser, ApiSex => S}
 import im.actor.serialization.ActorSerializer
 import im.actor.server.group.GroupExt
 import org.joda.time.DateTime
@@ -208,6 +209,21 @@ private[api] trait MessageMapper {
   private def unapplyAdminSettings(settings: ApiAdminSettings): ByteString =
     ByteString.copyFrom(settings.toByteArray)
 
+  private def applyApiGroupPre(bytes: ByteString): ApiGroupPre = {
+    if (bytes.size() > 0) {
+      val res = ApiGroupPre.parseFrom(CodedInputStream.newInstance(bytes.toByteArray))
+      get(res)
+    } else {
+      null
+    }
+  }
+
+  private def unapplyAdminSettings(apiGroupPre: ApiGroupPre): ByteString =
+    ByteString.copyFrom(apiGroupPre.toByteArray)
+
+
+  implicit val apiGroupPreMapper: TypeMapper[ByteString, ApiGroupPre] = TypeMapper(applyApiGroupPre)(unapplyAdminSettings)
+
   implicit val seqUpdMapper: TypeMapper[ByteString, SeqUpdate] = TypeMapper(applySeqUpdate)(unapplySeqUpdate)
 
   implicit val anyRefMapper: TypeMapper[ByteString, AnyRef] = TypeMapper(applyAnyRef)(unapplyAnyRef)
@@ -251,5 +267,7 @@ private[api] trait MessageMapper {
 
       override def toBase(custom: ActorRef): String = Serialization.serializedActorPath(custom)
     }
+
+
 }
 

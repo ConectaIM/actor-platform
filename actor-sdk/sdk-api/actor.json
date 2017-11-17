@@ -4324,4 +4324,70 @@
 "doc":[
 "Map Value"],"trait":{"name":"RawValue","key":6},"attributes":[
 {"type":{"type":"list","childType":{"type":"struct","childType":"MapValueItem"}},"id":1,"name":"items"}
+]}}]},    {
+      "title": "GroupsPre",
+      "package": "grouppre",
+      "doc": [
+        "Pre defined groups"
+      ],
+      "items": [
+        {
+          "type": "enum",
+          "content": {
+            "name": "GroupPreType",
+            "values": [
+              {
+                "name": "GROUP",
+                "id": 1
+              },
+              {
+                "name": "CHANNEL",
+                "id": 2
+              }
+          ]
+        }
+      },     {
+       "type":"struct",
+       "content": {
+         "name":"GroupPre",
+"doc":[
+"GroupPre representation"],"attributes":[
+{"type":"int32","id":1,"name":"groupId"}
+,{"type":"bool","id":2,"name":"hasChildrem"}
+,{"type":"int64","id":3,"name":"acessHash"}
+,{"type":"int32","id":4,"name":"order"}
+]}},{"type":"update","content":{
+"name":"GroupPreCreated",
+"header":20,
+"doc":[
+"GroupPre Created"],"attributes":[
+{"type":{"type":"struct","childType":"GroupPre"},"id":1,"name":"groupPre"}
+]}},{"type":"update","content":{
+"name":"GroupPreRemoved",
+"header":22,
+"doc":[
+"GroupPre removed"],"attributes":[
+{"type":{"type":"struct","childType":"GroupPre"},"id":1,"name":"groupPre"}
+]}},{"type":"rpc","content":{
+"name":"LoadGroupsPre",
+"header":23,
+"response":{"type":"anonymous","header":20, "doc":[
+"return"] ,"attributes":[{"type":{"type":"list","childType":{"type":"struct","childType":"GroupPre"}},"id":1,"name":"groups"}
+]},
+"doc":[
+"LoadGroupsPre"],"attributes":[
+{"type":{"type":"opt","childType":"int32"},"id":1,"name":"idParent"}
+]}},{"type":"rpc","content":{
+"name":"CreateGroupPre",
+"header":24,
+"response":{"type":"anonymous","header":21, "doc":[
+"return"] ,"attributes":[{"type":"int32","id":1,"name":"seq"}
+,{"type":{"type":"alias","childType":"seq_state"},"id":2,"name":"state"}
+,{"type":"int64","id":3,"name":"date"}
+,{"type":{"type":"struct","childType":"GroupPre"},"id":4,"name":"groupPre"}
+]},
+"doc":[
+"Create a new groupPre"],"attributes":[
+{"type":"int32","id":1,"name":"groupId"}
+,{"type":{"type":"opt","childType":"int32"},"id":2,"name":"idParent"}
 ]}}]}]}

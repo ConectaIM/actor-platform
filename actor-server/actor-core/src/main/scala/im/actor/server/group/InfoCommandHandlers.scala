@@ -58,6 +58,7 @@ private[group] trait InfoCommandHandlers {
             bcastUserIds = memberIds - cmd.clientUserId,
             update = updateNew
           )
+
           SeqStateDate(_, _, date) ← dialogExt.sendServerMessage(
             apiGroupPeer,
             senderUserId = cmd.clientUserId,

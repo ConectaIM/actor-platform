@@ -18,6 +18,7 @@ import im.actor.server.api.rpc.service.encryption.EncryptionServiceImpl
 import im.actor.server.api.rpc.service.eventbus.EventbusServiceImpl
 import im.actor.server.api.rpc.service.features.FeaturesServiceImpl
 import im.actor.server.api.rpc.service.files.FilesServiceImpl
+import im.actor.server.api.rpc.service.grouppre.GroupsPreServiceImpl
 import im.actor.server.api.rpc.service.groups.{GroupInviteConfig, GroupsServiceImpl}
 import im.actor.server.api.rpc.service.messaging.MessagingServiceImpl
 import im.actor.server.api.rpc.service.privacy.PrivacyServiceImpl
@@ -37,6 +38,7 @@ import im.actor.server.dialog.DialogExtension
 import im.actor.server.enrich.{RichMessageConfig, RichMessageWorker}
 import im.actor.server.frontend.Frontend
 import im.actor.server.group._
+import im.actor.server.grouppre.{GroupPreExtension, GroupPreProcessor}
 import im.actor.server.messaging.{HistoryMessagesDocumentsMigrator, HistoryMessagesMigrator}
 import im.actor.server.migrations._
 import im.actor.server.migrations.v2.{MigrationNameList, MigrationTsActions}
@@ -93,6 +95,7 @@ final case class ActorServerBuilder(defaultConfig: Config = ConfigFactory.empty(
     UserProcessor.register()
     GroupProcessor.register()
     StickerMessages.register()
+    GroupPreProcessor.register()
 
     val serverConfig = ActorConfig.load(defaultConfig)
 
@@ -165,6 +168,10 @@ final case class ActorServerBuilder(defaultConfig: Config = ConfigFactory.empty(
       GroupExtension(system).processorRegion
       GroupExtension(system).viewRegion
 
+      system.log.debug("Starting GroupPreExtension")
+      GroupPreExtension(system).processorRegion
+      GroupPreExtension(system).viewRegion
+
       system.log.debug("Starting IntegrationTokenMigrator")
       IntegrationTokenMigrator.migrate()
 
@@ -195,6 +202,9 @@ final case class ActorServerBuilder(defaultConfig: Config = ConfigFactory.empty(
 
       system.log.debug("Starting GroupsService")
       val groupsService = new GroupsServiceImpl(groupInviteConfig)
+
+      system.log.debug("Starting GroupsPreService")
+      val groupsPreService = new GroupsPreServiceImpl()
 
       system.log.debug("Starting SequenceService")
       val sequenceService = new SequenceServiceImpl(sequenceConfig)
@@ -264,7 +274,8 @@ final case class ActorServerBuilder(defaultConfig: Config = ConfigFactory.empty(
         webrtcService,
         encryptionService,
         eventbusService,
-        privacyService
+        privacyService,
+        groupsPreService
       )
 
       system.log.warning("Starting BotExtension")

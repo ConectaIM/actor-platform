@@ -135,7 +135,6 @@ private[group] trait GroupCommandHandlers
             message = serviceMessage,
             deliveryTag = Some(Optimization.GroupV2)
           )
-
         } yield CreateAck(newState.accessHash).withSeqStateDate(seqStateDate)
 
         result pipeTo sender() onFailure {
