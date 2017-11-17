@@ -79,7 +79,7 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.9.1'
 
     // Phone parser
-    implementation files('libs/libphonenumber-5.9.jar')
+    implementation files('libs/libphonenumber-8.8.6.jar')
 
     // Core
     implementation 'com.squareup.okhttp:okhttp:2.5.0'
