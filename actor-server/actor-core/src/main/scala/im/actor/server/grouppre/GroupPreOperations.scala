@@ -22,8 +22,8 @@ private[grouppre] sealed trait Commands extends UserAcl{
   implicit val timeout:Timeout
   implicit val ec: ExecutionContext
 
-  def create(groupId: Int, groupFatherId: Int) : Future[CreateAck] =
-    (processorRegion.ref ? Create(groupId=groupId, groupFatherId=groupFatherId)).mapTo[CreateAck]
+  def create(groupId: Int, parentId: Int) : Future[CreateAck] =
+    (processorRegion.ref ? Create(groupId=groupId, parentId=parentId)).mapTo[CreateAck]
 }
 
 private[grouppre] sealed trait Queries{

@@ -51,9 +51,9 @@ message GroupPreCommands {
     message Create {
         option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreCommand";
         int32 group_id = 1;
-        int32 group_father_id = 2;
+        int32 parent_id = 2;
         int32 userId = 3;
-        int32 authId = 4;
+        int64 authId = 4;
     }
 
     message CreateAck {

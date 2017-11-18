@@ -2,7 +2,7 @@
 (
     id integer NOT NULL,
     type character(1) NOT NULL,
-    order integer,
+    position integer NOT NULL,
     has_childrem boolean DEFAULT false,
     parent_id integer null,
     access_hash bigint NOT NULL,

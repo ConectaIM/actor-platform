@@ -15,7 +15,7 @@ class PublicGroupTable(tag: Tag) extends Table[PublicGroup](tag, "public_group")
 
   def typ = column[String]("type")
 
-  def order = column[Int]("order")
+  def position = column[Int]("position")
 
   def hasChildrem = column[Boolean]("has_childrem")
 
@@ -23,7 +23,7 @@ class PublicGroupTable(tag: Tag) extends Table[PublicGroup](tag, "public_group")
 
   def acessHash = column[Long]("access_hash")
 
-  def * = (id, typ, order, hasChildrem, parentId, acessHash) <> ((PublicGroup.apply _).tupled, PublicGroup.unapply)
+  def * = (id, typ, position, hasChildrem, parentId, acessHash) <> ((PublicGroup.apply _).tupled, PublicGroup.unapply)
 
 }
 
