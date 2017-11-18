@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
+import im.actor.core.entity.GrupoPre;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.SearchEntity;
@@ -25,6 +26,9 @@ public class DisplayLists extends AbsModule {
     private HashMap<Peer, PlatformDisplayList<Message>> chatsDocsGlobalLists = new HashMap<>();
     private HashMap<Peer, PlatformDisplayList<Message>> chatsPhotosGlobalLists = new HashMap<>();
     private HashMap<Peer, PlatformDisplayList<Message>> chatsVideosGlobalLists = new HashMap<>();
+
+    private HashMap<Integer, PlatformDisplayList<GrupoPre>> gruposPreDisplayList = new HashMap<>();
+    private HashMap<Integer, PlatformDisplayList<GrupoPre>> canaisPreDisplayList = new HashMap<>();
 
     public DisplayLists(ModuleContext context) {
         super(context);
@@ -162,6 +166,47 @@ public class DisplayLists extends AbsModule {
         PlatformDisplayList<SearchEntity> res = Storage.createDisplayList(context().getSearchModule().getSearchList(),
                 isGlobalList, SearchEntity.ENTITY_NAME);
         res.initEmpty();
+        return res;
+    }
+
+    public PlatformDisplayList<GrupoPre> getGruposPreDisplayList(Integer idGrupoPai) {
+        im.actor.runtime.Runtime.checkMainThread();
+
+        if (!gruposPreDisplayList.containsKey(idGrupoPai)) {
+            gruposPreDisplayList.put(idGrupoPai, buildGrupoPreList(idGrupoPai, true));
+        }
+
+        return gruposPreDisplayList.get(idGrupoPai);
+    }
+
+    public PlatformDisplayList<GrupoPre> buildGrupoPreList(Integer idGrupoPai, boolean isShared) {
+        im.actor.runtime.Runtime.checkMainThread();
+
+        PlatformDisplayList<GrupoPre> res = Storage.createDisplayList(context().getGrupoPreModule().getGrupospreEngine(idGrupoPai),
+                isShared, GrupoPre.ENTITY_NAME);
+
+        res.initTop();
+        return res;
+    }
+
+
+    public PlatformDisplayList<GrupoPre> getCanaisPreDisplayList(Integer idGrupoPai) {
+        im.actor.runtime.Runtime.checkMainThread();
+
+        if (!canaisPreDisplayList.containsKey(idGrupoPai)) {
+            canaisPreDisplayList.put(idGrupoPai, buildCanaisPreList(idGrupoPai, true));
+        }
+
+        return canaisPreDisplayList.get(idGrupoPai);
+    }
+
+    public PlatformDisplayList<GrupoPre> buildCanaisPreList(Integer idGrupoPai, boolean isShared) {
+        im.actor.runtime.Runtime.checkMainThread();
+
+        PlatformDisplayList<GrupoPre> res = Storage.createDisplayList(context().getGrupoPreModule().getCanaispreEngine(idGrupoPai),
+                isShared, GrupoPre.ENTITY_NAME);
+
+        res.initTop();
         return res;
     }
 }
