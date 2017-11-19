@@ -19,6 +19,7 @@ import im.actor.core.modules.settings.entity.SettingsSyncAction;
 import im.actor.core.modules.settings.entity.SettingsSyncState;
 import im.actor.core.network.RpcCallback;
 import im.actor.core.network.RpcException;
+import im.actor.runtime.Log;
 
 public class SettingsSyncActor extends ModuleActor {
 
@@ -26,6 +27,8 @@ public class SettingsSyncActor extends ModuleActor {
     private static final String SYNC_STATE_LOADED = "settings_sync_state_loaded_v2";
 
     private SettingsSyncState syncState;
+
+    private boolean isLoading = false;
 
     public SettingsSyncActor(ModuleContext modules) {
         super(modules);
@@ -40,7 +43,7 @@ public class SettingsSyncActor extends ModuleActor {
             try {
                 syncState = SettingsSyncState.fromBytes(data);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(SettingsSyncActor.class.getName(), e);
             }
         }
 
@@ -49,26 +52,26 @@ public class SettingsSyncActor extends ModuleActor {
         }
 
         if (!preferences().getBool(SYNC_STATE_LOADED, false)) {
-            // TODO: Avoid race conditions
-            request(new RequestGetParameters(), new RpcCallback<ResponseGetParameters>() {
-                @Override
-                public void onResult(ResponseGetParameters response) {
-                    for (ApiParameter p : response.getParameters()) {
-                        context().getSettingsModule().onUpdatedSetting(p.getKey(), p.getValue());
-                    }
-                    context().getSettingsModule().notifySettingsChanged();
-                    preferences().putBool(SYNC_STATE_LOADED, true);
-                    context().getConductor().getConductor().onSettingsLoaded();
-                }
-
-                @Override
-                public void onError(RpcException e) {
-                    // Ignore
-                }
-            });
+            self().send(new SettingsSyncActor.OnRequestGetParameters());
         } else {
             context().getConductor().getConductor().onSettingsLoaded();
         }
+    }
+
+    private void onRequestGetParameters(){
+        isLoading = true;
+
+        api(new RequestGetParameters()).map(response -> {
+
+            for (ApiParameter p : response.getParameters()) {
+                context().getSettingsModule().onUpdatedSetting(p.getKey(), p.getValue());
+            }
+            context().getSettingsModule().notifySettingsChanged();
+            preferences().putBool(SYNC_STATE_LOADED, true);
+            context().getConductor().getConductor().onSettingsLoaded();
+
+            return null;
+        }).then(val -> isLoading = false);
     }
 
     private void performSync(final SettingsSyncAction action) {
@@ -101,6 +104,8 @@ public class SettingsSyncActor extends ModuleActor {
             syncState.getPendingActions().add(action);
             saveState();
             performSync(action);
+        } else if(message instanceof OnRequestGetParameters){
+            onRequestGetParameters();
         } else {
             super.onReceive(message);
         }
@@ -122,5 +127,9 @@ public class SettingsSyncActor extends ModuleActor {
         public String getValue() {
             return value;
         }
+    }
+
+    public static class OnRequestGetParameters{
+
     }
 }

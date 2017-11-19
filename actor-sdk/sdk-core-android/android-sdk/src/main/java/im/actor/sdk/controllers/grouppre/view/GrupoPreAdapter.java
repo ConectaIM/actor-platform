@@ -1,0 +1,37 @@
+package im.actor.sdk.controllers.grouppre.view;
+
+import android.content.Context;
+import android.view.ViewGroup;
+
+import im.actor.core.entity.GrupoPre;
+import im.actor.runtime.android.view.BindedListAdapter;
+import im.actor.runtime.generic.mvvm.BindedDisplayList;
+import im.actor.sdk.view.adapters.OnItemClickedListener;
+
+public class GrupoPreAdapter extends BindedListAdapter<GrupoPre, GrupoPreHolder> {
+
+    private OnItemClickedListener<GrupoPre> onItemClicked;
+    private Context context;
+
+    public GrupoPreAdapter(BindedDisplayList<GrupoPre> displayList, OnItemClickedListener<GrupoPre> onItemClicked,
+                           Context context) {
+        super(displayList);
+        this.context = context;
+        this.onItemClicked = onItemClicked;
+    }
+
+    @Override
+    public GrupoPreHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        return new GrupoPreHolder(new GrupoPreView(context), onItemClicked);
+    }
+
+    @Override
+    public void onBindViewHolder(GrupoPreHolder dialogHolder, int index, GrupoPre item) {
+        dialogHolder.bind(item, index == getItemCount() - 1);
+    }
+
+    @Override
+    public void onViewRecycled(GrupoPreHolder holder) {
+        holder.unbind();
+    }
+}

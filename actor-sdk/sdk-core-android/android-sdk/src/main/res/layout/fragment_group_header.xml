@@ -177,6 +177,17 @@
         android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/groupPreAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="72dp"
+        android:paddingRight="8dp"
+        android:text="@string/grupo_pre_action"
+        android:textSize="16sp" />
+
+    <TextView
         android:id="@+id/viewMembersAction"
         android:layout_width="match_parent"
         android:layout_height="48dp"

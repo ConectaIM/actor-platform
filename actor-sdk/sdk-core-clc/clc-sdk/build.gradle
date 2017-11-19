@@ -1,5 +1,4 @@
 apply plugin: 'application'
-apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'io.codearte.nexus-staging'
@@ -42,6 +41,15 @@ dependencies {
 }
 
 allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/"}
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        mavenLocal()
+    }
+
     tasks.withType(JavaCompile) {
         sourceCompatibility = "1.8"
         targetCompatibility = "1.8"
