@@ -36,6 +36,7 @@ import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.controllers.fragment.preview.ViewAvatarActivity;
 import im.actor.sdk.controllers.group.view.MembersAdapter;
+import im.actor.sdk.controllers.grouppre.GroupPreAdminActivity;
 import im.actor.sdk.util.ActorSDKMessenger;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
@@ -239,7 +240,8 @@ public class GroupInfoFragment extends BaseFragment {
         }
 
         grupoPreAction.setOnClickListener(view -> {
-
+            startActivity(new Intent(getActivity(), GroupPreAdminActivity.class)
+                    .putExtra(Intents.EXTRA_GROUP_ID, chatId));
         });
 
         // Async Members

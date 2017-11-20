@@ -2,7 +2,9 @@ package im.actor.sdk.controllers.grouppre;
 
 import android.os.Bundle;
 
+import im.actor.core.entity.GroupType;
 import im.actor.core.viewmodel.GroupVM;
+import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
 
 /**
@@ -21,9 +23,16 @@ public class GroupPreAdminFragment extends BaseFragment{
         return editFragment;
     }
 
+    public GroupPreAdminFragment() {
+        setRootFragment(true);
+        setHomeAsUp(true);
+        setShowHome(true);
+    }
+
     @Override
     public void onCreate(Bundle saveInstance) {
         super.onCreate(saveInstance);
 
+        setTitle(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.channel_pre_admin_title : R.string.group_pre_admin_title);
     }
 }
