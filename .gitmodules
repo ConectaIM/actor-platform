@@ -1,3 +1,6 @@
 [submodule "actor-sdk/sdk-api/api-language"]
 	path = actor-sdk/sdk-api/api-language
 	url = https://dfsilva@bitbucket.org/dfsilva/actor-api-language.git
+[submodule "ActorSDK-Web"]
+	path = ActorSDK-Web
+	url = https://github.com/dfsilva/ActorSDK-Web.git
