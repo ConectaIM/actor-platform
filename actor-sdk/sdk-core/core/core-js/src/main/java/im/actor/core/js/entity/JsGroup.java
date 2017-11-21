@@ -19,6 +19,7 @@ import im.actor.core.js.JsMessenger;
 import im.actor.core.viewmodel.GroupVM;
 
 public class JsGroup extends JavaScriptObject {
+
     public static JsGroup fromGroupVM(GroupVM groupVM, JsMessenger messenger) {
         int online = groupVM.getPresence().get();
         String presence = messenger.getFormatter().formatGroupMembers(groupVM.getMembersCount().get());
@@ -40,34 +41,41 @@ public class JsGroup extends JavaScriptObject {
         ArrayList<JsGroupMember> convertedMembers = new ArrayList<JsGroupMember>();
         HashSet<GroupMember> groupMembers = groupVM.getMembers().get();
         GroupMember[] members = groupMembers.toArray(new GroupMember[groupMembers.size()]);
+        int adminId = 0;
         for (GroupMember g : members) {
             JsPeerInfo peerInfo = messenger.buildPeerInfo(Peer.user(g.getUid()));
             // Log.d("JsGroup", "PeerInfo: " + peerInfo);
+            if(g.isAdministrator()){
+                adminId = peerInfo.getPeer().getPeerId();
+            }
             convertedMembers.add(JsGroupMember.create(peerInfo,
                     g.isAdministrator(),
                     g.getInviterUid() == messenger.myUid()));
         }
+
         Collections.sort(convertedMembers, new Comparator<JsGroupMember>() {
             @Override
             public int compare(JsGroupMember o1, JsGroupMember o2) {
                 return o1.getPeerInfo().getTitle().compareToIgnoreCase(o2.getPeerInfo().getTitle());
             }
         });
+
         JsArray<JsGroupMember> jsMembers = JsArray.createArray().cast();
         for (JsGroupMember member : convertedMembers) {
             jsMembers.push(member);
         }
+
         return create(groupVM.getId(), groupVM.getName().get(), groupVM.getAbout().get(), fileUrl, bigFileUrl,
-                Placeholders.getPlaceholder(groupVM.getId()), presence,
+                Placeholders.getPlaceholder(groupVM.getId()), presence, adminId,
                 jsMembers);
     }
 
     public static native JsGroup create(int id, String name, String about, String avatar, String bigAvatar,
-                                        String placeholder, String presence,
+                                        String placeholder, String presence, int adminId,
                                         JsArray<JsGroupMember> members)/*-{
         return {
             id: id, name: name, about: about, avatar: avatar, bigAvatar: bigAvatar, placeholder: placeholder,
-            presence: presence, members: members
+            presence: presence, adminId:adminId, members: members
         };
     }-*/;
 

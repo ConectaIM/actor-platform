@@ -4,6 +4,7 @@
 
 package im.actor.core.js;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.http.client.URL;
@@ -959,7 +960,6 @@ public class JsFacade implements Exportable {
         if (isElectron()) {
             return;
         }
-
         messenger.getJsIdleModule().onVisible();
     }
 
@@ -1381,6 +1381,18 @@ public class JsFacade implements Exportable {
     }
 
     @UsedByApp
+    public JsPromise createGroupPre(final int groupId, final Integer parentId) {
+        return JsPromise.create(new JsPromiseExecutor() {
+            @Override
+            public void execute() {
+                messenger.createGroupPre(groupId, parentId)
+                        .then(r -> resolve(JsPeer.create(Peer.group(r))))
+                        .failure(e -> reject(e.getMessage()));
+            }
+        });
+    }
+
+    @UsedByApp
     public JsPromise inviteMember(final int gid, final int uid) {
         return JsPromise.create(new JsPromiseExecutor() {
             @Override
@@ -1650,7 +1662,19 @@ public class JsFacade implements Exportable {
 
     @UsedByApp
     public boolean isNotificationsEnabled(JsPeer peer) {
-        return messenger.isNotificationsEnabled(peer.convert());
+        Log.d(TAG, "--------------------- isNotificationsEnabled ---------------");
+        boolean retorno = true;
+
+        try {
+            retorno = messenger.isNotificationsEnabled(peer.convert());
+        }catch (Exception e){
+            Log.d(TAG, "CAiu no erro ---------");
+            Log.e(TAG, e);
+        }
+
+
+        Log.d(TAG, "--------------------- isNotificationsEnabled --------------->>>>"+retorno);
+        return retorno;
     }
 
     @UsedByApp

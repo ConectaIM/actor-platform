@@ -5,17 +5,20 @@ import java.util.HashMap;
 
 
 import im.actor.core.api.ApiGroupType;
+import im.actor.core.api.rpc.RequestCreateGroupPre;
 import im.actor.core.entity.GrupoPre;
 import im.actor.core.entity.GrupoPreState;
 import im.actor.core.events.AppVisibleChanged;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.grouppre.router.GrupoPreRouterInt;
+import im.actor.core.util.RandomUtils;
 import im.actor.core.viewmodel.GrupoPreVM;
 import im.actor.runtime.Storage;
 import im.actor.runtime.eventbus.BusSubscriber;
 import im.actor.runtime.eventbus.Event;
 import im.actor.runtime.mvvm.MVVMCollection;
+import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.ListEngine;
 
 /**
@@ -54,6 +57,12 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
 
     public void run() {
         context().getEvents().subscribe(this, AppVisibleChanged.EVENT);
+    }
+
+    public Promise<Integer> createGroupPre(int groupId, Integer parentId) {
+       return api(new RequestCreateGroupPre(groupId, parentId))
+                .chain(r -> updates().waitForUpdate(r.getSeq()))
+                .map(r -> r.getGroupPre().getGroupId());
     }
 
     public ListEngine<GrupoPre> getGrupospreEngine(Integer idGrupoPai) {

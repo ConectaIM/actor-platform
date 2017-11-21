@@ -1553,6 +1553,17 @@ public class Messenger {
     }
 
     /**
+     * Create group pre from group
+     * @param groupId group id
+     * @param parentId parent id
+     * @return Promise of group id
+     */
+    @ObjectiveCName("createGroupPre:withGroupId:withParentId:")
+    public Promise<Integer> createGroupPre(int groupId, Integer parentId) {
+        return modules.getGrupoPreModule().createGroupPre(groupId, parentId);
+    }
+
+    /**
      * Create channel
      *
      * @param title            channel title
