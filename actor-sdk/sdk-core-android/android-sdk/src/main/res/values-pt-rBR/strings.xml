@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="grupo_pre_action">GroupPre</string>
+    <string name="channel_pre_admin_title">Canal pre-definido</string>
 </resources>
