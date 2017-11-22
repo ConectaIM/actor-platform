@@ -84,7 +84,7 @@ public class JsMessage extends JavaScriptObject {
                 reactions.push(JsReaction.create(r.getCode(), uids, isOwnSet));
             }
             double sortDate = value.getDate() / 1000.0;
-            return create(rid, sortKey, sender, isOut, date, fullDate, Enums.convertAuthState(value.getMessageState()), isOnServer, content,
+            return create(rid, sortKey, sender, isOut, date, fullDate, Enums.convertMessageState(value.getMessageState()), isOnServer, content,
                     reactions, sortDate);
         }
     };

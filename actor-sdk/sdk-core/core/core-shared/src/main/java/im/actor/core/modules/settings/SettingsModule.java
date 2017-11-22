@@ -459,18 +459,11 @@ public class SettingsModule extends AbsModule {
     }
 
     private String readValue(String key) {
-        PreferencesStorage storage = preferences();
-
-        Log.d("SettingsModule:"," -----------------, storage: "+ storage);
-
-        return storage.getString(STORAGE_PREFIX + key);
+        return preferences().getString(STORAGE_PREFIX + key);
     }
 
     public void onUpdatedSetting(String key, String value) {
-        PreferencesStorage storage = preferences();
-
-        Log.d("SettingsModule:"," -----------------, storage: "+ storage);
-        storage.putString(STORAGE_PREFIX + key, value);
+        preferences().putString(STORAGE_PREFIX + key, value);
     }
 
     public void notifySettingsChanged() {
