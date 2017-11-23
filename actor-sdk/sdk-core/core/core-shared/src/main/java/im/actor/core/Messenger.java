@@ -46,7 +46,6 @@ import im.actor.core.events.UserVisible;
 import im.actor.core.i18n.I18nEngine;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.Modules;
-import im.actor.core.network.parser.BaseParser;
 import im.actor.core.util.ActorTrace;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.CallVM;
@@ -69,7 +68,6 @@ import im.actor.core.viewmodel.UploadFileCallback;
 import im.actor.core.viewmodel.UploadFileVM;
 import im.actor.core.viewmodel.UploadFileVMCallback;
 import im.actor.core.viewmodel.UserVM;
-import im.actor.runtime.Log;
 import im.actor.runtime.actors.ActorSystem;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.mtproto.ConnectionEndpointArray;
@@ -90,7 +88,7 @@ public class Messenger {
 
     protected Modules modules;
 
-    public static BaseParser[] extraRpcParsers;
+//    public static BaseParser[] extraRpcParsers;
 
     /**
      * Construct messenger
@@ -125,7 +123,7 @@ public class Messenger {
         // timing.section("Modules:Run");
         this.modules.run();
 
-        extraRpcParsers = configuration.getRpcParses();
+        //extraRpcParsers = configuration.getRpcParses();
 
         // timing.end();
     }
@@ -1559,10 +1557,11 @@ public class Messenger {
      * @param parentId parent id
      * @return Promise of group id
      */
-    @ObjectiveCName("createGroupPre:withGroupId:withParentId:")
-    public Promise<Integer> createGroupPre(int groupId, Integer parentId) {
-        return modules.getGrupoPreModule().createGroupPre(groupId, parentId);
-    }
+//    @NotNull
+//    @ObjectiveCName("createGroupPre:withGroupId:withParentId:")
+//    public Promise<Integer> createGroupPre(int groupId, Integer parentId) {
+//        return modules.getGrupoPreModule().createGroupPre(groupId, parentId);
+//    }
 
     /**
      * Create channel
@@ -2791,6 +2790,7 @@ public class Messenger {
      *
      * @return Module Contexts
      */
+    @NotNull
     @ObjectiveCName("getModulesContext")
     public ModuleContext getModuleContext() {
         return modules;

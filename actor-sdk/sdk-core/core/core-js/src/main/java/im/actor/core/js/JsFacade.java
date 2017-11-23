@@ -453,6 +453,7 @@ public class JsFacade implements Exportable {
         if (callback == null) {
             return null;
         }
+
         Peer peerC = peer.convert();
 
         return new JsMessagesBind(callback, messenger.getSharedChatList(peerC), messenger.getConversationVM(peerC));

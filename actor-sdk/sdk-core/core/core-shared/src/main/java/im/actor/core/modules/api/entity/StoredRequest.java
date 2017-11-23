@@ -2,9 +2,7 @@ package im.actor.core.modules.api.entity;
 
 import java.io.IOException;
 
-import im.actor.core.Messenger;
 import im.actor.core.api.parser.RpcParser;
-import im.actor.core.network.parser.BaseParser;
 import im.actor.core.network.parser.Request;
 import im.actor.runtime.bser.Bser;
 import im.actor.runtime.bser.BserObject;
@@ -44,20 +42,20 @@ public class StoredRequest extends BserObject {
             // Parsing request
             request = (Request) PARSER.read(headerKey, requestData);
         } catch (IOException ioe) {
-            boolean error = true;
-            if (Messenger.extraRpcParsers != null
-                    && Messenger.extraRpcParsers.length > 0) {
-                for (BaseParser bp : Messenger.extraRpcParsers) {
-                    try {
-                        request = (Request) bp.read(headerKey, requestData);
-                        error = false;
-                    } catch (IOException ioe2) {
-                    }
-                }
-            }
-            if (error) {
+//            boolean error = true;
+//            if (Messenger.extraRpcParsers != null
+//                    && Messenger.extraRpcParsers.length > 0) {
+//                for (BaseParser bp : Messenger.extraRpcParsers) {
+//                    try {
+//                        request = (Request) bp.read(headerKey, requestData);
+//                        error = false;
+//                    } catch (IOException ioe2) {
+//                    }
+//                }
+//            }
+//            if (error) {
                 throw ioe;
-            }
+//            }
         }
     }
 

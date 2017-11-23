@@ -9,11 +9,9 @@ import im.actor.core.entity.PeerType;
 import im.actor.core.events.SettingsChanged;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
-import im.actor.runtime.Log;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.ActorSystem;
 import im.actor.runtime.eventbus.EventBus;
-import im.actor.runtime.storage.PreferencesStorage;
 
 import static im.actor.core.DeviceCategory.DESKTOP;
 import static im.actor.core.DeviceCategory.MOBILE;

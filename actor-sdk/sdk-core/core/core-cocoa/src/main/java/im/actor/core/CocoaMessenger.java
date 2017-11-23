@@ -17,6 +17,7 @@ import im.actor.runtime.threading.ThreadDispatcher;
 
 public class CocoaMessenger extends Messenger {
 
+
     private BindedDisplayList<Dialog> dialogList;
     private HashMap<Peer, BindedDisplayList<Message>> messagesLists = new HashMap<Peer, BindedDisplayList<Message>>();
 

@@ -7,7 +7,6 @@ package im.actor.core.js.entity;
 import com.google.gwt.core.client.JavaScriptObject;
 
 import im.actor.core.entity.Peer;
-import im.actor.runtime.Log;
 
 import static im.actor.core.entity.PeerType.GROUP;
 import static im.actor.core.entity.PeerType.PRIVATE;

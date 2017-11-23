@@ -8,7 +8,6 @@ import com.google.j2objc.annotations.Property;
 
 import im.actor.core.modules.ModuleCreateListener;
 import im.actor.core.network.TrustedKey;
-import im.actor.core.network.parser.BaseParser;
 import im.actor.core.providers.CallsProvider;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.providers.PhoneBookProvider;
@@ -70,10 +69,6 @@ public class Configuration {
     @Property("readonly, nonatomic")
     private final int autoJoinType;
     @Property("readonly, nonatomic")
-    private final BaseParser[] rpcParses;
-    @Property("readonly, nonatomic")
-    private final BaseParser[] updateParcers;
-    @Property("readonly, nonatomic")
     private final ModuleCreateListener moduleCreateListener;
 
     Configuration(ConnectionEndpoint[] endpoints,
@@ -101,8 +96,6 @@ public class Configuration {
                   boolean isEnabledGroupedChatList,
                   String[] autoJoinGroups,
                   int autoJoinType,
-                  BaseParser[] rpcParsers,
-                  BaseParser[] updatesParser,
                   ModuleCreateListener moduleCreateListener) {
         this.endpoints = endpoints;
         this.phoneBookProvider = phoneBookProvider;
@@ -129,8 +122,6 @@ public class Configuration {
         this.isEnabledGroupedChatList = isEnabledGroupedChatList;
         this.autoJoinGroups = autoJoinGroups;
         this.autoJoinType = autoJoinType;
-        this.rpcParses = rpcParsers;
-        this.updateParcers = updatesParser;
         this.moduleCreateListener = moduleCreateListener;
     }
 
@@ -358,25 +349,6 @@ public class Configuration {
     public int getAutoJoinType() {
         return autoJoinType;
     }
-
-    /**
-     * Get RpcParses
-     *
-     * @return
-     */
-    public BaseParser[] getRpcParses() {
-        return rpcParses;
-    }
-
-    /**
-     * Get UpdateParces
-     *
-     * @return
-     */
-    public BaseParser[] getUpdateParcers() {
-        return updateParcers;
-    }
-
 
     /**
      * Get ModuleCreateListener

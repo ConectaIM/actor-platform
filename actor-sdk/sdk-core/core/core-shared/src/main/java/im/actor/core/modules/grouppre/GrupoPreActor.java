@@ -3,17 +3,18 @@ package im.actor.core.modules.grouppre;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import im.actor.core.api.ApiGroup;
 import im.actor.core.api.ApiGroupOutPeer;
 import im.actor.core.api.ApiGroupPre;
 import im.actor.core.api.rpc.RequestLoadGroups;
 import im.actor.core.api.rpc.RequestLoadGroupsPre;
+import im.actor.core.api.rpc.ResponseLoadGroupsPre;
 import im.actor.core.entity.Group;
 import im.actor.core.entity.GrupoPre;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.runtime.actors.messages.Void;
+import im.actor.runtime.function.Function;
 import im.actor.runtime.function.Tuple2;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.Promises;
@@ -68,13 +69,13 @@ public class GrupoPreActor extends ModuleActor {
                 .flatMap(r -> Promises.tuple(Promise.success(r.getT1()), api(new RequestLoadGroups(r.getT2())).map(r2 -> r2.getGroups())))
                 .map(r -> {
                     List<GrupoPre> retorno = new ArrayList<GrupoPre>();
-                    for (ApiGroup apiGroup : r.getT2()) {
-                        for (ApiGroupPre apiGroupPre : r.getT1()) {
+                    ((List<ApiGroup>)r.getT2()).forEach(apiGroup -> {
+                        ((List<ApiGroupPre>) r.getT1()).forEach(apiGroupPre -> {
                             if (apiGroup.getId() == apiGroupPre.getGroupId()) {
                                 retorno.add(new GrupoPre(new Group(apiGroup, null), apiGroupPre.getOrder(), apiGroupPre.hasChildrem()));
                             }
-                        }
-                    }
+                        });
+                    });
                     return retorno;
                 })
                 .map(result -> onGruposPreLoaded(result))
