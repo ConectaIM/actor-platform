@@ -5,7 +5,7 @@ WORKING_DIR = $(CONFIGURATION_TEMP_DIR)/j2objc
 OBJ_DIR = $(WORKING_DIR)/Objects
 ARCHFLAGS = $(ARCHS:%=-arch %)
 SDKFLAGS = --sysroot $(SDKROOT)
-SDK_ROOT = $(abspath $(PROJECT_DIR)/..)
+SDK_ROOT = $(abspath $(PROJECT_DIR))
 
 ifdef OPTIMIZATION_LEVEL
 DEBUGFLAGS := $(DEBUGFLAGS) -O$(OPTIMIZATION_LEVEL)
@@ -98,7 +98,7 @@ endef
 
 # Build Tasks
 
-# default:
+#default:
 # 	echo $(SDKROOT)
 
 default: | translate build
@@ -107,7 +107,7 @@ default: | translate build
 
 translate: | $(SOURCES_DIR) $(WORKING_DIR) $(OBJ_DIR) pre_translate $(OBJC_FILES)
 	@if [ `cat $(UPDATED_SOURCES) | wc -l` -ge 1 ] ; then \
-	$(J2OBJC) $(J2OBJC_ARGS) $(PREFIXES) -sourcepath $(SOURCE_PATHS) -d $(SOURCES_DIR) \
+        $(J2OBJC) $(J2OBJC_ARGS) $(PREFIXES) -sourcepath $(SOURCE_PATHS) -d $(SOURCES_DIR) \
 	`cat $(UPDATED_SOURCES)` ; \
 	fi
 
