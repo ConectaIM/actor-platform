@@ -9,11 +9,9 @@ import com.google.j2objc.annotations.ObjectiveCName;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import im.actor.core.modules.ModuleCreateListener;
 import im.actor.core.network.TrustedKey;
-import im.actor.core.network.parser.BaseParser;
 import im.actor.core.providers.CallsProvider;
 import im.actor.core.providers.NotificationProvider;
 import im.actor.core.providers.PhoneBookProvider;
@@ -65,9 +63,6 @@ public class ConfigurationBuilder {
 
     private ArrayList<String> autoJoinGroups = new ArrayList<>();
     private int autoJoinType = AutoJoinType.AFTER_INIT;
-
-    private List<BaseParser> extraRpcParsers = new ArrayList<>();
-    private List<BaseParser> extraUpdateParsers = new ArrayList<>();
 
     private ModuleCreateListener moduleCreateListener = ModuleCreateListener.stub;
 
@@ -399,20 +394,11 @@ public class ConfigurationBuilder {
         return this;
     }
 
-    @NotNull
-    @ObjectiveCName("addRpcParser:")
-    public ConfigurationBuilder addRpcParser(@NotNull BaseParser rpcParser) {
-        this.extraRpcParsers.add(rpcParser);
-        return this;
-    }
-
-    @NotNull
-    @ObjectiveCName("addUpdateParser:")
-    public ConfigurationBuilder addUpdateParser(@NotNull BaseParser updateParser) {
-        this.extraUpdateParsers.add(updateParser);
-        return this;
-    }
-
+    /**
+     *
+     * @param moduleCreateListener
+     * @return
+     */
     @NotNull
     @ObjectiveCName("setModuleCreateListener:")
     public ConfigurationBuilder setModuleCreateListener(@NotNull ModuleCreateListener moduleCreateListener) {
@@ -463,8 +449,6 @@ public class ConfigurationBuilder {
                 isEnabledGroupedChatList,
                 autoJoinGroups.toArray(new String[autoJoinGroups.size()]),
                 autoJoinType,
-                extraRpcParsers.toArray(new BaseParser[]{}),
-                extraUpdateParsers.toArray(new BaseParser[]{}),
                 moduleCreateListener);
     }
 }

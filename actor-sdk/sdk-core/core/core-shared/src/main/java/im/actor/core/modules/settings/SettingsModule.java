@@ -9,11 +9,9 @@ import im.actor.core.entity.PeerType;
 import im.actor.core.events.SettingsChanged;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
-import im.actor.runtime.Log;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.ActorSystem;
 import im.actor.runtime.eventbus.EventBus;
-import im.actor.runtime.storage.PreferencesStorage;
 
 import static im.actor.core.DeviceCategory.DESKTOP;
 import static im.actor.core.DeviceCategory.MOBILE;
@@ -459,18 +457,11 @@ public class SettingsModule extends AbsModule {
     }
 
     private String readValue(String key) {
-        PreferencesStorage storage = preferences();
-
-        Log.d("SettingsModule:"," -----------------, storage: "+ storage);
-
-        return storage.getString(STORAGE_PREFIX + key);
+        return preferences().getString(STORAGE_PREFIX + key);
     }
 
     public void onUpdatedSetting(String key, String value) {
-        PreferencesStorage storage = preferences();
-
-        Log.d("SettingsModule:"," -----------------, storage: "+ storage);
-        storage.putString(STORAGE_PREFIX + key, value);
+        preferences().putString(STORAGE_PREFIX + key, value);
     }
 
     public void notifySettingsChanged() {

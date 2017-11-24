@@ -46,7 +46,6 @@ import im.actor.core.events.UserVisible;
 import im.actor.core.i18n.I18nEngine;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.Modules;
-import im.actor.core.network.parser.BaseParser;
 import im.actor.core.util.ActorTrace;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.CallVM;
@@ -89,7 +88,7 @@ public class Messenger {
 
     protected Modules modules;
 
-    public static BaseParser[] extraRpcParsers;
+//    public static BaseParser[] extraRpcParsers;
 
     /**
      * Construct messenger
@@ -124,7 +123,7 @@ public class Messenger {
         // timing.section("Modules:Run");
         this.modules.run();
 
-        extraRpcParsers = configuration.getRpcParses();
+        //extraRpcParsers = configuration.getRpcParses();
 
         // timing.end();
     }
@@ -1558,10 +1557,11 @@ public class Messenger {
      * @param parentId parent id
      * @return Promise of group id
      */
-    @ObjectiveCName("createGroupPre:withGroupId:withParentId:")
-    public Promise<Integer> createGroupPre(int groupId, Integer parentId) {
-        return modules.getGrupoPreModule().createGroupPre(groupId, parentId);
-    }
+//    @NotNull
+//    @ObjectiveCName("createGroupPre:withGroupId:withParentId:")
+//    public Promise<Integer> createGroupPre(int groupId, Integer parentId) {
+//        return modules.getGrupoPreModule().createGroupPre(groupId, parentId);
+//    }
 
     /**
      * Create channel
@@ -2790,6 +2790,7 @@ public class Messenger {
      *
      * @return Module Contexts
      */
+    @NotNull
     @ObjectiveCName("getModulesContext")
     public ModuleContext getModuleContext() {
         return modules;

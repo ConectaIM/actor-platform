@@ -2,8 +2,6 @@ package im.actor.core.modules.grouppre;
 
 import java.util.HashMap;
 
-
-
 import im.actor.core.api.ApiGroupType;
 import im.actor.core.api.rpc.RequestCreateGroupPre;
 import im.actor.core.entity.GrupoPre;
@@ -12,7 +10,6 @@ import im.actor.core.events.AppVisibleChanged;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.grouppre.router.GrupoPreRouterInt;
-import im.actor.core.util.RandomUtils;
 import im.actor.core.viewmodel.GrupoPreVM;
 import im.actor.runtime.Storage;
 import im.actor.runtime.eventbus.BusSubscriber;

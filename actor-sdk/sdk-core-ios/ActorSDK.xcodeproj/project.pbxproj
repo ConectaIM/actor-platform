@@ -1930,7 +1930,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Steve Kite";
 				TargetAttributes = {
 					066A50D11BC4AE63000E606E = {
@@ -2009,7 +2009,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\ncd ActorSDK/Sources/ActorCore\nmake translate\nmake build -j3\n\ncd \"${CONFIGURATION_TEMP_DIR}/j2objc/\"\npython \"${PROJECT_DIR}/ActorSDK/Sources/ActorCore/convert.py\" \"${PROJECT_DIR}/ActorSDK/Sources/ActorCore/ActorCore.h\"\n\ncp -af \"${PODS_ROOT}/libjingle_peerconnection/libjingle_peerconnection/Headers/\" \"${CONFIGURATION_BUILD_DIR}/ActorSDK.framework/Headers/\"\n\ncp -a \"${CONFIGURATION_TEMP_DIR}/j2objc/Public/\" \"${CONFIGURATION_BUILD_DIR}/ActorSDK.framework/Headers/\"\n\n\ncp -a \"${PROJECT_DIR}/../sdk-core/core/core-shared/src/main/resources/\" \"${CONFIGURATION_BUILD_DIR}/ActorSDK.framework/\"";
+			shellScript = "set -e\n\ncd ActorSDK/Sources/ActorCore\nmake translate\nmake build -j3\n\ncd \"${CONFIGURATION_TEMP_DIR}/j2objc/\"\npython \"${PROJECT_DIR}/ActorSDK/Sources/ActorCore/convert.py\" \"${PROJECT_DIR}/ActorSDK/Sources/ActorCore/ActorCore.h\"\n\ncp -af \"${PODS_ROOT}/libjingle_peerconnection/libjingle_peerconnection/Headers/\" \"${CONFIGURATION_BUILD_DIR}/ActorSDK.framework/Headers/\"\n\ncp -a \"${CONFIGURATION_TEMP_DIR}/j2objc/Public/\" \"${CONFIGURATION_BUILD_DIR}/ActorSDK.framework/Headers/\"\n\ncp -a \"${PROJECT_DIR}/../sdk-core/core/core-shared/src/main/resources/\" \"${CONFIGURATION_BUILD_DIR}/ActorSDK.framework/\"";
 		};
 		5B00FFD27DD7E01F43B31D13 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2338,14 +2338,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2388,14 +2394,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

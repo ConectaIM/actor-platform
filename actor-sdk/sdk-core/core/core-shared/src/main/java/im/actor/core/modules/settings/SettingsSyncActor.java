@@ -10,7 +10,6 @@ import im.actor.core.api.ApiParameter;
 import im.actor.core.api.base.SeqUpdate;
 import im.actor.core.api.rpc.RequestEditParameter;
 import im.actor.core.api.rpc.RequestGetParameters;
-import im.actor.core.api.rpc.ResponseGetParameters;
 import im.actor.core.api.rpc.ResponseSeq;
 import im.actor.core.api.updates.UpdateParameterChanged;
 import im.actor.core.modules.ModuleActor;

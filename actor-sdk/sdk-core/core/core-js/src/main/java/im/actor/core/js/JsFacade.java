@@ -4,7 +4,6 @@
 
 package im.actor.core.js;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.http.client.URL;
@@ -213,13 +212,8 @@ public class JsFacade implements Exportable {
             });
         } catch (Exception e) {
             Log.e(TAG, e);
-            im.actor.runtime.Runtime.postToMainThread(new Runnable() {
-                @Override
-                public void run() {
-                    error.onError("PHONE_NUMBER_INVALID", "Invalid phone number", false,
-                            getAuthState());
-                }
-            });
+            im.actor.runtime.Runtime.postToMainThread(() -> error.onError("PHONE_NUMBER_INVALID", "Invalid phone number", false,
+                    getAuthState()));
         }
     }
 
@@ -459,11 +453,13 @@ public class JsFacade implements Exportable {
         if (callback == null) {
             return null;
         }
+
         Peer peerC = peer.convert();
 
         return new JsMessagesBind(callback, messenger.getSharedChatList(peerC), messenger.getConversationVM(peerC));
     }
 
+    @UsedByApp
     public JsPromise editMessage(JsPeer peer, String id, String newText) {
         return JsPromise.create(new JsPromiseExecutor() {
             @Override
@@ -485,19 +481,18 @@ public class JsFacade implements Exportable {
         return JsPromise.create(new JsPromiseExecutor() {
             @Override
             public void execute() {
-                messenger.deleteChat(peer.convert()).start(new CommandCallback<Void>() {
-                    @Override
-                    public void onResult(Void res) {
-                        Log.d(TAG, "deleteChat:result");
-                        resolve();
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        Log.d(TAG, "deleteChat:error");
-                        reject(e.getMessage());
-                    }
-                });
+            messenger.deleteChat(peer.convert()).start(new CommandCallback<Void>() {
+                @Override
+                public void onResult(Void res) {
+                    Log.d(TAG, "deleteChat:result");
+                    resolve();
+                }
+                @Override
+                public void onError(Exception e) {
+                    Log.d(TAG, "deleteChat:error");
+                    reject(e.getMessage());
+                }
+            });
             }
         });
     }
@@ -513,7 +508,6 @@ public class JsFacade implements Exportable {
                         Log.d(TAG, "clearChat:result");
                         resolve();
                     }
-
                     @Override
                     public void onError(Exception e) {
                         Log.d(TAG, "clearChat:error");
@@ -535,7 +529,6 @@ public class JsFacade implements Exportable {
                         Log.d(TAG, "archiveChat:result");
                         resolve();
                     }
-
                     @Override
                     public void onError(Exception e) {
                         Log.d(TAG, "archiveChat:error");
@@ -557,7 +550,6 @@ public class JsFacade implements Exportable {
                         Log.d(TAG, "favouriteChat:result");
                         resolve();
                     }
-
                     @Override
                     public void onError(Exception e) {
                         Log.d(TAG, "favouriteChat:error");
@@ -579,7 +571,6 @@ public class JsFacade implements Exportable {
                         Log.d(TAG, "unfavouriteChat:result");
                         resolve();
                     }
-
                     @Override
                     public void onError(Exception e) {
                         Log.d(TAG, "unfavouriteChat:error");
@@ -729,7 +720,6 @@ public class JsFacade implements Exportable {
     }
 
     // Calls
-
     @UsedByApp
     public JsPromise doCall(final int uid) {
         return JsPromise.create(new JsPromiseExecutor() {
@@ -1662,19 +1652,7 @@ public class JsFacade implements Exportable {
 
     @UsedByApp
     public boolean isNotificationsEnabled(JsPeer peer) {
-        Log.d(TAG, "--------------------- isNotificationsEnabled ---------------");
-        boolean retorno = true;
-
-        try {
-            retorno = messenger.isNotificationsEnabled(peer.convert());
-        }catch (Exception e){
-            Log.d(TAG, "CAiu no erro ---------");
-            Log.e(TAG, e);
-        }
-
-
-        Log.d(TAG, "--------------------- isNotificationsEnabled --------------->>>>"+retorno);
-        return retorno;
+       return messenger.isNotificationsEnabled(peer.convert());
     }
 
     @UsedByApp
