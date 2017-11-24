@@ -66,13 +66,10 @@ define max_args
   $(foreach obj,$3,$(eval _args+=$(obj))$(if $(word $2,$(_args)),$1$(_args)$(EOL)$(eval _args:=)))
   $(if $(_args),$1$(_args))
 endef
+
 define EOL
 
-
-
-
 endef
-
 
 define long_list_to_file
 @if [ -e $(1) ]; then rm $(1); fi
@@ -125,11 +122,11 @@ endef
 $(foreach root,$(SOURCE_ROOTS),$(eval $(call SOURCE_ROOT_RULE,$(root))))
 
 # Compile files
-# $(call max_args,ar rcs $(OBJ_DIR)/$(LIBRARY_NAME),100,$(OBJECT_FILES))
-# @ar rcs $(OBJ_DIR)/$(LIBRARY_NAME) $(OBJECT_FILES)
-# @rm -f $(OBJ_DIR)/$(LIBRARY_NAME)
-# $(call max_args,@ar crv $(OBJ_DIR)/$(LIBRARY_NAME),2,$(OBJECT_FILES))
-# @$(call max_args,ar rcs $(OBJ_DIR)/$(LIBRARY_NAME),1100,$(OBJECT_FILES))
+#$(call max_args,ar rcs $(OBJ_DIR)/$(LIBRARY_NAME),100,$(OBJECT_FILES))
+#@ar rcs $(OBJ_DIR)/$(LIBRARY_NAME) $(OBJECT_FILES)
+#@rm -f $(OBJ_DIR)/$(LIBRARY_NAME)
+#$(call max_args,@ar crv $(OBJ_DIR)/$(LIBRARY_NAME),2,$(OBJECT_FILES))
+#@$(call max_args,ar rcs $(OBJ_DIR)/$(LIBRARY_NAME),1100,$(OBJECT_FILES))
 
 build: $(OBJ_DIR) $(OBJECT_FILES)
 	@rm -f $(OBJ_DIR)/$(LIBRARY_NAME)

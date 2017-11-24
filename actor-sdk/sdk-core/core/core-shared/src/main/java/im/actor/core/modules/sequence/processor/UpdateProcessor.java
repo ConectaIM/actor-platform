@@ -18,6 +18,7 @@ import im.actor.core.modules.calls.CallsProcessor;
 import im.actor.core.modules.contacts.ContactsProcessor;
 import im.actor.core.modules.encryption.EncryptedProcessor;
 import im.actor.core.modules.eventbus.EventBusProcessor;
+import im.actor.core.modules.grouppre.GroupPreProcessor;
 import im.actor.core.modules.groups.GroupsProcessor;
 import im.actor.core.modules.messaging.MessagesProcessor;
 import im.actor.core.modules.presence.PresenceProcessor;
@@ -56,6 +57,7 @@ public class UpdateProcessor extends AbsModule {
                 messagesProcessor,
                 new UsersProcessor(context),
                 new GroupsProcessor(context),
+                new GroupPreProcessor(context),
                 new ContactsProcessor(context),
                 new EncryptedProcessor(context),
                 new StickersProcessor(context),
@@ -64,6 +66,7 @@ public class UpdateProcessor extends AbsModule {
         };
 
         this.typingProcessor = new TypingProcessor(context);
+
         this.weakProcessors = new WeakProcessor[]{
                 typingProcessor,
                 new PresenceProcessor(context),
