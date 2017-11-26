@@ -111,6 +111,7 @@ public class UpdatesParser extends BaseParser<Update> {
             case 42: return UpdateConfig.fromBytes(payload);
             case 20: return UpdateGroupPreCreated.fromBytes(payload);
             case 22: return UpdateGroupPreRemoved.fromBytes(payload);
+            case 88: return UpdateGroupPreParentChanged.fromBytes(payload);
         }
         throw new IOException();
     }

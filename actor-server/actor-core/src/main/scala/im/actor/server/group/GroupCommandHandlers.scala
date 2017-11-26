@@ -78,49 +78,9 @@ private[group] trait GroupCommandHandlers
         val newState = commit(evt)
 
         val dateMillis = createdAt.toEpochMilli
-
-//        val updateObsolete = UpdateGroupInviteObsolete(
-//          groupId,
-//          inviteUserId = cmd.creatorUserId,
-//          date = dateMillis,
-//          randomId = cmd.randomId
-//        )
-
         val serviceMessage = GroupServiceMessages.groupCreated
 
-        //TODO: remove deprecated
-//        db.run(
-//          for {
-//            _ ← GroupRepo.create(
-//              Group(
-//                id = groupId,
-//                creatorUserId = newState.creatorUserId,
-//                accessHash = newState.accessHash,
-//                title = newState.title,
-//                isPublic = false,
-//                createdAt = evt.ts,
-//                about = None,
-//                topic = None
-//              ),
-//              cmd.randomId,
-//              isHidden = false
-//            ): @silent
-//            _ ← GroupUserRepo.create(groupId, cmd.creatorUserId, cmd.creatorUserId, createdAt, None, isAdmin = true): @silent
-//          } yield ()
-//        )
-
         val result: Future[CreateAck] = for {
-          ///////////////////////////
-          // Groups V1 API updates //
-          ///////////////////////////
-
-//          _ ← seqUpdExt.deliverUserUpdate(
-//            userId = cmd.creatorUserId,
-//            update = updateObsolete,
-//            pushRules = seqUpdExt.pushRules(isFat = true, None, excludeAuthIds = Seq(cmd.creatorAuthId)), //do we really need to remove self auth id here?
-//            reduceKey = None,
-//            deliveryId = s"creategroup_obsolete_${groupId}_${cmd.randomId}"
-//          )
 
           ///////////////////////////
           // Groups V2 API updates //
@@ -149,9 +109,6 @@ private[group] trait GroupCommandHandlers
 
       persist(BotAdded(Instant.now, botUserId, botToken)) { evt ⇒
         val newState = commit(evt)
-
-        //TODO: remove deprecated
-//        db.run(GroupBotRepo.create(groupId, botUserId, botToken): @silent)
 
         (for {
           _ ← userExt.create(botUserId, ACLUtils.nextAccessSalt(), None, "Bot", "US", ApiSex.Unknown, isBot = true)
