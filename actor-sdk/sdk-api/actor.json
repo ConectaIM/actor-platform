@@ -4368,6 +4368,14 @@
 "doc":[
 "GroupPre removed"],"attributes":[
 {"type":{"type":"struct","childType":"GroupPre"},"id":1,"name":"groupPre"}
+]}},{"type":"update","content":{
+"name":"GroupPreParentChanged",
+"header":88,
+"doc":[
+"GroupPre parent changed"],"attributes":[
+{"type":"int32","id":1,"name":"groupId"}
+,{"type":"int32","id":2,"name":"parentId"}
+,{"type":"int32","id":3,"name":"oldParentId"}
 ]}},{"type":"rpc","content":{
 "name":"LoadGroupsPre",
 "header":23,
