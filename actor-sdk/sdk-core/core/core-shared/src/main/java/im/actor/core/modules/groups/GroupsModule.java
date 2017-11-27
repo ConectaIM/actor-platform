@@ -103,7 +103,6 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
     //
     // Storage
     //
-
     public KeyValueEngine<Group> getGroups() {
         return groups;
     }
@@ -153,6 +152,7 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
 //                        });
 
                         User user = users().getValue(u);
+
                         if (user != null) {
                             peers.add(new ApiUserOutPeer(u, user.getAccessHash()));
                         }

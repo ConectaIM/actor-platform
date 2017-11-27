@@ -30,16 +30,18 @@ public class GrupoPreRouter extends ModuleActor {
         if(update instanceof UpdateGroupPreCreated){
             UpdateGroupPreCreated upd = (UpdateGroupPreCreated) update;
 
-           // groups().getValueAsync().
 
-            //GrupoPre gp = new GrupoPre();
+
+
         }
+
         return Promise.success(null);
     }
 
     private void freeze() {
         isFreezed = true;
     }
+
 
     private void unfreeze() {
         isFreezed = false;

@@ -308,14 +308,6 @@ public class ActorSDK {
 
         //parsers
 
-        for (BaseParser r : rpcParsers) {
-            builder.addRpcParser(r);
-        }
-
-        for (BaseParser u : updateParsers) {
-            builder.addUpdateParser(u);
-        }
-
         builder.setPhoneBookProvider(new AndroidPhoneBook());
         builder.setVideoCallsEnabled(videoCallsEnabled);
         builder.setOnClientPrivacyEnabled(onClientPrivacyEnabled);
