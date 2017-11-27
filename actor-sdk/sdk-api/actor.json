@@ -4398,4 +4398,12 @@
 "Create a new groupPre"],"attributes":[
 {"type":"int32","id":1,"name":"groupId"}
 ,{"type":{"type":"opt","childType":"int32"},"id":2,"name":"idParent"}
+]}},{"type":"rpc","content":{
+"name":"ChangeGroupParent",
+"header":34,
+"response":{"type":"reference","name":"Seq"},
+"doc":[
+"Change group parent"],"attributes":[
+{"type":"int32","id":1,"name":"groupId"}
+,{"type":"int32","id":2,"name":"parentId"}
 ]}}]}]}

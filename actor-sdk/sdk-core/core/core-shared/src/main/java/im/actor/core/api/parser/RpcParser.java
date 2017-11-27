@@ -188,6 +188,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 123: return RequestCompleteWebaction.fromBytes(payload);
             case 23: return RequestLoadGroupsPre.fromBytes(payload);
             case 24: return RequestCreateGroupPre.fromBytes(payload);
+            case 34: return RequestChangeGroupParent.fromBytes(payload);
             case 193: return ResponseStartPhoneAuth.fromBytes(payload);
             case 186: return ResponseStartEmailAuth.fromBytes(payload);
             case 2572: return ResponseStartUsernameAuth.fromBytes(payload);
