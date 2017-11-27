@@ -7,6 +7,8 @@ import im.actor.core.viewmodel.GroupVM;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
 
+import static im.actor.sdk.util.ActorSDKMessenger.messenger;
+
 /**
  * Created by dsilv on 18/11/2017.
  */
@@ -32,7 +34,9 @@ public class GroupPreAdminFragment extends BaseFragment{
     @Override
     public void onCreate(Bundle saveInstance) {
         super.onCreate(saveInstance);
-
+        groupVM = messenger().getGroup(getArguments().getInt("groupId"));
         setTitle(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.channel_pre_admin_title : R.string.group_pre_admin_title);
+
+
     }
 }
