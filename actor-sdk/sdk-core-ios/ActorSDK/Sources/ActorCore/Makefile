@@ -107,8 +107,8 @@ default: | translate build
 
 translate: | $(SOURCES_DIR) $(WORKING_DIR) $(OBJ_DIR) pre_translate $(OBJC_FILES)
 	@if [ `cat $(UPDATED_SOURCES) | wc -l` -ge 1 ] ; then \
-        $(J2OBJC) $(J2OBJC_ARGS) $(PREFIXES) -sourcepath $(SOURCE_PATHS) -d $(SOURCES_DIR) \
-	`cat $(UPDATED_SOURCES)` ; \
+	$(J2OBJC) $(J2OBJC_ARGS) $(PREFIXES) -sourcepath $(SOURCE_PATHS) -d $(SOURCES_DIR) \
+	'@$(UPDATED_SOURCES)' ; \
 	fi
 
 pre_translate:

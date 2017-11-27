@@ -27,7 +27,7 @@ open class AAEditRow: AAManagedRow, UITextFieldDelegate {
         
         if placeholder != nil {
             let placeholderText = NSMutableAttributedString(string: placeholder!)
-            placeholderText.addAttribute(NSForegroundColorAttributeName, value: ActorSDK.sharedActor().style.cellHintColor, range:  NSMakeRange(0, placeholder!.length))
+            placeholderText.addAttribute(NSAttributedStringKey.foregroundColor, value: ActorSDK.sharedActor().style.cellHintColor, range:  NSMakeRange(0, placeholder!.length))
             res.textField.attributedPlaceholder = placeholderText
         } else {
             res.textField.placeholder = nil
@@ -50,7 +50,7 @@ open class AAEditRow: AAManagedRow, UITextFieldDelegate {
         return res
     }
     
-    open func textFieldDidChange(_ textField: UITextField) {
+    @objc open func textFieldDidChange(_ textField: UITextField) {
         text = textField.text
     }
     

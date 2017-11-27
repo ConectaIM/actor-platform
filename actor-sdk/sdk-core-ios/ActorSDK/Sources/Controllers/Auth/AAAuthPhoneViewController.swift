@@ -207,13 +207,13 @@ class AAAuthPhoneViewController: AAAuthViewController, AACountryViewControllerDe
         resizePhoneLabels()
     }
     
-    func countryDidPressed() {
+    @objc func countryDidPressed() {
         let countriesController = AACountryViewController()
         countriesController.delegate = self
         presentElegantViewController(AANavigationController(rootViewController: countriesController))
     }
     
-    func useEmailDidPressed() {
+    @objc func useEmailDidPressed() {
         let controllers = self.navigationController!.viewControllers
         let updatedControllers = Array(controllers[0..<(controllers.count - 1)]) + [AAAuthEmailViewController(name: name)]
         self.navigationController?.setViewControllers(updatedControllers, animated: false)

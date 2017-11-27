@@ -69,7 +69,7 @@ open class AAAuthNameViewController: AAAuthViewController {
         scrollView.contentSize = CGSize(width: view.width, height: 240 - 66)
     }
     
-    func fieldDidChanged() {
+    @objc func fieldDidChanged() {
 //        if field.text!.trim().length > 0 {
 //            fieldSuccess.hidden = false
 //        } else {

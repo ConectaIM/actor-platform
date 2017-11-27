@@ -78,11 +78,11 @@ open class AAWallpapperPreviewController: AAViewController {
         setButton.frame = CGRect(x: view.width / 2, y: view.height - 55, width: view.width / 2, height: 55)
     }
     
-    func cancelDidTap() {
+    @objc func cancelDidTap() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func setDidTap() {
+    @objc func setDidTap() {
         self.dismiss(animated: true, completion: nil)
         
         if self.fromName == true {

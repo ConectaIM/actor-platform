@@ -36,7 +36,7 @@ open class AABubbleContactCell: AABubbleCell, ABNewPersonViewControllerDelegate,
         fatalError("init(coder:) has not been implemented")
     }
     
-    func contactDidTap() {
+    @objc func contactDidTap() {
         if let m = bindedMessage {
             if let c = m.content as? ACContactContent {
                 let menuBuilder = AAMenuBuilder()

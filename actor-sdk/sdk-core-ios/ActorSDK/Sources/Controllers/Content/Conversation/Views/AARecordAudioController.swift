@@ -181,7 +181,7 @@ class AARecordAudioController: UIViewController,UIViewControllerTransitioningDel
     
     // actions
     
-    func closeController() {
+    @objc func closeController() {
         
         self.audioRecorder.cancel()
         self.dismiss(animated: true, completion: nil)
@@ -189,7 +189,7 @@ class AARecordAudioController: UIViewController,UIViewControllerTransitioningDel
     
     
     
-    func startRec() {
+    @objc func startRec() {
         
         //log.debug("recording. recorder nil")
         
@@ -203,7 +203,7 @@ class AARecordAudioController: UIViewController,UIViewControllerTransitioningDel
         
     }
     
-    func stopRec() {
+    @objc func stopRec() {
         
         //log.debug("stop")
         
@@ -240,7 +240,7 @@ class AARecordAudioController: UIViewController,UIViewControllerTransitioningDel
         }
     }
     
-    func play() {
+    @objc func play() {
         
         self.audioPlayer = AAModernConversationAudioPlayer(filePath:self.filePath)
         self.audioPlayer.play(0)
@@ -287,7 +287,7 @@ class AARecordAudioController: UIViewController,UIViewControllerTransitioningDel
             repeats:true)
     }
     
-    func updateAudioMeter(_ timer:Timer) {
+    @objc func updateAudioMeter(_ timer:Timer) {
         
         if (self.audioRecorder != nil) {
             
@@ -334,7 +334,7 @@ class AARecordAudioController: UIViewController,UIViewControllerTransitioningDel
         
     }
     
-    func sendRecordMessage() {
+    @objc func sendRecordMessage() {
         
         self.dismiss(animated: true, completion: nil)
         //self.chatController.sendVoiceMessage(self.filePath, duration: self.fileDuration)

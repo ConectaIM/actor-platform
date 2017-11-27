@@ -139,7 +139,7 @@ open class AAGroupTypeViewController: AAContentTableController {
         }
     }
     
-    open func saveDidTap() {
+    @objc open func saveDidTap() {
         let nShortName: String?
         if self.isPublic {
             if let shortNameVal = self.shortNameRow.text?.trim() {

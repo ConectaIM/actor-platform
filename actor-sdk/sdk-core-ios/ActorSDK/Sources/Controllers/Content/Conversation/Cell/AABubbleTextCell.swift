@@ -216,7 +216,7 @@ open class AABubbleTextCell : AABubbleCell {
         UIPasteboard.general.string = (bindedMessage!.content as! ACTextContent).text
     }
     
-    open func edit(_ sender: Any?){
+    @objc open func edit(_ sender: Any?){
         NSLog("Editando mensagem")
         self.controller.onEditMessageTap(rid: bindedMessage!.rid, msg: (bindedMessage?.content as! ACTextContent).text)
         //self.needRelayout = true
@@ -313,7 +313,7 @@ open class TextCellLayout: AACellLayout {
         }
     }
     
-    fileprivate static let textKey = "text"
+    public static let textKey = "text"
     fileprivate static let unsupportedKey = "unsupported"
     
     fileprivate static let stringOutPadding = " " + ("_".repeatString(7));

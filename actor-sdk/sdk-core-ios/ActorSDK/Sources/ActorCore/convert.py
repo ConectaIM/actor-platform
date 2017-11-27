@@ -79,6 +79,8 @@ for root, directories, filenames in os.walk('Sources/'):
 isUmbrellaChanged = True
 
 umbrellaContent = ""
+#print "Todos os arquivos"
+#print allFiles
 for line in allFiles:
     umbrellaContent += "#import \"" + line + "\"\n"
 

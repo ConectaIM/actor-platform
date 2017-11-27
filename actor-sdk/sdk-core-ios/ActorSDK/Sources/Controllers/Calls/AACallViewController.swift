@@ -450,7 +450,7 @@ open class AACallViewController: AAViewController, RTCEAGLVideoViewDelegate {
         updateTimer()
     }
     
-    func updateTimer() {
+    @objc func updateTimer() {
         if call.callStart > 0 {
             let end = call.callEnd > 0 ? call.callEnd : jlong(Date().timeIntervalSince1970 * 1000)
             let secs = Int((end - call.callStart) / 1000)

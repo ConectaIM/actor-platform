@@ -80,11 +80,11 @@ open class AAEditTextController: AAViewController {
         self.textView.resignFirstResponder()
     }
     
-    open func doSave() {
+    @objc open func doSave() {
         self.config.didCompleteTap?(textView.text, self)
     }
     
-    open func doCancel() {
+    @objc open func doCancel() {
         if self.config.didDismissTap != nil {
            self.config.didDismissTap!(self)
         } else {

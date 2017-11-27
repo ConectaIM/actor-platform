@@ -187,22 +187,22 @@ public extension NSAttributedString {
     }
     
     public func appendMutate(_ text: String, font: UIFont) -> NSAttributedString {
-        return self.appendMutate(NSAttributedString(string: text, attributes: [NSFontAttributeName: font]))
+        return self.appendMutate(NSAttributedString(string: text, attributes: [NSAttributedStringKey.font: font]))
     }
     
     public convenience init(string: String, font: UIFont) {
-        self.init(string: string, attributes: [NSFontAttributeName: font])
+        self.init(string: string, attributes: [NSAttributedStringKey.font: font])
     }
 }
 
 public extension NSMutableAttributedString {
     
     public func appendFont(_ font: UIFont) {
-        self.addAttribute(NSFontAttributeName, value: font, range: NSMakeRange(0, self.length))
+        self.addAttribute(NSAttributedStringKey.font, value: font, range: NSMakeRange(0, self.length))
     }
     
     public func appendColor(_ color: UIColor) {
-        self.addAttribute(NSForegroundColorAttributeName, value: color.cgColor, range: NSMakeRange(0, self.length))
+        self.addAttribute(NSAttributedStringKey.foregroundColor, value: color.cgColor, range: NSMakeRange(0, self.length))
     }
 }
 

@@ -181,7 +181,7 @@ open class AABindedRows<BindCell>: NSObject, AAManagedRange, ARDisplayList_Apple
                 if modification.addedCount() > 0 {
                     var rows = [IndexPath]()
                     for i in 0..<modification.addedCount() {
-                        rows.append(IndexPath(row: Int(modification.getAdded(jint(i)) + topOffset), section: section))
+                        rows.append(IndexPath(row: Int(modification.getAdded(jint(i))).advanced(by: Int(topOffset))))
                     }
                     tableView.insertRows(at: rows, with: animationType)
                 }

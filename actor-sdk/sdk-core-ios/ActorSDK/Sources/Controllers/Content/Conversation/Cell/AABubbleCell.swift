@@ -234,7 +234,7 @@ open class AABubbleCell: UICollectionViewCell {
         Actor.deleteMessages(with: self.peer, withRids: rids)
     }
     
-    func avatarDidTap() {
+    @objc func avatarDidTap() {
         if bindedMessage != nil {
             controller.onBubbleAvatarTap(self.avatarView, uid: bindedMessage!.senderId)
         }

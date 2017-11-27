@@ -150,7 +150,7 @@ open class UIViewMeasure {
         // Measuring text with reduced width
         let rect = text.boundingRect(with: CGSize(width: width - 2, height: CGFloat.greatestFiniteMagnitude),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: [NSFontAttributeName: font, NSParagraphStyleAttributeName: style],
+            attributes: [NSAttributedStringKey.font: font, NSAttributedStringKey.paragraphStyle: style],
             context: nil)
         
         // Returning size with expanded width
@@ -388,11 +388,11 @@ extension UINavigationBar {
 
 extension AVAsset {
     
-    func videoOrientation() -> (orientation: UIInterfaceOrientation, device: AVCaptureDevicePosition) {
+    func videoOrientation() -> (orientation: UIInterfaceOrientation, device: AVCaptureDevice.Position) {
         var orientation: UIInterfaceOrientation = .unknown
-        var device: AVCaptureDevicePosition = .unspecified
+        var device: AVCaptureDevice.Position = .unspecified
         
-        let tracks :[AVAssetTrack] = self.tracks(withMediaType: AVMediaTypeVideo)
+        let tracks :[AVAssetTrack] = self.tracks(withMediaType: AVMediaType.video)
         if let videoTrack = tracks.first {
             
             let t = videoTrack.preferredTransform

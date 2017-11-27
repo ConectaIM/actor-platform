@@ -8,7 +8,7 @@ public extension UIFont {
     
     public class func thinSystemFontOfSize(_ size: CGFloat) -> UIFont {
         if #available(iOS 8.2, *) {
-            return UIFont.systemFont(ofSize: size, weight: UIFontWeightThin)
+            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.thin)
         } else {
             return UIFont(name: "HelveticaNeue-Thin", size: size)!
         }
@@ -16,7 +16,7 @@ public extension UIFont {
     
     public class func lightSystemFontOfSize(_ size: CGFloat) -> UIFont {
         if #available(iOS 8.2, *) {
-            return UIFont.systemFont(ofSize: size, weight: UIFontWeightLight)
+            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.light)
         } else {
             return UIFont(name: "HelveticaNeue-Light", size: size)!
         }
@@ -24,7 +24,7 @@ public extension UIFont {
     
     public class func mediumSystemFontOfSize(_ size: CGFloat) -> UIFont {
         if #available(iOS 8.2, *) {
-            return UIFont.systemFont(ofSize: size, weight: UIFontWeightMedium)
+            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.medium)
         } else {
             return UIFont(name: "HelveticaNeue-Medium", size: size)!
         }

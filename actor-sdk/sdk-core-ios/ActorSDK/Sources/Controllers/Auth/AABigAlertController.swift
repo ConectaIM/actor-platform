@@ -74,7 +74,7 @@ open class AABigAlertController: UIViewController,UIViewControllerTransitioningD
         self.view.addGestureRecognizer(touch)
     }
     
-    open func closeController() {
+    @objc open func closeController() {
         self.dismiss(animated: true, completion: nil)
     }
     

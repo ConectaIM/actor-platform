@@ -387,7 +387,7 @@ open class AAGroupViewController: AAContentTableController {
         }
     }
     
-    open func editDidPressed() {
+    @objc open func editDidPressed() {
         self.presentInNavigation(AAGroupEditInfoController(gid: gid))
     }
 }

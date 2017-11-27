@@ -49,7 +49,7 @@ open class AABubbleLocationCell: AABubbleCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func mapDidTap() {
+    @objc func mapDidTap() {
         let url = "http://maps.apple.com/?q=\(bindedLat!),\(bindedLon!)"
         // print("url: \(url)")
         UIApplication.shared.openURL(URL(string: url)!)

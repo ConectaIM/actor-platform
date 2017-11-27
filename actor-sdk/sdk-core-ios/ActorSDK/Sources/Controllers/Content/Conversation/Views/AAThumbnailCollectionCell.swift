@@ -43,7 +43,7 @@ class AAThumbnailCollectionCell: UICollectionViewCell {
     
     ///
     
-    func handleSingleTap() {
+    @objc func handleSingleTap() {
         
         if (self.isCheckSelected == false) {
             

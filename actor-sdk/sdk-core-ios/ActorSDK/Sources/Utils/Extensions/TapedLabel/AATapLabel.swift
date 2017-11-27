@@ -23,23 +23,23 @@ open class TapLabel: UILabel, NSLayoutManagerDelegate {
         didSet {
             if let (_, range) = selected
             {
-                if let currentColor = textStorage.attribute(NSForegroundColorAttributeName,
+                if let currentColor = textStorage.attribute(NSAttributedStringKey.foregroundColor,
                     at: range.location,
                     effectiveRange: nil) as? UIColor
                 {
                     defaultSelectedForegroundColor = currentColor
                 }
                 
-                if let color = textStorage.attribute(TapLabel.SelectedForegroudColorName,
+                if let color = textStorage.attribute(NSAttributedStringKey(rawValue: TapLabel.SelectedForegroudColorName),
                     at: range.location,
                     effectiveRange: nil) as? UIColor
                 {
-                    textStorage.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
+                    textStorage.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
                 }
             }
             else if let (_, range) = oldValue
             {
-                textStorage.addAttribute(NSForegroundColorAttributeName,
+                textStorage.addAttribute(NSAttributedStringKey.foregroundColor,
                     value: defaultSelectedForegroundColor!,
                     range: range)
             }
@@ -103,7 +103,7 @@ open class TapLabel: UILabel, NSLayoutManagerDelegate {
     fileprivate func updateLinks() {
         links = [String: NSRange]()
         
-        attributedText.enumerateAttribute(TapLabel.LinkContentName,
+        attributedText.enumerateAttribute(NSAttributedStringKey(rawValue: TapLabel.LinkContentName),
             in: NSMakeRange(0, attributedText.length),
             options: NSAttributedString.EnumerationOptions(rawValue: 0))
             {

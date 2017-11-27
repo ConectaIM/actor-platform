@@ -54,11 +54,11 @@ open class AALocationPickerController: AAViewController, CLLocationManagerDelega
         pinPoint.risePin(false, animated: true)
     }
     
-    func cancellDidTap() {
+    @objc func cancellDidTap() {
         delegate?.locationPickerDidCancelled(self)
     }
     
-    func doneDidTap() {
+    @objc func doneDidTap() {
         delegate?.locationPickerDidPicked(self, latitude: map.centerCoordinate.latitude, longitude:  map.centerCoordinate.longitude)
     }
     
