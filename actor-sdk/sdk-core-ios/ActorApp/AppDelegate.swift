@@ -61,7 +61,7 @@ open class AppDelegate : ActorApplicationDelegate {
         
        // ActorSDK.sharedActor().endpoints = ["tcp://api-mtproto.im.xloto.com.br:9070"]
         
-//        ActorSDK.sharedActor().endpoints = ["tcp://192.168.1.3:9070"]
+//        ActorSDK.sharedActor().endpoints = ["tcp://192.168.31.226:9070"]
         
         ActorSDK.sharedActor().endpoints = ["tcp://api-mtproto.actor.diegosilva.com.br:9070"]
         
