@@ -2,6 +2,7 @@ package im.actor.runtime.cocoa;
 
 import com.google.j2objc.annotations.ObjectiveCName;
 
+import im.actor.runtime.Log;
 import im.actor.runtime.StorageRuntime;
 import im.actor.runtime.storage.KeyValueStorage;
 import im.actor.runtime.storage.ListStorage;
@@ -37,7 +38,12 @@ public class CocoaStorageProxyProvider implements StorageRuntime {
         if (storageRuntime == null) {
             throw new RuntimeException("Storage Runtime not set");
         }
-        return storageRuntime.createList(name);
+        Log.d("CocoaStorageProxyProvider", "createList");
+        ListStorage retorno = storageRuntime.createList(name);
+
+        Log.d("CocoaStorageProxyProvider", retorno+"");
+
+        return retorno;
     }
 
     @Override

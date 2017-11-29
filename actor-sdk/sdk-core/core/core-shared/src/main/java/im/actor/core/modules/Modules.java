@@ -133,6 +133,10 @@ public class Modules implements ModuleContext {
         storageModule.run(first);
         timing.section("Groups");
         groups = new GroupsModule(this);
+
+        timing.section("GrupoPreee");
+        grupoPreModule = new GrupoPreModule(this);
+
         timing.section("Conductor");
         conductor.run();
         timing.section("Stickers");
@@ -170,16 +174,19 @@ public class Modules implements ModuleContext {
         timing.section("EventBus");
         eventBusModule = new EventBusModule(this);
 
-        timing.section("GrupoPre");
-        grupoPreModule = new GrupoPreModule(this);
-
         timing = new Timing("ACCOUNT_RUN");
         timing.section("Users");
         users.run();
+
         timing.section("Groups");
         groups.run();
+
+        timing.section("GroupsPre");
+        grupoPreModule.run();
+
         timing.section("Settings");
         settings.run();
+
         timing.section("Files");
         filesModule.run();
         timing.section("Search");
@@ -203,8 +210,6 @@ public class Modules implements ModuleContext {
         timing.section("Conductor:end");
         conductor.runAfter();
         timing.end();
-
-        grupoPreModule.run();
 
 //        if (Runtime.isMainThread()) {
 //            messenger.onLoggedIn();

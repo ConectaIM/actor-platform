@@ -168,7 +168,7 @@ open class AAViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     
-    open func dismissController() {
+    @objc open func dismissController() {
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Actor Mac</string>
-    <string name="app_endpoint">tcp://192.168.31.226:9070</string>
+    <string name="app_endpoint">tcp://10.29.17.114:9070</string>
     <string name="invite_url">
         https://play.google.com/store/apps/details?id=br.com.diegosilva.actorlotericas
     </string>
     <string name="group_invite_prefix">https://im.xloto.com.br/join/</string>
     <string name="invite_data_url">https://api.im.xloto.com.br/v1/groups/invites/</string>
-    <string name="api_endpoint">http://192.168.31.226:9090</string>
+    <string name="api_endpoint">http://10.29.17.114:9090</string>
 </resources>

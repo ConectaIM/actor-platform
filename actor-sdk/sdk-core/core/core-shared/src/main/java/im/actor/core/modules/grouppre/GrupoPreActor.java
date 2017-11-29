@@ -15,6 +15,7 @@ import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.function.Function;
+import im.actor.runtime.function.FunctionTupled2;
 import im.actor.runtime.function.Tuple2;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.Promises;
@@ -59,24 +60,33 @@ public class GrupoPreActor extends ModuleActor {
         isLoading = true;
 
         api(new RequestLoadGroupsPre(this.idGrupoPai))
-                .map(r -> {
+                .map((ResponseLoadGroupsPre r) -> {
                     List<ApiGroupOutPeer> groupsOutPeer = new ArrayList<>();
                     for (ApiGroupPre groupPre : r.getGroups()) {
                         groupsOutPeer.add(new ApiGroupOutPeer(groupPre.getGroupId(), groupPre.getAcessHash()));
                     }
                     return new Tuple2<>(r.getGroups(), groupsOutPeer);
                 })
-                .flatMap(r -> Promises.tuple(Promise.success(r.getT1()), api(new RequestLoadGroups(r.getT2())).map(r2 -> r2.getGroups())))
-                .map(r -> {
-                    List<GrupoPre> retorno = new ArrayList<GrupoPre>();
-                    ((List<ApiGroup>)r.getT2()).forEach(apiGroup -> {
-                        ((List<ApiGroupPre>) r.getT1()).forEach(apiGroupPre -> {
-                            if (apiGroup.getId() == apiGroupPre.getGroupId()) {
-                                retorno.add(new GrupoPre(new Group(apiGroup, null), apiGroupPre.getOrder(), apiGroupPre.hasChildrem()));
+                .flatMap(new Function<Tuple2<List<ApiGroupPre>, List<ApiGroupOutPeer>>, Promise<Tuple2<List<ApiGroupPre>, List<ApiGroup>>>>() {
+                    @Override
+                    public Promise<Tuple2<List<ApiGroupPre>, List<ApiGroup>>> apply(Tuple2<List<ApiGroupPre>, List<ApiGroupOutPeer>> r) {
+                        return Promises.tuple(Promise.success(r.getT1()), api(new RequestLoadGroups(r.getT2())).map(r2 -> r2.getGroups()));
+                    }
+                })
+                .map(new Function<Tuple2<List<ApiGroupPre>, List<ApiGroup>>, List<GrupoPre>>() {
+                    @Override
+                    public List<GrupoPre> apply(Tuple2<List<ApiGroupPre>, List<ApiGroup>> r) {
+                        List<GrupoPre> retorno = new ArrayList<GrupoPre>();
+                            for( ApiGroup apiGroup: ((List<ApiGroup>)r.getT2()) ){
+                                for(ApiGroupPre apiGroupPre : (List<ApiGroupPre>) r.getT1()){
+                                    if (apiGroup.getId() == apiGroupPre.getGroupId()) {
+                                        retorno.add(new GrupoPre(new Group(apiGroup, null), apiGroupPre.getOrder(), apiGroupPre.hasChildrem()));
+                                    }
+                                }
+
                             }
-                        });
-                    });
-                    return retorno;
+                        return retorno;
+                    }
                 })
                 .map(result -> onGruposPreLoaded(result))
                 .map(r -> {

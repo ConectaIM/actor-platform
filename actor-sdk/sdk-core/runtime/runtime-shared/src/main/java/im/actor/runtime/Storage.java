@@ -51,6 +51,7 @@ public class Storage {
     }
 
     public static <T extends BserObject & ListEngineItem> ListEngine<T> createList(String name, BserCreator<T> creator) {
+        Log.d("Storage", "createList");
         return enginesRuntime.createListEngine(storageRuntime.createList(name), creator);
     }
 

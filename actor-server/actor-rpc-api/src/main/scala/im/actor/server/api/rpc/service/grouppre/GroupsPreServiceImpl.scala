@@ -3,7 +3,9 @@ package im.actor.server.api.rpc.service.grouppre
 import java.time.Instant
 
 import akka.actor.ActorSystem
+import akka.http.scaladsl.util.FastFuture
 import im.actor.api.rpc.grouppre.{ApiGroupPre, GrouppreService, ResponseCreateGroupPre, ResponseLoadGroupsPre}
+import im.actor.api.rpc.misc.ResponseSeq
 import im.actor.api.rpc.{ClientData, _}
 import im.actor.server.grouppre.GroupPreExtension
 
@@ -42,5 +44,11 @@ final class GroupsPreServiceImpl()(implicit actorSystem: ActorSystem) extends Gr
         group = ack.group.getOrElse(throw NoGroupPre)
         apiGroup = ApiGroupPre(group.groupId, group.possuiFilhos, group.acessHash, group.ordem)
       }yield(Ok(ResponseCreateGroupPre(setState.seq, setState.state.toByteArray, Instant.now().toEpochMilli, apiGroup)))
+  }
+
+  /** Change group parent */
+  override protected def doHandleChangeGroupParent(groupId: Int, parentId: Int, clientData: ClientData) :
+  Future[HandlerResult[ResponseSeq]] = {
+    FastFuture.successful(Error(CommonRpcErrors.NotSupportedInOss))
   }
 }

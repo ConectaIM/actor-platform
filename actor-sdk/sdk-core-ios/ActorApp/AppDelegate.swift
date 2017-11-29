@@ -61,9 +61,11 @@ open class AppDelegate : ActorApplicationDelegate {
         
        // ActorSDK.sharedActor().endpoints = ["tcp://api-mtproto.im.xloto.com.br:9070"]
         
-//        ActorSDK.sharedActor().endpoints = ["tcp://192.168.31.226:9070"]
+//        ActorSDK.sharedActor().endpoints = ["tcp://10.29.17.114:9070"]
         
-        ActorSDK.sharedActor().endpoints = ["tcp://api-mtproto.actor.diegosilva.com.br:9070"]
+        ActorSDK.sharedActor().endpoints = ["tcp://192.168.31.226:9070"]
+        
+        //ActorSDK.sharedActor().endpoints = ["tcp://api-mtproto.actor.diegosilva.com.br:9070"]
         
         //AppCocoaHttpRuntime.getMethod("")
         

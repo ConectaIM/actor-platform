@@ -266,7 +266,7 @@ public class Authentication {
             try {
                 auth = ResponseAuth.fromBytes(authRes.getData());
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
                 resolver.error(e);
                 return;
             }
