@@ -2478,6 +2478,7 @@
 					"$(inherited)",
 					"-framework",
 					j2objc,
+					"-l\"iconv\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = im.actor.ActorSDK;
 				PRODUCT_NAME = ActorSDK;
@@ -2536,6 +2537,7 @@
 					"$(inherited)",
 					"-framework",
 					j2objc,
+					"-l\"iconv\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = im.actor.ActorSDK;
 				PRODUCT_NAME = ActorSDK;

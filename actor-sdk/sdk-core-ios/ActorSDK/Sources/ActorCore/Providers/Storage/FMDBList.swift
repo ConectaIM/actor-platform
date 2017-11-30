@@ -4,7 +4,7 @@
 
 import Foundation
 
-class FMDBList : NSObject, ARListStorageDisplayEx {
+@objc class FMDBList : NSObject, ARListStorageDisplayEx {
     
     var db :FMDatabase? = nil;
     var isTableChecked: Bool = false;
@@ -103,7 +103,7 @@ class FMDBList : NSObject, ARListStorageDisplayEx {
         log("updateOrAddWithValue \(tableName): \(valueContainer.getData().length()) in \(Int((Date().timeIntervalSince(start)*1000)))")
     }
     
-    func updateOrAdd(with items: JavaUtilListProtocol!) {
+    func updateOrAdd(with items: JavaUtilList!) {
         checkTable();
         
         db!.beginTransaction()
@@ -199,13 +199,13 @@ class FMDBList : NSObject, ARListStorageDisplayEx {
         }
     }
     
-    func loadAllItems() -> JavaUtilListProtocol! {
+    func loadAllItems() -> JavaUtilList! {
         let res = JavaUtilArrayList()
         // TODO: Implement
         return res
     }
     
-    func loadForward(withSortKey sortingKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilListProtocol! {
+    func loadForward(withSortKey sortingKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilList! {
         checkTable();
         var result : FMResultSet? = nil;
         if (sortingKey == nil) {
@@ -247,7 +247,7 @@ class FMDBList : NSObject, ARListStorageDisplayEx {
         return res;
     }
     
-    func loadForward(withQuery query: String!, withSortKey sortingKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilListProtocol! {
+    func loadForward(withQuery query: String!, withSortKey sortingKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilList! {
         checkTable();
         
         var result : FMResultSet? = nil;
@@ -277,7 +277,7 @@ class FMDBList : NSObject, ARListStorageDisplayEx {
 
     }
     
-    func loadBackward(withSortKey sortingKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilListProtocol! {
+    func loadBackward(withSortKey sortingKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilList! {
         checkTable();
         var result : FMResultSet? = nil;
         if (sortingKey == nil) {
@@ -304,7 +304,7 @@ class FMDBList : NSObject, ARListStorageDisplayEx {
         return res;
     }
     
-    func loadBackward(withQuery query: String!, withSortKey sortingKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilListProtocol! {
+    func loadBackward(withQuery query: String!, withSortKey sortingKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilList! {
         checkTable();
         
         var result : FMResultSet? = nil;
@@ -333,7 +333,7 @@ class FMDBList : NSObject, ARListStorageDisplayEx {
         return res;
     }
     
-    func loadCenter(withSortKey centerSortKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilListProtocol! {
+    func loadCenter(withSortKey centerSortKey: JavaLangLong!, withLimit limit: jint) -> JavaUtilList! {
         checkTable();
         
         let res: JavaUtilArrayList = JavaUtilArrayList();
@@ -342,7 +342,7 @@ class FMDBList : NSObject, ARListStorageDisplayEx {
         return res
     }
     
-    func loadSlise(_ result: FMResultSet?) -> JavaUtilListProtocol! {
+    func loadSlise(_ result: FMResultSet?) -> JavaUtilList! {
         if (result == nil) {
             NSLog(db!.lastErrorMessage())
             return nil

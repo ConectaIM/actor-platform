@@ -77,7 +77,7 @@ open class AAAvatarView: UIView, YYAsyncLayerDelegate, ACFileEventCallback {
         
         self.fileName = nil
         if avatar?.smallImage != nil {
-            self.file = avatar!.smallImage.fileReference!
+            self.file = avatar?.smallImage?.fileReference
             self.showPlaceholder = false
         } else {
             self.file = nil

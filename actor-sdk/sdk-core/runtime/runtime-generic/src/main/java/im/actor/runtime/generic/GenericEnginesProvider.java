@@ -1,6 +1,7 @@
 package im.actor.runtime.generic;
 
 import im.actor.runtime.EnginesRuntime;
+import im.actor.runtime.Log;
 import im.actor.runtime.bser.BserCreator;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
@@ -19,6 +20,13 @@ public class GenericEnginesProvider implements EnginesRuntime {
 //        ActorSystem.system().addDispatcher("db", 1);
 //    }
 
+    /*-[
+    #define cast_check(x, y) my_cast_check(x, y)
+    __attribute__((always_inline)) inline id my_cast_check(id __unsafe_unretained p, IOSClass *cls) {
+      return p;
+    }
+    ]-*/
+
     private DisplayList.OperationMode operationMode;
 
     public GenericEnginesProvider(DisplayList.OperationMode operationMode) {
@@ -27,7 +35,6 @@ public class GenericEnginesProvider implements EnginesRuntime {
 
     @Override
     public <T extends BserObject & ListEngineItem> ListEngine<T> createListEngine(ListStorage storage, BserCreator<T> creator) {
-
         return new AsyncListEngine<T>((ListStorageDisplayEx) storage, creator);
     }
 

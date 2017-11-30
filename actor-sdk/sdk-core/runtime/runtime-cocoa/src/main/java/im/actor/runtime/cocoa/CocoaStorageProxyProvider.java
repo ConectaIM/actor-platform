@@ -38,12 +38,7 @@ public class CocoaStorageProxyProvider implements StorageRuntime {
         if (storageRuntime == null) {
             throw new RuntimeException("Storage Runtime not set");
         }
-        Log.d("CocoaStorageProxyProvider", "createList");
-        ListStorage retorno = storageRuntime.createList(name);
-
-        Log.d("CocoaStorageProxyProvider", retorno+"");
-
-        return retorno;
+        return storageRuntime.createList(name);
     }
 
     @Override
