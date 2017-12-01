@@ -239,7 +239,7 @@ public class BserValues {
 
     @NotNull
     public List<byte[]> getRepeatedBytes(int id) throws IOException {
-        ArrayList<byte[]> res = new ArrayList<byte[]>();
+        ArrayList<byte[]> res = new ArrayList<>();
         if (fields.containsKey(id)) {
             touched.put(id, true);
             Object val = fields.get(id);
@@ -247,7 +247,6 @@ public class BserValues {
                 res.add((byte[]) val);
             } else if (val instanceof List) {
                 List<Object> rep = (List) val;
-
                 for (Object val2 : rep) {
                     if (val2 instanceof byte[]) {
                         res.add((byte[]) val2);
