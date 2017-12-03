@@ -18,6 +18,9 @@ import im.actor.runtime.collections.SparseBooleanArray;
 
 /*-[
 #define J2OBJC_DISABLE_ARRAY_BOUND_CHECKS 1
+#define J2OBJC_DISABLE_ARRAY_TYPE_CHECKS 1
+#define J2OBJC_DISABLE_CAST_CHECKS 1
+#define J2OBJC_DISABLE_ARRAY_CHECKS 1
 ]-*/
 
 public class BserValues {

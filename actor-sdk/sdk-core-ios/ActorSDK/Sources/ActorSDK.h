@@ -4,6 +4,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define J2OBJC_DISABLE_ALL_CHECKS 1
+#define J2OBJC_DISABLE_CAST_CHECKS 1
+
 //! Project version number for ActorSDK.
 FOUNDATION_EXPORT double ActorSDKVersionNumber;
 

@@ -20,12 +20,12 @@ public class GenericEnginesProvider implements EnginesRuntime {
 //        ActorSystem.system().addDispatcher("db", 1);
 //    }
 
-    /*-[
-    #define cast_check(x, y) my_cast_check(x, y)
-    __attribute__((always_inline)) inline id my_cast_check(id __unsafe_unretained p, IOSClass *cls) {
-      return p;
-    }
-    ]-*/
+/*-[
+#define J2OBJC_DISABLE_ARRAY_BOUND_CHECKS 1
+#define J2OBJC_DISABLE_ARRAY_TYPE_CHECKS 1
+#define J2OBJC_DISABLE_CAST_CHECKS 1
+#define J2OBJC_DISABLE_ARRAY_CHECKS 1
+]-*/
 
     private DisplayList.OperationMode operationMode;
 

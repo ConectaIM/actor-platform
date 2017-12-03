@@ -16,14 +16,11 @@ public class ApiParserConfig {
     public RpcScope parseRpc(int header, byte[] content) throws IOException {
         for (ParsingExtension ex : extensions) {
             try {
-                Log.d(ApiParserConfig.class.getCanonicalName(), "Vai ler o header: "+header);
-                Log.d(ApiParserConfig.class.getCanonicalName(), "Conteudo: "+content);
                 return ex.getRpcScopeParser().read(header, content);
             } catch (Exception e) {
                 Log.e(ApiParserConfig.class.getCanonicalName(), e);
             }
         }
-
         throw new IOException("Unknown package for header "+header);
     }
 }

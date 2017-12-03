@@ -2462,6 +2462,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/ActorSDK/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				J2OBJC_DISABLE_ALL_CHECKS = 1;
+				J2OBJC_DISABLE_ARRAY_CHECKS = 1;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -2521,6 +2523,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/ActorSDK/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				J2OBJC_DISABLE_ALL_CHECKS = 1;
+				J2OBJC_DISABLE_ARRAY_CHECKS = 1;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
