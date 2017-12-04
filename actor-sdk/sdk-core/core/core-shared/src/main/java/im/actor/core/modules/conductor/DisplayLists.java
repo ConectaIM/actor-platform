@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
+import im.actor.core.entity.Group;
 import im.actor.core.entity.GrupoPre;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
@@ -29,6 +30,9 @@ public class DisplayLists extends AbsModule {
 
     private HashMap<Integer, PlatformDisplayList<GrupoPre>> gruposPreDisplayList = new HashMap<>();
     private HashMap<Integer, PlatformDisplayList<GrupoPre>> canaisPreDisplayList = new HashMap<>();
+
+    private PlatformDisplayList<Group> groupsGlobalList;
+    private PlatformDisplayList<Group> channelsGlobalList;
 
     public DisplayLists(ModuleContext context) {
         super(context);

@@ -24,8 +24,9 @@ import im.actor.core.util.BitMaskUtil;
 import im.actor.runtime.bser.Bser;
 import im.actor.runtime.bser.BserCreator;
 import im.actor.runtime.storage.KeyValueItem;
+import im.actor.runtime.storage.ListEngineItem;
 
-public class Group extends WrapperExtEntity<ApiGroupFull, ApiGroup> implements KeyValueItem {
+public class Group extends WrapperExtEntity<ApiGroupFull, ApiGroup> implements KeyValueItem, ListEngineItem {
 
     private static final int RECORD_ID = 10;
     private static final int RECORD_EXT_ID = 11;
@@ -865,6 +866,16 @@ public class Group extends WrapperExtEntity<ApiGroupFull, ApiGroup> implements K
     @Override
     public long getEngineId() {
         return groupId;
+    }
+
+    @Override
+    public long getEngineSort() {
+        return 0;
+    }
+
+    @Override
+    public String getEngineSearch() {
+        return title;
     }
 
     public Peer peer() {

@@ -33,17 +33,14 @@ public class PickCountryFragment extends BaseFragment {
         v.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
         countriesListView = (ListView) v.findViewById(R.id.lv_countries);
         countriesListView.setDivider(new ColorDrawable(ActorSDK.sharedActor().style.getDividerColor()));
-        countriesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (adapter != null) {
-                    final Country country = adapter.getItem(position);
-                    getActivity().setResult(Activity.RESULT_OK, new Intent()
-                            .putExtra("country_id", country.fullNameRes)
-                            .putExtra("country_code", country.phoneCode)
-                            .putExtra("country_shortname", country.shortName));
-                    getActivity().finish();
-                }
+        countriesListView.setOnItemClickListener((parent, view, position, id) -> {
+            if (adapter != null) {
+                final Country country = adapter.getItem(position);
+                getActivity().setResult(Activity.RESULT_OK, new Intent()
+                        .putExtra("country_id", country.fullNameRes)
+                        .putExtra("country_code", country.phoneCode)
+                        .putExtra("country_shortname", country.shortName));
+                getActivity().finish();
             }
         });
 

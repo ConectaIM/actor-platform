@@ -1,6 +1,10 @@
 package im.actor.sdk.controllers.grouppre;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import im.actor.core.entity.GroupType;
 import im.actor.core.viewmodel.GroupVM;
@@ -37,6 +41,15 @@ public class GroupPreAdminFragment extends BaseFragment{
         groupVM = messenger().getGroup(getArguments().getInt("groupId"));
         setTitle(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.channel_pre_admin_title : R.string.group_pre_admin_title);
 
+    }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_country_select, null);
+
+
+
+        return v;
     }
 }
