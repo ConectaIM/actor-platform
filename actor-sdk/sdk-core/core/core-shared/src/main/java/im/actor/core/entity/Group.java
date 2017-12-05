@@ -31,6 +31,8 @@ public class Group extends WrapperExtEntity<ApiGroupFull, ApiGroup> implements K
     private static final int RECORD_ID = 10;
     private static final int RECORD_EXT_ID = 11;
 
+    public static final String ENTITY_NAME = "Group";
+
     public static BserCreator<Group> CREATOR = Group::new;
 
     public static Group fromBytes(byte[] data) throws IOException {

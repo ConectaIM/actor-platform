@@ -68,6 +68,7 @@ import im.actor.runtime.mvvm.MVVMCollection;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.Promises;
 import im.actor.runtime.storage.KeyValueEngine;
+import im.actor.runtime.storage.ListEngine;
 
 import static im.actor.runtime.actors.ActorSystem.system;
 
@@ -76,6 +77,9 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
     // Workaround for j2objc bug
     private static final Void DUMB = null;
     private static final ResponseVoid DUMB2 = null;
+
+    private ListEngine<Group> groupsList;
+    private ListEngine<Group> channelsList;
 
     private final KeyValueEngine<Group> groups;
     private final MVVMCollection<Group, GroupVM> collection;
@@ -93,6 +97,9 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
 
         avatarVMs = new HashMap<>();
         avatarChangeActor = system().actorOf("actor/avatar/group", () -> new GroupAvatarChangeActor(context));
+
+        this.groupsList = Storage.createList(STORAGE_GROUPS+"_list", Group.CREATOR);
+        this.channelsList = Storage.createList(STORAGE_CHANNELS+"_list", Group.CREATOR);
     }
 
     public void run() {
@@ -122,6 +129,14 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
 
     public GroupRouterInt getRouter() {
         return groupRouterInt;
+    }
+
+    public ListEngine<Group> getGroupsList() {
+        return groupsList;
+    }
+
+    public ListEngine<Group> getChannelsList() {
+        return channelsList;
     }
 
     //

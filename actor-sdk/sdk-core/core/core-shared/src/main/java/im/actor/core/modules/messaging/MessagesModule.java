@@ -83,7 +83,7 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
     private static final Void DUMB = null;
 
     private ListEngine<Dialog> dialogs;
-
+    
     private DialogsInt dialogsInt;
     private ActorRef dialogsHistoryActor;
     private ActorRef archivedDialogsActor;
@@ -111,10 +111,12 @@ public class MessagesModule extends AbsModule implements BusSubscriber {
 
     public MessagesModule(final ModuleContext context) {
         super(context);
+
         this.conversationStates = Storage.createKeyValue(STORAGE_CHAT_STATES,
                 ConversationVM.CREATOR,
                 ConversationState.CREATOR,
                 ConversationState.DEFAULT_CREATOR);
+
         this.cursorStorage = new SyncKeyValue(Storage.createKeyValue(STORAGE_CURSOR));
         this.dialogs = Storage.createList(STORAGE_DIALOGS + DIALOGS_KEY_VERSION, Dialog.CREATOR);
     }

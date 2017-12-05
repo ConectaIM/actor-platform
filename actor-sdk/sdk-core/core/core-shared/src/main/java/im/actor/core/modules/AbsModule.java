@@ -30,6 +30,7 @@ public abstract class AbsModule {
     public static final String STORAGE_DIALOGS = "dialogs";
     public static final String STORAGE_USERS = "users";
     public static final String STORAGE_GROUPS = "groups";
+    public static final String STORAGE_CHANNELS = "channels";
     public static final String STORAGE_DOWNLOADS = "downloads";
     public static final String STORAGE_CONTACTS = "contacts";
     public static final String STORAGE_PHONE_BOOK = "phone_book";
