@@ -26,8 +26,6 @@ import im.actor.runtime.collections.SparseBooleanArray;
 public class BserValues {
 
     private SparseArray<Object> fields;
-
-    // TODO: Replace with SparseBooleanArray
     private SparseBooleanArray touched = new SparseBooleanArray();
 
     public BserValues(@NotNull SparseArray<Object> fields) {
@@ -254,11 +252,11 @@ public class BserValues {
                     if (val2 instanceof byte[]) {
                         res.add((byte[]) val2);
                     } else {
-                        throw new IOException("Expected type: byte[], got " + val2.getClass().getSimpleName());
+                        throw new IOException("Instance of 2 Expected type: byte[], got " + val2.getClass().getSimpleName());
                     }
                 }
             } else {
-                throw new IOException("Expected type: byte[], got " + val.getClass().getSimpleName());
+                throw new IOException("Instance of 1 Expected type: byte[], got " + val.getClass().getSimpleName());
             }
         }
         return res;

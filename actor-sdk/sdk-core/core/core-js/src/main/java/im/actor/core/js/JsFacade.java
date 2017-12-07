@@ -388,6 +388,38 @@ public class JsFacade implements Exportable {
     }
 
     @UsedByApp
+    public void bindGroups(JsDisplayListCallback<JsGroup> callback) {
+        if (callback == null) {
+            return;
+        }
+        messenger.getSharedGroupList().subscribe(callback, false);
+    }
+
+    @UsedByApp
+    public void unbindGroups(JsDisplayListCallback<JsGroup> callback) {
+        if (callback == null) {
+            return;
+        }
+        messenger.getSharedGroupList().unsubscribe(callback);
+    }
+
+    @UsedByApp
+    public void bindChannels(JsDisplayListCallback<JsGroup> callback) {
+        if (callback == null) {
+            return;
+        }
+        messenger.getSharedChannelList().subscribe(callback, false);
+    }
+
+    @UsedByApp
+    public void unbindChannels(JsDisplayListCallback<JsGroup> callback) {
+        if (callback == null) {
+            return;
+        }
+        messenger.getSharedChannelList().unsubscribe(callback);
+    }
+
+    @UsedByApp
     public void bindGroupDialogs(JsBindedValueCallback callback) {
         if (callback == null) {
             return;
