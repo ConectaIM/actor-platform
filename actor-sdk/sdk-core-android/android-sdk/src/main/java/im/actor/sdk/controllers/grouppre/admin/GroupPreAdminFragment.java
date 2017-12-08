@@ -1,4 +1,4 @@
-package im.actor.sdk.controllers.grouppre;
+package im.actor.sdk.controllers.grouppre.admin;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +39,7 @@ public class GroupPreAdminFragment extends BaseFragment{
     public void onCreate(Bundle saveInstance) {
         super.onCreate(saveInstance);
         groupVM = messenger().getGroup(getArguments().getInt("groupId"));
+
         setTitle(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.channel_pre_admin_title : R.string.group_pre_admin_title);
 
     }
@@ -46,7 +47,7 @@ public class GroupPreAdminFragment extends BaseFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_country_select, null);
+        View v = inflater.inflate(R.layout.fragment_group_pre_admin, null);
 
 
 

@@ -177,17 +177,6 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/groupPreAction"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/selector"
-        android:gravity="center_vertical"
-        android:paddingLeft="72dp"
-        android:paddingRight="8dp"
-        android:text="@string/grupo_pre_action"
-        android:textSize="16sp" />
-
-    <TextView
         android:id="@+id/viewMembersAction"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -218,6 +207,55 @@
         android:paddingLeft="72dp"
         android:paddingRight="8dp"
         android:text="@string/group_leave_channel"
+        android:textSize="16sp" />
+
+    <im.actor.sdk.view.DividerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/picker_list_divider" />
+
+
+
+    <LinearLayout
+        android:id="@+id/groupPreCont"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:paddingRight="8dp">
+
+        <im.actor.sdk.view.TintImageView
+            android:id="@+id/settings_group_pre_tint"
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            app:src="@drawable/ic_menu_black_18dp" />
+
+        <TextView
+            android:id="@+id/settings_group_pre_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/group_pre_admin_title"
+            android:textSize="16sp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/enableGroupPre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/groupPreAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="72dp"
+        android:paddingRight="8dp"
+        android:text="@string/grupo_pre_action"
         android:textSize="16sp" />
 
     <FrameLayout

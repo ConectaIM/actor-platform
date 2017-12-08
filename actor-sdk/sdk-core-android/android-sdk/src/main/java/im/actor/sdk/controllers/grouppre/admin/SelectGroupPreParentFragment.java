@@ -1,4 +1,4 @@
-package im.actor.sdk.controllers.grouppre;
+package im.actor.sdk.controllers.grouppre.admin;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -36,7 +36,7 @@ import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.controllers.fragment.preview.ViewAvatarActivity;
 import im.actor.sdk.controllers.group.view.MembersAdapter;
-import im.actor.sdk.controllers.grouppre.GroupPreAdminActivity;
+import im.actor.sdk.controllers.grouppre.admin.GroupPreAdminActivity;
 import im.actor.sdk.util.ActorSDKMessenger;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;

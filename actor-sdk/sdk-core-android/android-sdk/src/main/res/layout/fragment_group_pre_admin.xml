@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (C) 2015 Actor LLC. <https://actor.im>
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/notificationsCont"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:paddingRight="8dp">
+
+        <im.actor.sdk.view.TintImageView
+            android:id="@+id/settings_notification_icon"
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            app:src="@drawable/ic_menu_black_18dp" />
+
+        <TextView
+            android:id="@+id/settings_notifications_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/profile_settings_notifications"
+            android:textSize="16sp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/enableNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/administrationAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="72dp"
+        android:paddingRight="8dp"
+        android:text="@string/group_administration"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/groupPreAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="72dp"
+        android:paddingRight="8dp"
+        android:text="@string/grupo_pre_action"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/viewMembersAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="72dp"
+        android:paddingRight="8dp"
+        android:text="@string/group_members_header"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/addMemberAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="72dp"
+        android:paddingRight="8dp"
+        android:text="@string/group_add_member"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/leaveAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="72dp"
+        android:paddingRight="8dp"
+        android:text="@string/group_leave_channel"
+        android:textSize="16sp" />
+
+    <FrameLayout
+        android:id="@+id/after_settings_divider"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="12dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="top"
+            android:background="@drawable/card_shadow_bottom" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/card_shadow_top" />
+    </FrameLayout>
+</LinearLayout>

@@ -30,6 +30,7 @@ import java.util.concurrent.Executors;
 
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
+import im.actor.core.entity.Group;
 import im.actor.core.entity.GrupoPre;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
@@ -72,6 +73,9 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     private HashMap<Peer, BindedDisplayList<Message>> photosList = new HashMap<>();
     private HashMap<Peer, BindedDisplayList<Message>> videosLists = new HashMap<>();
     private BindedDisplayList<GrupoPre> groupPreList;
+
+    private BindedDisplayList<Group> groupList;
+    private BindedDisplayList<Group> channelList;
 
     private GalleryVM galleryVM;
     private ActorRef galleryScannerActor;
@@ -594,6 +598,20 @@ public class AndroidMessenger extends im.actor.core.Messenger {
             groupPreList = (BindedDisplayList<GrupoPre>) modules.getDisplayListsModule().getGruposPreDisplayList(idGrupoPai);
         }
         return groupPreList;
+    }
+
+    public BindedDisplayList<Group> getGroupList() {
+        if (groupList == null) {
+            groupList = (BindedDisplayList<Group>) modules.getDisplayListsModule().getGroupsGlobalList();
+        }
+        return groupList;
+    }
+
+    public BindedDisplayList<Group> getChannelList() {
+        if (channelList == null) {
+            channelList = (BindedDisplayList<Group>) modules.getDisplayListsModule().getGroupsGlobalList();
+        }
+        return channelList;
     }
 
     public GalleryVM getGalleryVM() {
