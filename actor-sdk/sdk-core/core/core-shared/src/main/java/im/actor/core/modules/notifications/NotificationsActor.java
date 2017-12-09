@@ -23,6 +23,7 @@ import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.notifications.entity.PendingNotification;
 import im.actor.core.modules.notifications.entity.PendingStorage;
 import im.actor.core.modules.notifications.entity.ReadState;
+import im.actor.runtime.Log;
 import im.actor.runtime.Storage;
 import im.actor.runtime.eventbus.Event;
 import im.actor.runtime.storage.SyncKeyValue;
@@ -34,6 +35,8 @@ import im.actor.runtime.storage.SyncKeyValue;
  * Actor also control sound effects playing logic
  */
 public class NotificationsActor extends ModuleActor {
+
+    private static final String TAG = NotificationsActor.class.getName();
 
     /**
      * Maximum amount of messages in notification
@@ -115,7 +118,7 @@ public class NotificationsActor extends ModuleActor {
             try {
                 pendingStorage = PendingStorage.fromBytes(storage, MAX_NOTIFICATION_COUNT);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
         }
 
@@ -525,7 +528,7 @@ public class NotificationsActor extends ModuleActor {
             try {
                 return ReadState.fromBytes(data).getSortDate();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
         }
         return 0;

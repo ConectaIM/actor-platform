@@ -15,6 +15,7 @@ import im.actor.core.viewmodel.CompressVideoCallback;
 import im.actor.core.viewmodel.FileCallback;
 import im.actor.core.viewmodel.FileEventCallback;
 import im.actor.core.viewmodel.UploadFileCallback;
+import im.actor.runtime.Log;
 import im.actor.runtime.Storage;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.actors.Props;
@@ -25,11 +26,12 @@ import static im.actor.runtime.actors.ActorSystem.system;
 
 public class FilesModule extends AbsModule {
 
+    private static final String TAG = FilesModule.class.getName();
+
     private KeyValueEngine<Downloaded> downloadedEngine;
     private ActorRef downloadManager;
     private ActorRef uploadManager;
     private FileUrlInt fileUrlInt;
-
     private ActorRef compressVideoManager;
 
     public FilesModule(final ModuleContext context) {
@@ -46,7 +48,7 @@ public class FilesModule extends AbsModule {
                 try {
                     return Downloaded.fromBytes(data);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, e);
                     return null;
                 }
             }
@@ -54,9 +56,7 @@ public class FilesModule extends AbsModule {
     }
 
     public void run() {
-        fileUrlInt = new FileUrlInt(system().actorOf("actor/download/urls", () -> {
-            return new FileUrlLoader(context());
-        }));
+        fileUrlInt = new FileUrlInt(system().actorOf("actor/download/urls", () -> new FileUrlLoader(context())));
         downloadManager = system().actorOf(Props.create(() -> new DownloadManager(context())).changeDispatcher("heavy"), "actor/download/manager");
         uploadManager = system().actorOf(Props.create(() -> new UploadManager(context())).changeDispatcher("heavy"), "actor/upload/manager");
         compressVideoManager = system().actorOf(Props.create(() -> new CompressVideoManager(context())).changeDispatcher("heavy"), "actor/compressVideo/manager");
