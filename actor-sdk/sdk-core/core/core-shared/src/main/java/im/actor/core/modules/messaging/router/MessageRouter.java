@@ -119,7 +119,7 @@ public class MessageRouter extends ModuleActor {
             try {
                 activeDialogStorage = new ActiveDialogStorage(data);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
         }
         if (!activeDialogStorage.isLoaded()) {

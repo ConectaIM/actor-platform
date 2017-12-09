@@ -248,7 +248,7 @@
 
 
     <TextView
-        android:id="@+id/groupPreAction"
+        android:id="@+id/groupPreParentAction"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/selector"

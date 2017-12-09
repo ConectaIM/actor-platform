@@ -120,7 +120,9 @@ public class GroupInfoFragment extends BaseFragment {
         TextView leaveAction = (TextView) header.findViewById(R.id.leaveAction);
         TextView administrationAction = (TextView) header.findViewById(R.id.administrationAction);
 
-        TextView grupoPreAction = (TextView) header.findViewById(R.id.groupPreAction);
+        SwitchCompat isGroupPreEnabled = (SwitchCompat) header.findViewById(R.id.enableGroupPre);
+        TextView groupPreParentAction = (TextView) header.findViewById(R.id.groupPreParentAction);
+
 
         View descriptionContainer = header.findViewById(R.id.descriptionContainer);
         SwitchCompat isNotificationsEnabled = (SwitchCompat) header.findViewById(R.id.enableNotifications);
@@ -146,7 +148,7 @@ public class GroupInfoFragment extends BaseFragment {
                 .setTextColor(style.getTextPrimaryColor());
         members.setTextColor(style.getTextPrimaryColor());
         administrationAction.setTextColor(style.getTextPrimaryColor());
-        grupoPreAction.setTextColor(style.getTextPrimaryColor());
+        groupPreParentAction.setTextColor(style.getTextPrimaryColor());
         leaveAction.setTextColor(style.getTextDangerColor());
 
         if (groupVM.getGroupType() == GroupType.CHANNEL) {
@@ -239,7 +241,7 @@ public class GroupInfoFragment extends BaseFragment {
             administrationAction.setVisibility(View.GONE);
         }
 
-        grupoPreAction.setOnClickListener(view -> {
+        groupPreParentAction.setOnClickListener(view -> {
             startActivity(new Intent(getActivity(), GroupPreAdminActivity.class)
                     .putExtra(Intents.EXTRA_GROUP_ID, chatId));
         });

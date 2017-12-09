@@ -1,42 +1,42 @@
-//apply plugin: 'com.android.library'
-//
-//android {
-//    compileSdkVersion 26
-//    buildToolsVersion '26.0.2'
-//
-//    defaultConfig {
-//        minSdkVersion 15
-//        targetSdkVersion 25
-//    }
-//}
-//
-//android {
-//    sourceSets {
-//        main {
-//            java {
-//                srcDirs = ['src/main/java',
-//                           '../runtime-shared/src/main/java',
-//                           '../runtime-generic/src/main/java']
-//            }
-//        }
-//    }
-//
-//    lintOptions {
-//        abortOnError false
-//    }
-//
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
-//    }
-//}
-//
-//dependencies {
-//    implementation 'com.android.support:recyclerview-v7:26.0.2'
-//    implementation 'com.squareup.okhttp:okhttp:2.5.0'
-//    implementation 'io.pristine:libjingle:11139@aar'
-//
-//    //Video Compressor
-//    implementation 'br.com.diegosilva:vclibrary:1.0.10-SNAPSHOT'
-//
-//}
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.2'
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 25
+    }
+}
+
+android {
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java',
+                           '../runtime-shared/src/main/java',
+                           '../runtime-generic/src/main/java']
+            }
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
+    implementation 'io.pristine:libjingle:11139@aar'
+
+    //Video Compressor
+    implementation 'br.com.diegosilva:vclibrary:1.0.10-SNAPSHOT'
+
+}
