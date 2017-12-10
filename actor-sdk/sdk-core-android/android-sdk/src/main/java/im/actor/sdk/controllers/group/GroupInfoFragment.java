@@ -36,7 +36,7 @@ import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.controllers.fragment.preview.ViewAvatarActivity;
 import im.actor.sdk.controllers.group.view.MembersAdapter;
-import im.actor.sdk.controllers.grouppre.admin.GroupPreAdminActivity;
+import im.actor.sdk.controllers.grouppre.admin.GroupPreSelectParentActivity;
 import im.actor.sdk.util.ActorSDKMessenger;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.view.TintImageView;
@@ -121,8 +121,7 @@ public class GroupInfoFragment extends BaseFragment {
         TextView administrationAction = (TextView) header.findViewById(R.id.administrationAction);
 
         SwitchCompat isGroupPreEnabled = (SwitchCompat) header.findViewById(R.id.enableGroupPre);
-        TextView groupPreParentAction = (TextView) header.findViewById(R.id.groupPreParentAction);
-
+        TextView groupPreParentAction = (TextView) header.findViewById(R.id.groupPreSelectParentAction);
 
         View descriptionContainer = header.findViewById(R.id.descriptionContainer);
         SwitchCompat isNotificationsEnabled = (SwitchCompat) header.findViewById(R.id.enableNotifications);
@@ -142,13 +141,22 @@ public class GroupInfoFragment extends BaseFragment {
                 .setTint(style.getSettingsIconColor());
         ((TintImageView) header.findViewById(R.id.settings_about_icon))
                 .setTint(style.getSettingsIconColor());
+
+        TextView settingsGroupPreTitle =  header.findViewById(R.id.settings_group_pre_title);
+        settingsGroupPreTitle.setTextColor(style.getTextPrimaryColor());
+        settingsGroupPreTitle.setText(groupVM.getGroupType() == GroupType.GROUP ? R.string.predefined_group : R.string.predefined_channel);
+
         ((TextView) header.findViewById(R.id.settings_notifications_title))
                 .setTextColor(style.getTextPrimaryColor());
         ((TextView) header.findViewById(R.id.addMemberAction))
                 .setTextColor(style.getTextPrimaryColor());
         members.setTextColor(style.getTextPrimaryColor());
         administrationAction.setTextColor(style.getTextPrimaryColor());
-        groupPreParentAction.setTextColor(style.getTextPrimaryColor());
+
+       // groupPreParentAction.setTextColor(style.getTextPrimaryColor());
+        groupPreParentAction.setVisibility(View.GONE);
+        groupPreParentAction.setText(groupVM.getGroupType() == GroupType.GROUP ? R.string.parent_group : R.string.parent_channel);
+
         leaveAction.setTextColor(style.getTextDangerColor());
 
         if (groupVM.getGroupType() == GroupType.CHANNEL) {
@@ -209,6 +217,9 @@ public class GroupInfoFragment extends BaseFragment {
                     : View.GONE);
         });
 
+
+
+
         // Notifications
         isNotificationsEnabled.setChecked(messenger().isNotificationsEnabled(Peer.group(chatId)));
         isNotificationsEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -241,8 +252,20 @@ public class GroupInfoFragment extends BaseFragment {
             administrationAction.setVisibility(View.GONE);
         }
 
+        isGroupPreEnabled.setOnCheckedChangeListener((buttonView, isChecked)->{
+            if(isChecked){
+                groupPreParentAction.setVisibility(View.VISIBLE);
+            }else{
+                groupPreParentAction.setVisibility(View.GONE);
+            }
+        });
+
+        header.findViewById(R.id.groupPreCont).setOnClickListener(v -> {
+            isGroupPreEnabled.setChecked(!isGroupPreEnabled.isChecked());
+        });
+
         groupPreParentAction.setOnClickListener(view -> {
-            startActivity(new Intent(getActivity(), GroupPreAdminActivity.class)
+            startActivity(new Intent(getActivity(), GroupPreSelectParentActivity.class)
                     .putExtra(Intents.EXTRA_GROUP_ID, chatId));
         });
 

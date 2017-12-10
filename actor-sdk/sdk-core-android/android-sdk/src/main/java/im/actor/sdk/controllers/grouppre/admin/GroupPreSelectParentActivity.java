@@ -9,14 +9,14 @@ import im.actor.sdk.controllers.Intents;
  * Created by dsilv on 18/11/2017.
  */
 
-public class GroupPreAdminActivity extends BaseFragmentActivity {
+public class GroupPreSelectParentActivity extends BaseFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            showFragment(GroupPreAdminFragment.create(
+            showFragment(GroupPreSelectParentFragment.create(
                     getIntent().getIntExtra(Intents.EXTRA_GROUP_ID, 0)), false);
         }
     }

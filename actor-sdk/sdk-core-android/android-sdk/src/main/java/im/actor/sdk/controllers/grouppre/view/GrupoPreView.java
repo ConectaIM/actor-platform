@@ -26,8 +26,8 @@ import java.io.File;
 
 import im.actor.core.entity.Avatar;
 import im.actor.core.entity.AvatarImage;
+import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.GroupType;
-import im.actor.core.entity.GrupoPre;
 import im.actor.core.viewmodel.FileCallback;
 import im.actor.runtime.files.FileSystemReference;
 import im.actor.sdk.ActorSDK;
@@ -44,7 +44,7 @@ import static im.actor.sdk.util.ActorSDKMessenger.messenger;
  * Created by diego on 06/06/17.
  */
 
-public class GrupoPreView extends ListItemBackgroundView<GrupoPre, GrupoPreView.GrupoPreLayout> {
+public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.GrupoPreLayout> {
 
     private static boolean isStylesLoaded = false;
     private static TextPaint titlePaint;
@@ -162,13 +162,13 @@ public class GrupoPreView extends ListItemBackgroundView<GrupoPre, GrupoPreView.
     //
     // Binding
     //
-    public void bind(GrupoPre grupoPre) {
+    public void bind(GroupPre grupoPre) {
         requestLayout(grupoPre, bindedId != grupoPre.getEngineId());
         bindedId = grupoPre.getEngineId();
     }
 
     @Override
-    public GrupoPreView.GrupoPreLayout buildLayout(GrupoPre arg, int width, int height) {
+    public GrupoPreView.GrupoPreLayout buildLayout(GroupPre arg, int width, int height) {
         if (!isStylesLoaded) {
             isStylesLoaded = true;
             ActorStyle style = ActorSDK.sharedActor().style;

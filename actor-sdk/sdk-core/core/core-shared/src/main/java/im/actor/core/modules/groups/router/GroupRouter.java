@@ -31,6 +31,7 @@ import im.actor.core.api.updates.UpdateGroupShortNameChanged;
 import im.actor.core.api.updates.UpdateGroupTitleChanged;
 import im.actor.core.api.updates.UpdateGroupTopicChanged;
 import im.actor.core.entity.Group;
+import im.actor.core.entity.GroupType;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.groups.router.entity.RouterApplyGroups;
@@ -223,7 +224,13 @@ public class GroupRouter extends ModuleActor {
                 .then(x -> {
                     List<Group> res = new ArrayList<>();
                     for (Tuple2<ApiGroup, Boolean> u : x) {
-                        res.add(new Group(u.getT1(), null));
+                        Group group = new Group(u.getT1(), null);
+                        res.add(group);
+                        if(group.getGroupType() == GroupType.GROUP){
+                            groupsList().addOrUpdateItem(group);
+                        }else if(group.getGroupType() == GroupType.CHANNEL){
+                            channelsList().addOrUpdateItem(group);
+                        }
                     }
                     if (res.size() > 0) {
                         groups().addOrUpdateItems(res);
@@ -242,7 +249,6 @@ public class GroupRouter extends ModuleActor {
         freeze();
 
         groups().getValueAsync(gid)
-                // Do not reduce to lambda due j2objc bug
                 .flatMap(new Function<Group, Promise<Group>>() {
                     @Override
                     public Promise<Group> apply(Group group) {

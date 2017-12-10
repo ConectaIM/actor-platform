@@ -31,7 +31,7 @@ import java.util.concurrent.Executors;
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
 import im.actor.core.entity.Group;
-import im.actor.core.entity.GrupoPre;
+import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.SearchEntity;
@@ -72,7 +72,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     private HashMap<Peer, BindedDisplayList<Message>> docsLists = new HashMap<>();
     private HashMap<Peer, BindedDisplayList<Message>> photosList = new HashMap<>();
     private HashMap<Peer, BindedDisplayList<Message>> videosLists = new HashMap<>();
-    private BindedDisplayList<GrupoPre> groupPreList;
+    private BindedDisplayList<GroupPre> groupPreList;
 
     private BindedDisplayList<Group> groupList;
     private BindedDisplayList<Group> channelList;
@@ -593,9 +593,9 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         return videosLists.get(peer);
     }
 
-    public BindedDisplayList<GrupoPre> getGroupPreDisplayList(Integer idGrupoPai) {
+    public BindedDisplayList<GroupPre> getGroupPreDisplayList(Integer idGrupoPai) {
         if (groupPreList == null) {
-            groupPreList = (BindedDisplayList<GrupoPre>) modules.getDisplayListsModule().getGruposPreDisplayList(idGrupoPai);
+            groupPreList = (BindedDisplayList<GroupPre>) modules.getDisplayListsModule().getGruposPreDisplayList(idGrupoPai);
         }
         return groupPreList;
     }

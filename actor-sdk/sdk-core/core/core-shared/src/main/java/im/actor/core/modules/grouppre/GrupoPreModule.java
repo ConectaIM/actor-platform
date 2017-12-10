@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import im.actor.core.api.ApiGroupType;
 import im.actor.core.api.rpc.RequestCreateGroupPre;
-import im.actor.core.entity.GrupoPre;
+import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.GrupoPreState;
 import im.actor.core.events.AppVisibleChanged;
 import im.actor.core.modules.AbsModule;
@@ -27,14 +27,13 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
     public static final String STORAGE_GRUPOSPRE = "grupospre";
     public static final String STORAGE_GRUPOSPRE_STATES = "grupospre_states";
 
-    private final HashMap<Integer, ListEngine<GrupoPre>> gruposPreEngine = new HashMap<>();
-    private final HashMap<Integer, ListEngine<GrupoPre>> canaisPreEngine = new HashMap<>();
+    private final HashMap<Integer, ListEngine<GroupPre>> gruposPreEngine = new HashMap<>();
+    private final HashMap<Integer, ListEngine<GroupPre>> canaisPreEngine = new HashMap<>();
 
     private MVVMCollection<GrupoPreState, GrupoPreVM> gruposPreStates;
 
     private final HashMap<Integer, GrupoPreActorInt> gruposPreLoadActor = new HashMap<>();
     private final GrupoPreRouterInt router;
-
 
     public GrupoPreModule(ModuleContext context) {
         super(context);
@@ -62,21 +61,21 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
                 .map(r -> r.getGroupPre().getGroupId());
     }
 
-    public ListEngine<GrupoPre> getGrupospreEngine(Integer idGrupoPai) {
+    public ListEngine<GroupPre> getGrupospreEngine(Integer idGrupoPai) {
         synchronized (gruposPreEngine) {
             if (!gruposPreEngine.containsKey(idGrupoPai)) {
                 gruposPreEngine.put(idGrupoPai,
-                        Storage.createList(STORAGE_GRUPOSPRE + ApiGroupType.GROUP + idGrupoPai, GrupoPre.CREATOR));
+                        Storage.createList(STORAGE_GRUPOSPRE + ApiGroupType.GROUP + idGrupoPai, GroupPre.CREATOR));
             }
             return gruposPreEngine.get(idGrupoPai);
         }
     }
 
-    public ListEngine<GrupoPre> getCanaispreEngine(Integer idGrupoPai) {
+    public ListEngine<GroupPre> getCanaispreEngine(Integer idGrupoPai) {
         synchronized (canaisPreEngine) {
             if (!canaisPreEngine.containsKey(idGrupoPai)) {
                 canaisPreEngine.put(idGrupoPai,
-                        Storage.createList(STORAGE_GRUPOSPRE + ApiGroupType.CHANNEL + idGrupoPai, GrupoPre.CREATOR));
+                        Storage.createList(STORAGE_GRUPOSPRE + ApiGroupType.CHANNEL + idGrupoPai, GroupPre.CREATOR));
             }
             return canaisPreEngine.get(idGrupoPai);
         }

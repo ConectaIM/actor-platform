@@ -2,7 +2,7 @@ package im.actor.core.modules.grouppre.router.entity;
 
 import java.util.List;
 
-import im.actor.core.entity.GrupoPre;
+import im.actor.core.entity.GroupPre;
 import im.actor.core.modules.messaging.router.entity.RouterMessageOnlyActive;
 import im.actor.runtime.actors.ask.AskMessage;
 import im.actor.runtime.actors.messages.Void;
@@ -15,9 +15,9 @@ import im.actor.runtime.actors.messages.Void;
 public class RouterApplyGruposPre implements AskMessage<Void>, RouterMessageOnlyActive {
 
     private Integer idGrupoPai;
-    private List<GrupoPre> gruposPre;
+    private List<GroupPre> gruposPre;
 
-    public RouterApplyGruposPre(Integer idGrupoPai, List<GrupoPre> gruposPre) {
+    public RouterApplyGruposPre(Integer idGrupoPai, List<GroupPre> gruposPre) {
         this.idGrupoPai = idGrupoPai;
         this.gruposPre = gruposPre;
     }
@@ -26,7 +26,7 @@ public class RouterApplyGruposPre implements AskMessage<Void>, RouterMessageOnly
         return idGrupoPai;
     }
 
-    public List<GrupoPre> getGruposPre() {
+    public List<GroupPre> getGruposPre() {
         return gruposPre;
     }
 }

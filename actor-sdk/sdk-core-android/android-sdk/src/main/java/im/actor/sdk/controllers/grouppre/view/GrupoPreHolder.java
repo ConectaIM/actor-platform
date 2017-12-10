@@ -1,6 +1,6 @@
 package im.actor.sdk.controllers.grouppre.view;
 
-import im.actor.core.entity.GrupoPre;
+import im.actor.core.entity.GroupPre;
 import im.actor.runtime.android.view.BindedViewHolder;
 import im.actor.sdk.view.adapters.OnItemClickedListener;
 
@@ -10,10 +10,10 @@ import im.actor.sdk.view.adapters.OnItemClickedListener;
 
 public class GrupoPreHolder extends BindedViewHolder {
 
-    private GrupoPre bindedItem;
+    private GroupPre bindedItem;
     private GrupoPreView grupoPreView;
 
-    public GrupoPreHolder(GrupoPreView grupoPreView, final OnItemClickedListener<GrupoPre> onClickListener) {
+    public GrupoPreHolder(GrupoPreView grupoPreView, final OnItemClickedListener<GroupPre> onClickListener) {
         super(grupoPreView);
         this.grupoPreView = grupoPreView;
         grupoPreView.setOnClickListener(v -> {
@@ -23,7 +23,7 @@ public class GrupoPreHolder extends BindedViewHolder {
         });
     }
 
-    public void bind(GrupoPre data, boolean isLast) {
+    public void bind(GroupPre data, boolean isLast) {
         this.bindedItem = data;
         this.grupoPreView.bind(data);
         this.grupoPreView.setDividerVisible(!isLast);

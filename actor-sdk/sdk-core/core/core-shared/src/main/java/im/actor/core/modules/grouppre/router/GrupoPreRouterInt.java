@@ -2,7 +2,7 @@ package im.actor.core.modules.grouppre.router;
 
 import java.util.List;
 
-import im.actor.core.entity.GrupoPre;
+import im.actor.core.entity.GroupPre;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.grouppre.router.entity.RouterApplyGruposPre;
 import im.actor.core.modules.grouppre.router.entity.RouterGroupPreUpdate;
@@ -19,7 +19,7 @@ public class GrupoPreRouterInt extends ActorInterface {
         setDest(system().actorOf("grupopre/router", () -> new GrupoPreRouter(context)));
     }
 
-    public Promise<Void> onGruposPreLoaded(Integer idGrupoPai, List<GrupoPre> grupos) {
+    public Promise<Void> onGruposPreLoaded(Integer idGrupoPai, List<GroupPre> grupos) {
         return ask(new RouterApplyGruposPre(idGrupoPai, grupos));
     }
 

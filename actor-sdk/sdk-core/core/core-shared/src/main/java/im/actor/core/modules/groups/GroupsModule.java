@@ -159,13 +159,6 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
                     ArrayList<ApiUserOutPeer> peers = new ArrayList<>();
                     for (int u : uids) {
 
-//                        users().getValueAsync(u).then(new Consumer<User>() {
-//                            @Override
-//                            public void apply(User user) {
-//                                peers.add(new ApiUserOutPeer(u, user.getAccessHash()));
-//                            }
-//                        });
-
                         User user = users().getValue(u);
 
                         if (user != null) {

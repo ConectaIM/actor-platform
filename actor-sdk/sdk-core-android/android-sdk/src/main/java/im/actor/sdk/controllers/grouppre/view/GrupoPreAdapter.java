@@ -3,17 +3,18 @@ package im.actor.sdk.controllers.grouppre.view;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import im.actor.core.entity.GrupoPre;
+import im.actor.core.entity.GroupPre;
+
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.view.adapters.OnItemClickedListener;
 
-public class GrupoPreAdapter extends BindedListAdapter<GrupoPre, GrupoPreHolder> {
+public class GrupoPreAdapter extends BindedListAdapter<GroupPre, GrupoPreHolder> {
 
-    private OnItemClickedListener<GrupoPre> onItemClicked;
+    private OnItemClickedListener<GroupPre> onItemClicked;
     private Context context;
 
-    public GrupoPreAdapter(BindedDisplayList<GrupoPre> displayList, OnItemClickedListener<GrupoPre> onItemClicked,
+    public GrupoPreAdapter(BindedDisplayList<GroupPre> displayList, OnItemClickedListener<GroupPre> onItemClicked,
                            Context context) {
         super(displayList);
         this.context = context;
@@ -26,7 +27,7 @@ public class GrupoPreAdapter extends BindedListAdapter<GrupoPre, GrupoPreHolder>
     }
 
     @Override
-    public void onBindViewHolder(GrupoPreHolder dialogHolder, int index, GrupoPre item) {
+    public void onBindViewHolder(GrupoPreHolder dialogHolder, int index, GroupPre item) {
         dialogHolder.bind(item, index == getItemCount() - 1);
     }
 

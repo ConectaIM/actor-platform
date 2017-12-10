@@ -1,10 +1,9 @@
-package im.actor.sdk.controllers.grouppre;
+package im.actor.sdk.controllers.grouppre.admin;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,41 +11,60 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-
+import im.actor.core.entity.Group;
 import im.actor.core.entity.GroupPre;
-import im.actor.runtime.Log;
+import im.actor.core.entity.GroupType;
+import im.actor.core.viewmodel.GroupVM;
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
 import im.actor.sdk.controllers.DisplayListFragment;
-import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.grouppre.view.GrupoPreAdapter;
 import im.actor.sdk.controllers.grouppre.view.GrupoPreHolder;
 import im.actor.sdk.util.Screen;
-import im.actor.sdk.util.SnackUtils;
 import im.actor.sdk.view.adapters.OnItemClickedListener;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 /**
- * Created by diego on 13/05/17.
+ * Created by dsilv on 18/11/2017.
  */
 
-public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHolder> {
+public class GroupPreSelectParentFragment extends DisplayListFragment<GroupPre, GrupoPreHolder> {
 
-    private View emptyDialogs;
-    private static String TAG = GruposPreFragment.class.getName();
+    private GroupVM groupVM;
+    private Integer parentId = -1;
+    private View emptyGroups;
 
-    private Integer idGrupoPai = -1;
+    public static GroupPreSelectParentFragment create(int groupId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("groupId", groupId);
+        GroupPreSelectParentFragment editFragment = new GroupPreSelectParentFragment();
+        editFragment.setArguments(bundle);
+        return editFragment;
+    }
+
+    public GroupPreSelectParentFragment() {
+        setRootFragment(true);
+        setHomeAsUp(true);
+        setShowHome(true);
+    }
+
+    @Override
+    public void onCreate(Bundle saveInstance) {
+        super.onCreate(saveInstance);
+        groupVM = messenger().getGroup(getArguments().getInt("groupId"));
+        setTitle(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.select_channel_parent : R.string.select_group_parent);
+    }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        BindedDisplayList<GroupPre> displayList = ActorSDK.sharedActor().getMessenger().getGroupPreDisplayList(idGrupoPai);
+        BindedDisplayList<GroupPre> displayList = ActorSDK.sharedActor().getMessenger().getGroupPreDisplayList(parentId);
 
-        View res = inflate(inflater, container, R.layout.fragment_grupos_pre, displayList);
+        View res = inflate(inflater, container, R.layout.fragment_group_pre_select_parent, displayList);
         res.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
 
         // Footer
@@ -64,7 +82,7 @@ public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHol
         addHeaderView(header);
 
         // Empty View
-        emptyDialogs = res.findViewById(R.id.emptyGroups);
+        emptyGroups = res.findViewById(R.id.emptyGroups);
 
 //        bind(ActorSDK.sharedActor().getMessenger().getGrupoPreVM(idGrupoPai.longValue()).getIsEmpty(), (val, Value) -> {
 //            if (val) {
@@ -73,34 +91,12 @@ public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHol
 //                emptyDialogs.setVisibility(View.GONE);
 //            }
 //        });
-        
-        ((TextView) emptyDialogs.findViewById(R.id.empty_groups_text)).setTextColor(ActorSDK.sharedActor().style.getMainColor());
 
-        emptyDialogs.findViewById(R.id.empty_groups_bg).setBackgroundColor(ActorSDK.sharedActor().style.getMainColor());
+        ((TextView) emptyGroups.findViewById(R.id.empty_groups_text)).setTextColor(ActorSDK.sharedActor().style.getMainColor());
+
+        emptyGroups.findViewById(R.id.empty_groups_bg).setBackgroundColor(ActorSDK.sharedActor().style.getMainColor());
 
         return res;
-    }
-
-    protected void onItemClick(GroupPre grupo) {
-        entrarNoGrupo(grupo);
-    }
-
-    private void entrarNoGrupo(GroupPre grupo) {
-        if (grupo.getGroup().isMember()) {
-            startActivity(Intents.openGroupDialog(grupo.getGroup().getGroupId(), true, getActivity()));
-        } else {
-            final ProgressDialog dialog = ProgressDialog.show(getContext(), "", "Entrando", true, false);
-            messenger().joinGroupById(grupo.getGroup().getGroupId()).then((val) -> {
-                dialog.dismiss();
-                startActivity(Intents.openGroupDialog(grupo.getGroup().getGroupId(), true, getActivity()));
-            }).failure((ex) -> {
-                dialog.dismiss();
-                Log.e(TAG, ex);
-                SnackUtils.showError(getView(), "Você não pode entrar neste grupo", (v) -> {
-                    entrarNoGrupo(grupo);
-                }, "Tentar Novamente", Snackbar.LENGTH_INDEFINITE);
-            });
-        }
     }
 
     @Override
@@ -119,17 +115,7 @@ public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHol
         }, activity);
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-       // ActorSDK.sharedActor().getMessenger().onGruposPreOpen();
+    protected void onItemClick(GroupPre grupo) {
+        //todo: select parent group
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-       // ActorSDK.sharedActor().getMessenger().onGruposPreClosed();
-    }
-
 }

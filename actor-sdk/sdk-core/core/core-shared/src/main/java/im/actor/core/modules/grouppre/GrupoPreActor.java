@@ -10,12 +10,11 @@ import im.actor.core.api.rpc.RequestLoadGroups;
 import im.actor.core.api.rpc.RequestLoadGroupsPre;
 import im.actor.core.api.rpc.ResponseLoadGroupsPre;
 import im.actor.core.entity.Group;
-import im.actor.core.entity.GrupoPre;
+import im.actor.core.entity.GroupPre;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.function.Function;
-import im.actor.runtime.function.FunctionTupled2;
 import im.actor.runtime.function.Tuple2;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.Promises;
@@ -73,14 +72,14 @@ public class GrupoPreActor extends ModuleActor {
                         return Promises.tuple(Promise.success(r.getT1()), api(new RequestLoadGroups(r.getT2())).map(r2 -> r2.getGroups()));
                     }
                 })
-                .map(new Function<Tuple2<List<ApiGroupPre>, List<ApiGroup>>, List<GrupoPre>>() {
+                .map(new Function<Tuple2<List<ApiGroupPre>, List<ApiGroup>>, List<GroupPre>>() {
                     @Override
-                    public List<GrupoPre> apply(Tuple2<List<ApiGroupPre>, List<ApiGroup>> r) {
-                        List<GrupoPre> retorno = new ArrayList<GrupoPre>();
+                    public List<GroupPre> apply(Tuple2<List<ApiGroupPre>, List<ApiGroup>> r) {
+                        List<GroupPre> retorno = new ArrayList<GroupPre>();
                             for( ApiGroup apiGroup: ((List<ApiGroup>)r.getT2()) ){
                                 for(ApiGroupPre apiGroupPre : (List<ApiGroupPre>) r.getT1()){
                                     if (apiGroup.getId() == apiGroupPre.getGroupId()) {
-                                        retorno.add(new GrupoPre(new Group(apiGroup, null), apiGroupPre.getOrder(), apiGroupPre.hasChildrem()));
+                                        retorno.add(new GroupPre(new Group(apiGroup, null), apiGroupPre.getOrder(), apiGroupPre.hasChildrem()));
                                     }
                                 }
 
@@ -95,7 +94,7 @@ public class GrupoPreActor extends ModuleActor {
                 });
     }
 
-    private Promise<Void> onGruposPreLoaded(List<GrupoPre> groupsPre) {
+    private Promise<Void> onGruposPreLoaded(List<GroupPre> groupsPre) {
         return context().getGrupoPreModule().getRouter()
                 .onGruposPreLoaded(idGrupoPai, groupsPre)
                 .map(r -> {

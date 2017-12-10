@@ -663,4 +663,10 @@
     </array>
 
     <string name="shared_media">Shared Media</string>
+
+    <string name="parent_group">Parent Group...</string>
+    <string name="parent_channel">Parent Channel...</string>
+
+    <string name="predefined_group">Pre defined Group</string>
+    <string name="predefined_channel">Pre defined Channel</string>
 </resources>

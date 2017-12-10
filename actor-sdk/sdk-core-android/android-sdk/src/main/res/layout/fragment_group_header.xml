@@ -237,7 +237,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@string/group_pre_admin_title"
+            android:text="..."
             android:textSize="16sp" />
 
         <android.support.v7.widget.SwitchCompat
@@ -248,14 +248,14 @@
 
 
     <TextView
-        android:id="@+id/groupPreParentAction"
+        android:id="@+id/groupPreSelectParentAction"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/selector"
         android:gravity="center_vertical"
         android:paddingLeft="72dp"
         android:paddingRight="8dp"
-        android:text="@string/grupo_pre_action"
+        android:text="..."
         android:textSize="16sp" />
 
     <FrameLayout

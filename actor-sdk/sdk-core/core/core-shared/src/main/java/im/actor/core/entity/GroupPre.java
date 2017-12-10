@@ -17,15 +17,15 @@ import im.actor.runtime.storage.ListEngineItem;
  * Created by diego on 28/05/17.
  */
 
-public class GrupoPre extends BserObject implements ListEngineItem {
+public class GroupPre extends BserObject implements ListEngineItem {
 
-    public static GrupoPre fromBytes(byte[] data) throws IOException {
-        return Bser.parse(new GrupoPre(), data);
+    public static GroupPre fromBytes(byte[] data) throws IOException {
+        return Bser.parse(new GroupPre(), data);
     }
 
-    public static BserCreator<GrupoPre> CREATOR = () -> new GrupoPre();
+    public static BserCreator<GroupPre> CREATOR = () -> new GroupPre();
 
-    public static final String ENTITY_NAME = "GrupoPre";
+    public static final String ENTITY_NAME = "GroupPre";
     private static final int MAX_LENGTH = 32;
 
     @NotNull
@@ -43,13 +43,13 @@ public class GrupoPre extends BserObject implements ListEngineItem {
     @Property("readonly, nonatomic")
     private Boolean hasChildren;
 
-    public GrupoPre(@NotNull Group group, @NotNull Integer ordem, @NotNull Boolean hasChildren) {
+    public GroupPre(@NotNull Group group, @NotNull Integer ordem, @NotNull Boolean hasChildren) {
         this.group = group;
         this.ordem = ordem;
         this.hasChildren = hasChildren;
     }
 
-    private GrupoPre(){
+    private GroupPre(){
 
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import im.actor.core.api.updates.UpdateGroupPreCreated;
 import im.actor.core.entity.GroupType;
-import im.actor.core.entity.GrupoPre;
+import im.actor.core.entity.GroupPre;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.grouppre.router.entity.RouterApplyGruposPre;
@@ -48,26 +48,26 @@ public class GrupoPreRouter extends ModuleActor {
         unstashAll();
     }
 
-    private Promise<Void> onGruposPreLoaded(Integer idGrupoPai, List<GrupoPre> grupos) {
+    private Promise<Void> onGruposPreLoaded(Integer idGrupoPai, List<GroupPre> grupos) {
         Log.d(TAG, "History Docs Loaded");
         updateGruposCanais(idGrupoPai, grupos);
         return Promise.success(null);
     }
 
 
-    private ListEngine<GrupoPre> gruposPre(Integer idGrupoPai) {
+    private ListEngine<GroupPre> gruposPre(Integer idGrupoPai) {
         return context().getGrupoPreModule().getGrupospreEngine(idGrupoPai);
     }
 
-    private ListEngine<GrupoPre> canaisPre(Integer idGrupoPai) {
+    private ListEngine<GroupPre> canaisPre(Integer idGrupoPai) {
         return context().getGrupoPreModule().getCanaispreEngine(idGrupoPai);
     }
 
-    private void updateGruposCanais(Integer idGrupoPai, List<GrupoPre> gruposPre) {
-        List<GrupoPre> grupos = new ArrayList<>();
-        List<GrupoPre> canais = new ArrayList<>();
+    private void updateGruposCanais(Integer idGrupoPai, List<GroupPre> gruposPre) {
+        List<GroupPre> grupos = new ArrayList<>();
+        List<GroupPre> canais = new ArrayList<>();
 
-        for (GrupoPre gp : gruposPre) {
+        for (GroupPre gp : gruposPre) {
             if (gp.getGroup().getGroupType().compareTo(GroupType.GROUP) == 0) {
                 grupos.add(gp);
             } else if (gp.getGroup().getGroupType().compareTo(GroupType.CHANNEL) == 0) {
