@@ -14,7 +14,7 @@ import android.widget.TextView;
  */
 public class SnackUtils {
 
-    public static Snackbar showError(View view, String msg, View.OnClickListener clickListener, String actionText, int duration) {
+    public static Snackbar showError(View view, String msg, int duration, View.OnClickListener clickListener, String actionText) {
         Snackbar snackbar = Snackbar.make(view, msg, duration);
 
         if (clickListener != null) {

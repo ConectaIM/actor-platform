@@ -22,4 +22,9 @@ public class GroupInfoActivity extends BaseFragmentActivity {
             showFragment(profileIntent, false);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

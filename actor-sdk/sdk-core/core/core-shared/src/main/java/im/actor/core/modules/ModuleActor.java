@@ -86,14 +86,6 @@ public class ModuleActor extends AskcableActor implements BusSubscriber {
         return context.getGroupsModule().getGroups();
     }
 
-    public ListEngine<Group> groupsList() {
-        return context.getGroupsModule().getGroupsList();
-    }
-
-    public ListEngine<Group> channelsList() {
-        return context.getGroupsModule().getChannelsList();
-    }
-
     public Group getGroup(int gid) {
         return groups().getValue(gid);
     }

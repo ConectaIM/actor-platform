@@ -19,6 +19,8 @@ import im.actor.runtime.storage.ListEngineItem;
 
 public class GroupPre extends BserObject implements ListEngineItem {
 
+    public static Integer NONE_PARENT_ID = -1;
+
     public static GroupPre fromBytes(byte[] data) throws IOException {
         return Bser.parse(new GroupPre(), data);
     }

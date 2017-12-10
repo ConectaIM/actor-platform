@@ -3,7 +3,12 @@ package im.actor.core.modules.grouppre.router;
 import java.util.ArrayList;
 import java.util.List;
 
+import im.actor.core.api.ApiGroup;
+import im.actor.core.api.ApiGroupOutPeer;
+import im.actor.core.api.ApiGroupPre;
+import im.actor.core.api.rpc.RequestLoadGroups;
 import im.actor.core.api.updates.UpdateGroupPreCreated;
+import im.actor.core.entity.Group;
 import im.actor.core.entity.GroupType;
 import im.actor.core.entity.GroupPre;
 import im.actor.core.modules.ModuleActor;
@@ -13,6 +18,7 @@ import im.actor.core.modules.grouppre.router.entity.RouterGroupPreUpdate;
 import im.actor.core.network.parser.Update;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.messages.Void;
+import im.actor.runtime.function.Consumer;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.storage.ListEngine;
 
@@ -30,8 +36,41 @@ public class GrupoPreRouter extends ModuleActor {
         if(update instanceof UpdateGroupPreCreated){
             UpdateGroupPreCreated upd = (UpdateGroupPreCreated) update;
 
+            final ApiGroupPre apiGroupPre = upd.getGroupPre();
 
+            groups().containsAsync(apiGroupPre.getGroupId()).then(new Consumer<Boolean>() {
+                @Override
+                public void apply(Boolean contains) {
+                        if(contains){
+                            groups().getValueAsync(apiGroupPre.getGroupId()).then(new Consumer<Group>() {
+                                @Override
+                                public void apply(Group group) {
+                                    GroupPre groupPre = new GroupPre(group, apiGroupPre.getOrder(), apiGroupPre.hasChildrem());
+                                    if(group.getGroupType() == GroupType.GROUP){
+                                        gruposPre(-1).addOrUpdateItem(groupPre);
+                                    }else {
+                                        canaisPre(-1).addOrUpdateItem(groupPre);
+                                    }
+                                }
+                            });
+                        }else{
+                            List<ApiGroupOutPeer> groupsOutPeer = new ArrayList<>();
+                            groupsOutPeer.add(new ApiGroupOutPeer(apiGroupPre.getGroupId(), apiGroupPre.getAcessHash()));
 
+                            api(new RequestLoadGroups(groupsOutPeer)).then(r -> {
+                                for(ApiGroup apiGroup : r.getGroups()){
+                                    Group group = new Group(apiGroup, null);
+                                    GroupPre groupPre = new GroupPre(group, apiGroupPre.getOrder(), apiGroupPre.hasChildrem());
+                                    if(group.getGroupType() == GroupType.GROUP){
+                                        gruposPre(-1).addOrUpdateItem(groupPre);
+                                    }else {
+                                        canaisPre(-1).addOrUpdateItem(groupPre);
+                                    }
+                                }
+                            });
+                        }
+                }
+            });
 
         }
 

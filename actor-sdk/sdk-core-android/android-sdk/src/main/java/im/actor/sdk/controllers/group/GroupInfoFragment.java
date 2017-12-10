@@ -1,6 +1,7 @@
 package im.actor.sdk.controllers.group;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ import im.actor.sdk.controllers.group.view.MembersAdapter;
 import im.actor.sdk.controllers.grouppre.admin.GroupPreSelectParentActivity;
 import im.actor.sdk.util.ActorSDKMessenger;
 import im.actor.sdk.util.Screen;
+import im.actor.sdk.util.SnackUtils;
 import im.actor.sdk.view.TintImageView;
 import im.actor.sdk.view.adapters.RecyclerListView;
 import im.actor.sdk.view.avatar.AvatarView;
@@ -80,6 +83,7 @@ public class GroupInfoFragment extends BaseFragment {
         super.onConfigureActionBar(actionBar);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -176,6 +180,7 @@ public class GroupInfoFragment extends BaseFragment {
                 startActivity(ViewAvatarActivity.viewGroupAvatar(chatId, getActivity()));
             }
         });
+
         bind(groupVM.getName(), name -> {
             title.setText(name);
         });
@@ -188,6 +193,7 @@ public class GroupInfoFragment extends BaseFragment {
             aboutTV.setText(about);
             aboutTV.setVisibility(about != null ? View.VISIBLE : View.GONE);
         });
+
         bind(groupVM.getShortName(), shortName -> {
             if (shortName != null) {
                 shortNameView.setText("@" + shortName);
@@ -202,29 +208,27 @@ public class GroupInfoFragment extends BaseFragment {
             }
             shortNameCont.setVisibility(shortName != null ? View.VISIBLE : View.GONE);
         });
+
         final ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        shortNameCont.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String link = shortLinkView.getText().toString();
-                clipboard.setPrimaryClip(ClipData.newPlainText(null, (link.contains("://") ? "" : "https://") + link));
-                Toast.makeText(getActivity(), getString(R.string.invite_link_copied), Toast.LENGTH_SHORT).show();
-            }
+
+        shortNameCont.setOnClickListener(view -> {
+            String link = shortLinkView.getText().toString();
+            clipboard.setPrimaryClip(ClipData.newPlainText(null, (link.contains("://") ? "" : "https://") + link));
+            Toast.makeText(getActivity(), getString(R.string.invite_link_copied), Toast.LENGTH_SHORT).show();
         });
+
         bind(groupVM.getAbout(), groupVM.getShortName(), (about, shortName) -> {
             descriptionContainer.setVisibility(about != null || shortName != null
                     ? View.VISIBLE
                     : View.GONE);
         });
 
-
-
-
         // Notifications
         isNotificationsEnabled.setChecked(messenger().isNotificationsEnabled(Peer.group(chatId)));
         isNotificationsEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
             messenger().changeNotificationsEnabled(Peer.group(chatId), isChecked);
         });
+
         header.findViewById(R.id.notificationsCont).setOnClickListener(v -> {
             isNotificationsEnabled.setChecked(!isNotificationsEnabled.isChecked());
         });
@@ -254,7 +258,19 @@ public class GroupInfoFragment extends BaseFragment {
 
         isGroupPreEnabled.setOnCheckedChangeListener((buttonView, isChecked)->{
             if(isChecked){
-                groupPreParentAction.setVisibility(View.VISIBLE);
+                final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                        getString(R.string.making_group_pre), true, false);
+
+                messenger().createGroupPre(groupVM.getId(), null)
+                        .then(groupId -> {
+                            dialog.dismiss();
+                            groupPreParentAction.setVisibility(View.VISIBLE);
+                        })
+                        .failure(ex ->{
+                            dialog.dismiss();
+                            SnackUtils.showError(res, ex.getMessage(), Snackbar.LENGTH_LONG, null, null);
+                        });
+
             }else{
                 groupPreParentAction.setVisibility(View.GONE);
             }

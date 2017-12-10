@@ -216,8 +216,6 @@
         android:layout_marginTop="4dp"
         android:background="@color/picker_list_divider" />
 
-
-
     <LinearLayout
         android:id="@+id/groupPreCont"
         android:layout_width="match_parent"
@@ -225,14 +223,9 @@
         android:background="@drawable/selector"
         android:paddingRight="8dp">
 
-        <im.actor.sdk.view.TintImageView
-            android:id="@+id/settings_group_pre_tint"
-            android:layout_width="72dp"
-            android:layout_height="match_parent"
-            app:src="@drawable/ic_menu_black_18dp" />
-
         <TextView
             android:id="@+id/settings_group_pre_title"
+            android:paddingLeft="72dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -245,7 +238,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/groupPreSelectParentAction"

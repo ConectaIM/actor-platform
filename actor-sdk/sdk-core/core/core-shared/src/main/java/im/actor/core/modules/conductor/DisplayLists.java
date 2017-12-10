@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
-import im.actor.core.entity.Group;
 import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
@@ -30,9 +29,6 @@ public class DisplayLists extends AbsModule {
 
     private HashMap<Integer, PlatformDisplayList<GroupPre>> gruposPreDisplayList = new HashMap<>();
     private HashMap<Integer, PlatformDisplayList<GroupPre>> canaisPreDisplayList = new HashMap<>();
-
-    private PlatformDisplayList<Group> groupsGlobalList;
-    private PlatformDisplayList<Group> channelsGlobalList;
 
     public DisplayLists(ModuleContext context) {
         super(context);
@@ -214,43 +210,4 @@ public class DisplayLists extends AbsModule {
         return res;
     }
 
-    public PlatformDisplayList<Group> getGroupsGlobalList() {
-        im.actor.runtime.Runtime.checkMainThread();
-
-        if (groupsGlobalList == null) {
-            groupsGlobalList = buildGroupsGlobalList(true);
-        }
-
-        return groupsGlobalList;
-    }
-
-    public PlatformDisplayList<Group> buildGroupsGlobalList(boolean isShared) {
-        im.actor.runtime.Runtime.checkMainThread();
-
-        PlatformDisplayList<Group> res = Storage.createDisplayList(context().getGroupsModule().getGroupsList(),
-                isShared, Group.ENTITY_NAME);
-
-        res.initTop();
-
-        return res;
-    }
-
-    public PlatformDisplayList<Group> getChannelsGlobalList() {
-        im.actor.runtime.Runtime.checkMainThread();
-        if (channelsGlobalList == null) {
-            channelsGlobalList = buildChannelsGlobalList(true);
-        }
-        return channelsGlobalList;
-    }
-
-    public PlatformDisplayList<Group> buildChannelsGlobalList(boolean isShared) {
-        im.actor.runtime.Runtime.checkMainThread();
-
-        PlatformDisplayList<Group> res = Storage.createDisplayList(context().getGroupsModule().getChannelsList(),
-                isShared, Group.ENTITY_NAME);
-
-        res.initTop();
-
-        return res;
-    }
 }

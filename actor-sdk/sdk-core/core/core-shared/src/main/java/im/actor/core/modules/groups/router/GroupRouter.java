@@ -226,11 +226,6 @@ public class GroupRouter extends ModuleActor {
                     for (Tuple2<ApiGroup, Boolean> u : x) {
                         Group group = new Group(u.getT1(), null);
                         res.add(group);
-                        if(group.getGroupType() == GroupType.GROUP){
-                            groupsList().addOrUpdateItem(group);
-                        }else if(group.getGroupType() == GroupType.CHANNEL){
-                            channelsList().addOrUpdateItem(group);
-                        }
                     }
                     if (res.size() > 0) {
                         groups().addOrUpdateItems(res);
