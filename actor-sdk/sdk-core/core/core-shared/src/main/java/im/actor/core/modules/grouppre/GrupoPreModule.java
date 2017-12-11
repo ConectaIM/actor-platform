@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import im.actor.core.api.ApiGroupType;
 import im.actor.core.api.rpc.RequestChangeGroupPre;
-import im.actor.core.api.rpc.RequestCreateGroupPre;
 import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.GrupoPreState;
 import im.actor.core.events.AppVisibleChanged;

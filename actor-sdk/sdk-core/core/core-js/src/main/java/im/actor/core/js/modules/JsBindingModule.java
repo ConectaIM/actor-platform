@@ -75,8 +75,6 @@ public class JsBindingModule extends AbsModule implements JsFileLoadedListener {
     private JsBindedValue<String> onlineState;
 
     private JsDisplayList<JsDialog, Dialog> dialogsList;
-    private JsDisplayList<JsGroup, Group> groupsList;
-    private JsDisplayList<JsGroup, Group> channelsList;
 
     private JsDisplayList<JsContact, Contact> contactsList;
     private JsDisplayList<JsSearchEntity, SearchEntity> searchList;
@@ -420,19 +418,6 @@ public class JsBindingModule extends AbsModule implements JsFileLoadedListener {
         return dialogsList;
     }
 
-    public JsDisplayList<JsGroup, Group> getSharedGroupList() {
-        if (groupsList == null) {
-            groupsList = (JsDisplayList<JsGroup, Group>) context().getDisplayListsModule().getGroupsGlobalList();
-        }
-        return groupsList;
-    }
-
-    public JsDisplayList<JsGroup, Group> getSharedChannelList() {
-        if (channelsList == null) {
-            channelsList = (JsDisplayList<JsGroup, Group>) context().getDisplayListsModule().getChannelsGlobalList();
-        }
-        return channelsList;
-    }
 
     public JsDisplayList<JsMessage, Message> getSharedMessageList(Peer peer) {
         if (!messageLists.containsKey(peer)) {

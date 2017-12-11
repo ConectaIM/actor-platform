@@ -264,13 +264,6 @@ public class JsMessenger extends Messenger {
         return jsBindingModule.getSharedDialogList();
     }
 
-    public JsDisplayList<JsGroup, Group> getSharedGroupList() {
-        return jsBindingModule.getSharedGroupList();
-    }
-
-    public JsDisplayList<JsGroup, Group> getSharedChannelList() {
-        return jsBindingModule.getSharedChannelList();
-    }
 
     public JsDisplayList<JsContact, Contact> getSharedContactList() {
         return jsBindingModule.getSharedContactList();

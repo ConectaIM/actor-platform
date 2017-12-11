@@ -388,38 +388,6 @@ public class JsFacade implements Exportable {
     }
 
     @UsedByApp
-    public void bindGroups(JsDisplayListCallback<JsGroup> callback) {
-        if (callback == null) {
-            return;
-        }
-        messenger.getSharedGroupList().subscribe(callback, false);
-    }
-
-    @UsedByApp
-    public void unbindGroups(JsDisplayListCallback<JsGroup> callback) {
-        if (callback == null) {
-            return;
-        }
-        messenger.getSharedGroupList().unsubscribe(callback);
-    }
-
-    @UsedByApp
-    public void bindChannels(JsDisplayListCallback<JsGroup> callback) {
-        if (callback == null) {
-            return;
-        }
-        messenger.getSharedChannelList().subscribe(callback, false);
-    }
-
-    @UsedByApp
-    public void unbindChannels(JsDisplayListCallback<JsGroup> callback) {
-        if (callback == null) {
-            return;
-        }
-        messenger.getSharedChannelList().unsubscribe(callback);
-    }
-
-    @UsedByApp
     public void bindGroupDialogs(JsBindedValueCallback callback) {
         if (callback == null) {
             return;
@@ -1403,11 +1371,11 @@ public class JsFacade implements Exportable {
     }
 
     @UsedByApp
-    public JsPromise createGroupPre(final int groupId, final Integer parentId) {
+    public JsPromise changeGroupPre(final int groupId, final boolean isGrouPre, final Integer parentId) {
         return JsPromise.create(new JsPromiseExecutor() {
             @Override
             public void execute() {
-                messenger.createGroupPre(groupId, parentId)
+                messenger.changeGroupPre(groupId, isGrouPre, parentId)
                         .then(r -> resolve(JsPeer.create(Peer.group(r))))
                         .failure(e -> reject(e.getMessage()));
             }
