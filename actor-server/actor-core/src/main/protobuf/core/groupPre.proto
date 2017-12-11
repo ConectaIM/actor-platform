@@ -60,6 +60,18 @@ message GroupPreCommands {
         im.actor.server.SeqState seq_state = 1;
         GroupPre group = 2;
     }
+
+    message Remove {
+        option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreCommand";
+        int32 group_id = 1;
+        int32 userId = 3;
+        int64 authId = 4;
+    }
+
+    message RemoveAck {
+        im.actor.server.SeqState seq_state = 1;
+        GroupPre group = 2;
+    }
 }
 
 message GroupPreQueries {

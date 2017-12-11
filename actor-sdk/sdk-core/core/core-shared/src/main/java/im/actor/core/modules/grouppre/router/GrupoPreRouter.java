@@ -8,6 +8,7 @@ import im.actor.core.api.ApiGroupOutPeer;
 import im.actor.core.api.ApiGroupPre;
 import im.actor.core.api.rpc.RequestLoadGroups;
 import im.actor.core.api.updates.UpdateGroupPreCreated;
+import im.actor.core.api.updates.UpdateGroupPreRemoved;
 import im.actor.core.entity.Group;
 import im.actor.core.entity.GroupType;
 import im.actor.core.entity.GroupPre;
@@ -18,8 +19,11 @@ import im.actor.core.modules.grouppre.router.entity.RouterGroupPreUpdate;
 import im.actor.core.network.parser.Update;
 import im.actor.runtime.Log;
 import im.actor.runtime.actors.messages.Void;
+import im.actor.runtime.annotations.Verified;
 import im.actor.runtime.function.Consumer;
+import im.actor.runtime.function.Function;
 import im.actor.runtime.promise.Promise;
+import im.actor.runtime.promise.Promises;
 import im.actor.runtime.storage.ListEngine;
 
 public class GrupoPreRouter extends ModuleActor {
@@ -32,47 +36,65 @@ public class GrupoPreRouter extends ModuleActor {
     }
 
     private Promise<Void> onUpdate(Update update) {
-
         if(update instanceof UpdateGroupPreCreated){
             UpdateGroupPreCreated upd = (UpdateGroupPreCreated) update;
-
-            final ApiGroupPre apiGroupPre = upd.getGroupPre();
-
-            groups().containsAsync(apiGroupPre.getGroupId()).then(new Consumer<Boolean>() {
-                @Override
-                public void apply(Boolean contains) {
-                        if(contains){
-                            groups().getValueAsync(apiGroupPre.getGroupId()).then(new Consumer<Group>() {
-                                @Override
-                                public void apply(Group group) {
-                                    GroupPre groupPre = new GroupPre(group, apiGroupPre.getOrder(), apiGroupPre.hasChildrem());
-                                    if(group.getGroupType() == GroupType.GROUP){
-                                        gruposPre(-1).addOrUpdateItem(groupPre);
-                                    }else {
-                                        canaisPre(-1).addOrUpdateItem(groupPre);
-                                    }
-                                }
-                            });
-                        }else{
-                            List<ApiGroupOutPeer> groupsOutPeer = new ArrayList<>();
-                            groupsOutPeer.add(new ApiGroupOutPeer(apiGroupPre.getGroupId(), apiGroupPre.getAcessHash()));
-
-                            api(new RequestLoadGroups(groupsOutPeer)).then(r -> {
-                                for(ApiGroup apiGroup : r.getGroups()){
-                                    Group group = new Group(apiGroup, null);
-                                    GroupPre groupPre = new GroupPre(group, apiGroupPre.getOrder(), apiGroupPre.hasChildrem());
-                                    if(group.getGroupType() == GroupType.GROUP){
-                                        gruposPre(-1).addOrUpdateItem(groupPre);
-                                    }else {
-                                        canaisPre(-1).addOrUpdateItem(groupPre);
-                                    }
-                                }
-                            });
-                        }
-                }
-            });
-
+            return onGroupPreCreated(upd.getGroupPre());
+        }else if(update instanceof UpdateGroupPreRemoved){
+            UpdateGroupPreRemoved upd = (UpdateGroupPreRemoved) update;
+            return onGroupPreRemoved(upd.getGroupPre());
         }
+        return Promise.success(null);
+    }
+
+    @Verified
+    public Promise<Void> onGroupPreCreated(final ApiGroupPre apiGroupPre) {
+        freeze();
+        Integer parentId = apiGroupPre.getParentId() > 0 ? apiGroupPre.getParentId() : GroupPre.NONE_PARENT_ID;
+       return groups().containsAsync(apiGroupPre.getGroupId())
+               .flatMap(contains -> {
+                   if(contains){
+                       groups().getValueAsync(apiGroupPre.getGroupId()).then(new Consumer<Group>() {
+                           @Override
+                           public void apply(Group group) {
+                               GroupPre groupPre = new GroupPre(group, apiGroupPre.getOrder(), apiGroupPre.hasChildrem());
+                               if(group.getGroupType() == GroupType.GROUP){
+                                   gruposPre(parentId).addOrUpdateItem(groupPre);
+                               }else {
+                                   canaisPre(parentId).addOrUpdateItem(groupPre);
+                               }
+                           }
+                       });
+                   }else{
+                       List<ApiGroupOutPeer> groupsOutPeer = new ArrayList<>();
+                       groupsOutPeer.add(new ApiGroupOutPeer(apiGroupPre.getGroupId(), apiGroupPre.getAcessHash()));
+
+                       api(new RequestLoadGroups(groupsOutPeer)).then(r -> {
+                           for(ApiGroup apiGroup : r.getGroups()){
+                               Group group = new Group(apiGroup, null);
+                               GroupPre groupPre = new GroupPre(group, apiGroupPre.getOrder(), apiGroupPre.hasChildrem());
+                               if(group.getGroupType() == GroupType.GROUP){
+                                   gruposPre(parentId).addOrUpdateItem(groupPre);
+                               }else {
+                                   canaisPre(parentId).addOrUpdateItem(groupPre);
+                               }
+                           }
+                       });
+                   }
+                   return Promise.success(Void.INSTANCE);
+               }).after((v, e) -> unfreeze());
+    }
+
+    @Verified
+    public Promise<Void> onGroupPreRemoved(final ApiGroupPre apiGroupPre) {
+
+        freeze();
+
+        Integer parentId = apiGroupPre.getParentId() > 0 ? apiGroupPre.getParentId() : GroupPre.NONE_PARENT_ID;
+
+        gruposPre(parentId).removeItem(apiGroupPre.getGroupId());
+        canaisPre(parentId).removeItem(apiGroupPre.getGroupId());
+
+        unfreeze();
 
         return Promise.success(null);
     }
@@ -88,7 +110,7 @@ public class GrupoPreRouter extends ModuleActor {
     }
 
     private Promise<Void> onGruposPreLoaded(Integer idGrupoPai, List<GroupPre> grupos) {
-        Log.d(TAG, "History Docs Loaded");
+        Log.d(TAG, "Groups pre Loaded");
         updateGruposCanais(idGrupoPai, grupos);
         return Promise.success(null);
     }

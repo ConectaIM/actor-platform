@@ -1,6 +1,8 @@
 package im.actor.server.persist.grouppre
 
 
+import im.actor.server.model.Peer
+import im.actor.server.persist.dialog.UserDialogRepo.byPKC
 import slick.dbio.Effect.Read
 import slick.driver.PostgresDriver.api._
 import slick.profile.SqlAction
@@ -40,5 +42,15 @@ object PublicGroupRepo {
   def atualizaPossuiFilhos(parentId: Int, hasChildrem:Boolean) = {
     byIdPai(Some(parentId)).map(_.hasChildrem).update(hasChildrem)
   }
+
+  def possuiFilhos(parentId: Int): SqlAction[Boolean, NoStream, Read] = {
+    byIdPai(Some(parentId)).exists.result
+  }
+
+  def findById(groupId:Int) =
+    publicGroups.filter(_.id === groupId).result.headOption
+
+  def delete(groupId:Int) =
+    publicGroups.filter(_.id === groupId).delete
 
 }

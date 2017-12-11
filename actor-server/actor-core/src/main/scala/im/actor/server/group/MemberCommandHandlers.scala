@@ -476,12 +476,12 @@ private[group] trait MemberCommandHandlers extends GroupsImplicits {
         val serviceMessage = GroupServiceMessages.userLeft
 
         //TODO: remove deprecated. GroupInviteTokenRepo don't have replacement yet.
-        db.run(
-          for {
-            _ ← GroupUserRepo.delete(groupId, cmd.userId): @silent
-            _ ← GroupInviteTokenRepo.revoke(groupId, cmd.userId): @silent
-          } yield ()
-        )
+//        db.run(
+//          for {
+//            _ ← GroupUserRepo.delete(groupId, cmd.userId): @silent
+//            _ ← GroupInviteTokenRepo.revoke(groupId, cmd.userId): @silent
+//          } yield ()
+//        )
 
         val leaveGROUPUpdates: Future[SeqStateDate] =
           for {

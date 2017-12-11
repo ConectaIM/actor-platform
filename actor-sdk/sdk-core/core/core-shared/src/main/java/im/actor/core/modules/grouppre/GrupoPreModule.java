@@ -3,6 +3,7 @@ package im.actor.core.modules.grouppre;
 import java.util.HashMap;
 
 import im.actor.core.api.ApiGroupType;
+import im.actor.core.api.rpc.RequestChangeGroupPre;
 import im.actor.core.api.rpc.RequestCreateGroupPre;
 import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.GrupoPreState;
@@ -47,7 +48,7 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
     @Override
     public void onBusEvent(Event event) {
         if (event instanceof AppVisibleChanged) {
-            getGruposPreLoadActor(null);
+            getGruposPreLoadActor(GroupPre.NONE_PARENT_ID);
         }
     }
 
@@ -55,8 +56,8 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
         context().getEvents().subscribe(this, AppVisibleChanged.EVENT);
     }
 
-    public Promise<Integer> createGroupPre(int groupId, Integer parentId) {
-       return api(new RequestCreateGroupPre(groupId, parentId))
+    public Promise<Integer> changeGroupPre(int groupId, boolean isGroupPre, Integer parentId) {
+       return api(new RequestChangeGroupPre(groupId, isGroupPre, parentId))
                 .chain(r -> updates().waitForUpdate(r.getSeq()))
                 .map(r -> r.getGroupPre().getGroupId());
     }

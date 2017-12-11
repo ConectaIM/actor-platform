@@ -3,7 +3,7 @@ package im.actor.server.grouppre
 import akka.pattern.ask
 import akka.util.Timeout
 import im.actor.server.GroupPre
-import im.actor.server.GroupPreCommands.{Create, CreateAck}
+import im.actor.server.GroupPreCommands.{Create, CreateAck, Remove,RemoveAck}
 import im.actor.server.GroupPreQueries.{GetGroupsPre, GetGroupsPreResponse}
 import im.actor.server.dialog.UserAcl
 
@@ -24,6 +24,9 @@ private[grouppre] sealed trait Commands extends UserAcl{
 
   def create(groupId: Int, parentId: Int) : Future[CreateAck] =
     (processorRegion.ref ? Create(groupId=groupId, parentId=parentId)).mapTo[CreateAck]
+
+  def remove(groupId: Int) : Future[RemoveAck] =
+    (processorRegion.ref ? Remove(groupId=groupId)).mapTo[RemoveAck]
 }
 
 private[grouppre] sealed trait Queries{

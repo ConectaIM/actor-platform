@@ -20,12 +20,14 @@ public class ApiGroupPre extends BserObject {
     private boolean hasChildrem;
     private long acessHash;
     private int order;
+    private Integer parentId;
 
-    public ApiGroupPre(int groupId, boolean hasChildrem, long acessHash, int order) {
+    public ApiGroupPre(int groupId, boolean hasChildrem, long acessHash, int order, @Nullable Integer parentId) {
         this.groupId = groupId;
         this.hasChildrem = hasChildrem;
         this.acessHash = acessHash;
         this.order = order;
+        this.parentId = parentId;
     }
 
     public ApiGroupPre() {
@@ -48,12 +50,18 @@ public class ApiGroupPre extends BserObject {
         return this.order;
     }
 
+    @Nullable
+    public Integer getParentId() {
+        return this.parentId;
+    }
+
     @Override
     public void parse(BserValues values) throws IOException {
         this.groupId = values.getInt(1);
         this.hasChildrem = values.getBool(2);
         this.acessHash = values.getLong(3);
         this.order = values.getInt(4);
+        this.parentId = values.optInt(5);
     }
 
     @Override
@@ -62,6 +70,9 @@ public class ApiGroupPre extends BserObject {
         writer.writeBool(2, this.hasChildrem);
         writer.writeLong(3, this.acessHash);
         writer.writeInt(4, this.order);
+        if (this.parentId != null) {
+            writer.writeInt(5, this.parentId);
+        }
     }
 
     @Override

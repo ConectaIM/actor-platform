@@ -1558,9 +1558,9 @@ public class Messenger {
      * @return Promise of group id
      */
     @NotNull
-    @ObjectiveCName("createGroupPre:withGroupId:withParentId:")
-    public Promise<Integer> createGroupPre(int groupId, Integer parentId) {
-        return modules.getGrupoPreModule().createGroupPre(groupId, parentId);
+    @ObjectiveCName("changeGroupPre:withGroupId:withIsGroupPre:withParentId:")
+    public Promise<Integer> changeGroupPre(int groupId, boolean isGroupPre, Integer parentId) {
+        return modules.getGrupoPreModule().changeGroupPre(groupId, isGroupPre, parentId);
     }
 
     /**

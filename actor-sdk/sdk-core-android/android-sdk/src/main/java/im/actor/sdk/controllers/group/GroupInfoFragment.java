@@ -261,7 +261,7 @@ public class GroupInfoFragment extends BaseFragment {
                 final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
                         getString(R.string.making_group_pre), true, false);
 
-                messenger().createGroupPre(groupVM.getId(), null)
+                messenger().changeGroupPre(groupVM.getId(), true, null)
                         .then(groupId -> {
                             dialog.dismiss();
                             groupPreParentAction.setVisibility(View.VISIBLE);

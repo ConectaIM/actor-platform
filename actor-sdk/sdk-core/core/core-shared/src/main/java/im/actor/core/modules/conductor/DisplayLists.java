@@ -179,7 +179,7 @@ public class DisplayLists extends AbsModule {
         return gruposPreDisplayList.get(idGrupoPai);
     }
 
-    public PlatformDisplayList<GroupPre> buildGrupoPreList(Integer idGrupoPai, boolean isShared) {
+    private PlatformDisplayList<GroupPre> buildGrupoPreList(Integer idGrupoPai, boolean isShared) {
         im.actor.runtime.Runtime.checkMainThread();
 
         PlatformDisplayList<GroupPre> res = Storage.createDisplayList(context().getGrupoPreModule().getGrupospreEngine(idGrupoPai),
@@ -200,7 +200,7 @@ public class DisplayLists extends AbsModule {
         return canaisPreDisplayList.get(idGrupoPai);
     }
 
-    public PlatformDisplayList<GroupPre> buildCanaisPreList(Integer idGrupoPai, boolean isShared) {
+    private PlatformDisplayList<GroupPre> buildCanaisPreList(Integer idGrupoPai, boolean isShared) {
         im.actor.runtime.Runtime.checkMainThread();
 
         PlatformDisplayList<GroupPre> res = Storage.createDisplayList(context().getGrupoPreModule().getCanaispreEngine(idGrupoPai),

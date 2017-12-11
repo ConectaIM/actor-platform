@@ -38,7 +38,7 @@ public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHol
     private View emptyDialogs;
     private static String TAG = GruposPreFragment.class.getName();
 
-    private Integer idGrupoPai = -1;
+    private Integer idGrupoPai = GroupPre.NONE_PARENT_ID;
 
     @Nullable
     @Override
@@ -96,9 +96,9 @@ public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHol
             }).failure((ex) -> {
                 dialog.dismiss();
                 Log.e(TAG, ex);
-                SnackUtils.showError(getView(), "Você não pode entrar neste grupo", (v) -> {
+                SnackUtils.showError(getView(), "Você não pode entrar neste grupo", Snackbar.LENGTH_INDEFINITE, (v) -> {
                     entrarNoGrupo(grupo);
-                }, "Tentar Novamente", Snackbar.LENGTH_INDEFINITE);
+                }, "Tentar Novamente");
             });
         }
     }

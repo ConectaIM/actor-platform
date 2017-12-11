@@ -4,7 +4,7 @@ import java.time.Instant
 
 import akka.actor.{ActorSystem, Props}
 import im.actor.serialization.ActorSerializer
-import im.actor.server.GroupPreCommands.Create
+import im.actor.server.GroupPreCommands.{Create, Remove}
 import im.actor.server.GroupPreQueries.GetGroupsPre
 import im.actor.server.{GroupPreCommands, GroupPreQueries}
 import im.actor.server.cqrs.{Processor, TaggedEvent}
@@ -68,6 +68,7 @@ private[grouppre] final class GroupPreProcessor
 
   override protected def handleCommand: Receive = {
     case c: Create => create(c)
+    case r: Remove => remove(r)
   }
 
   override protected def handleQuery: PartialFunction[Any, Future[Any]] = {
