@@ -135,7 +135,6 @@ public class ConductorActor extends ModuleActor {
      */
     public void onAppLoaded() {
         Log.d(TAG, "App Loaded");
-
         // Joining Groups
         if (config().getAutoJoinType() == AutoJoinType.IMMEDIATELY) {
             joinGroups();
@@ -147,7 +146,6 @@ public class ConductorActor extends ModuleActor {
      */
     public void onAppReady() {
         Log.d(TAG, "App Ready");
-
         // Joining Groups
         if (config().getAutoJoinType() == AutoJoinType.AFTER_INIT) {
             joinGroups();
@@ -308,10 +306,14 @@ public class ConductorActor extends ModuleActor {
 
     public static class GruposPreLoaded {
 
-        private final Integer idGrupoPai;
+        private final Integer parentId;
 
-        public GruposPreLoaded(Integer idGrupoPai) {
-            this.idGrupoPai = idGrupoPai;
+        public GruposPreLoaded(Integer parentId) {
+            this.parentId = parentId;
+        }
+
+        public Integer getParentId() {
+            return parentId;
         }
     }
 
