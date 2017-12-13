@@ -25,10 +25,11 @@ public class GroupPre extends BserObject implements ListEngineItem {
         return Bser.parse(new GroupPre(), data);
     }
 
-    public static BserCreator<GroupPre> CREATOR = () -> new GroupPre();
-
+    public static BserCreator<GroupPre> CREATOR = GroupPre::new;
     public static final String ENTITY_NAME = "GroupPre";
-    private static final int MAX_LENGTH = 32;
+
+    @Property("readonly, nonatomic")
+    private int groupId;
 
     @NotNull
     @SuppressWarnings("NullableProblems")
@@ -45,14 +46,29 @@ public class GroupPre extends BserObject implements ListEngineItem {
     @Property("readonly, nonatomic")
     private Boolean hasChildren;
 
-    public GroupPre(@NotNull Group group, @NotNull Integer ordem, @NotNull Boolean hasChildren) {
+    public GroupPre(int groupId, @NotNull Group group, @NotNull Integer ordem, @NotNull Boolean hasChildren) {
+        this.groupId = groupId;
         this.group = group;
         this.ordem = ordem;
         this.hasChildren = hasChildren;
     }
 
-    private GroupPre(){
+    public GroupPre(int groupId, @NotNull Group group) {
+        this.groupId = groupId;
+        this.group = group;
+        this.ordem = 0;
+        this.hasChildren = false;
+    }
 
+    public GroupPre(int groupId) {
+        this.groupId = groupId;
+        this.group = null;
+        this.ordem = 0;
+        this.hasChildren = false;
+    }
+
+    private GroupPre(){
+        super();
     }
 
     @NotNull
@@ -72,21 +88,23 @@ public class GroupPre extends BserObject implements ListEngineItem {
 
     @Override
     public void parse(BserValues values) throws IOException {
-        group = Group.fromBytes(values.getBytes(1));
-        ordem = values.getInt(2);
-        hasChildren = values.getBool(3);
+        groupId = values.getInt(1);
+        group = Group.fromBytes(values.getBytes(2));
+        ordem = values.getInt(3);
+        hasChildren = values.getBool(4);
     }
 
     @Override
     public void serialize(BserWriter writer) throws IOException {
-        writer.writeObject(1, group);
-        writer.writeInt(2, ordem);
-        writer.writeBool(3, hasChildren);
+        writer.writeInt(1, groupId);
+        writer.writeObject(2, group);
+        writer.writeInt(3, ordem);
+        writer.writeBool(4, hasChildren);
     }
 
     @Override
     public long getEngineId() {
-        return group.getEngineId();
+        return this.groupId;
     }
 
     @Override
@@ -96,6 +114,6 @@ public class GroupPre extends BserObject implements ListEngineItem {
 
     @Override
     public String getEngineSearch() {
-        return getGroup().getTitle();
+        return getGroup() != null ? getGroup().getTitle() : "";
     }
 }

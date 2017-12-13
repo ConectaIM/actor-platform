@@ -5,7 +5,7 @@ import java.util.HashMap;
 import im.actor.core.api.ApiGroupType;
 import im.actor.core.api.rpc.RequestChangeGroupPre;
 import im.actor.core.entity.GroupPre;
-import im.actor.core.entity.GrupoPreState;
+import im.actor.core.entity.GroupPreState;
 import im.actor.core.events.AppVisibleChanged;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
@@ -30,7 +30,7 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
     private final HashMap<Integer, ListEngine<GroupPre>> gruposPreEngine = new HashMap<>();
     private final HashMap<Integer, ListEngine<GroupPre>> canaisPreEngine = new HashMap<>();
 
-    private MVVMCollection<GrupoPreState, GrupoPreVM> gruposPreStates;
+    private MVVMCollection<GroupPreState, GrupoPreVM> collection;
 
     private final HashMap<Integer, GrupoPreActorInt> gruposPreLoadActor = new HashMap<>();
     private final GrupoPreRouterInt router;
@@ -38,10 +38,10 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
     public GrupoPreModule(ModuleContext context) {
         super(context);
         router = new GrupoPreRouterInt(context);
-        this.gruposPreStates = Storage.createKeyValue(STORAGE_GRUPOSPRE_STATES,
+
+        this.collection = Storage.createKeyValue(STORAGE_GRUPOSPRE_STATES,
                 GrupoPreVM.CREATOR,
-                GrupoPreState.CREATOR,
-                GrupoPreState.DEFAULT_CREATOR);
+                GroupPre.CREATOR);
     }
 
     @Override
@@ -94,12 +94,12 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
         }
     }
 
-    public MVVMCollection<GrupoPreState, GrupoPreVM> getGruposPreStates() {
-        return gruposPreStates;
+    public MVVMCollection<GroupPre, GrupoPreVM> getGroupsPreCollection() {
+        return collection;
     }
 
     public GrupoPreVM getGrupoPreVM(Long idGrupoPre) {
-        return gruposPreStates.get(idGrupoPre);
+        return collection.get(idGrupoPre);
     }
 
 }
