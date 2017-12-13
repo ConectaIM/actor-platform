@@ -18,141 +18,57 @@ public class GroupPreState extends BserObject implements KeyValueItem {
 
     public static BserCreator<GroupPreState> CREATOR = GroupPreState::new;
 
-    public static ValueDefaultCreator<GroupPreState> DEFAULT_CREATOR = id ->
-            new GroupPreState(Peer.fromUniqueId(id), false, true, 0, 0, 0, 0, 0, 0);
+    public static ValueDefaultCreator<GroupPreState> DEFAULT_CREATOR = groupId ->
+            new GroupPreState(groupId, GroupPre.NONE_PARENT_ID, false);
 
-    public static final String ENTITY_NAME = "ConversationState";
+    public static final String ENTITY_NAME = "GroupPreState";
 
-    private Peer peer;
+    private long groupId;
+    private int parentId;
     private boolean isLoaded;
-    private boolean isEmpty;
-    private int unreadCount;
-    private long inMaxMessageDate;
-    private long outSendDate;
-    private long inReadDate;
-    private long outReadDate;
-    private long outReceiveDate;
 
-    public GroupPreState(Peer peer, boolean isLoaded, boolean isEmpty,
-                         int unreadCount,
-                         long inMaxMessageDate,
-                         long inReadDate,
-                         long outReadDate,
-                         long outReceiveDate,
-                         long outSendDate) {
-        this.peer = peer;
+    public GroupPreState(long groupId, int parentId, boolean isLoaded) {
+        this.groupId = groupId;
+        this.parentId = parentId;
         this.isLoaded = isLoaded;
-        this.isEmpty = isEmpty;
-        this.unreadCount = unreadCount;
-        this.inMaxMessageDate = inMaxMessageDate;
-        this.inReadDate = inReadDate;
-        this.outReadDate = outReadDate;
-        this.outReceiveDate = outReceiveDate;
-        this.outSendDate = outSendDate;
     }
 
     private GroupPreState() {
 
     }
 
-    public Peer getPeer() {
-        return peer;
+    public GroupPreState changeIsLoaded(boolean isLoaded) {
+        return new GroupPreState(groupId, parentId, isLoaded);
+    }
+
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public int getParentId() {
+        return parentId;
     }
 
     public boolean isLoaded() {
         return isLoaded;
     }
 
-    public boolean isEmpty() {
-        return isEmpty;
-    }
-
-    public long getInMaxMessageDate() {
-        return inMaxMessageDate;
-    }
-
-    public long getInReadDate() {
-        return inReadDate;
-    }
-
-    public long getOutSendDate() {
-        return outSendDate;
-    }
-
-    public long getOutReadDate() {
-        return outReadDate;
-    }
-
-    public long getOutReceiveDate() {
-        return outReceiveDate;
-    }
-
-    public int getUnreadCount() {
-        return unreadCount;
-    }
-
-    public GroupPreState changeIsLoaded(boolean isLoaded) {
-        return new GroupPreState(peer, isLoaded, isEmpty, unreadCount, inMaxMessageDate, inReadDate, outReadDate, outReceiveDate, outSendDate);
-    }
-
-    public GroupPreState changeIsEmpty(boolean isEmpty) {
-        return new GroupPreState(peer, isLoaded, isEmpty, unreadCount, inMaxMessageDate, inReadDate, outReadDate, outReceiveDate, outSendDate);
-    }
-
-    public GroupPreState changeInReadDate(long inReadDate) {
-        return new GroupPreState(peer, isLoaded, isEmpty, unreadCount, inMaxMessageDate, inReadDate, outReadDate, outReceiveDate, outSendDate);
-    }
-
-    public GroupPreState changeInMaxDate(long inMaxMessageDate) {
-        return new GroupPreState(peer, isLoaded, isEmpty, unreadCount, inMaxMessageDate, inReadDate, outReadDate, outReceiveDate, outSendDate);
-    }
-
-    public GroupPreState changeOutReceiveDate(long outReceiveDate) {
-        return new GroupPreState(peer, isLoaded, isEmpty, unreadCount, inMaxMessageDate, inReadDate, outReadDate, outReceiveDate, outSendDate);
-    }
-
-    public GroupPreState changeOutReadDate(long outReadDate) {
-        return new GroupPreState(peer, isLoaded, isEmpty, unreadCount, inMaxMessageDate, inReadDate, outReadDate, outReceiveDate, outSendDate);
-    }
-
-    public GroupPreState changeCounter(int unreadCount) {
-        return new GroupPreState(peer, isLoaded, isEmpty, unreadCount, inMaxMessageDate, inReadDate, outReadDate, outReceiveDate, outSendDate);
-    }
-
-
-    public GroupPreState changeOutSendDate(long outSendDate) {
-        return new GroupPreState(peer, isLoaded, isEmpty, unreadCount, inMaxMessageDate, inReadDate, outReadDate, outReceiveDate, outSendDate);
-    }
-
-
     @Override
     public void parse(BserValues values) throws IOException {
-        peer = Peer.fromBytes(values.getBytes(1));
-        isLoaded = values.getBool(2, false);
-        isEmpty = values.getBool(8, false);
-        inReadDate = values.getLong(3, 0);
-        outReceiveDate = values.getLong(4, 0);
-        outReadDate = values.getLong(5, 0);
-        unreadCount = values.getInt(6);
-        outSendDate = values.getLong(7, 0);
-        inMaxMessageDate = values.getLong(9, 0);
+        groupId = values.getLong(1);
+        parentId = values.getInt(2);
+        isLoaded = values.getBool(3);
     }
 
     @Override
     public void serialize(BserWriter writer) throws IOException {
-        writer.writeBytes(1, peer.toByteArray());
-        writer.writeBool(2, isLoaded);
-        writer.writeBool(8, isEmpty);
-        writer.writeLong(3, inReadDate);
-        writer.writeLong(4, outReceiveDate);
-        writer.writeLong(5, outReadDate);
-        writer.writeInt(6, unreadCount);
-        writer.writeLong(7, outSendDate);
-        writer.writeLong(9, inMaxMessageDate);
+        writer.writeLong(1, groupId);
+        writer.writeInt(2, parentId);
+        writer.writeBool(3, isLoaded);
     }
 
     @Override
     public long getEngineId() {
-        return peer.getUnuqueId();
+        return groupId;
     }
 }

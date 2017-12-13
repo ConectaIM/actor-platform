@@ -10,7 +10,7 @@ import im.actor.core.events.AppVisibleChanged;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.grouppre.router.GrupoPreRouterInt;
-import im.actor.core.viewmodel.GrupoPreVM;
+import im.actor.core.viewmodel.GroupPreVM;
 import im.actor.runtime.Storage;
 import im.actor.runtime.eventbus.BusSubscriber;
 import im.actor.runtime.eventbus.Event;
@@ -30,7 +30,7 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
     private final HashMap<Integer, ListEngine<GroupPre>> gruposPreEngine = new HashMap<>();
     private final HashMap<Integer, ListEngine<GroupPre>> canaisPreEngine = new HashMap<>();
 
-    private MVVMCollection<GroupPreState, GrupoPreVM> collection;
+    private MVVMCollection<GroupPreState, GroupPreVM> groupsPreStates;
 
     private final HashMap<Integer, GrupoPreActorInt> gruposPreLoadActor = new HashMap<>();
     private final GrupoPreRouterInt router;
@@ -39,9 +39,10 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
         super(context);
         router = new GrupoPreRouterInt(context);
 
-        this.collection = Storage.createKeyValue(STORAGE_GRUPOSPRE_STATES,
-                GrupoPreVM.CREATOR,
-                GroupPre.CREATOR);
+        this.groupsPreStates = Storage.createKeyValue(STORAGE_GRUPOSPRE_STATES,
+                GroupPreVM.CREATOR,
+                GroupPreState.CREATOR,
+                GroupPreState.DEFAULT_CREATOR);
     }
 
     @Override
@@ -57,7 +58,6 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
 
     public Promise<Integer> changeGroupPre(int groupId, boolean isGroupPre, Integer parentId) {
        return api(new RequestChangeGroupPre(groupId, isGroupPre, parentId))
-                .chain(r -> updates().waitForUpdate(r.getSeq()))
                 .map(r -> r.getGroupPre().getGroupId());
     }
 
@@ -94,12 +94,12 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
         }
     }
 
-    public MVVMCollection<GroupPre, GrupoPreVM> getGroupsPreCollection() {
-        return collection;
+    public MVVMCollection<GroupPreState, GroupPreVM> getGroupsPreStates() {
+        return groupsPreStates;
     }
 
-    public GrupoPreVM getGrupoPreVM(Long idGrupoPre) {
-        return collection.get(idGrupoPre);
+    public GroupPreVM getGrupoPreVM(Long idGrupoPre) {
+        return groupsPreStates.get(idGrupoPre);
     }
 
 }

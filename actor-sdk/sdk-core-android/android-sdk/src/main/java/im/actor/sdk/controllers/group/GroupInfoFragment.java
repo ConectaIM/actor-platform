@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import im.actor.core.entity.GroupMember;
 import im.actor.core.entity.GroupType;
 import im.actor.core.entity.Peer;
+import im.actor.core.viewmodel.GroupPreVM;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.sdk.ActorSDK;
@@ -55,6 +56,9 @@ public class GroupInfoFragment extends BaseFragment {
 
     private static final String EXTRA_CHAT_ID = "chat_id";
     private ActorBinder.Binding[] memberBindings;
+    private SwitchCompat isGroupPreEnabled;
+    private TextView groupPreParentAction;
+    private View header;
 
     public static GroupInfoFragment create(int chatId) {
         Bundle args = new Bundle();
@@ -66,6 +70,7 @@ public class GroupInfoFragment extends BaseFragment {
 
     private int chatId;
     private GroupVM groupVM;
+    private GroupPreVM groupPreVm;
 
     private RecyclerListView listView;
     private AvatarView avatarView;
@@ -92,6 +97,8 @@ public class GroupInfoFragment extends BaseFragment {
 
         groupVM = groups().get(chatId);
 
+        groupPreVm = messenger().getGroupPreVM(groupVM.getId());
+
         View res = inflater.inflate(R.layout.fragment_group, container, false);
         listView = (RecyclerListView) res.findViewById(R.id.groupList);
         notMemberView = res.findViewById(R.id.notMember);
@@ -106,7 +113,7 @@ public class GroupInfoFragment extends BaseFragment {
         //
 
         // Views
-        View header = inflater.inflate(R.layout.fragment_group_header, listView, false);
+        header = inflater.inflate(R.layout.fragment_group_header, listView, false);
         TextView title = (TextView) header.findViewById(R.id.title);
         TextView subtitle = (TextView) header.findViewById(R.id.subtitle);
         avatarView = (AvatarView) header.findViewById(R.id.avatar);
@@ -124,8 +131,8 @@ public class GroupInfoFragment extends BaseFragment {
         TextView leaveAction = (TextView) header.findViewById(R.id.leaveAction);
         TextView administrationAction = (TextView) header.findViewById(R.id.administrationAction);
 
-        SwitchCompat isGroupPreEnabled = (SwitchCompat) header.findViewById(R.id.enableGroupPre);
-        TextView groupPreParentAction = (TextView) header.findViewById(R.id.groupPreSelectParentAction);
+        isGroupPreEnabled = (SwitchCompat) header.findViewById(R.id.enableGroupPre);
+        groupPreParentAction = (TextView) header.findViewById(R.id.groupPreSelectParentAction);
 
         View descriptionContainer = header.findViewById(R.id.descriptionContainer);
         SwitchCompat isNotificationsEnabled = (SwitchCompat) header.findViewById(R.id.enableNotifications);
@@ -157,7 +164,6 @@ public class GroupInfoFragment extends BaseFragment {
         members.setTextColor(style.getTextPrimaryColor());
         administrationAction.setTextColor(style.getTextPrimaryColor());
 
-       // groupPreParentAction.setTextColor(style.getTextPrimaryColor());
         groupPreParentAction.setVisibility(View.GONE);
         groupPreParentAction.setText(groupVM.getGroupType() == GroupType.GROUP ? R.string.parent_group : R.string.parent_channel);
 
@@ -256,34 +262,8 @@ public class GroupInfoFragment extends BaseFragment {
             administrationAction.setVisibility(View.GONE);
         }
 
-        isGroupPreEnabled.setOnCheckedChangeListener((buttonView, isChecked)->{
-            if(isChecked){
-                final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
-                        getString(R.string.making_group_pre), true, false);
 
-                messenger().changeGroupPre(groupVM.getId(), true, null)
-                        .then(groupId -> {
-                            dialog.dismiss();
-                            groupPreParentAction.setVisibility(View.VISIBLE);
-                        })
-                        .failure(ex ->{
-                            dialog.dismiss();
-                            SnackUtils.showError(res, ex.getMessage(), Snackbar.LENGTH_LONG, null, null);
-                        });
 
-            }else{
-                groupPreParentAction.setVisibility(View.GONE);
-            }
-        });
-
-        header.findViewById(R.id.groupPreCont).setOnClickListener(v -> {
-            isGroupPreEnabled.setChecked(!isGroupPreEnabled.isChecked());
-        });
-
-        groupPreParentAction.setOnClickListener(view -> {
-            startActivity(new Intent(getActivity(), GroupPreSelectParentActivity.class)
-                    .putExtra(Intents.EXTRA_GROUP_ID, chatId));
-        });
 
         // Async Members
         // Showing member only when members available and async members is enabled
@@ -348,6 +328,7 @@ public class GroupInfoFragment extends BaseFragment {
                 }
             }
         });
+
         listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
             Object item = adapterView.getItemAtPosition(i);
             if (item != null && item instanceof GroupMember) {
@@ -415,6 +396,47 @@ public class GroupInfoFragment extends BaseFragment {
                 groupUserAdapter.setMembers(memberList);
             }
         });
+
+
+        // GroupPre
+        bind(groupPreVm.getIsLoaded(), isLoaded -> {
+            if(isLoaded){
+                isGroupPreEnabled.setChecked(true);
+                groupPreParentAction.setVisibility(View.VISIBLE);
+            }else{
+                isGroupPreEnabled.setChecked(false);
+                groupPreParentAction.setVisibility(View.GONE);
+            }
+        });
+
+        isGroupPreEnabled.setOnCheckedChangeListener((buttonView, isChecked)->{
+            messenger().changeGroupPre(groupVM.getId(), isChecked, null)
+                    .failure(ex ->{
+                        SnackUtils.showError(getView(), ex.getMessage(), Snackbar.LENGTH_LONG, null, null);
+                    });
+        });
+
+        header.findViewById(R.id.groupPreCont).setOnClickListener(v -> {
+            isGroupPreEnabled.setChecked(!isGroupPreEnabled.isChecked());
+        });
+
+        bind(groupPreVm.getParentId(), parentId -> {
+            if(parentId > 0){
+                 GroupPreVM parentVm = messenger().getGroupPreVM(parentId);
+                 bind(parentVm.getIsLoaded(), isLoaded -> {
+                     GroupVM groupParentVm = groups().get(parentId);
+                     groupPreParentAction.setText(groupParentVm.getName().get());
+                 });
+            }else{
+                groupPreParentAction.setText(groupVM.getGroupType() == GroupType.GROUP ? R.string.parent_group : R.string.parent_channel);
+            }
+        });
+
+        groupPreParentAction.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), GroupPreSelectParentActivity.class)
+                    .putExtra(Intents.EXTRA_GROUP_ID, chatId));
+        });
+
     }
 
     @Override

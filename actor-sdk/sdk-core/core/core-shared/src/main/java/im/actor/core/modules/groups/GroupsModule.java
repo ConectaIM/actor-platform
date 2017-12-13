@@ -141,13 +141,12 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
     private Promise<Integer> createGroup(String title, String avatarDescriptor, int[] uids,
                                          ApiGroupType groupType) {
         long rid = RandomUtils.nextRid();
+
         return Promise.success(uids)
                 .map((Function<int[], List<ApiUserOutPeer>>) ints -> {
                     ArrayList<ApiUserOutPeer> peers = new ArrayList<>();
                     for (int u : uids) {
-
                         User user = users().getValue(u);
-
                         if (user != null) {
                             peers.add(new ApiUserOutPeer(u, user.getAccessHash()));
                         }

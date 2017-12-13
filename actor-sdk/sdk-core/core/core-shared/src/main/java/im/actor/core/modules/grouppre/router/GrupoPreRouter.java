@@ -10,6 +10,7 @@ import im.actor.core.api.rpc.RequestLoadGroups;
 import im.actor.core.api.updates.UpdateGroupPreCreated;
 import im.actor.core.api.updates.UpdateGroupPreRemoved;
 import im.actor.core.entity.Group;
+import im.actor.core.entity.GroupPreState;
 import im.actor.core.entity.GroupType;
 import im.actor.core.entity.GroupPre;
 import im.actor.core.modules.ModuleActor;
@@ -24,6 +25,7 @@ import im.actor.runtime.function.Consumer;
 import im.actor.runtime.function.Function;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.Promises;
+import im.actor.runtime.storage.KeyValueEngine;
 import im.actor.runtime.storage.ListEngine;
 
 public class GrupoPreRouter extends ModuleActor {
@@ -31,8 +33,16 @@ public class GrupoPreRouter extends ModuleActor {
     private static final String TAG = GrupoPreRouter.class.getName();
     private boolean isFreezed = false;
 
+    private KeyValueEngine<GroupPreState> groupPreStates;
+
     public GrupoPreRouter(ModuleContext context) {
         super(context);
+    }
+
+    @Override
+    public void preStart() {
+        super.preStart();
+        groupPreStates = context().getGrupoPreModule().getGroupsPreStates().getEngine();
     }
 
     private Promise<Void> onUpdate(Update update) {

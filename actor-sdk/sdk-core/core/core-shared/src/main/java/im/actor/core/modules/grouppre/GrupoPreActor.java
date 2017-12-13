@@ -33,10 +33,10 @@ public class GrupoPreActor extends ModuleActor {
     private boolean isLoading = false;
     private boolean isLoaded = false;
 
+
     public GrupoPreActor(ModuleContext context, Integer idGrupoPai) {
         super(context);
         this.idGrupoPai = idGrupoPai;
-
         KEY_LOADED = "grupo_pre_loaded_loaded" + "_" + idGrupoPai + KEY_VERSION;
         KEY_LOADED_INIT = "grupo_pre_inited" + "_" + idGrupoPai + KEY_VERSION;
     }

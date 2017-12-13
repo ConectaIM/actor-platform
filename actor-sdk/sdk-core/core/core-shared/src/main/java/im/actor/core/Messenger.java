@@ -61,6 +61,7 @@ import im.actor.core.viewmodel.FileVM;
 import im.actor.core.viewmodel.FileVMCallback;
 import im.actor.core.viewmodel.GlobalStateVM;
 import im.actor.core.viewmodel.GroupAvatarVM;
+import im.actor.core.viewmodel.GroupPreVM;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.OwnAvatarVM;
 import im.actor.core.viewmodel.StickersVM;
@@ -711,6 +712,18 @@ public class Messenger {
     @ObjectiveCName("getConversationVM")
     public ConversationVM getConversationVM(Peer peer) {
         return modules.getMessagesModule().getConversationVM(peer);
+    }
+
+    /**
+     * Getting GroupPre VM
+     *
+     * @param groupId
+     * @return GroupPre VM
+     */
+    @NotNull
+    @ObjectiveCName("getGroupPreVM")
+    public GroupPreVM getGroupPreVM(long groupId){
+        return modules.getGrupoPreModule().getGrupoPreVM(groupId);
     }
 
 
