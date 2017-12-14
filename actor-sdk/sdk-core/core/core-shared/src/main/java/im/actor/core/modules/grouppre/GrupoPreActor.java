@@ -17,6 +17,7 @@ import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.function.Function;
 import im.actor.runtime.function.Tuple2;
 import im.actor.runtime.promise.Promise;
+import im.actor.runtime.promise.PromiseTools;
 import im.actor.runtime.promise.Promises;
 import im.actor.runtime.promise.PromisesArray;
 
@@ -33,7 +34,6 @@ public class GrupoPreActor extends ModuleActor {
     private Integer idGrupoPai;
     private boolean isLoading = false;
     private boolean isLoaded = false;
-
 
     public GrupoPreActor(ModuleContext context, Integer idGrupoPai) {
         super(context);
@@ -68,20 +68,13 @@ public class GrupoPreActor extends ModuleActor {
                     return new Tuple2<>(r.getGroups(), groupsOutPeer);
                 })
                 .chain(r -> updates().loadRequiredPeers(new ArrayList<>(), r.getT2()))
-                .map(new Function<Tuple2<List<ApiGroupPre>, List<ApiGroupOutPeer>>, List<GroupPre>>() {
-                    @Override
-                    public List<GroupPre> apply(Tuple2<List<ApiGroupPre>, List<ApiGroupOutPeer>> r) {
-
-                        return PromisesArray.of(r.getT1())
-                                .map(r2 -> Promises.tuple(Promise.success(r2), groups().getValueAsync(r2.getGroupId())))
-                                .map(r2 -> new GroupPre(r2.getT2(),r2.getT1().getOrder(), r2.getT1().hasChildrem())).zip();
-
-                    }
-                })
-                .map(result -> onGruposPreLoaded(result))
-                .map(r -> {
+                .map(r -> PromisesArray.of(r.getT1())
+                        .map(r2 -> Promises.tuple(Promise.success(r2), groups().getValueAsync(r2.getGroupId())))
+                        .map(r2 -> Promise.success(new GroupPre(r2.getT2(), r2.getT1().getOrder(), r2.getT1().hasChildrem())))
+                        .zip())
+                .map(r -> r.map(r2 -> onGruposPreLoaded(r2)))
+                .after((r, e)->{
                     isLoading = false;
-                    return null;
                 });
     }
 
