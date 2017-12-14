@@ -410,7 +410,7 @@ public class GroupInfoFragment extends BaseFragment {
         });
 
         isGroupPreEnabled.setOnCheckedChangeListener((buttonView, isChecked)->{
-            messenger().changeGroupPre(groupVM.getId(), isChecked, null)
+            messenger().changeGroupPre(groupVM.getId(), isChecked)
                     .failure(ex ->{
                         SnackUtils.showError(getView(), ex.getMessage(), Snackbar.LENGTH_LONG, null, null);
                     });

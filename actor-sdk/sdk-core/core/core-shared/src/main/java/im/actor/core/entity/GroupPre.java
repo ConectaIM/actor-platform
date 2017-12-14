@@ -55,8 +55,6 @@ public class GroupPre extends BserObject implements ListEngineItem {
         this.hasChildren = false;
     }
 
-
-
     private GroupPre(){
         super();
     }
@@ -102,6 +100,6 @@ public class GroupPre extends BserObject implements ListEngineItem {
 
     @Override
     public String getEngineSearch() {
-        return getGroup().getTitle();
+        return getGroup() != null ? getGroup().getTitle() : "";
     }
 }

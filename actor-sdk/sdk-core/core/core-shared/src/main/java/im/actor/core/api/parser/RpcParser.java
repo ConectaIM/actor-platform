@@ -262,7 +262,6 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 117: return ResponseInitWebaction.fromBytes(payload);
             case 124: return ResponseCompleteWebaction.fromBytes(payload);
             case 20: return ResponseLoadGroupsPre.fromBytes(payload);
-            case 21: return ResponseChangeGroupPre.fromBytes(payload);
             case 13: return SeqUpdate.fromBytes(payload);
             case 73: return FatSeqUpdate.fromBytes(payload);
             case 26: return WeakUpdate.fromBytes(payload);

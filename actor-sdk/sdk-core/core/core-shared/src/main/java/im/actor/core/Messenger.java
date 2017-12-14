@@ -1567,13 +1567,12 @@ public class Messenger {
     /**
      * Create group pre from group
      * @param groupId group id
-     * @param parentId parent id
      * @return Promise of group id
      */
     @NotNull
-    @ObjectiveCName("changeGroupPre:withGroupId:withIsGroupPre:withParentId:")
-    public Promise<Integer> changeGroupPre(int groupId, boolean isGroupPre, Integer parentId) {
-        return modules.getGrupoPreModule().changeGroupPre(groupId, isGroupPre, parentId);
+    @ObjectiveCName("changeGroupPre:withGroupId:withIsGroupPre:")
+    public Promise<Void> changeGroupPre(int groupId, boolean isGroupPre) {
+        return modules.getGrupoPreModule().changeGroupPre(groupId, isGroupPre);
     }
 
     /**

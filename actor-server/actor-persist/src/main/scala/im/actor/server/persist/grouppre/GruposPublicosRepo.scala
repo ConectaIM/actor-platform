@@ -43,6 +43,10 @@ object PublicGroupRepo {
     byIdPai(Some(parentId)).map(_.hasChildrem).update(hasChildrem)
   }
 
+  def updateParent(groupId: Int, parentId:Int) = {
+    publicGroups.filter(_.id === groupId).map(_.parentId).update(Some(parentId))
+  }
+
   def possuiFilhos(parentId: Int): SqlAction[Boolean, NoStream, Read] = {
     byIdPai(Some(parentId)).exists.result
   }

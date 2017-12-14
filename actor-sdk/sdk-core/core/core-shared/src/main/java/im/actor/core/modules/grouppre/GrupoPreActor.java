@@ -18,6 +18,7 @@ import im.actor.runtime.function.Function;
 import im.actor.runtime.function.Tuple2;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.Promises;
+import im.actor.runtime.promise.PromisesArray;
 
 /**
  * Created by diego on 31/05/17.
@@ -66,25 +67,15 @@ public class GrupoPreActor extends ModuleActor {
                     }
                     return new Tuple2<>(r.getGroups(), groupsOutPeer);
                 })
-                .flatMap(new Function<Tuple2<List<ApiGroupPre>, List<ApiGroupOutPeer>>, Promise<Tuple2<List<ApiGroupPre>, List<ApiGroup>>>>() {
+                .chain(r -> updates().loadRequiredPeers(new ArrayList<>(), r.getT2()))
+                .map(new Function<Tuple2<List<ApiGroupPre>, List<ApiGroupOutPeer>>, List<GroupPre>>() {
                     @Override
-                    public Promise<Tuple2<List<ApiGroupPre>, List<ApiGroup>>> apply(Tuple2<List<ApiGroupPre>, List<ApiGroupOutPeer>> r) {
-                        return Promises.tuple(Promise.success(r.getT1()), api(new RequestLoadGroups(r.getT2())).map(r2 -> r2.getGroups()));
-                    }
-                })
-                .map(new Function<Tuple2<List<ApiGroupPre>, List<ApiGroup>>, List<GroupPre>>() {
-                    @Override
-                    public List<GroupPre> apply(Tuple2<List<ApiGroupPre>, List<ApiGroup>> r) {
-                        List<GroupPre> retorno = new ArrayList<GroupPre>();
-                            for( ApiGroup apiGroup: ((List<ApiGroup>)r.getT2()) ){
-                                for(ApiGroupPre apiGroupPre : (List<ApiGroupPre>) r.getT1()){
-                                    if (apiGroup.getId() == apiGroupPre.getGroupId()) {
-                                        retorno.add(new GroupPre(new Group(apiGroup, null), apiGroupPre.getOrder(), apiGroupPre.hasChildrem()));
-                                    }
-                                }
+                    public List<GroupPre> apply(Tuple2<List<ApiGroupPre>, List<ApiGroupOutPeer>> r) {
 
-                            }
-                        return retorno;
+                        return PromisesArray.of(r.getT1())
+                                .map(r2 -> Promises.tuple(Promise.success(r2), groups().getValueAsync(r2.getGroupId())))
+                                .map(r2 -> new GroupPre(r2.getT2(),r2.getT1().getOrder(), r2.getT1().hasChildrem())).zip();
+
                     }
                 })
                 .map(result -> onGruposPreLoaded(result))

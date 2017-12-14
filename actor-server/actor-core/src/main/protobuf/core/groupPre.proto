@@ -51,26 +51,35 @@ message GroupPreCommands {
     message Create {
         option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreCommand";
         int32 group_id = 1;
-        int32 parent_id = 2;
         int32 userId = 3;
         int64 authId = 4;
     }
 
     message CreateAck {
         im.actor.server.SeqState seq_state = 1;
-        GroupPre group = 2;
     }
 
     message Remove {
         option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreCommand";
         int32 group_id = 1;
-        int32 userId = 3;
-        int64 authId = 4;
+        int32 userId = 2;
+        int64 authId = 3;
     }
 
     message RemoveAck {
         im.actor.server.SeqState seq_state = 1;
-        GroupPre group = 2;
+    }
+
+    message ChangeParent {
+        option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreCommand";
+        int32 group_id = 1;
+        int32 parent_id = 2;
+        int32 userId = 3;
+        int64 authId = 4;
+    }
+
+    message ChangeParentAck {
+        im.actor.server.SeqState seq_state = 1;
     }
 }
 

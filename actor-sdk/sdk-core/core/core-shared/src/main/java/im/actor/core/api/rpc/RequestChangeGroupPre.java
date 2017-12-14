@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.ArrayList;
 import im.actor.core.api.*;
 
-public class RequestChangeGroupPre extends Request<ResponseChangeGroupPre> {
+public class RequestChangeGroupPre extends Request<ResponseSeq> {
 
     public static final int HEADER = 0x18;
     public static RequestChangeGroupPre fromBytes(byte[] data) throws IOException {
@@ -24,12 +24,10 @@ public class RequestChangeGroupPre extends Request<ResponseChangeGroupPre> {
 
     private int groupId;
     private boolean isGroupPre;
-    private Integer idParent;
 
-    public RequestChangeGroupPre(int groupId, boolean isGroupPre, @Nullable Integer idParent) {
+    public RequestChangeGroupPre(int groupId, boolean isGroupPre) {
         this.groupId = groupId;
         this.isGroupPre = isGroupPre;
-        this.idParent = idParent;
     }
 
     public RequestChangeGroupPre() {
@@ -44,25 +42,16 @@ public class RequestChangeGroupPre extends Request<ResponseChangeGroupPre> {
         return this.isGroupPre;
     }
 
-    @Nullable
-    public Integer getIdParent() {
-        return this.idParent;
-    }
-
     @Override
     public void parse(BserValues values) throws IOException {
         this.groupId = values.getInt(1);
         this.isGroupPre = values.getBool(2);
-        this.idParent = values.optInt(3);
     }
 
     @Override
     public void serialize(BserWriter writer) throws IOException {
         writer.writeInt(1, this.groupId);
         writer.writeBool(2, this.isGroupPre);
-        if (this.idParent != null) {
-            writer.writeInt(3, this.idParent);
-        }
     }
 
     @Override

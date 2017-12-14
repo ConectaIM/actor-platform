@@ -12,6 +12,7 @@ import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.grouppre.router.GrupoPreRouterInt;
 import im.actor.core.viewmodel.GroupPreVM;
 import im.actor.runtime.Storage;
+import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.eventbus.BusSubscriber;
 import im.actor.runtime.eventbus.Event;
 import im.actor.runtime.mvvm.MVVMCollection;
@@ -56,9 +57,9 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
         context().getEvents().subscribe(this, AppVisibleChanged.EVENT);
     }
 
-    public Promise<Integer> changeGroupPre(int groupId, boolean isGroupPre, Integer parentId) {
-       return api(new RequestChangeGroupPre(groupId, isGroupPre, parentId))
-                .map(r -> r.getGroupPre().getGroupId());
+    public Promise<Void> changeGroupPre(int groupId, boolean isGroupPre) {
+       return api(new RequestChangeGroupPre(groupId, isGroupPre))
+               .flatMap(r -> updates().waitForUpdate(r.getSeq()));
     }
 
     public ListEngine<GroupPre> getGrupospreEngine(Integer idGrupoPai) {

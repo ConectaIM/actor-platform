@@ -2,11 +2,11 @@ package im.actor.server.grouppre
 
 import java.time.Instant
 
-import im.actor.api.rpc.grouppre.{ApiGroupPre, UpdateGroupPreCreated, UpdateGroupPreRemoved}
+import im.actor.api.rpc.grouppre.{ApiGroupPre, UpdateGroupPreCreated, UpdateGroupPreParentChanged, UpdateGroupPreRemoved}
 import im.actor.api.rpc.groups.ApiGroupType
 import im.actor.server.GroupPre
 import akka.pattern.pipe
-import im.actor.server.GroupPreCommands.{Create, CreateAck, Remove, RemoveAck}
+import im.actor.server.GroupPreCommands.{ChangeParent, ChangeParentAck, Create, CreateAck, Remove, RemoveAck}
 import im.actor.server.persist.UserRepo
 import im.actor.server.persist.grouppre.{PublicGroup, PublicGroupRepo}
 
@@ -31,14 +31,14 @@ private [grouppre] trait GroupPreCommandHandlers {
         }),
         order = 0,
         hasChildrem = false,
-        parentId = if(cmd.parentId > 0) Some(cmd.parentId) else None,
+        parentId = None,
         apiGroup.accessHash
       )
 
       _ <- db.run(
         (for {
           _ ← PublicGroupRepo.createOrUpdate(publicGroup)
-          _ ← PublicGroupRepo.atualizaPossuiFilhos(cmd.parentId, true)
+          //_ ← PublicGroupRepo.atualizaPossuiFilhos(cmd.parentId, true)
         } yield ())
       )
 
@@ -51,15 +51,9 @@ private [grouppre] trait GroupPreCommandHandlers {
       ))
 
       activeUsersIds <- db.run(UserRepo.activeUsersIds)
-      seqState <- seqUpdExt.broadcastClientUpdate(cmd.userId, cmd.authId, activeUsersIds.toSet - cmd.userId, update)
+      seqState <- seqUpdExt.broadcastClientUpdate(cmd.userId, cmd.authId, activeUsersIds.toSet, update)
       
-    }yield(CreateAck(Some(seqState),
-        Some(GroupPre(publicGroup.id,
-          publicGroup.typ,
-          publicGroup.order,
-          publicGroup.hasChildrem,
-          publicGroup.parentId.getOrElse(0),
-          publicGroup.accessHash))))
+    }yield(CreateAck(Some(seqState)))
 
     result pipeTo sender() onFailure {
       case e ⇒
@@ -97,18 +91,28 @@ private [grouppre] trait GroupPreCommandHandlers {
           throw new RuntimeException("Group pre, alread removed")
         }
       }
-    } yield (RemoveAck(Some(seqState),
-      Some(GroupPre(pubGroup.id,
-        pubGroup.typ,
-        pubGroup.order,
-        pubGroup.hasChildrem,
-        pubGroup.parentId.getOrElse(0),
-        pubGroup.accessHash))))
+    } yield (RemoveAck(Some(seqState)))
 
     result pipeTo sender() onFailure {
       case e ⇒
         log.error(e, "Failed to create group pre")
     }
+  }
+
+  protected def changeParent(cmd: ChangeParent): Unit = {
+
+    val result: Future[ChangeParentAck] = for{
+      previous <- db.run(for{
+        retorno <- PublicGroupRepo.findById(cmd.groupId)
+        _ <- PublicGroupRepo.updateParent(cmd.groupId, cmd.parentId)
+        _ ← PublicGroupRepo.atualizaPossuiFilhos(cmd.parentId, true)
+      } yield(retorno))
+
+      update <- UpdateGroupPreParentChanged(cmd.groupId, cmd.parentId, previous.get.parentId.getOrElse(-1))
+
+      activeUsersIds <- db.run(UserRepo.activeUsersIds)
+      seqState <- seqUpdExt.broadcastClientUpdate(cmd.userId, cmd.authId, activeUsersIds.toSet, update)
+    } yield (ChangeParentAck(Some(seqState)))
   }
 
 
