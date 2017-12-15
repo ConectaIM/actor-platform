@@ -462,7 +462,6 @@ public class MessageRouter extends ModuleActor {
             }
             conversationStates.addOrUpdateItem(state);
         }
-
         return getDialogsRouter().onHistoryLoaded(dialogs);
     }
 

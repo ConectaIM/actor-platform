@@ -4,6 +4,8 @@ import akka.actor._
 import akka.http.scaladsl.util.FastFuture
 import akka.pattern.pipe
 import akka.util.Timeout
+import scala.concurrent.duration._
+import scala.language.postfixOps
 import im.actor.api.rpc.codecs.UpdateBoxCodec
 import im.actor.api.rpc.groups.ApiGroup
 import im.actor.api.rpc.sequence.{ SeqUpdate, FatSeqUpdate, WeakUpdate }
@@ -53,6 +55,8 @@ object UpdatesConsumerMessage {
 object UpdatesConsumer {
   def props(userId: Int, authId: Long, session: ActorRef) =
     Props(classOf[UpdatesConsumer], userId, authId, session)
+
+  val RetryTimeout = 1000 milliseconds
 }
 
 private[sequence] class UpdatesConsumer(userId: Int, authId: Long, subscriber: ActorRef) extends Actor with ActorLogging with Stash {
@@ -74,6 +78,10 @@ private[sequence] class UpdatesConsumer(userId: Int, authId: Long, subscriber: A
 
   override def preStart(): Unit = {
     self ! SubscribeToWeak(None)
+  }
+
+  def retry(msg: Any) = {
+    system.scheduler.scheduleOnce(UpdatesConsumer.RetryTimeout, self, msg)
   }
 
   def receive = {
@@ -110,7 +118,7 @@ private[sequence] class UpdatesConsumer(userId: Int, authId: Long, subscriber: A
       userIds foreach { userId ⇒
         presenceExt.subscribe(userId, self) onFailure {
           case e ⇒
-            self ! cmd
+            retry(SubscribeToUserPresences(Set(userId)))
             log.error(e, "Failed to subscribe to user presences")
         }
       }
@@ -118,7 +126,7 @@ private[sequence] class UpdatesConsumer(userId: Int, authId: Long, subscriber: A
       userIds foreach { userId ⇒
         presenceExt.unsubscribe(userId, self) onFailure {
           case e ⇒
-            self ! cmd
+            retry(UnsubscribeFromUserPresences(Set(userId)))
             log.error(e, "Failed to subscribe from user presences")
         }
       }

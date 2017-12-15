@@ -78,7 +78,6 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
     private static final Void DUMB = null;
     private static final ResponseVoid DUMB2 = null;
 
-
     private final KeyValueEngine<Group> groups;
     private final MVVMCollection<Group, GroupVM> collection;
     private final HashMap<Integer, GroupAvatarVM> avatarVMs;

@@ -1564,13 +1564,9 @@ public class Messenger {
         return modules.getGroupsModule().createGroup(title, avatarDescriptor, uids);
     }
 
-    /**
-     * Create group pre from group
-     * @param groupId group id
-     * @return Promise of group id
-     */
+
     @NotNull
-    @ObjectiveCName("changeGroupPre:withGroupId:withIsGroupPre:")
+    @ObjectiveCName("changeGroupPreWithGroupId:withIsGroupPre:")
     public Promise<Void> changeGroupPre(int groupId, boolean isGroupPre) {
         return modules.getGrupoPreModule().changeGroupPre(groupId, isGroupPre);
     }

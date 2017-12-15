@@ -1,7 +1,5 @@
 package im.actor.server.grouppre
 
-import java.time.Instant
-
 import im.actor.api.rpc.grouppre.{ApiGroupPre, UpdateGroupPreCreated, UpdateGroupPreParentChanged, UpdateGroupPreRemoved}
 import im.actor.api.rpc.groups.ApiGroupType
 import im.actor.server.GroupPre
@@ -9,6 +7,7 @@ import akka.pattern.pipe
 import im.actor.server.GroupPreCommands.{ChangeParent, ChangeParentAck, Create, CreateAck, Remove, RemoveAck}
 import im.actor.server.persist.UserRepo
 import im.actor.server.persist.grouppre.{PublicGroup, PublicGroupRepo}
+import org.joda.time.Instant
 
 import scala.concurrent.Future
 
@@ -102,13 +101,14 @@ private [grouppre] trait GroupPreCommandHandlers {
   protected def changeParent(cmd: ChangeParent): Unit = {
 
     val result: Future[ChangeParentAck] = for{
+
       previous <- db.run(for{
         retorno <- PublicGroupRepo.findById(cmd.groupId)
         _ <- PublicGroupRepo.updateParent(cmd.groupId, cmd.parentId)
         _ ← PublicGroupRepo.atualizaPossuiFilhos(cmd.parentId, true)
       } yield(retorno))
 
-      update <- UpdateGroupPreParentChanged(cmd.groupId, cmd.parentId, previous.get.parentId.getOrElse(-1))
+      update = UpdateGroupPreParentChanged(cmd.groupId, cmd.parentId, previous.get.parentId.getOrElse(-1))
 
       activeUsersIds <- db.run(UserRepo.activeUsersIds)
       seqState <- seqUpdExt.broadcastClientUpdate(cmd.userId, cmd.authId, activeUsersIds.toSet, update)

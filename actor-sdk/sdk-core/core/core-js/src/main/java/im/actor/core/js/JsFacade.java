@@ -1371,12 +1371,12 @@ public class JsFacade implements Exportable {
     }
 
     @UsedByApp
-    public JsPromise changeGroupPre(final int groupId, final boolean isGrouPre, final Integer parentId) {
+    public JsPromise changeGroupPre(final int groupId, final boolean isGrouPre) {
         return JsPromise.create(new JsPromiseExecutor() {
             @Override
             public void execute() {
-                messenger.changeGroupPre(groupId, isGrouPre, parentId)
-                        .then(r -> resolve(JsPeer.create(Peer.group(r))))
+                messenger.changeGroupPre(groupId, isGrouPre)
+                        .then(r -> resolve())
                         .failure(e -> reject(e.getMessage()));
             }
         });

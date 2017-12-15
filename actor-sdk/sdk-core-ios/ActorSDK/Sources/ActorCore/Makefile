@@ -6,6 +6,8 @@ OBJ_DIR = $(WORKING_DIR)/Objects
 ARCHFLAGS = $(ARCHS:%=-arch %)
 SDKFLAGS = --sysroot $(SDKROOT)
 SDK_ROOT = $(abspath $(PROJECT_DIR)/..)
+J2OBJC_DISABLE_CAST_CHECKS = 1
+J2OBJC_DISABLE_ALL_CHECKS = 1
 
 ifdef OPTIMIZATION_LEVEL
 DEBUGFLAGS := $(DEBUGFLAGS) -O$(OPTIMIZATION_LEVEL)
@@ -28,7 +30,7 @@ space := ${null} ${null}
 J2OBJC_DISTRIBUTION = $(PODS_ROOT)/J2ObjC-Framework/Distributive
 J2OBJC = $(J2OBJC_DISTRIBUTION)/j2objc
 J2OBJCC = $(J2OBJC_DISTRIBUTION)/j2objcc
-J2OBJC_ARGS = -use-arc --generate-deprecated --doc-comments -g --swift-friendly -source 8 --nullability --strip-reflection
+J2OBJC_ARGS = -use-arc --generate-deprecated --doc-comments -g --swift-friendly -source 8 --nullability --strip-reflection -v
 J2OBJCC_ARGS = -ObjC -fobjc-arc -fembed-bitcode-marker -l iconv -Wobjc-designated-initializers -Wno-nullability-completeness -g $(ARCHFLAGS) $(SDKFLAGS) -I$(J2OBJC_DISTRIBUTION)/include
 
 LIBRARY_NAME = libactor.so

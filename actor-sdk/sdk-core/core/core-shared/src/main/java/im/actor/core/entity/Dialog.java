@@ -31,12 +31,7 @@ public class Dialog extends BserObject implements ListEngineItem {
         return Bser.parse(new Dialog(), data);
     }
 
-    public static BserCreator<Dialog> CREATOR = new BserCreator<Dialog>() {
-        @Override
-        public Dialog createInstance() {
-            return new Dialog();
-        }
-    };
+    public static BserCreator<Dialog> CREATOR = Dialog::new;
 
     public static final String ENTITY_NAME = "Dialog";
 

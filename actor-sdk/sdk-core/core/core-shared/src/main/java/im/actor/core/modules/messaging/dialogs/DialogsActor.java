@@ -294,7 +294,6 @@ public class DialogsActor extends ModuleActor {
                     .setText(description.getText())
                     .setSenderId(dialogHistory.getSenderId())
                     .setRelatedUid(description.getRelatedUser())
-
                     .setUnreadCount(dialogHistory.getUnreadCount());
 
             if (dialogHistory.isRead()) {
