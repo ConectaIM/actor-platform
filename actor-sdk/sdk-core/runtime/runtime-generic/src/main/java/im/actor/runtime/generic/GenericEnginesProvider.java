@@ -1,6 +1,7 @@
 package im.actor.runtime.generic;
 
 import im.actor.runtime.EnginesRuntime;
+import im.actor.runtime.Log;
 import im.actor.runtime.bser.BserCreator;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
@@ -18,6 +19,13 @@ public class GenericEnginesProvider implements EnginesRuntime {
 //        ActorSystem.system().addDispatcher("display_list");
 //        ActorSystem.system().addDispatcher("db", 1);
 //    }
+
+/*-[
+#define J2OBJC_DISABLE_ARRAY_BOUND_CHECKS 1
+#define J2OBJC_DISABLE_ARRAY_TYPE_CHECKS 1
+#define J2OBJC_DISABLE_CAST_CHECKS 1
+#define J2OBJC_DISABLE_ARRAY_CHECKS 1
+]-*/
 
     private DisplayList.OperationMode operationMode;
 

@@ -3,6 +3,8 @@ package im.actor.core.network.parser;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import im.actor.runtime.Log;
+
 public class ApiParserConfig {
 
     private ArrayList<ParsingExtension> extensions = new ArrayList<>();
@@ -16,10 +18,9 @@ public class ApiParserConfig {
             try {
                 return ex.getRpcScopeParser().read(header, content);
             } catch (Exception e) {
-                // Ignore
+                Log.e(ApiParserConfig.class.getCanonicalName(), e);
             }
         }
-
-        throw new IOException("Unknown package");
+        throw new IOException("Unknown package for header "+header);
     }
 }

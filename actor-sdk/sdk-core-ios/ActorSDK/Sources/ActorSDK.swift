@@ -457,7 +457,7 @@ import UserNotifications
         voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
     }
     
-    @objc open func pushRegistry(_ registry: PKPushRegistry, didUpdate credentials: PKPushCredentials, forType type: PKPushType) {
+    @objc open func pushRegistry(_ registry: PKPushRegistry, didUpdate credentials: PKPushCredentials, for type: PKPushType) {
         if (type == PKPushType.voIP) {
             let tokenString = credentials.token.map { String(format: "%02.2hhx", $0) }.joined()
             log("PUSHKIT Vai registrar o voip para o token: \(tokenString)")
@@ -465,14 +465,14 @@ import UserNotifications
         }
     }
     
-    @objc open func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
+    @objc open func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
         log("PUSHKIT Invalidando o push token para voip didInvalidatePushTokenForType")
         if (type == PKPushType.voIP) {
             
         }
     }
     
-    @objc open func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, forType type: PKPushType) {
+    @objc open func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
         log("Recebendo pushKit notification didReceiveIncomingPushWith")
         if (type == PKPushType.voIP) {
             let aps = payload.dictionaryPayload["aps"] as! [NSString: AnyObject]

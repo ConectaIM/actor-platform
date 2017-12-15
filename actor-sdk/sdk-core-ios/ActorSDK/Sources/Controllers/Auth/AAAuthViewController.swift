@@ -40,7 +40,7 @@ open class AAAuthViewController: AAViewController {
         nextBarButton.frame = CGRect(x: view.width - 95, y: view.height - 44 - keyboardHeight + 6, width: 85, height: 32)
     }
     
-    func keyboardWillAppearInt(_ notification: Notification) {
+    @objc func keyboardWillAppearInt(_ notification: Notification) {
         let dict = (notification as NSNotification).userInfo!
         let rect = (dict[UIKeyboardFrameBeginUserInfoKey]! as AnyObject).cgRectValue
         
@@ -68,7 +68,7 @@ open class AAAuthViewController: AAViewController {
     }
     
     
-    func keyboardWillDisappearInt(_ notification: Notification) {
+    @objc func keyboardWillDisappearInt(_ notification: Notification) {
         keyboardHeight = 0
         layoutNextBar()
         keyboardWillDisappear()
@@ -95,7 +95,7 @@ open class AAAuthViewController: AAViewController {
         ActorSDK.sharedActor().didLoggedIn()
     }
     
-    open func nextDidTap() {
+    @objc open func nextDidTap() {
         
     }
 }

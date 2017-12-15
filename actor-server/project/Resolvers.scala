@@ -7,6 +7,7 @@ object Resolvers {
     DefaultMavenRepository,
     Resolver.sonatypeRepo("releases"),
     Resolver.sonatypeRepo("snapshots"),
+    Resolver.bintrayRepo("dwhjames", "maven"),
     "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
       "Nexus DiegoSilva Releases" at "http://nexus.diegosilva.com.br:8081/content/repositories/releases/",
       "Nexus DiegoSilva Snapshots" at "http://nexus.diegosilva.com.br:8081/content/repositories/snapshots/",

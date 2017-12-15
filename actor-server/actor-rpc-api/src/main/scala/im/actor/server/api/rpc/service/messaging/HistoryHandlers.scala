@@ -6,12 +6,12 @@ import akka.http.scaladsl.util.FastFuture
 import im.actor.api.rpc.PeerHelpers._
 import im.actor.api.rpc._
 import im.actor.api.rpc.messaging._
-import im.actor.api.rpc.misc.{ ResponseSeq, ResponseVoid }
-import im.actor.api.rpc.peers.{ ApiOutPeer, ApiPeerType }
+import im.actor.api.rpc.misc.{ResponseSeq, ResponseVoid}
+import im.actor.api.rpc.peers.{ApiOutPeer, ApiPeerType}
 import im.actor.api.rpc.sequence.ApiUpdateOptimization
 import im.actor.server.dialog.HistoryUtils
 import im.actor.server.group.CanSendMessageInfo
-import im.actor.server.model.Peer
+import im.actor.server.model.{MessageType, Peer}
 import im.actor.server.persist.contact.UserContactRepo
 import im.actor.server.persist.HistoryMessageRepo
 import im.actor.server.sequence.SeqState
@@ -227,6 +227,38 @@ trait HistoryHandlers {
           userPeers = userPeers,
           groups = groups,
           groupPeers = groupPeers
+        ))
+        db.run(action)
+      }
+    }
+
+  /** Loading docs history of chat */
+  override protected def doHandleLoadDocsHistory(
+                           peer:          ApiOutPeer,
+                           date:          Long,
+                           mode:          Option[ApiListLoadMode.Value],
+                           limit:         Int,
+                           docType: ApiDocsHistoryType.ApiDocsHistoryType,
+                           clientData:    ClientData
+                         ): Future[HandlerResult[ResponseLoadDocsHistory]] =
+    authorized(clientData) { implicit client ⇒
+      withOutPeer(peer) {
+        val modelPeer = peer.asModel
+        val action = for {
+          historyOwner ← DBIO.from(getHistoryOwner(modelPeer, client.userId))
+          messageModels <- HistoryMessageRepo.find(historyOwner, modelPeer, endDateTimeFrom(date), limit, MessageType(docType.id))
+          messages = messageModels.view
+            .map(_.ofUser(client.userId))
+            .foldLeft(Vector.empty[ApiMessageContainer]) {
+              case ((msgs), message) ⇒
+                message.asStruct2().toOption match {
+                  case Some(messageStruct) ⇒
+                    msgs :+ messageStruct
+                  case None ⇒ msgs
+                }
+            }
+        } yield Ok(ResponseLoadDocsHistory(
+          history = messages
         ))
         db.run(action)
       }

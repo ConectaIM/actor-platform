@@ -114,26 +114,26 @@
 
 
         <!--<FrameLayout-->
-            <!--android:id="@+id/signUpButton"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:background="@drawable/shadow_square_3"-->
-            <!--android:clickable="true">-->
+        <!--android:id="@+id/signUpButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@drawable/shadow_square_3"-->
+        <!--android:clickable="true">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/signUpButtonText"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="48dp"-->
-                <!--android:gravity="center"-->
-                <!--android:minWidth="88dp"-->
-                <!--android:paddingLeft="24dp"-->
-                <!--android:paddingRight="24dp"-->
-                <!--android:text="@string/tour_sign_up"-->
-                <!--android:textSize="15sp" />-->
+        <!--<TextView-->
+        <!--android:id="@+id/signUpButtonText"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:gravity="center"-->
+        <!--android:minWidth="88dp"-->
+        <!--android:paddingLeft="24dp"-->
+        <!--android:paddingRight="24dp"-->
+        <!--android:text="@string/tour_sign_up"-->
+        <!--android:textSize="15sp" />-->
         <!--</FrameLayout>-->
 
         <Button

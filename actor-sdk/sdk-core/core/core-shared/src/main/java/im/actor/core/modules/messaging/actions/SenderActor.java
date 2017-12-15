@@ -92,7 +92,7 @@ public class SenderActor extends ModuleActor {
             try {
                 pendingMessages = PendingMessagesStorage.fromBytes(p);
             } catch (IOException e) {
-                Log.d(TAG, e.getMessage());
+                Log.e(TAG, e);
             }
         }
 

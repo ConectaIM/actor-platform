@@ -50,6 +50,7 @@ import im.actor.sdk.R;
 import im.actor.sdk.controllers.BaseFragment;
 import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.compose.ComposeActivity;
+import im.actor.sdk.controllers.docs.DocsActivity;
 import im.actor.sdk.controllers.fragment.preview.ViewAvatarActivity;
 import im.actor.sdk.util.Screen;
 import im.actor.sdk.util.ViewUtils;
@@ -249,6 +250,18 @@ public class ProfileFragment extends BaseFragment {
             videoCallDivider.setVisibility(View.GONE);
         }
 
+        //
+        // Midia components
+        //
+        View sharedMidiaView = res.findViewById(R.id.sharedMidiaContent);
+        TextView sharedMidiaTitle = (TextView) sharedMidiaView.findViewById(R.id.sharedMidiaTitle);
+        TextView sharedMidiaCountTitle = (TextView) sharedMidiaView.findViewById(R.id.sharedMidiaCountTitle);
+
+        sharedMidiaCountTitle.setVisibility(View.GONE);
+        sharedMidiaTitle.setTextColor(style.getTextPrimaryColor());
+        sharedMidiaCountTitle.setTextColor(style.getTextPrimaryColor());
+
+        sharedMidiaView.setOnClickListener(v -> startActivity(DocsActivity.build(Peer.user(uid), getActivity())));
 
         //
         // Contact Information

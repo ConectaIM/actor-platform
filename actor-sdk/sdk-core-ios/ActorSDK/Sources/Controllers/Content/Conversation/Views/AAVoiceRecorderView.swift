@@ -195,7 +195,7 @@ class AAVoiceRecorderView: UIView {
             repeats:true)
     }
     
-    func updateAudioMeter(_ timer:Timer) {
+    @objc func updateAudioMeter(_ timer:Timer) {
         
         if let recorder = self.binedController?.audioRecorder {
             

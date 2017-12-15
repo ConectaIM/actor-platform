@@ -156,7 +156,7 @@ open class AAGroupViewMembersController: AAContentTableController {
     
     
     
-    func didAddPressed() {
+    @objc func didAddPressed() {
         navigateNext(AAAddParticipantViewController(gid: self.gid))
     }
 }

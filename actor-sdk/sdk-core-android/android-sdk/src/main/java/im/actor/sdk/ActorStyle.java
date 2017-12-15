@@ -547,6 +547,27 @@ public class ActorStyle {
         this.textDangerColor = textDangerColor;
     }
 
+
+    private int tabTextPrimaryColor = 0xDEffffff;
+
+    public int getTabTextPrimaryColor() {
+        return tabTextPrimaryColor;
+    }
+
+    public void setTabTextPrimaryColor(int tabTextPrimaryColor) {
+        this.tabTextPrimaryColor = tabTextPrimaryColor;
+    }
+
+    private int tabTextSecondaryColor = 0xDEffffff;
+
+    public int getTabTextSecondaryColor() {
+        return tabTextSecondaryColor;
+    }
+
+    public void setTabTextSecondaryColor(int tabTextSecondaryColor) {
+        this.tabTextSecondaryColor = tabTextSecondaryColor;
+    }
+
     //Settings
     private int settingsMainTitleColor = 0;
 

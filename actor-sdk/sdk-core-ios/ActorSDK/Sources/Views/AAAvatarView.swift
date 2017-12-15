@@ -77,7 +77,7 @@ open class AAAvatarView: UIView, YYAsyncLayerDelegate, ACFileEventCallback {
         
         self.fileName = nil
         if avatar?.smallImage != nil {
-            self.file = avatar!.smallImage.fileReference!
+            self.file = avatar?.smallImage?.fileReference
             self.showPlaceholder = false
         } else {
             self.file = nil
@@ -177,8 +177,8 @@ open class AAAvatarView: UIView, YYAsyncLayerDelegate, ACFileEventCallback {
                 
                 let short = _title!.trim().smallValue()
                 
-                short.draw(in: rect, withAttributes: [NSParagraphStyleAttributeName:style, NSFontAttributeName:font,
-                    NSForegroundColorAttributeName:ActorSDK.sharedActor().style.avatarTextColor])
+                short.draw(in: rect, withAttributes: [NSAttributedStringKey.paragraphStyle:style, NSAttributedStringKey.font:font,
+                    NSAttributedStringKey.foregroundColor:ActorSDK.sharedActor().style.avatarTextColor])
                 
                 if isCancelled() {
                     return

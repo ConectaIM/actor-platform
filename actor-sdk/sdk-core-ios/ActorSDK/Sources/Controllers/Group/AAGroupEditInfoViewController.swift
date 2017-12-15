@@ -121,7 +121,7 @@ open class AAGroupEditInfoController: AAViewController, UITextViewDelegate {
         })
     }
     
-    open func saveDidPressed() {
+    @objc open func saveDidPressed() {
         let text = nameInput.text!.trim()
         let about = self.descriptionView.text!.trim()
         nameInput.resignFirstResponder()
@@ -147,7 +147,7 @@ open class AAGroupEditInfoController: AAViewController, UITextViewDelegate {
         }
     }
     
-    func cancelEdit() {
+    @objc func cancelEdit() {
         nameInput.resignFirstResponder()
         descriptionView.resignFirstResponder()
         dismissController()

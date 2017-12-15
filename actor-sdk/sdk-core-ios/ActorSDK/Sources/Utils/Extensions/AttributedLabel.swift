@@ -173,18 +173,18 @@ open class AttributedLabel: UIView {
     fileprivate func mergeAttributes(_ attributedText: NSAttributedString) -> NSAttributedString {
         let attrString = NSMutableAttributedString(attributedString: attributedText)
         
-        addAttribute(attrString, attrName: NSFontAttributeName, attr: font)
+        addAttribute(attrString, attrName: NSAttributedStringKey.font.rawValue, attr: font)
         
         if let textColor = textColor {
-            addAttribute(attrString, attrName: NSForegroundColorAttributeName, attr: textColor)
+            addAttribute(attrString, attrName: NSAttributedStringKey.foregroundColor.rawValue, attr: textColor)
         }
         
         if let paragraphStyle = paragraphStyle {
-            addAttribute(attrString, attrName: NSParagraphStyleAttributeName, attr: paragraphStyle)
+            addAttribute(attrString, attrName: NSAttributedStringKey.paragraphStyle.rawValue, attr: paragraphStyle)
         }
         
         if let shadow = shadow {
-            addAttribute(attrString, attrName: NSShadowAttributeName, attr: shadow)
+            addAttribute(attrString, attrName: NSAttributedStringKey.shadow.rawValue, attr: shadow)
         }
         
         return attrString
@@ -192,9 +192,9 @@ open class AttributedLabel: UIView {
     
     fileprivate func addAttribute(_ attrString: NSMutableAttributedString, attrName: String, attr: AnyObject) {
         let range = NSRange(location: 0, length: attrString.length)
-        attrString.enumerateAttribute(attrName, in: range, options: .reverse) { object, range, pointer in
+        attrString.enumerateAttribute(NSAttributedStringKey(rawValue: attrName), in: range, options: .reverse) { object, range, pointer in
             if object == nil {
-                attrString.addAttributes([attrName: attr], range: range)
+                attrString.addAttributes([NSAttributedStringKey(rawValue: attrName): attr], range: range)
             }
         }
     }

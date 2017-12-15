@@ -394,7 +394,7 @@ final class DialogExtensionImpl(system: ActorSystem) extends DialogExtension wit
   private val EmptyTextMessage = ApiTextMessage(text = "", mentions = Vector.empty, ext = None)
 
   def getApiDialog(userId: Int, info: DialogInfo, sortDate: Instant): Future[ApiDialog] = {
-    val emptyMessage = HistoryMessage(userId, info.peer.get, new DateTime(0), 0, 0, EmptyTextMessage.header, EmptyTextMessage.toByteArray, None)
+    val emptyMessage = HistoryMessage(userId, info.peer.get, new DateTime(0), 0, 0, EmptyTextMessage.header, EmptyTextMessage.toByteArray, None, None)
     val peer = info.peer.get
 
     for {

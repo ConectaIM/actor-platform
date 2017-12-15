@@ -30,7 +30,6 @@ import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorSDKApplication;
 import im.actor.sdk.ActorStyle;
 import im.actor.sdk.BaseActorSDKDelegate;
-import im.actor.sdk.controllers.auth.AuthActivity;
 import im.actor.sdk.controllers.conversation.attach.AbsAttachFragment;
 import im.actor.sdk.controllers.conversation.messages.BubbleLayouter;
 import im.actor.sdk.controllers.conversation.messages.DefaultLayouter;
@@ -62,7 +61,6 @@ public class Application extends ActorSDKApplication {
     public void onConfigureActorSDK() {
         ActorSDK.sharedActor().setDelegate(new ActorSDKDelegate());
         ActorSDK.sharedActor().setPushId(43880936595L);
-        ActorSDK.sharedActor().setActorPushEndpoint(null);
         ActorSDK.sharedActor().setOnClientPrivacyEnabled(true);
         ActorStyle style = ActorSDK.sharedActor().style;
 
@@ -95,7 +93,7 @@ public class Application extends ActorSDKApplication {
         ActorSDK.sharedActor().setEndpoints(new String[]{getApplicationContext().getString(R.string.app_endpoint)});
 //        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://api-mtproto.im.xloto.com.br:9070"});
 //        ActorSDK.sharedActor().setEndpoints(new String[]{"tcp://api-mtproto.actor.diegosilva.com.br:9070"});
-       // ActorSDK.sharedActor().setAuthType(AuthActivity.AUTH_TYPE_PHONE);
+        // ActorSDK.sharedActor().setAuthType(AuthActivity.AUTH_TYPE_PHONE);
 
         ActorSDK.sharedActor().setStickersEnabled(false);
 

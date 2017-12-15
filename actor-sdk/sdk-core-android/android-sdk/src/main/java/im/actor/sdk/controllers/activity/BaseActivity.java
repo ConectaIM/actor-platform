@@ -4,15 +4,14 @@ import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import im.actor.core.entity.Avatar;
 import im.actor.core.viewmodel.Command;
@@ -95,23 +94,32 @@ public class BaseActivity extends AppCompatActivity {
         notifyOnPause();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+        }
+        return (super.onOptionsItemSelected(menuItem));
+    }
+
     // Binding
     protected void onPerformBind() {
         BINDER.bind(ActorSDK.sharedActor().getMessenger().getGlobalState().getIsConnecting(),
-            ActorSDK.sharedActor().getMessenger().getGlobalState().getIsSyncing(),(isConnecting, isSyncing) -> {
-                if(isConnecting || isSyncing){
-                    if(isConnecting){
-                        if(getSupportActionBar() != null)
-                            getSupportActionBar().setSubtitle(" "+getResources().getString(R.string.connecting)+"...");
-                    }else{
-                        if(getSupportActionBar() != null)
-                            getSupportActionBar().setSubtitle(" "+getResources().getString(R.string.syncing)+"...");
+                ActorSDK.sharedActor().getMessenger().getGlobalState().getIsSyncing(), (isConnecting, isSyncing) -> {
+                    if (isConnecting || isSyncing) {
+                        if (isConnecting) {
+                            if (getSupportActionBar() != null)
+                                getSupportActionBar().setSubtitle(" " + getResources().getString(R.string.connecting) + "...");
+                        } else {
+                            if (getSupportActionBar() != null)
+                                getSupportActionBar().setSubtitle(" " + getResources().getString(R.string.syncing) + "...");
+                        }
+                    } else {
+                        if (getSupportActionBar() != null)
+                            getSupportActionBar().setSubtitle("");
                     }
-                }else{
-                    if(getSupportActionBar() != null)
-                        getSupportActionBar().setSubtitle("");
-                }
-        });
+                });
     }
 
     public void bind(final TextView textView, Value<String> value) {
@@ -300,4 +308,6 @@ public class BaseActivity extends AppCompatActivity {
     protected boolean getIsResumed() {
         return isResumed;
     }
+
+
 }

@@ -61,7 +61,7 @@ public class Files {
         out.close();
     }
 
-    public static Uri getUri(Context ctx, String filePath){
-        return FileProvider.getUriForFile(ctx, "im.actor.sdk.android.provider", new File(filePath));
+    public static Uri getUri(Context ctx, String filePath) {
+        return FileProvider.getUriForFile(ctx, ctx.getPackageName() + ".provider", new File(filePath));
     }
 }

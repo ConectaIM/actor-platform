@@ -77,7 +77,7 @@ open class AAEditFieldController: AAContentTableController {
         }
     }
     
-    func doAction() {
+    @objc func doAction() {
         if fieldCell.text == nil {
             return
         }
@@ -86,7 +86,7 @@ open class AAEditFieldController: AAContentTableController {
         config.didDoneTap?(text, self)
     }
     
-    func doDismiss() {
+    @objc func doDismiss() {
         if config.didDismissTap != nil {
             config.didDismissTap!(self)
         } else {

@@ -147,8 +147,8 @@ public class PhotoHolder extends MessageHolder {
         };
 
         fastThumbLoader = new FastThumbLoader(previewView);
-        time = (TextView) itemView.findViewById(R.id.time);
-        duration = (TextView) itemView.findViewById(R.id.duration);
+        time = itemView.findViewById(R.id.time);
+        duration = itemView.findViewById(R.id.duration);
 
         stateIcon = (TintImageView) itemView.findViewById(R.id.stateIcon);
 
@@ -250,7 +250,6 @@ public class PhotoHolder extends MessageHolder {
         boolean needRebind = false;
         if (isNewMessage) {
             // Resetting old content state
-            // imageKitView.noRequest();
             fastThumbLoader.cancel();
 
             // Resetting binding
@@ -270,13 +269,13 @@ public class PhotoHolder extends MessageHolder {
 
             needRebind = true;
         }
+
         Log.d(TAG, "needRebind by new: " + needRebind);
 
         updated = false;
 
         currenrRid = currentMessage.getRid();
         Log.d(TAG, "updated: " + updated);
-
 
         if (needRebind) {
             anim = null;
@@ -301,7 +300,7 @@ public class PhotoHolder extends MessageHolder {
                 }
 
                 if (!updated) {
-                    previewView.setImageURI(null);
+                    previewView.setImageURI(Uri.EMPTY);
                 }
                 downloadFileVM = messenger().bindFile(((FileRemoteSource) fileMessage.getSource()).getFileReference(),
                         autoDownload, new DownloadVMCallback(fileMessage));
@@ -316,7 +315,7 @@ public class PhotoHolder extends MessageHolder {
                     bindImage(uri);
                 } else {
                     if (!updated) {
-                        previewView.setImageURI(null);
+                        previewView.setImageURI(Uri.EMPTY);
                         Log.d(TAG, "rebind video - setImageURI(null)!");
                     }
                     //TODO: better approach?
@@ -459,7 +458,7 @@ public class PhotoHolder extends MessageHolder {
 
         // Releasing images
         fastThumbLoader.cancel();
-        previewView.setImageURI(null);
+        previewView.setImageURI(Uri.EMPTY);
         previewView.destroyDrawingCache();
 
         playRequested = false;

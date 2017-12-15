@@ -17,6 +17,7 @@ object UserFields {
 }
 
 final class UserExtensionImpl(actorSystem: ActorSystem) extends UserExtension with UserOperations {
+
   UserProcessor.register()
 
   implicit val system = actorSystem

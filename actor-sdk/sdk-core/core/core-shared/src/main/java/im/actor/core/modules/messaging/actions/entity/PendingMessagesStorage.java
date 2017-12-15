@@ -7,12 +7,15 @@ package im.actor.core.modules.messaging.actions.entity;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import im.actor.runtime.Log;
 import im.actor.runtime.bser.Bser;
 import im.actor.runtime.bser.BserObject;
 import im.actor.runtime.bser.BserValues;
 import im.actor.runtime.bser.BserWriter;
 
 public class PendingMessagesStorage extends BserObject {
+
+    private static final String TAG = PendingMessagesStorage.class.getName();
 
     public static PendingMessagesStorage fromBytes(byte[] data) throws IOException {
         return Bser.parse(new PendingMessagesStorage(), data);
@@ -30,7 +33,7 @@ public class PendingMessagesStorage extends BserObject {
             try {
                 pendingMessages.add(PendingMessage.fromBytes(data));
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e);
             }
         }
     }

@@ -258,7 +258,7 @@ open class AAConvActionSheet: UIView, AAThumbnailViewDelegate {
     // Actions
     //
     
-    func sendPhotos() {
+    @objc func sendPhotos() {
         if self.thumbnailView != nil {
             self.thumbnailView.getSelectedAsImages { (images:[(Data,Bool)]) -> () in
                 (self.delegate?.actionSheetPickedImages(images))!
@@ -267,22 +267,22 @@ open class AAConvActionSheet: UIView, AAThumbnailViewDelegate {
         dismiss()
     }
     
-    func btnCameraAction() {
+    @objc func btnCameraAction() {
         delegate?.actionSheetPickCamera()
         dismiss()
     }
     
-    func btnLibraryAction() {
+    @objc func btnLibraryAction() {
         delegate?.actionSheetPickGallery()
         dismiss()
     }
     
-    func btnCustomAction(_ sender: UIButton) {
+    @objc func btnCustomAction(_ sender: UIButton) {
         delegate?.actionSheetCustomButton(sender.tag)
         dismiss()
     }
     
-    func btnCloseAction() {
+    @objc func btnCloseAction() {
         dismiss()
     }
     

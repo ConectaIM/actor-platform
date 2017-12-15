@@ -1,0 +1,154 @@
+apply plugin: 'application'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
+
+sourceCompatibility = 1.8
+
+sourceSets {
+    main {
+        resources.srcDirs = ['src/main/resources',
+                             '../../sdk-core/core/core-shared/src/main/resources'
+        ]
+        java {
+
+            srcDirs = ['src/main/java',
+                       '../../sdk-core/runtime/runtime-generic/src/main/java',
+                       '../../sdk-core/runtime/runtime-shared/src/main/java',
+                       '../../sdk-core/runtime/runtime-clc/src/main/java',
+                       '../../sdk-core/core/core-shared/src/main/java',
+            ]
+        }
+        resources {
+            srcDir 'res'
+        }
+
+    }
+    test {
+        java {
+            srcDirs = ["src/test/java"]
+        }
+    }
+}
+
+dependencies {
+    compile 'org.xerial:sqlite-jdbc:3.8.11.2'
+    compile 'org.slf4j:slf4j-api:1.7.18'
+    compile 'ch.qos.logback:logback-classic:1.1.6'
+    compile 'ch.qos.logback:logback-core:1.1.6'
+    testCompile "junit:junit:4.11"
+
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/"}
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        mavenLocal()
+    }
+
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+    }
+}
+
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+        // classpath 'me.tatarka:gradle-retrolambda:3.6.1'
+    }
+}
+
+//
+// Configuration of publishing
+//
+
+group = 'im.actor'
+version = '0.0.1'
+
+def baseVersion = "3.0"
+
+String ossrhUsername = ""
+String ossrhPassword = ""
+boolean isDeployConfigured = false
+if (project.rootProject.file('gradle.properties').exists()) {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('gradle.properties').newDataInputStream())
+    ossrhUsername = properties.getProperty("ossrhUsername", "")
+    ossrhPassword = properties.getProperty("ossrhPassword", "")
+    version = baseVersion + "." + properties.getProperty("build_index", "")
+
+    print("##teamcity[buildNumber '$version']")
+
+    nexusStaging {
+        username ossrhUsername
+        password ossrhPassword
+    }
+
+    isDeployConfigured = true
+}
+
+project.afterEvaluate {
+
+//	artifacts {
+//		//archives javadocJarRelease
+//		archives sourcesJarRelease
+//	}
+
+    if (isDeployConfigured) {
+
+//        signing {
+//            sign configurations.archives
+//        }
+
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    // beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                    repository(url: "http://nexus.diegosilva.com.br:8081/content/repositories/snapshots/") {
+                        authentication(userName: ossrhUsername, password: ossrhPassword)
+                    }
+
+                    pom.project {
+                        name 'Actor SDK for Android'
+                        packaging 'jar'
+                        description 'Actor SDK: Embedding mobile messaging to Android App'
+                        url 'https://github.com/actorapp/actor-platform'
+
+                        scm {
+                            url 'scm:git@github.com:actorapp/actor-platform.git'
+                            connection 'scm:git@github.com:actorapp/actor-platform.git'
+                            developerConnection 'scm:git@github.com:actorapp/actor-platform.git'
+                        }
+
+                        licenses {
+                            license {
+                                name 'The MIT License (MIT)'
+                                url 'http://opensource.org/licenses/MIT'
+                                distribution 'repo'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id 'ex3ndr'
+                                name 'Stepan Korshakov'
+                            }
+                            developer {
+                                id 'dfsilva'
+                                name 'Diego Silva'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

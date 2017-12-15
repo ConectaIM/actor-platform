@@ -25,7 +25,6 @@ target 'ActorApp' do
     pod 'YYWebImage'
     pod 'YYCategories'
     pod 'DZNWebViewController'
-    #pod 'AGEmojiKeyboard'
 
     # Small UI
     pod 'VBFPopFlatButton'
@@ -45,8 +44,8 @@ target 'ActorSDK' do
     # J2Objc Runtime
     #pod 'J2ObjC-Framework'
     
-    pod 'J2ObjC-Framework', :podspec => 'https://raw.githubusercontent.com/dfsilva/J2ObjC-Framework/v1.2a/J2ObjC-Framework.podspec'
-
+ 
+    pod 'J2ObjC-Framework', :podspec => 'https://raw.githubusercontent.com/dfsilva/J2ObjC-Framework/v2.0.5/J2ObjC-Framework.podspec'
     # Core Tools
     pod 'RegexKitLite'
     # pod 'CocoaAsyncSocket'
@@ -62,7 +61,6 @@ target 'ActorSDK' do
     pod 'YYWebImage'
     pod 'YYCategories'
     pod 'DZNWebViewController'
-    #pod 'AGEmojiKeyboard'
 
     # Small UI
     pod 'VBFPopFlatButton'

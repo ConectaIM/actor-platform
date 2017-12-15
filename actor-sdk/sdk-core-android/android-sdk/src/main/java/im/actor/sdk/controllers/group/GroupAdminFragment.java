@@ -63,14 +63,11 @@ public class GroupAdminFragment extends BaseFragment {
             groupTypeTitle.setText(R.string.group_type);
         }
 
-        bind(groupVM.getShortName(), new ValueChangedListener<String>() {
-            @Override
-            public void onChanged(String val, Value<String> valueModel) {
-                if (val == null) {
-                    groupTypeValue.setText(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.channel_type_private : R.string.group_type_private);
-                } else {
-                    groupTypeValue.setText(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.channel_type_pubic : R.string.group_type_pubic);
-                }
+        bind(groupVM.getShortName(), (val, valueModel) -> {
+            if (val == null) {
+                groupTypeValue.setText(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.channel_type_private : R.string.group_type_private);
+            } else {
+                groupTypeValue.setText(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.channel_type_pubic : R.string.group_type_pubic);
             }
         });
 

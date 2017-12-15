@@ -543,7 +543,7 @@
     <string name="not_sound_picker_subtitle">Configurar som da notificação.</string>
     <string name="notification_multiple_canversations_after_msg_count">" mensagem em "</string>
     <string name="notifications_multiple_canversations_after_coversations_count">" conversas"</string>
-    <string name="notifications_single_conversation_аfter_messages_count">" mensagems"</string>
+    <string name="notifications_single_conversation_after_messages_count">" mensagems"</string>
 
 
     <!-- Pick user -->
@@ -653,4 +653,12 @@
 
     <string name="connecting">Conectando</string>
     <string name="syncing">Sincronizando</string>
+
+    <array name="shared_media_tabs">
+        <item>Fotos</item>
+        <item>Vídeos</item>
+        <item>Documentos</item>
+    </array>
+
+    <string name="shared_media">Mídia Compartilhada</string>
 </resources>

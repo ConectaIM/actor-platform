@@ -13,6 +13,7 @@ import im.actor.core.network.AuthKeyStorage;
 import im.actor.core.network.Endpoints;
 import im.actor.core.network.TrustedKey;
 import im.actor.core.network.parser.Request;
+import im.actor.runtime.Log;
 import im.actor.runtime.actors.ActorRef;
 import im.actor.runtime.eventbus.BusSubscriber;
 import im.actor.runtime.eventbus.Event;
@@ -39,7 +40,7 @@ public class ApiModule extends AbsModule implements BusSubscriber {
             try {
                 endpoints = Endpoints.fromBytes(customEndpointsBytes);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(ApiModule.class.getName(), e);
             }
         }
 
@@ -53,9 +54,7 @@ public class ApiModule extends AbsModule implements BusSubscriber {
                 context().getConfiguration().isEnableNetworkLogging(),
                 context().getConfiguration().getMinDelay(),
                 context().getConfiguration().getMaxDelay(),
-                context().getConfiguration().getMaxFailureCount(),
-                context().getConfiguration().getRpcParses(),
-                context().getConfiguration().getUpdateParcers());
+                context().getConfiguration().getMaxFailureCount());
 
         context.getEvents().subscribe(this, AppVisibleChanged.EVENT);
 

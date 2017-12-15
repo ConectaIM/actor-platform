@@ -155,7 +155,7 @@ open class AAAuthEmailViewController: AAAuthViewController {
         scrollView.contentSize = CGSize(width: view.width, height: 420)
     }
     
-    open func usePhoneDidPressed() {
+    @objc open func usePhoneDidPressed() {
         let controllers = self.navigationController!.viewControllers
         let updatedControllers = Array(controllers[0..<(controllers.count - 1)]) + [AAAuthPhoneViewController(name: name)]
         self.navigationController?.setViewControllers(updatedControllers, animated: false)

@@ -1,0 +1,1 @@
+ALTER TABLE history_messages ADD message_type integer NULL;

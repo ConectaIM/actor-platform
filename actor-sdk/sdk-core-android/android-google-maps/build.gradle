@@ -1,20 +1,6 @@
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.github.dcendents:android-maven-plugin:1.2'
-        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
-        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-        classpath "com.google.gms:google-services:3.0.0"
-    }
-}
-//plugins {
-//    id "me.tatarka.retrolambda" version "3.6.1"
-//}
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: 'io.codearte.nexus-staging'
-apply plugin: 'me.tatarka.retrolambda'
 
 group = 'im.actor'
 version = '0.0.1'
@@ -22,8 +8,8 @@ version = '0.0.1'
 def baseVersion = "3.0"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
 
     defaultConfig {
         minSdkVersion 15
@@ -48,13 +34,10 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.3.1'
-
-    //compile 'im.actor:android-sdk:0.1.30'
-    compile project(':actor-sdk:sdk-core-android:android-sdk')
-
-    compile 'com.google.android.gms:play-services-maps:9.6.1'
-
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:support-v13:27.0.2'
+    api project(':actor-sdk:sdk-core-android:android-sdk')
+    implementation 'com.google.android.gms:play-services-maps:9.6.1'
 }
 
 //
@@ -65,41 +48,41 @@ dependencies {
 // Prepare Android JavaDocs and Sources jar
 //
 
-android.libraryVariants.all { variant ->
-
-    task("javadoc${variant.name.capitalize()}", type: Javadoc, dependsOn: "assemble${variant.name.capitalize()}") {
-
-        title = "Actor SDK for Android: Google Extension"
-
-        // Sources
-        source = variant.javaCompile.source
-
-        // First add all of your dependencies to the classpath, then add the android jars
-        classpath += files(variant.javaCompile.classpath.files)
-        classpath += files(android.getBootClasspath())
-
-        // Configuration
-        options.links("http://d.android.com/reference")
-        failOnError = false // TODO: Fix all errors
-
-        // We're excluding these generated files
-        // TODO: Fix
-        // exclude '**/BuildConfig.java'
-        // exclude '**/R.java'
-    }
-
-    task("javadocJar${variant.name.capitalize()}", type: Jar, dependsOn: "javadoc${variant.name.capitalize()}") {
-        classifier 'javadoc'
-        destinationDir = new File("$project.buildDir/libs/")
-        from "$project.buildDir/javadoc/$variant.name"
-    }
-
-    task("sourcesJar${variant.name.capitalize()}", type: Jar, dependsOn: "assemble${variant.name.capitalize()}") {
-        classifier 'sources'
-        destinationDir = new File("$project.buildDir/libs/")
-        from variant.javaCompile.source
-    }
-}
+//android.libraryVariants.all { variant ->
+//
+//    task("javadoc${variant.name.capitalize()}", type: Javadoc, dependsOn: "assemble${variant.name.capitalize()}") {
+//
+//        title = "Actor SDK for Android: Google Extension"
+//
+//        // Sources
+//        source = variant.javaCompile.source
+//
+//        // First add all of your dependencies to the classpath, then add the android jars
+//        classpath += files(variant.javaCompile.classpath.files)
+//        classpath += files(android.getBootClasspath())
+//
+//        // Configuration
+//        options.links("http://d.android.com/reference")
+//        failOnError = false // TODO: Fix all errors
+//
+//        // We're excluding these generated files
+//        // TODO: Fix
+//        // exclude '**/BuildConfig.java'
+//        // exclude '**/R.java'
+//    }
+//
+//    task("javadocJar${variant.name.capitalize()}", type: Jar, dependsOn: "javadoc${variant.name.capitalize()}") {
+//        classifier 'javadoc'
+//        destinationDir = new File("$project.buildDir/libs/")
+//        from "$project.buildDir/javadoc/$variant.name"
+//    }
+//
+//    task("sourcesJar${variant.name.capitalize()}", type: Jar, dependsOn: "assemble${variant.name.capitalize()}") {
+//        classifier 'sources'
+//        destinationDir = new File("$project.buildDir/libs/")
+//        from variant.javaCompile.source
+//    }
+//}
 
 //
 // Configuration of publishing
@@ -125,10 +108,10 @@ if (project.rootProject.file('gradle.properties').exists()) {
 
 project.afterEvaluate {
 
-    artifacts {
-        archives javadocJarRelease
-        archives sourcesJarRelease
-    }
+//    artifacts {
+//        archives javadocJarRelease
+//        archives sourcesJarRelease
+//    }
 
     if (isDeployConfigured) {
 
@@ -141,7 +124,7 @@ project.afterEvaluate {
                 mavenDeployer {
 //                    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                    repository(url: "http://nexus.diegosilva.com.br:8081/nexus/content/repositories/snapshots/") {
+                    repository(url: "http://nexus.diegosilva.com.br:8081/content/repositories/snapshots/") {
                         authentication(userName: ossrhUsername, password: ossrhPassword)
                     }
 

@@ -235,7 +235,7 @@ public class EncryptedPeerActor extends ModuleActor {
                             encData = ActorBox.openBox(ByteStrings.intToBytes(senderKeyGroup), encPackage, new ActorBoxKey(encKeyExtended));
                             Log.d(TAG, "Box size: " + encData.length);
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Log.e(TAG, e);
                             throw new RuntimeException(e);
                         }
                         return new DecryptBoxResponse(encData);

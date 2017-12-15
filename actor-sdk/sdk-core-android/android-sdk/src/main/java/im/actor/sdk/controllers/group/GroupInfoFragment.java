@@ -1,6 +1,7 @@
 package im.actor.sdk.controllers.group;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import im.actor.core.entity.GroupMember;
 import im.actor.core.entity.GroupType;
 import im.actor.core.entity.Peer;
+import im.actor.core.viewmodel.GroupPreVM;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.UserVM;
 import im.actor.sdk.ActorSDK;
@@ -36,8 +39,10 @@ import im.actor.sdk.controllers.Intents;
 import im.actor.sdk.controllers.activity.BaseActivity;
 import im.actor.sdk.controllers.fragment.preview.ViewAvatarActivity;
 import im.actor.sdk.controllers.group.view.MembersAdapter;
+import im.actor.sdk.controllers.grouppre.admin.GroupPreSelectParentActivity;
 import im.actor.sdk.util.ActorSDKMessenger;
 import im.actor.sdk.util.Screen;
+import im.actor.sdk.util.SnackUtils;
 import im.actor.sdk.view.TintImageView;
 import im.actor.sdk.view.adapters.RecyclerListView;
 import im.actor.sdk.view.avatar.AvatarView;
@@ -51,6 +56,9 @@ public class GroupInfoFragment extends BaseFragment {
 
     private static final String EXTRA_CHAT_ID = "chat_id";
     private ActorBinder.Binding[] memberBindings;
+    private SwitchCompat isGroupPreEnabled;
+    private TextView groupPreParentAction;
+    private View header;
 
     public static GroupInfoFragment create(int chatId) {
         Bundle args = new Bundle();
@@ -62,6 +70,7 @@ public class GroupInfoFragment extends BaseFragment {
 
     private int chatId;
     private GroupVM groupVM;
+    private GroupPreVM groupPreVm;
 
     private RecyclerListView listView;
     private AvatarView avatarView;
@@ -80,12 +89,15 @@ public class GroupInfoFragment extends BaseFragment {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         chatId = getArguments().getInt(EXTRA_CHAT_ID);
 
         groupVM = groups().get(chatId);
+
+        groupPreVm = messenger().getGroupPreVM(groupVM.getId());
 
         View res = inflater.inflate(R.layout.fragment_group, container, false);
         listView = (RecyclerListView) res.findViewById(R.id.groupList);
@@ -101,7 +113,7 @@ public class GroupInfoFragment extends BaseFragment {
         //
 
         // Views
-        View header = inflater.inflate(R.layout.fragment_group_header, listView, false);
+        header = inflater.inflate(R.layout.fragment_group_header, listView, false);
         TextView title = (TextView) header.findViewById(R.id.title);
         TextView subtitle = (TextView) header.findViewById(R.id.subtitle);
         avatarView = (AvatarView) header.findViewById(R.id.avatar);
@@ -118,6 +130,9 @@ public class GroupInfoFragment extends BaseFragment {
         TextView members = (TextView) header.findViewById(R.id.viewMembersAction);
         TextView leaveAction = (TextView) header.findViewById(R.id.leaveAction);
         TextView administrationAction = (TextView) header.findViewById(R.id.administrationAction);
+
+        isGroupPreEnabled = (SwitchCompat) header.findViewById(R.id.enableGroupPre);
+        groupPreParentAction = (TextView) header.findViewById(R.id.groupPreSelectParentAction);
 
         View descriptionContainer = header.findViewById(R.id.descriptionContainer);
         SwitchCompat isNotificationsEnabled = (SwitchCompat) header.findViewById(R.id.enableNotifications);
@@ -137,12 +152,21 @@ public class GroupInfoFragment extends BaseFragment {
                 .setTint(style.getSettingsIconColor());
         ((TintImageView) header.findViewById(R.id.settings_about_icon))
                 .setTint(style.getSettingsIconColor());
+
+        TextView settingsGroupPreTitle =  header.findViewById(R.id.settings_group_pre_title);
+        settingsGroupPreTitle.setTextColor(style.getTextPrimaryColor());
+        settingsGroupPreTitle.setText(groupVM.getGroupType() == GroupType.GROUP ? R.string.predefined_group : R.string.predefined_channel);
+
         ((TextView) header.findViewById(R.id.settings_notifications_title))
                 .setTextColor(style.getTextPrimaryColor());
         ((TextView) header.findViewById(R.id.addMemberAction))
                 .setTextColor(style.getTextPrimaryColor());
         members.setTextColor(style.getTextPrimaryColor());
         administrationAction.setTextColor(style.getTextPrimaryColor());
+
+        groupPreParentAction.setVisibility(View.GONE);
+        groupPreParentAction.setText(groupVM.getGroupType() == GroupType.GROUP ? R.string.parent_group : R.string.parent_channel);
+
         leaveAction.setTextColor(style.getTextDangerColor());
 
         if (groupVM.getGroupType() == GroupType.CHANNEL) {
@@ -162,6 +186,7 @@ public class GroupInfoFragment extends BaseFragment {
                 startActivity(ViewAvatarActivity.viewGroupAvatar(chatId, getActivity()));
             }
         });
+
         bind(groupVM.getName(), name -> {
             title.setText(name);
         });
@@ -174,6 +199,7 @@ public class GroupInfoFragment extends BaseFragment {
             aboutTV.setText(about);
             aboutTV.setVisibility(about != null ? View.VISIBLE : View.GONE);
         });
+
         bind(groupVM.getShortName(), shortName -> {
             if (shortName != null) {
                 shortNameView.setText("@" + shortName);
@@ -188,15 +214,15 @@ public class GroupInfoFragment extends BaseFragment {
             }
             shortNameCont.setVisibility(shortName != null ? View.VISIBLE : View.GONE);
         });
+
         final ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        shortNameCont.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String link = shortLinkView.getText().toString();
-                clipboard.setPrimaryClip(ClipData.newPlainText(null, (link.contains("://") ? "" : "https://") + link));
-                Toast.makeText(getActivity(), getString(R.string.invite_link_copied), Toast.LENGTH_SHORT).show();
-            }
+
+        shortNameCont.setOnClickListener(view -> {
+            String link = shortLinkView.getText().toString();
+            clipboard.setPrimaryClip(ClipData.newPlainText(null, (link.contains("://") ? "" : "https://") + link));
+            Toast.makeText(getActivity(), getString(R.string.invite_link_copied), Toast.LENGTH_SHORT).show();
         });
+
         bind(groupVM.getAbout(), groupVM.getShortName(), (about, shortName) -> {
             descriptionContainer.setVisibility(about != null || shortName != null
                     ? View.VISIBLE
@@ -208,6 +234,7 @@ public class GroupInfoFragment extends BaseFragment {
         isNotificationsEnabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
             messenger().changeNotificationsEnabled(Peer.group(chatId), isChecked);
         });
+
         header.findViewById(R.id.notificationsCont).setOnClickListener(v -> {
             isNotificationsEnabled.setChecked(!isNotificationsEnabled.isChecked());
         });
@@ -234,6 +261,9 @@ public class GroupInfoFragment extends BaseFragment {
         } else {
             administrationAction.setVisibility(View.GONE);
         }
+
+
+
 
         // Async Members
         // Showing member only when members available and async members is enabled
@@ -298,6 +328,7 @@ public class GroupInfoFragment extends BaseFragment {
                 }
             }
         });
+
         listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
             Object item = adapterView.getItemAtPosition(i);
             if (item != null && item instanceof GroupMember) {
@@ -365,6 +396,47 @@ public class GroupInfoFragment extends BaseFragment {
                 groupUserAdapter.setMembers(memberList);
             }
         });
+
+
+        // GroupPre
+        bind(groupPreVm.getIsLoaded(), isLoaded -> {
+            if(isLoaded){
+                isGroupPreEnabled.setChecked(true);
+                groupPreParentAction.setVisibility(View.VISIBLE);
+            }else{
+                isGroupPreEnabled.setChecked(false);
+                groupPreParentAction.setVisibility(View.GONE);
+            }
+        });
+
+        isGroupPreEnabled.setOnCheckedChangeListener((buttonView, isChecked)->{
+            messenger().changeGroupPre(groupVM.getId(), isChecked)
+                    .failure(ex ->{
+                        SnackUtils.showError(getView(), ex.getMessage(), Snackbar.LENGTH_LONG, null, null);
+                    });
+        });
+
+        header.findViewById(R.id.groupPreCont).setOnClickListener(v -> {
+            isGroupPreEnabled.setChecked(!isGroupPreEnabled.isChecked());
+        });
+
+        bind(groupPreVm.getParentId(), parentId -> {
+            if(parentId > 0){
+                 GroupPreVM parentVm = messenger().getGroupPreVM(parentId);
+                 bind(parentVm.getIsLoaded(), isLoaded -> {
+                     GroupVM groupParentVm = groups().get(parentId);
+                     groupPreParentAction.setText(groupParentVm.getName().get());
+                 });
+            }else{
+                groupPreParentAction.setText(groupVM.getGroupType() == GroupType.GROUP ? R.string.parent_group : R.string.parent_channel);
+            }
+        });
+
+        groupPreParentAction.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), GroupPreSelectParentActivity.class)
+                    .putExtra(Intents.EXTRA_GROUP_ID, chatId));
+        });
+
     }
 
     @Override

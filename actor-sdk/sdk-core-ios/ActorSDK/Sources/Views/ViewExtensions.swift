@@ -15,7 +15,7 @@ public extension UITabBarItem {
         
         self.init(title: AALocalized(title), image: UIImage.tinted(img, color: unselectedIcon), selectedImage: UIImage.tinted(selImage, color: selectedIcon))
         
-        setTitleTextAttributes([NSForegroundColorAttributeName: unselectedText], for: UIControlState())
-        setTitleTextAttributes([NSForegroundColorAttributeName: selectedText], for: UIControlState.selected)
+        setTitleTextAttributes([NSAttributedStringKey.foregroundColor: unselectedText], for: UIControlState())
+        setTitleTextAttributes([NSAttributedStringKey.foregroundColor: selectedText], for: UIControlState.selected)
     }
 }

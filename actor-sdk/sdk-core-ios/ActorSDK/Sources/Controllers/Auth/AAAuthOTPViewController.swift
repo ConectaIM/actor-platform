@@ -150,7 +150,7 @@ open class AAAuthOTPViewController: AAAuthViewController, MFMailComposeViewContr
         scrollView.contentSize = CGSize(width: view.width, height: 240 - 66)
     }
     
-    func haventReceivedCodeDidPressed() {
+    @objc func haventReceivedCodeDidPressed() {
         if ActorSDK.sharedActor().supportEmail != nil {
             if self.email != nil {
                 let emailController = MFMailComposeViewController()
@@ -242,7 +242,7 @@ open class AAAuthOTPViewController: AAAuthViewController, MFMailComposeViewContr
         self.codeField.becomeFirstResponder()
     }
     
-    func updateTimer() {
+    @objc func updateTimer() {
         
         counter -= 1
         

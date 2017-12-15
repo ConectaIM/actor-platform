@@ -8,7 +8,7 @@ object Publishing {
   def publishSettings(pomExtraVal: NodeSeq, org: String): Seq[Def.Setting[_]] = {
     Seq(
       publishTo := {
-        val nexus = "http://nexus.diegosilva.com.br:8081/nexus/"
+        val nexus = "http://nexus.diegosilva.com.br:8081/"
         if (isSnapshot.value)
           Some("snapshots" at nexus + "content/repositories/snapshots")
         else

@@ -148,7 +148,7 @@ open class AAContactsViewController: AAContactsListContentController, AAContacts
  
     // Searching for contact
     
-    open func findContact() {
+    @objc open func findContact() {
         
         startEditField { (c) -> () in
             c.title = "FindTitle"

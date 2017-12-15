@@ -9,7 +9,7 @@ import DZNWebViewController
 import SafariServices
 
 open class AAViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, RSKImageCropViewControllerDelegate, UIViewControllerTransitioningDelegate  {
-    
+ 
     // MARK: -
     // MARK: Public vars
     
@@ -168,7 +168,7 @@ open class AAViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     
-    open func dismissController() {
+    @objc open func dismissController() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -196,13 +196,14 @@ open class AAViewController: UIViewController, UINavigationControllerDelegate, U
         navigationController!.present(UINavigationController(rootViewController: cropController), animated: true, completion: nil)
     }
     
-    open func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
+    open func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
         if (pendingPickClosure != nil){
             pendingPickClosure!(croppedImage)
         }
         pendingPickClosure = nil
         navigationController!.dismiss(animated: true, completion: nil)
     }
+    
     
     open func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
         pendingPickClosure = nil

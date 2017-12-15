@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="grupo_pre_action">GroupPre Settings</string>
+    <string name="channel_pre_admin_title">Canal pre-definido</string>
+    <string name="group_pre_admin_title">Grupo pre-definido</string>
+    <string name="select_group_parent">Selecionar Grupo Pai</string>
+</resources>

@@ -93,13 +93,13 @@ open class AAWelcomeController: AAViewController {
         self.bgImage.frame = view.bounds
     }
     
-    open func signupAction() {
+    @objc open func signupAction() {
         // TODO: Remove BG after auth?
         UIApplication.shared.keyWindow?.backgroundColor = ActorSDK.sharedActor().style.welcomeBgColor
         self.presentElegantViewController(AAAuthNavigationController(rootViewController: AAAuthNameViewController()))
     }
     
-    open func signInAction() {
+    @objc open func signInAction() {
         // TODO: Remove BG after auth?
         UIApplication.shared.keyWindow?.backgroundColor = ActorSDK.sharedActor().style.welcomeBgColor
         self.presentElegantViewController(AAAuthNavigationController(rootViewController: AAAuthLogInViewController()))

@@ -39,7 +39,7 @@ open class AAAvatarCell: AATableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func avatarDidTap() {
+    @objc func avatarDidTap() {
         didTap?(avatarView)
     }
     

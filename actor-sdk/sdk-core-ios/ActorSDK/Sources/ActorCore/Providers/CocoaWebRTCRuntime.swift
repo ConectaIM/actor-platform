@@ -78,8 +78,8 @@ class CocoaWebRTCRuntime: NSObject, ARWebRTCRuntime {
             self.videoSourceLoaded = true
             
             var cameraID: String?
-            for captureDevice in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
-                if (captureDevice as AnyObject).position == AVCaptureDevicePosition.front {
+            for captureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
+                if (captureDevice as AnyObject).position == AVCaptureDevice.Position.front {
                     cameraID = (captureDevice as AnyObject).localizedName
                 }
             }
@@ -118,7 +118,7 @@ class CocoaWebRTCRuntime: NSObject, ARWebRTCRuntime {
         for i in 0..<stream.videoTracks.count {
             let track = CocoaVideoTrack(videoTrack: stream.videoTracks[i] as! RTCVideoTrack)
             videoTracks.replaceObject(at: UInt(i), with: track)
-            allTracks.replaceObject(at: UInt(i + audioTracks.length()), with: track)
+            allTracks.replaceObject(at: UInt((Int(i).advanced(by: Int(audioTracks.length())))), with: track)
         }
     }
     

@@ -37,7 +37,6 @@ public class SequenceActor extends ModuleActor {
         return () -> new SequenceActor(context);
     }
 
-    // Do Not Remove! WorkAround for missing j2objc translator include
     private static final Void DUMB = null;
 
     private static final String TAG = "Updates";

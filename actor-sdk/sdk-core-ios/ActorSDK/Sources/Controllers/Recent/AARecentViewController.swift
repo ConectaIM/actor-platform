@@ -64,7 +64,7 @@ open class AARecentViewController: AADialogsListContentController, AADialogsList
         }
     }
     
-    open func compose() {
+    @objc open func compose() {
         if let composeController = ActorSDK.sharedActor().delegate.actiorControllerForCompose() {
             if AADevice.isiPad {
                 self.presentElegantViewController(AANavigationController(rootViewController: composeController))

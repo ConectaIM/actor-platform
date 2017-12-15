@@ -1,4 +1,8 @@
 buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
     }
@@ -8,7 +12,7 @@ apply plugin: 'war'
 apply plugin: 'gwt'
 
 gwt {
-    gwtVersion = '2.8.0-beta1'
+    gwtVersion = '2.8.2'
     modules 'im.actor.ActorCore'
     devModules 'im.actor.ActorCoreDev'
 
@@ -16,7 +20,7 @@ gwt {
         strict = true
         // style = "PRETTY" //"OBF"
         style = "OBF"
-        enableClosureCompiler = true
+//        enableClosureCompiler = true
         disableClassMetadata = true
         disableCastChecking = true
     }
@@ -28,7 +32,11 @@ gwt {
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main/java', '../core-shared/src/main/java', '../core-shared/src/ext/java', '../../runtime/runtime-shared/src/main/java', '../../runtime/runtime-js/src/main/java']
+            srcDirs = ['src/main/java',
+                       '../core-shared/src/main/java',
+                       '../core-shared/src/ext/java',
+                       '../../runtime/runtime-shared/src/main/java',
+                       '../../runtime/runtime-js/src/main/java']
         }
         resources {
             srcDirs = ['../core-shared/src/main/resources']
@@ -37,11 +45,11 @@ sourceSets {
 }
 
 dependencies {
-    gwt 'org.timepedia.exporter:gwtexporter:2.4.0'
+    gwt 'org.timepedia.exporter:gwtexporter:2.5.1'
 
     // Hack for IntelliJ IDEA
-    providedCompile 'com.google.gwt:gwt-user:2.8.0-beta1'
-    providedCompile 'org.timepedia.exporter:gwtexporter:2.4.0'
+    providedCompile 'com.google.gwt:gwt-user:2.8.2'
+    providedCompile 'org.timepedia.exporter:gwtexporter:2.5.1'
 }
 
 task buildPackage(dependsOn: ['war']) {

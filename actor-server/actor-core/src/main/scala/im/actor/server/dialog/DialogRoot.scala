@@ -218,7 +218,6 @@ private class DialogRoot(val userId: Int, extensions: Seq[ApiExtension])
         _ ← db.run(HistoryMessageRepo.deleteAll(userId, peer))
         seqState ← seqUpdExt.deliverClientUpdate(userId, clientAuthId, update = UpdateChatDelete(peer.asStruct))
         _ ← sendChatGroupsChanged(0L)
-        //        _ = thatDialog ! PoisonPill // kill that dialog would be good
       } yield seqState) pipeTo sender()
     }
   }

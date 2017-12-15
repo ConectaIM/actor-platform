@@ -45,7 +45,6 @@ import im.actor.sdk.core.AndroidPhoneBook;
 import im.actor.sdk.intents.ActorIntent;
 import im.actor.sdk.intents.ActorIntentActivity;
 import im.actor.sdk.intents.ActorIntentFragmentActivity;
-import im.actor.sdk.push.ActorPushRegister;
 import im.actor.sdk.services.KeepAliveService;
 import im.actor.sdk.util.Devices;
 
@@ -124,10 +123,6 @@ public class ActorSDK {
      */
     private int smsCodePosition = 7;
 
-    /**
-     * Actor Push Endpoint
-     */
-    private String actorPushEndpoint = "https://push.actor.im/apps/31337/subscriptions";
     /**
      * Is Keeping app alive enabled
      */
@@ -279,16 +274,6 @@ public class ActorSDK {
 
 
             //
-            // Actor Push
-            //
-            if (actorPushEndpoint != null) {
-                ActorPushRegister.registerForPush(application, actorPushEndpoint, endpoint -> {
-                    Log.d(TAG, "On Actor push registered: " + endpoint);
-                    messenger.registerActorPush(endpoint);
-                });
-            }
-
-            //
             // GCM
             //
             try {
@@ -322,14 +307,6 @@ public class ActorSDK {
         }
 
         //parsers
-
-        for (BaseParser r : rpcParsers) {
-            builder.addRpcParser(r);
-        }
-
-        for (BaseParser u : updateParsers) {
-            builder.addUpdateParser(u);
-        }
 
         builder.setPhoneBookProvider(new AndroidPhoneBook());
         builder.setVideoCallsEnabled(videoCallsEnabled);
@@ -626,23 +603,6 @@ public class ActorSDK {
         this.pushId = pushId;
     }
 
-    /**
-     * Getting Actor Push notification service endpoint
-     *
-     * @return endpoint
-     */
-    public String getActorPushEndpoint() {
-        return actorPushEndpoint;
-    }
-
-    /**
-     * Setting Actor push notification service endpoint
-     *
-     * @param actorPushEndpoint endpoint
-     */
-    public void setActorPushEndpoint(String actorPushEndpoint) {
-        this.actorPushEndpoint = actorPushEndpoint;
-    }
 
     /**
      * Getting account support phone

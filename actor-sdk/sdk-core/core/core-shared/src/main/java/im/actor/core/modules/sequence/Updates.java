@@ -47,7 +47,6 @@ public class Updates extends AbsModule implements BusSubscriber {
         this.updateHandlerInt = new SequenceHandlerInt(this.updateHandler);
         this.updateActor = system().actorOf("actor/updates", SequenceActor.CONSTRUCTOR(context()));
 
-
         context().getEvents().subscribe(this, NewSessionCreated.EVENT);
     }
 

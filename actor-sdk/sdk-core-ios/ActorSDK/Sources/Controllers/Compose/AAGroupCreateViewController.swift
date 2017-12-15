@@ -84,9 +84,9 @@ open class AAGroupCreateViewController: AAViewController, UITextFieldDelegate {
         groupName.keyboardType = UIKeyboardType.default
         groupName.returnKeyType = UIReturnKeyType.next
         if isChannel {
-            groupName.attributedPlaceholder = NSAttributedString(string: AALocalized("CreateChannelNamePlaceholder"), attributes: [NSForegroundColorAttributeName: ActorSDK.sharedActor().style.vcHintColor])
+            groupName.attributedPlaceholder = NSAttributedString(string: AALocalized("CreateChannelNamePlaceholder"), attributes: [NSAttributedStringKey.foregroundColor: ActorSDK.sharedActor().style.vcHintColor])
         } else {
-            groupName.attributedPlaceholder = NSAttributedString(string: AALocalized("CreateGroupNamePlaceholder"), attributes: [NSForegroundColorAttributeName: ActorSDK.sharedActor().style.vcHintColor])
+            groupName.attributedPlaceholder = NSAttributedString(string: AALocalized("CreateGroupNamePlaceholder"), attributes: [NSAttributedStringKey.foregroundColor: ActorSDK.sharedActor().style.vcHintColor])
         }
         groupName.delegate = self
         groupName.contentVerticalAlignment = UIControlContentVerticalAlignment.center
@@ -118,7 +118,7 @@ open class AAGroupCreateViewController: AAViewController, UITextFieldDelegate {
         groupNameFieldSeparator.frame = CGRect(x: 20, y: 156 + 66, width: view.width - 20, height: 0.5)
     }
     
-    open func photoTap() {
+    @objc open func photoTap() {
         let hasCamera = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         self.showActionSheet(hasCamera ? ["PhotoCamera", "PhotoLibrary"] : ["PhotoLibrary"],
             cancelButton: "AlertCancel",
@@ -149,7 +149,7 @@ open class AAGroupCreateViewController: AAViewController, UITextFieldDelegate {
         return false
     }
     
-    open func doNext() {
+    @objc open func doNext() {
         let title = groupName.text!.trim()
         if (title.length == 0) {
             shakeView(groupName, originalX: groupName.frame.origin.x)

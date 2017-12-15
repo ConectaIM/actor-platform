@@ -77,6 +77,7 @@
                     android:lines="1"
                     android:paddingRight="24dp"
                     android:singleLine="true"
+                    android:maxLines="1"
                     android:text="file.txt"
                     android:textSize="16sp" />
 
@@ -86,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:lines="1"
                     android:singleLine="true"
+                    android:maxLines="1"
                     android:text="125kb, ZIP"
                     android:textSize="14sp" />
 

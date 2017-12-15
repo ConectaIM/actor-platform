@@ -128,12 +128,13 @@ public class ChatToolbarFragment extends BaseFragment {
         barAvatar.init(Screen.dp(32), 18);
 
         barView.findViewById(R.id.titleContainer).setOnClickListener(v -> {
-            if (peer.getPeerType() == PeerType.PRIVATE) {
-                ActorSDKLauncher.startProfileActivity(getActivity(), peer.getPeerId());
-            } else if (peer.getPeerType() == PeerType.GROUP) {
-                ActorSDK.sharedActor().startGroupInfoActivity(getActivity(), peer.getPeerId());
-            } else {
-                // Nothing to do
+            switch (peer.getPeerType()) {
+                case PeerType.PRIVATE:
+                    ActorSDKLauncher.startProfileActivity(getActivity(), peer.getPeerId());
+                    break;
+                case PeerType.GROUP:
+                    ActorSDK.sharedActor().startGroupInfoActivity(getActivity(), peer.getPeerId());
+                    break;
             }
         });
     }

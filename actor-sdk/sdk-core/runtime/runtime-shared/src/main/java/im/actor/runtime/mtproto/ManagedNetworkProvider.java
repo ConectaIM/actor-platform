@@ -13,9 +13,14 @@ import im.actor.runtime.NetworkRuntime;
 public class ManagedNetworkProvider implements NetworkRuntime {
 
     private final AsyncConnectionFactory factory;
+
     // Persisting pending connections to avoiding GC
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private final ArrayList<ManagedConnection> pendingConnections = new ArrayList<ManagedConnection>();
+
+    public ManagedNetworkProvider() {
+        factory = null;
+    }
 
     @ObjectiveCName("initWithFactory:")
     public ManagedNetworkProvider(AsyncConnectionFactory factory) {

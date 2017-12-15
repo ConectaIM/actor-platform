@@ -71,6 +71,18 @@ final class GroupsServiceImpl(groupInviteConfig: GroupInviteConfig)(implicit act
       }
     }
 
+  override protected def doHandleLoadGroups(
+    groups:     IndexedSeq[ApiGroupOutPeer],
+    clientData: ClientData
+  ): Future[HandlerResult[ResponseLoadGroups]] =
+    authorized(clientData) { implicit client ⇒
+      withGroupOutPeers(groups) {
+        for {
+          apiGroups ← FutureExt.ftraverse(groups)(group ⇒ groupExt.getApiStruct(group.groupId, client.userId))
+        } yield Ok(ResponseLoadGroups(apiGroups.toVector))
+      }
+    }
+
   /**
    * Make user admin
    *

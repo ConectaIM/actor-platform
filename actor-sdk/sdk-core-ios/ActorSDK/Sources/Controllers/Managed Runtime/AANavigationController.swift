@@ -57,7 +57,7 @@ open class AANavigationController: UINavigationController {
     
     fileprivate func styleNavBar() {
         navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: ActorSDK.sharedActor().style.navigationTitleColor]
+            [NSAttributedStringKey.foregroundColor: ActorSDK.sharedActor().style.navigationTitleColor]
         navigationBar.tintColor = ActorSDK.sharedActor().style.navigationTintColor
         navigationBar.barTintColor = ActorSDK.sharedActor().style.navigationBgColor
         navigationBar.isTranslucent = ActorSDK.sharedActor().style.navigationIsTransluent

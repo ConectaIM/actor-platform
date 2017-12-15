@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.droidkit.progress.CircularView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,10 +49,11 @@ import im.actor.sdk.util.images.common.ImageLoadException;
 import im.actor.sdk.util.images.ops.ImageLoading;
 import im.actor.sdk.view.MaterialInterpolator;
 import im.actor.sdk.view.avatar.AvatarView;
-import uk.co.senab.photoview.DefaultOnDoubleTapListener;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 import static im.actor.sdk.util.ActorSDKMessenger.users;
+
+//import uk.co.senab.photoview.DefaultOnDoubleTapListener;
+//import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class PictureActivity extends BaseActivity {
 
@@ -296,29 +299,30 @@ public class PictureActivity extends BaseActivity {
                 bitmap = null;
 
             attacher = new PhotoViewAttacher(imageView);
-            attacher.setOnDoubleTapListener(new DefaultOnDoubleTapListener(attacher) {
+            attacher.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
                 @Override
-                public boolean onSingleTapConfirmed(MotionEvent e) {
+                public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
                     if (!uiIsHidden) {
                         hideSystemUi();
                     } else {
                         showSystemUi();
                     }
-                    return super.onSingleTapConfirmed(e);
+                    return false;
                 }
 
                 @Override
-                public boolean onDoubleTap(MotionEvent e) {
+                public boolean onDoubleTap(MotionEvent motionEvent) {
                     if (!uiIsHidden)
                         hideSystemUi();
-                    return super.onDoubleTap(e);
+                    return false;
                 }
 
                 @Override
-                public boolean onDoubleTapEvent(MotionEvent e) {
-                    return super.onDoubleTapEvent(e);
+                public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+                    return false;
                 }
             });
+
 
 //            imageView = (ImageKitView) rootView.findViewById(R.id.image);
 //            imageView.setExtraReceiverCallback(new ReceiverCallback() {
@@ -464,8 +468,9 @@ public class PictureActivity extends BaseActivity {
         @Override
         public void onDestroyView() {
             super.onDestroyView();
-            if (attacher != null)
-                attacher.cleanup();
+//            if (attacher != null)
+//                attacher.cleanup();
+//
         }
 
         @Override

@@ -120,11 +120,11 @@ open class AARootTabViewController : UITabBarController, MFMessageComposeViewCon
         }
     }
     
-    open func showSmsInvitation() {
+    @objc open func showSmsInvitation() {
         showSmsInvitation(nil)
     }
     
-    open func doAddContact() {
+    @objc open func doAddContact() {
         let alertView = UIAlertView(
             title: AALocalized("ContactsAddHeader"),
             message: AALocalized("ContactsAddHint"),

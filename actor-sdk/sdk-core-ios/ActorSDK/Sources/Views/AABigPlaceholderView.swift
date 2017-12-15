@@ -105,7 +105,7 @@ class AABigPlaceholderView: UIView {
             paragraphStyle.alignment = NSTextAlignment.center
             
             let attrString = NSMutableAttributedString(string: subtitle!)
-            attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
 
             subtitleLabel.attributedText = attrString
             
@@ -129,7 +129,7 @@ class AABigPlaceholderView: UIView {
             paragraphStyle.alignment = NSTextAlignment.center
             
             let attrString = NSMutableAttributedString(string: subtitle2!)
-            attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
             
             subtitle2Label.attributedText = attrString
             

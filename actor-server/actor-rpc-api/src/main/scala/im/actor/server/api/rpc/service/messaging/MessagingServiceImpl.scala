@@ -1,13 +1,13 @@
 package im.actor.server.api.rpc.service.messaging
 
 import akka.actor._
-import im.actor.api.rpc.{ CommonRpcErrors, RpcError }
+import im.actor.api.rpc.{ClientData, CommonRpcErrors, RpcError}
 import im.actor.api.rpc.messaging._
 import im.actor.server.db.DbExtension
-import im.actor.server.dialog.{ DialogErrors, DialogExtension, InvalidAccessHash, NotUniqueRandomId }
-import im.actor.server.group.{ GroupErrors, GroupExtension }
+import im.actor.server.dialog.{DialogErrors, DialogExtension, InvalidAccessHash, NotUniqueRandomId}
+import im.actor.server.group.{GroupErrors, GroupExtension}
 import im.actor.server.sequence.SeqUpdatesExtension
-import im.actor.server.social.{ SocialExtension, SocialManagerRegion }
+import im.actor.server.social.{SocialExtension, SocialManagerRegion}
 import im.actor.server.user.UserExtension
 import slick.driver.PostgresDriver.api._
 

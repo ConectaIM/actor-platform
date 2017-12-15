@@ -19,11 +19,13 @@ import Foundation
     }
     
     func createKeyValue(withName name: String!) -> ARKeyValueStorage! {
-        return FMDBKeyValue(databasePath: dbPath, tableName: name)
+        let retorno = FMDBKeyValue(databasePath: dbPath, tableName: name);
+        return retorno
     }
     
     func createList(withName name: String!) -> ARListStorage! {
-        return FMDBList(databasePath: dbPath, tableName: name)
+        let retorno = FMDBList(databasePath: dbPath, tableName: name) as ARListStorageDisplayEx
+        return retorno;
     }
     
     func resetStorage() {

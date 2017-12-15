@@ -187,7 +187,7 @@ public class LocationHolder extends MessageHolder {
     public void unbind() {
         super.unbind();
 
-        previewView.setImageURI(null);
+        previewView.setImageURI(Uri.EMPTY);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, File> {

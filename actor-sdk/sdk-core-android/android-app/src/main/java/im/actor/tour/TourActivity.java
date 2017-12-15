@@ -4,7 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -22,7 +22,7 @@ import im.actor.sdk.util.Screen;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 
-public class TourActivity extends ActionBarActivity {
+public class TourActivity extends AppCompatActivity {
 
     private int lastPageIndex = 3;
     private int contentTopPadding;

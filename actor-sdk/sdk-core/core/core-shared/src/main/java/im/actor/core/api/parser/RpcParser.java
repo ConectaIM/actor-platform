@@ -68,6 +68,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 210: return RequestMessageSetReaction.fromBytes(payload);
             case 220: return RequestMessageRemoveReaction.fromBytes(payload);
             case 118: return RequestLoadHistory.fromBytes(payload);
+            case 262: return RequestLoadDocsHistory.fromBytes(payload);
             case 104: return RequestLoadDialogs.fromBytes(payload);
             case 2651: return RequestLoadArchived.fromBytes(payload);
             case 225: return RequestLoadGroupedDialogs.fromBytes(payload);
@@ -76,6 +77,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 224: return RequestFavouriteDialog.fromBytes(payload);
             case 227: return RequestUnfavouriteDialog.fromBytes(payload);
             case 2785: return RequestNotifyDialogOpened.fromBytes(payload);
+            case 593: return RequestLoadGroups.fromBytes(payload);
             case 2782: return RequestLoadFullGroups.fromBytes(payload);
             case 2786: return RequestLoadMembers.fromBytes(payload);
             case 230: return RequestCreateGroup.fromBytes(payload);
@@ -104,6 +106,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 65: return RequestCreateGroupObsolete.fromBytes(payload);
             case 199: return RequestEnterGroupObsolete.fromBytes(payload);
             case 214: return RequestMakeUserAdminObsolete.fromBytes(payload);
+            case 1281: return RequestCreateSurvey.fromBytes(payload);
             case 238: return RequestLoadOwnStickers.fromBytes(payload);
             case 244: return RequestAddStickerCollection.fromBytes(payload);
             case 245: return RequestRemoveStickerCollection.fromBytes(payload);
@@ -183,6 +186,9 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 229: return RequestNotifyAboutDeviceInfo.fromBytes(payload);
             case 116: return RequestInitWebaction.fromBytes(payload);
             case 123: return RequestCompleteWebaction.fromBytes(payload);
+            case 23: return RequestLoadGroupsPre.fromBytes(payload);
+            case 24: return RequestChangeGroupPre.fromBytes(payload);
+            case 34: return RequestChangeGroupParent.fromBytes(payload);
             case 193: return ResponseStartPhoneAuth.fromBytes(payload);
             case 186: return ResponseStartEmailAuth.fromBytes(payload);
             case 2572: return ResponseStartUsernameAuth.fromBytes(payload);
@@ -198,10 +204,12 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 2639: return ResponseLoadBlockedUsers.fromBytes(payload);
             case 219: return ResponseReactionsResponse.fromBytes(payload);
             case 119: return ResponseLoadHistory.fromBytes(payload);
+            case 263: return ResponseLoadDocsHistory.fromBytes(payload);
             case 105: return ResponseLoadDialogs.fromBytes(payload);
             case 2652: return ResponseLoadArchived.fromBytes(payload);
             case 226: return ResponseLoadGroupedDialogs.fromBytes(payload);
             case 235: return ResponseDialogsOrder.fromBytes(payload);
+            case 594: return ResponseLoadGroups.fromBytes(payload);
             case 2783: return ResponseLoadFullGroups.fromBytes(payload);
             case 2787: return ResponseLoadMembers.fromBytes(payload);
             case 216: return ResponseCreateGroup.fromBytes(payload);
@@ -212,6 +220,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 66: return ResponseCreateGroupObsolete.fromBytes(payload);
             case 200: return ResponseEnterGroupObsolete.fromBytes(payload);
             case 215: return ResponseMakeUserAdminObsolete.fromBytes(payload);
+            case 1282: return ResponseCreateSurvey.fromBytes(payload);
             case 240: return ResponseStickersReponse.fromBytes(payload);
             case 239: return ResponseLoadOwnStickers.fromBytes(payload);
             case 247: return ResponseLoadStickerCollection.fromBytes(payload);
@@ -252,6 +261,7 @@ public class RpcParser extends BaseParser<RpcScope> {
             case 209: return ResponseBool.fromBytes(payload);
             case 117: return ResponseInitWebaction.fromBytes(payload);
             case 124: return ResponseCompleteWebaction.fromBytes(payload);
+            case 20: return ResponseLoadGroupsPre.fromBytes(payload);
             case 13: return SeqUpdate.fromBytes(payload);
             case 73: return FatSeqUpdate.fromBytes(payload);
             case 26: return WeakUpdate.fromBytes(payload);

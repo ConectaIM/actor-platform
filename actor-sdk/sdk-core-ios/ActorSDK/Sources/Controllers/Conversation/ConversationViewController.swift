@@ -394,7 +394,7 @@ final public class ConversationViewController:
                         membersString = membersString! + ", ";
                         let onlineString = Actor.getFormatter().formatGroupOnline(onlineCount!.intValue());
                         let attributedString = NSMutableAttributedString(string: (membersString! + onlineString!))
-                        attributedString.addAttribute(NSForegroundColorAttributeName, value: self.appStyle.userOnlineNavigationColor, range: NSMakeRange(membersString!.length, onlineString!.length))
+                        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: self.appStyle.userOnlineNavigationColor, range: NSMakeRange(membersString!.length, onlineString!.length))
                         self.subtitleView.attributedText = attributedString
                     }
                 }
@@ -1010,7 +1010,7 @@ final public class ConversationViewController:
         }
     }
     
-    func beginRecord(_ button:UIButton,event:UIEvent) {
+    @objc func beginRecord(_ button:UIButton,event:UIEvent) {
         
         self.voiceRecorderView.startAnimation()
         
@@ -1028,7 +1028,7 @@ final public class ConversationViewController:
         self.onAudioRecordingStarted()
     }
     
-    func mayCancelRecord(_ button:UIButton,event:UIEvent) {
+    @objc func mayCancelRecord(_ button:UIButton,event:UIEvent) {
         
         let touches : Set<UITouch> = event.touches(for: button)!
         let touch = touches.first!
@@ -1086,7 +1086,7 @@ final public class ConversationViewController:
         
     }
     
-    func finishRecord(_ button:UIButton,event:UIEvent) {
+    @objc func finishRecord(_ button:UIButton,event:UIEvent) {
         closeRecorderAnimation()
         self.voiceRecorderView.isHidden = true
         self.stickersButton.isHidden = false
@@ -1098,13 +1098,13 @@ final public class ConversationViewController:
     // MARK: - Stickers actions
     ////////////////////////////////////////////////////////////
     
-    open func updateStickersStateOnCloseKeyboard() {
+    @objc open func updateStickersStateOnCloseKeyboard() {
         self.stickersOpen = false
         self.stickersButton.setImage(UIImage.bundled("sticker_button"), for: UIControlState())
         self.textInputbar.textView.inputView = nil
     }
     
-    open func changeKeyboard() {
+    @objc open func changeKeyboard() {
         if self.stickersOpen == false {
             self.textInputbar.textView.inputView = self.stickersView
             self.textInputbar.textView.inputView?.isOpaque = false

@@ -46,7 +46,6 @@ import im.actor.core.events.UserVisible;
 import im.actor.core.i18n.I18nEngine;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.Modules;
-import im.actor.core.network.parser.BaseParser;
 import im.actor.core.util.ActorTrace;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.CallVM;
@@ -62,6 +61,7 @@ import im.actor.core.viewmodel.FileVM;
 import im.actor.core.viewmodel.FileVMCallback;
 import im.actor.core.viewmodel.GlobalStateVM;
 import im.actor.core.viewmodel.GroupAvatarVM;
+import im.actor.core.viewmodel.GroupPreVM;
 import im.actor.core.viewmodel.GroupVM;
 import im.actor.core.viewmodel.OwnAvatarVM;
 import im.actor.core.viewmodel.StickersVM;
@@ -89,7 +89,7 @@ public class Messenger {
 
     protected Modules modules;
 
-    public static BaseParser[] extraRpcParsers;
+//    public static BaseParser[] extraRpcParsers;
 
     /**
      * Construct messenger
@@ -124,7 +124,7 @@ public class Messenger {
         // timing.section("Modules:Run");
         this.modules.run();
 
-        extraRpcParsers = configuration.getRpcParses();
+        //extraRpcParsers = configuration.getRpcParses();
 
         // timing.end();
     }
@@ -712,6 +712,18 @@ public class Messenger {
     @ObjectiveCName("getConversationVM")
     public ConversationVM getConversationVM(Peer peer) {
         return modules.getMessagesModule().getConversationVM(peer);
+    }
+
+    /**
+     * Getting GroupPre VM
+     *
+     * @param groupId
+     * @return GroupPre VM
+     */
+    @NotNull
+    @ObjectiveCName("getGroupPreVM")
+    public GroupPreVM getGroupPreVM(long groupId){
+        return modules.getGrupoPreModule().getGrupoPreVM(groupId);
     }
 
 
@@ -1550,6 +1562,13 @@ public class Messenger {
     @ObjectiveCName("createGroupWithTitle:withAvatar:withUids:")
     public Promise<Integer> createGroup(String title, String avatarDescriptor, int[] uids) {
         return modules.getGroupsModule().createGroup(title, avatarDescriptor, uids);
+    }
+
+
+    @NotNull
+    @ObjectiveCName("changeGroupPreWithGroupId:withIsGroupPre:")
+    public Promise<Void> changeGroupPre(int groupId, boolean isGroupPre) {
+        return modules.getGrupoPreModule().changeGroupPre(groupId, isGroupPre);
     }
 
     /**
@@ -2779,6 +2798,7 @@ public class Messenger {
      *
      * @return Module Contexts
      */
+    @NotNull
     @ObjectiveCName("getModulesContext")
     public ModuleContext getModuleContext() {
         return modules;

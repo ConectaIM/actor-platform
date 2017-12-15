@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package im.actor.server;
+
+option (scalapb.options) = {
+    flat_package: true
+    import: "im.actor.server.api.TypeMappers._"
+    import: "scala.collection.JavaConversions._"
+    primitive_wrappers: true
+    single_file: true
+};
+
+import "scalapb/scalapb.proto";
+import "google/protobuf/wrappers.proto";
+import "core/sequence.proto";
+
+message GroupPre {
+    int32 group_id = 1;
+    string tipo = 2;
+    int32 ordem = 3;
+    bool possuiFilhos = 4;
+    int32 idPai = 5;
+    int64 acessHash = 6;
+}
+
+//message GroupPreEvents {
+//    message Created {
+//        option (scalapb.message).extends = "br.com.diegosilva.lotericas.api.rpc.grouppre.GroupPreEvent";
+//
+//        int64 ts = 10 [(scalapb.field).type = "java.time.Instant"];
+//
+//        int32 group_id = 1;
+//        int32 group_father_id = 3;
+//        int32 creator_user_id = 4;
+//    }
+//}
+
+message GroupPreEnvelope {
+    int32 group_id = 1;
+
+    oneof command {
+        GroupPreCommands.Create create = 2;
+    }
+
+    oneof query {
+        GroupPreQueries.GetGroupsPre get_groups_pre = 3;
+    }
+}
+
+message GroupPreCommands {
+    message Create {
+        option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreCommand";
+        int32 group_id = 1;
+        int32 userId = 3;
+        int64 authId = 4;
+    }
+
+    message CreateAck {
+        im.actor.server.SeqState seq_state = 1;
+    }
+
+    message Remove {
+        option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreCommand";
+        int32 group_id = 1;
+        int32 userId = 2;
+        int64 authId = 3;
+    }
+
+    message RemoveAck {
+        im.actor.server.SeqState seq_state = 1;
+    }
+
+    message ChangeParent {
+        option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreCommand";
+        int32 group_id = 1;
+        int32 parent_id = 2;
+        int32 userId = 3;
+        int64 authId = 4;
+    }
+
+    message ChangeParentAck {
+        im.actor.server.SeqState seq_state = 1;
+    }
+}
+
+message GroupPreQueries {
+
+    message GetGroupsPre {
+        option (scalapb.message).extends = "im.actor.server.grouppre.GroupPreQuery";
+        int32 group_father_id = 1;
+        int32 user_id = 2;
+    }
+
+    message GetGroupsPreResponse {
+        repeated GroupPre groups = 1;
+    }
+
+}

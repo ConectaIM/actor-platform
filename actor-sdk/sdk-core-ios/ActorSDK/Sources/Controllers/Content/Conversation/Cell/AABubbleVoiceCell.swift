@@ -263,7 +263,7 @@ open class AABubbleVoiceCell: AABubbleBaseFileCell,AAModernConversationAudioPlay
     
     //MARK: - Media Action
     
-    open func mediaDidTap() {
+    @objc open func mediaDidTap() {
         let content = bindedMessage!.content as! ACDocumentContent
         if let fileSource = content.getSource() as? ACFileRemoteSource {
             Actor.requestState(withFileId: fileSource.getFileReference().getFileId(), with: AAFileCallback(

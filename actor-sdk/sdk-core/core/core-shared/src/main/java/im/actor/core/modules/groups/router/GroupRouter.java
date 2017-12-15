@@ -31,13 +31,14 @@ import im.actor.core.api.updates.UpdateGroupShortNameChanged;
 import im.actor.core.api.updates.UpdateGroupTitleChanged;
 import im.actor.core.api.updates.UpdateGroupTopicChanged;
 import im.actor.core.entity.Group;
+import im.actor.core.entity.GroupType;
 import im.actor.core.modules.ModuleActor;
 import im.actor.core.modules.ModuleContext;
 import im.actor.core.modules.groups.router.entity.RouterApplyGroups;
 import im.actor.core.modules.groups.router.entity.RouterFetchMissingGroups;
 import im.actor.core.modules.groups.router.entity.RouterGroupUpdate;
 import im.actor.core.modules.groups.router.entity.RouterLoadFullGroup;
-import im.actor.core.modules.messaging.router.RouterInt;
+import im.actor.core.modules.messaging.router.MessageRouterInt;
 import im.actor.core.network.parser.Update;
 import im.actor.runtime.actors.messages.Void;
 import im.actor.runtime.annotations.Verified;
@@ -223,7 +224,8 @@ public class GroupRouter extends ModuleActor {
                 .then(x -> {
                     List<Group> res = new ArrayList<>();
                     for (Tuple2<ApiGroup, Boolean> u : x) {
-                        res.add(new Group(u.getT1(), null));
+                        Group group = new Group(u.getT1(), null);
+                        res.add(group);
                     }
                     if (res.size() > 0) {
                         groups().addOrUpdateItems(res);
@@ -240,8 +242,8 @@ public class GroupRouter extends ModuleActor {
         requestedFullGroups.add(gid);
 
         freeze();
+
         groups().getValueAsync(gid)
-                // Do not reduce to lambda due j2objc bug
                 .flatMap(new Function<Group, Promise<Group>>() {
                     @Override
                     public Promise<Group> apply(Group group) {
@@ -268,7 +270,7 @@ public class GroupRouter extends ModuleActor {
         return getRouter().onGroupChanged(group);
     }
 
-    private RouterInt getRouter() {
+    private MessageRouterInt getRouter() {
         return context().getMessagesModule().getRouter();
     }
 
@@ -287,11 +289,9 @@ public class GroupRouter extends ModuleActor {
     //
 
     private Promise<Void> onUpdate(Update update) {
-
         //
         // Main
         //
-
         if (update instanceof UpdateGroupTitleChanged) {
             UpdateGroupTitleChanged titleChanged = (UpdateGroupTitleChanged) update;
             return onTitleChanged(titleChanged.getGroupId(), titleChanged.getTitle());

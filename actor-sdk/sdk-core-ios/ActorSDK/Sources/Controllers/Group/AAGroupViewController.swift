@@ -55,9 +55,9 @@ open class AAGroupViewController: AAContentTableController {
                     let avatar = self.group.getAvatarModel().get()
                     if avatar != nil && avatar?.fullImage != nil {
                         
-                        let full = avatar?.fullImage.fileReference
-                        let small = avatar?.smallImage.fileReference
-                        let size = CGSize(width: Int((avatar?.fullImage.width)!), height: Int((avatar?.fullImage.height)!))
+                        let full = avatar?.fullImage?.fileReference
+                        let small = avatar?.smallImage?.fileReference
+                        let size = CGSize(width: Int((avatar?.fullImage?.width)!), height: Int((avatar?.fullImage?.height)!))
                         
                         self.present(AAPhotoPreviewController(file: full!, previewFile: small, size: size, fromView: view), animated: true, completion: nil)
                     }
@@ -387,7 +387,7 @@ open class AAGroupViewController: AAContentTableController {
         }
     }
     
-    open func editDidPressed() {
+    @objc open func editDidPressed() {
         self.presentInNavigation(AAGroupEditInfoController(gid: gid))
     }
 }

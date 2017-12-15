@@ -66,7 +66,6 @@ public class ChatActivity extends BaseActivity {
         rootLayout.addView(chatFragmentCont);
 
         ActorToolbar toolbar = new ActorToolbar(this);
-        // Toolbar toolbar = new Toolbar(this);
         final TypedArray styledAttributes = getTheme().obtainStyledAttributes(new int[]{R.attr.actionBarSize});
         int actionBarSize = (int) styledAttributes.getDimension(0, 0);
         styledAttributes.recycle();

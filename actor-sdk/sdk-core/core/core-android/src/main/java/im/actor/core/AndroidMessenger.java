@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.hardware.display.DisplayManager;
 import android.media.MediaMetadataRetriever;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -31,6 +30,8 @@ import java.util.concurrent.Executors;
 
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
+import im.actor.core.entity.Group;
+import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.SearchEntity;
@@ -67,11 +68,12 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     private final Random random = new Random();
     private ActorRef appStateActor;
     private BindedDisplayList<Dialog> dialogList;
-    //    private BindedDisplayList<Sticker> stickersList;
-//    private BindedDisplayList<StickerPack> stickerPacksList;
     private HashMap<Peer, BindedDisplayList<Message>> messagesLists = new HashMap<>();
     private HashMap<Peer, BindedDisplayList<Message>> docsLists = new HashMap<>();
-    private HashMap<String, BindedDisplayList> customLists = new HashMap<>();
+    private HashMap<Peer, BindedDisplayList<Message>> photosList = new HashMap<>();
+    private HashMap<Peer, BindedDisplayList<Message>> videosLists = new HashMap<>();
+    private BindedDisplayList<GroupPre> groupPreList;
+
     private GalleryVM galleryVM;
     private ActorRef galleryScannerActor;
 
@@ -146,7 +148,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         });
     }
 
-    private void verifyNetworkState(Context ctx){
+    private void verifyNetworkState(Context ctx) {
         ConnectivityManager cm =
                 (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -172,7 +174,7 @@ public class AndroidMessenger extends im.actor.core.Messenger {
             state = NetworkState.NO_CONNECTION;
         }
 
-        Log.d(TAG, "Connection State: "+NetworkState.getDesription(state));
+        Log.d(TAG, "Connection State: " + NetworkState.getDesription(state));
         onNetworkChanged(state);
     }
 
@@ -508,7 +510,6 @@ public class AndroidMessenger extends im.actor.core.Messenger {
                 }
             });
         }
-
         return dialogList;
     }
 
@@ -535,11 +536,10 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     public BindedDisplayList<Message> getDocsDisplayList(final Peer peer) {
         if (!docsLists.containsKey(peer)) {
             BindedDisplayList<Message> list = (BindedDisplayList<Message>) modules.getDisplayListsModule().getDocsSharedList(peer);
-
             list.setBindHook(new BindedDisplayList.BindHook<Message>() {
                 @Override
                 public void onScrolledToEnd() {
-                    modules.getMessagesModule().loadMoreHistory(peer);
+                    modules.getMessagesModule().loadMoreDocsHistory(peer);
                 }
 
                 @Override
@@ -547,12 +547,54 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
                 }
             });
-
             docsLists.put(peer, list);
         }
-
-
         return docsLists.get(peer);
+    }
+
+    public BindedDisplayList<Message> getPhotosDisplayList(final Peer peer) {
+        if (!photosList.containsKey(peer)) {
+            BindedDisplayList<Message> list = (BindedDisplayList<Message>) modules.getDisplayListsModule().getPhotosSharedList(peer);
+            list.setBindHook(new BindedDisplayList.BindHook<Message>() {
+                @Override
+                public void onScrolledToEnd() {
+                    modules.getMessagesModule().loadMorePhotosHistory(peer);
+                }
+
+                @Override
+                public void onItemTouched(Message item) {
+
+                }
+            });
+            photosList.put(peer, list);
+        }
+        return photosList.get(peer);
+    }
+
+    public BindedDisplayList<Message> getVideosDisplayList(final Peer peer) {
+        if (!videosLists.containsKey(peer)) {
+            BindedDisplayList<Message> list = (BindedDisplayList<Message>) modules.getDisplayListsModule().getVideoSharedList(peer);
+            list.setBindHook(new BindedDisplayList.BindHook<Message>() {
+                @Override
+                public void onScrolledToEnd() {
+                    modules.getMessagesModule().loadMoreVideosHistory(peer);
+                }
+
+                @Override
+                public void onItemTouched(Message item) {
+
+                }
+            });
+            videosLists.put(peer, list);
+        }
+        return videosLists.get(peer);
+    }
+
+    public BindedDisplayList<GroupPre> getGroupPreDisplayList(Integer idGrupoPai) {
+        if (groupPreList == null) {
+            groupPreList = (BindedDisplayList<GroupPre>) modules.getDisplayListsModule().getGruposPreDisplayList(idGrupoPai);
+        }
+        return groupPreList;
     }
 
     public GalleryVM getGalleryVM() {
@@ -589,7 +631,6 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
     public void startImport() {
         modules.getContactsModule().startImport();
-
     }
 
 //    @Override

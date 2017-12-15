@@ -2,7 +2,6 @@ package im.actor.sdk.controllers.conversation.messages.content;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -92,44 +91,38 @@ public class DocHolder extends MessageHolder {
         View bubbleView = itemView.findViewById(R.id.bubbleContainer);
         bubbleView.setBackgroundResource(R.drawable.conv_bubble_media_in);
         menu = itemView.findViewById(R.id.menu);
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(fragment.getMessagesFragment().getActivity(), v);
-                popup.getMenuInflater().inflate(R.menu.doc_popup, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (currentMessage != null && currentMessage.getContent() instanceof DocumentContent) {
-                            final DocumentContent documentContent = (DocumentContent) currentMessage.getContent();
-                            if (documentContent.getSource() instanceof FileRemoteSource) {
-                                FileRemoteSource remoteSource = (FileRemoteSource) documentContent.getSource();
-                                messenger().requestState(remoteSource.getFileReference().getFileId(), new FileCallback() {
-                                    @Override
-                                    public void onNotDownloaded() {
+        menu.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(fragment.getMessagesFragment().getActivity(), v);
+            popup.getMenuInflater().inflate(R.menu.doc_popup, popup.getMenu());
+            popup.setOnMenuItemClickListener(item -> {
+                if (currentMessage != null && currentMessage.getContent() instanceof DocumentContent) {
+                    final DocumentContent documentContent = (DocumentContent) currentMessage.getContent();
+                    if (documentContent.getSource() instanceof FileRemoteSource) {
+                        FileRemoteSource remoteSource = (FileRemoteSource) documentContent.getSource();
+                        messenger().requestState(remoteSource.getFileReference().getFileId(), new FileCallback() {
+                            @Override
+                            public void onNotDownloaded() {
 
-                                    }
-
-                                    @Override
-                                    public void onDownloading(float progress) {
-
-                                    }
-
-                                    @Override
-                                    public void onDownloaded(FileSystemReference reference) {
-                                        Activity activity = getAdapter().getMessagesFragment().getActivity();
-                                        activity.startActivity(Intents.shareDoc(documentContent.getName(),
-                                                reference.getDescriptor()));
-                                    }
-                                });
                             }
 
-                        }
-                        return true;
+                            @Override
+                            public void onDownloading(float progress) {
+
+                            }
+
+                            @Override
+                            public void onDownloaded(FileSystemReference reference) {
+                                Activity activity = getAdapter().getMessagesFragment().getActivity();
+                                activity.startActivity(Intents.shareDoc(documentContent.getName(),
+                                        reference.getDescriptor()));
+                            }
+                        });
                     }
-                });
-                popup.show();
-            }
+
+                }
+                return true;
+            });
+            popup.show();
         });
 
         // Content views

@@ -173,6 +173,48 @@
 
             </LinearLayout>
 
+
+            <!-- Shared Midia -->
+            <im.actor.sdk.view.DividerView
+                android:id="@+id/midiaDivider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="8dp" />
+
+            <LinearLayout
+                android:id="@+id/sharedMidiaContent"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/selector"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp">
+
+                <View
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:scaleType="center" />
+
+                <TextView
+                    android:id="@+id/sharedMidiaTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/profile_shared_media"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/sharedMidiaCountTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
             <im.actor.sdk.view.DividerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

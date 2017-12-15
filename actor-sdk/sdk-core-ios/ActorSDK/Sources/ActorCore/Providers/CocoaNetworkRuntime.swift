@@ -44,7 +44,7 @@ class CocoaTcpConnection: ARAsyncConnection, GCDAsyncSocketDelegate {
         gcdSocket = GCDAsyncSocket(delegate: self, delegateQueue: CocoaTcpConnection.queue)
         gcdSocket?.isIPv4PreferredOverIPv6 = false
         do {
-            try self.gcdSocket!.connect(toHost: (endpoint?.host!)!, onPort: UInt16((endpoint?.port)!), withTimeout: Double(ARManagedConnection_CONNECTION_TIMEOUT) / 1000.0)
+            try self.gcdSocket!.connect(toHost: (endpoint?.host)!, onPort: UInt16((endpoint?.port)!), withTimeout: Double(ARManagedConnection_CONNECTION_TIMEOUT) / 1000.0)
         } catch _ {
             
         }

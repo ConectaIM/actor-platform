@@ -1404,6 +1404,38 @@
 ,{"type":{"type":"opt","childType":{"type":"enum","childType":"ListLoadMode"}},"id":5,"name":"loadMode"}
 ,{"type":"int32","id":4,"name":"limit"}
 ,{"type":{"type":"list","childType":{"type":"enum","childType":"UpdateOptimization"}},"id":6,"name":"optimizations"}
+]}},        {
+          "type": "enum",
+          "content": {
+            "name": "DocsHistoryType",
+            "values": [
+              {
+                "name": "Photo",
+                "id": 1
+              },
+              {
+                "name": "Video",
+                "id": 2
+              },
+              {
+                "name": "Document",
+                "id": 3
+              }
+          ]
+        }
+      },{"type":"rpc","content":{
+"name":"LoadDocsHistory",
+"header":262,
+"response":{"type":"anonymous","header":263, "doc":[
+"Loaded docs history"] ,"attributes":[{"type":{"type":"list","childType":{"type":"struct","childType":"MessageContainer"}},"id":1,"name":"history"}
+]},
+"doc":[
+"Loading docs history of chat"],"attributes":[
+{"type":{"type":"struct","childType":"OutPeer"},"id":1,"name":"peer"}
+,{"type":{"type":"alias","childType":"date"},"id":3,"name":"date"}
+,{"type":{"type":"opt","childType":{"type":"enum","childType":"ListLoadMode"}},"id":4,"name":"loadMode"}
+,{"type":"int32","id":5,"name":"limit"}
+,{"type":{"type":"enum","childType":"DocsHistoryType"},"id":6,"name":"docType"}
 ]}},     {
        "type":"struct",
        "content": {
@@ -1647,6 +1679,15 @@
 ,{"type":{"type":"alias","childType":"date"},"id":10,"name":"createDate", "deprecated":"true"}
 ,{"type":{"type":"opt","childType":"string"},"id":17,"name":"theme", "deprecated":"true"}
 ,{"type":{"type":"opt","childType":"string"},"id":18,"name":"about", "deprecated":"true"}
+]}},{"type":"rpc","content":{
+"name":"LoadGroups",
+"header":593,
+"response":{"type":"anonymous","header":594, "doc":[
+"List of groups"] ,"attributes":[{"type":{"type":"list","childType":{"type":"struct","childType":"Group"}},"id":2,"name":"groups"}
+]},
+"doc":[
+"Load groups"],"attributes":[
+{"type":{"type":"list","childType":{"type":"struct","childType":"GroupOutPeer"}},"id":1,"name":"groups"}
 ]}},     {
        "type":"struct",
        "content": {
@@ -2167,6 +2208,49 @@
 ,{"type":{"type":"alias","childType":"userId"},"id":2,"name":"uid"}
 ,{"type":{"type":"opt","childType":{"type":"struct","childType":"Avatar"}},"id":3,"name":"avatar"}
 ,{"type":{"type":"alias","childType":"date"},"id":4,"name":"date"}
+]}}]},    {
+      "title": "Surveys",
+      "package": "surveys",
+      "doc": [
+        "Surveys"
+      ],
+      "items": [
+     {
+       "type":"struct",
+       "content": {
+         "name":"SurveyAnswer",
+"doc":[
+"survey answer"],"attributes":[
+{"type":"int32","id":1,"name":"id"}
+,{"type":"string","id":2,"name":"name"}
+,{"type":{"type":"list","childType":{"type":"alias","childType":"userId"}},"id":3,"name":"votes"}
+]}},     {
+       "type":"struct",
+       "content": {
+         "name":"Survey",
+"doc":[
+"Survey"],"attributes":[
+{"type":"int32","id":1,"name":"id"}
+,{"type":"string","id":2,"name":"name"}
+,{"type":{"type":"list","childType":{"type":"struct","childType":"SurveyAnswer"}},"id":3,"name":"answers"}
+,{"type":"int64","id":4,"name":"creationDate"}
+,{"type":"int64","id":5,"name":"availableDate"}
+,{"type":{"type":"list","childType":{"type":"alias","childType":"userId"}},"id":6,"name":"admins"}
+,{"type":{"type":"alias","childType":"userId"},"id":7,"name":"creatorId"}
+]}},{"type":"rpc","content":{
+"name":"CreateSurvey",
+"header":1281,
+"response":{"type":"anonymous","header":1282, "doc":[
+"returning related data"] ,"attributes":[{"type":"int32","id":1,"name":"seq"}
+,{"type":{"type":"alias","childType":"seq_state"},"id":2,"name":"state"}
+,{"type":{"type":"list","childType":{"type":"struct","childType":"User"}},"id":3,"name":"relatedUsers"}
+,{"type":{"type":"list","childType":{"type":"struct","childType":"Group"}},"id":4,"name":"relatedGroups"}
+]},
+"doc":[
+"Create a survey"],"attributes":[
+{"type":"int32","id":1,"name":"randomId"}
+,{"type":"string","id":2,"name":"surveyName"}
+,{"type":{"type":"list","childType":"string"},"id":3,"name":"answers"}
 ]}}]},    {
       "title": "Stickers",
       "package": "stickers",
@@ -4240,4 +4324,82 @@
 "doc":[
 "Map Value"],"trait":{"name":"RawValue","key":6},"attributes":[
 {"type":{"type":"list","childType":{"type":"struct","childType":"MapValueItem"}},"id":1,"name":"items"}
+]}}]},    {
+      "title": "GroupsPre",
+      "package": "grouppre",
+      "doc": [
+        "Pre defined groups"
+      ],
+      "items": [
+        {
+          "type": "enum",
+          "content": {
+            "name": "GroupPreType",
+            "values": [
+              {
+                "name": "GROUP",
+                "id": 1
+              },
+              {
+                "name": "CHANNEL",
+                "id": 2
+              }
+          ]
+        }
+      },     {
+       "type":"struct",
+       "content": {
+         "name":"GroupPre",
+"doc":[
+"GroupPre representation"],"attributes":[
+{"type":"int32","id":1,"name":"groupId"}
+,{"type":"bool","id":2,"name":"hasChildrem"}
+,{"type":"int64","id":3,"name":"acessHash"}
+,{"type":"int32","id":4,"name":"order"}
+,{"type":{"type":"opt","childType":"int32"},"id":5,"name":"parentId"}
+]}},{"type":"update","content":{
+"name":"GroupPreCreated",
+"header":20,
+"doc":[
+"GroupPre Created"],"attributes":[
+{"type":{"type":"struct","childType":"GroupPre"},"id":1,"name":"groupPre"}
+]}},{"type":"update","content":{
+"name":"GroupPreRemoved",
+"header":22,
+"doc":[
+"GroupPre removed"],"attributes":[
+{"type":{"type":"struct","childType":"GroupPre"},"id":1,"name":"groupPre"}
+]}},{"type":"update","content":{
+"name":"GroupPreParentChanged",
+"header":88,
+"doc":[
+"GroupPre parent changed"],"attributes":[
+{"type":"int32","id":1,"name":"groupId"}
+,{"type":"int32","id":2,"name":"parentId"}
+,{"type":"int32","id":3,"name":"oldParentId"}
+]}},{"type":"rpc","content":{
+"name":"LoadGroupsPre",
+"header":23,
+"response":{"type":"anonymous","header":20, "doc":[
+"return"] ,"attributes":[{"type":{"type":"list","childType":{"type":"struct","childType":"GroupPre"}},"id":1,"name":"groups"}
+]},
+"doc":[
+"LoadGroupsPre"],"attributes":[
+{"type":{"type":"opt","childType":"int32"},"id":1,"name":"idParent"}
+]}},{"type":"rpc","content":{
+"name":"ChangeGroupPre",
+"header":24,
+"response":{"type":"reference","name":"Seq"},
+"doc":[
+"Create a new groupPre"],"attributes":[
+{"type":"int32","id":1,"name":"groupId"}
+,{"type":"bool","id":2,"name":"isGroupPre"}
+]}},{"type":"rpc","content":{
+"name":"ChangeGroupParent",
+"header":34,
+"response":{"type":"reference","name":"Seq"},
+"doc":[
+"Change group parent"],"attributes":[
+{"type":"int32","id":1,"name":"groupId"}
+,{"type":"int32","id":2,"name":"parentId"}
 ]}}]}]}

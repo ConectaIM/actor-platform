@@ -44,4 +44,4 @@ include ":actor-keygen"
 // SDK Command Line Client
 //
 
-include ":actor-sdk:sdk-core-clc:app-clc"
+//include ":actor-sdk:sdk-core-clc:app-clc"

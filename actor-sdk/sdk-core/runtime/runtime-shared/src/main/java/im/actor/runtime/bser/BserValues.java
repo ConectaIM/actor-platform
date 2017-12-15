@@ -18,13 +18,14 @@ import im.actor.runtime.collections.SparseBooleanArray;
 
 /*-[
 #define J2OBJC_DISABLE_ARRAY_BOUND_CHECKS 1
+#define J2OBJC_DISABLE_ARRAY_TYPE_CHECKS 1
+#define J2OBJC_DISABLE_CAST_CHECKS 1
+#define J2OBJC_DISABLE_ARRAY_CHECKS 1
 ]-*/
 
 public class BserValues {
 
     private SparseArray<Object> fields;
-
-    // TODO: Replace with SparseBooleanArray
     private SparseBooleanArray touched = new SparseBooleanArray();
 
     public BserValues(@NotNull SparseArray<Object> fields) {
@@ -239,7 +240,7 @@ public class BserValues {
 
     @NotNull
     public List<byte[]> getRepeatedBytes(int id) throws IOException {
-        ArrayList<byte[]> res = new ArrayList<byte[]>();
+        ArrayList<byte[]> res = new ArrayList<>();
         if (fields.containsKey(id)) {
             touched.put(id, true);
             Object val = fields.get(id);
@@ -247,16 +248,15 @@ public class BserValues {
                 res.add((byte[]) val);
             } else if (val instanceof List) {
                 List<Object> rep = (List) val;
-
                 for (Object val2 : rep) {
                     if (val2 instanceof byte[]) {
                         res.add((byte[]) val2);
                     } else {
-                        throw new IOException("Expected type: byte[], got " + val2.getClass().getSimpleName());
+                        throw new IOException("Instance of 2 Expected type: byte[], got " + val2.getClass().getSimpleName());
                     }
                 }
             } else {
-                throw new IOException("Expected type: byte[], got " + val.getClass().getSimpleName());
+                throw new IOException("Instance of 1 Expected type: byte[], got " + val.getClass().getSimpleName());
             }
         }
         return res;

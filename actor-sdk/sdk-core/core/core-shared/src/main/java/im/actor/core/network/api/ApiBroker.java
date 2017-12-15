@@ -46,11 +46,9 @@ public class ApiBroker extends AskcableActor {
     public static ApiBrokerInt get(final Endpoints endpoints, final AuthKeyStorage keyStorage, final ActorApiCallback callback,
                                    final boolean isEnableLog, int id, final int minDelay,
                                    final int maxDelay,
-                                   final int maxFailureCount,
-                                   final BaseParser[] rpcParsers,
-                                   final BaseParser[] updatesParsers) {
+                                   final int maxFailureCount) {
 
-        return new ApiBrokerInt(endpoints, keyStorage, callback, isEnableLog, id, minDelay, maxDelay, maxFailureCount, rpcParsers, updatesParsers);
+        return new ApiBrokerInt(endpoints, keyStorage, callback, isEnableLog, id, minDelay, maxDelay, maxFailureCount);
     }
 
     private static final String TAG = "ApiBroker";
@@ -80,9 +78,7 @@ public class ApiBroker extends AskcableActor {
                      boolean isEnableLog,
                      int minDelay,
                      int maxDelay,
-                     int maxFailureCount,
-                     BaseParser[] rpcParsers,
-                     BaseParser[] updatesParsers) {
+                     int maxFailureCount) {
         this.isEnableLog = isEnableLog;
         this.endpoints = endpoints;
         this.keyStorage = keyStorage;
@@ -92,14 +88,6 @@ public class ApiBroker extends AskcableActor {
         this.maxFailureCount = maxFailureCount;
         this.parserConfig = new ApiParserConfig();
         this.parserConfig.addExtension(new ParsingExtension(new RpcParser(), new UpdatesParser()));
-
-        //adding extra rpc parsers
-        if ((rpcParsers != null && rpcParsers.length > 0) &&
-                (updatesParsers != null && updatesParsers.length == rpcParsers.length)) {
-            for (int i = 0; i < rpcParsers.length; i++) {
-                this.parserConfig.addExtension(new ParsingExtension(rpcParsers[i], updatesParsers[i]));
-            }
-        }
     }
 
     @Override

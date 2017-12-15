@@ -1,15 +1,17 @@
 package im.actor.server.persist
 
 import com.github.tototoshi.slick.PostgresJodaSupport._
-import im.actor.server.model.{ Peer, PeerType, HistoryMessage }
+import im.actor.server.model.{HistoryMessage, MessageType, Peer, PeerType}
 import org.joda.time.DateTime
-import slick.dbio.Effect.{ Write, Read }
+import slick.dbio.Effect.{Read, Write}
 import slick.driver.PostgresDriver
 import slick.driver.PostgresDriver.api._
 import slick.jdbc.GetResult
-import slick.profile.{ SqlStreamingAction, SqlAction, FixedSqlStreamingAction, FixedSqlAction }
+import slick.profile.{FixedSqlAction, FixedSqlStreamingAction, SqlAction, SqlStreamingAction}
+import MessageTypeColumnType._
 
 final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "history_messages") {
+
   def userId = column[Int]("user_id", O.PrimaryKey)
 
   def peerType = column[Int]("peer_type", O.PrimaryKey)
@@ -28,11 +30,13 @@ final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "hi
 
   def deletedAt = column[Option[DateTime]]("deleted_at")
 
-  def * = (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt) <>
+  def messageType = column[Option[MessageType]]("message_type")
+
+  def * = (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) <>
     (applyHistoryMessage.tupled, unapplyHistoryMessage)
 
-  private def applyHistoryMessage: (Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime]) ⇒ HistoryMessage = {
-    case (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt) ⇒
+  private def applyHistoryMessage: (Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime], Option[MessageType]) ⇒ HistoryMessage = {
+    case (userId, peerType, peerId, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) ⇒
       HistoryMessage(
         userId = userId,
         peer = Peer(PeerType.fromValue(peerType), peerId),
@@ -41,14 +45,15 @@ final class HistoryMessageTable(tag: Tag) extends Table[HistoryMessage](tag, "hi
         randomId = randomId,
         messageContentHeader = messageContentHeader,
         messageContentData = messageContentData,
-        deletedAt = deletedAt
+        deletedAt = deletedAt,
+        messageType = messageType
       )
   }
 
-  private def unapplyHistoryMessage: HistoryMessage ⇒ Option[(Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime])] = { historyMessage ⇒
+  private def unapplyHistoryMessage: HistoryMessage ⇒ Option[(Int, Int, Int, DateTime, Int, Long, Int, Array[Byte], Option[DateTime], Option[MessageType])] = { historyMessage ⇒
     HistoryMessage.unapply(historyMessage) map {
-      case (userId, peer, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt) ⇒
-        (userId, peer.typ.value, peer.id, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt)
+      case (userId, peer, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType) ⇒
+        (userId, peer.typ.value, peer.id, date, senderUserId, randomId, messageContentHeader, messageContentData, deletedAt, messageType)
     }
   }
 }
@@ -60,6 +65,10 @@ object HistoryMessageRepo {
   val messagesC = Compiled(messages)
 
   val notDeletedMessages = messages.filter(_.deletedAt.isEmpty)
+
+  val nullMessageType = messages.filter(_.messageType.isEmpty).result
+
+  val documentsMessageType = messages.filter(_.messageType === MessageType.Document).result
 
   val withoutServiceMessages = notDeletedMessages.filter(_.messageContentHeader =!= 2)
 
@@ -86,7 +95,23 @@ object HistoryMessageRepo {
       case None ⇒
         baseQuery.sortBy(_.date.asc)
     }
+    query.take(limit).result
+  }
 
+  def find(userId: Int, peer: Peer, dateOpt: Option[DateTime], limit: Int, messageType:MessageType): FixedSqlStreamingAction[Seq[HistoryMessage], HistoryMessage, Read] = {
+    val baseQuery = notDeletedMessages
+      .filter(m ⇒
+        m.userId === userId &&
+          m.peerType === peer.typ.value &&
+          m.peerId === peer.id &&
+          m.messageType === messageType)
+
+    val query = dateOpt match {
+      case Some(date) ⇒
+        baseQuery.filter(_.date <= date).sortBy(_.date.desc)
+      case None ⇒
+        baseQuery.sortBy(_.date.asc)
+    }
     query.take(limit).result
   }
 
@@ -174,24 +199,49 @@ object HistoryMessageRepo {
       .map(m ⇒ (m.messageContentHeader, m.messageContentData))
       .update((messageContentHeader, messageContentData))
 
-  def uniqueAsc(fromTs: Long, limit: Int): SqlStreamingAction[Vector[HistoryMessage], HistoryMessage, Effect] = {
-    implicit val getMessageResult: GetResult[HistoryMessage] = GetResult(r ⇒
-      HistoryMessage(
-        userId = r.nextInt,
-        peer = Peer(PeerType.fromValue(r.nextInt), r.nextInt),
-        date = getDatetimeResult(r),
-        senderUserId = r.nextInt,
-        randomId = r.nextLong,
-        messageContentHeader = r.nextInt,
-        messageContentData = r.nextBytes,
-        deletedAt = getDatetimeOptionResult(r)
-      ))
+  def updateMessageType(userId: Int, randomId: Long, peerType: PeerType, peerId: Int,
+                        messageType: Option[MessageType]): FixedSqlAction[Int, NoStream, Write] =
+    messages
+      .filter(m ⇒ m.randomId === randomId && m.peerType === peerType.value)
+      .filter(_.peerId === peerId)
+      .filter(_.userId === userId)
+      .map(_.messageType)
+      .update(messageType)
 
-    val serviceHeader = 2
+  private implicit val getMessageResult: GetResult[HistoryMessage] = GetResult(r ⇒
+    HistoryMessage(
+      userId = r.nextInt,
+      peer = Peer(PeerType.fromValue(r.nextInt), r.nextInt),
+      date = getDatetimeResult(r),
+      senderUserId = r.nextInt,
+      randomId = r.nextLong,
+      messageContentHeader = r.nextInt,
+      messageContentData = r.nextBytes,
+      deletedAt = getDatetimeOptionResult(r),
+      messageType = r.nextIntOption() match {
+        case i:Some[Int] => Some(MessageType(i.get))
+        case _ => None
+      }
+    ))
+  private val ServiceHeader = 2
+
+  def uniqueAsc(fromTs: Long, limit: Int): SqlStreamingAction[Vector[HistoryMessage], HistoryMessage, Effect] = {
+
     val date = new DateTime(fromTs)
     sql"""select distinct on (date, random_id) user_id, peer_type, peer_id, date, sender_user_id, random_id, message_content_header, message_content_data, deleted_at from history_messages
-         where message_content_header != $serviceHeader
+         where message_content_header != $ServiceHeader
          and date > $date
+         and deleted_at is null
+         order by date asc, random_id asc
+         limit $limit"""
+      .as[HistoryMessage]
+  }
+
+  def uniqueAsc(fromDate: DateTime, lastRandomId: Long, limit: Int): SqlStreamingAction[Vector[HistoryMessage], HistoryMessage, Effect] = {
+    sql"""select distinct on (date, random_id) user_id, peer_type, peer_id, date, sender_user_id, random_id, message_content_header, message_content_data, deleted_at from history_messages
+         where message_content_header != $ServiceHeader
+         and date >= $fromDate
+         and random_id != lastRandomId
          and deleted_at is null
          order by date asc, random_id asc
          limit $limit"""

@@ -14,6 +14,7 @@ import java.util.HashSet;
 import im.actor.core.entity.Avatar;
 import im.actor.core.entity.Contact;
 import im.actor.core.entity.Dialog;
+import im.actor.core.entity.Group;
 import im.actor.core.entity.Message;
 import im.actor.core.entity.Peer;
 import im.actor.core.entity.PeerType;
@@ -74,6 +75,7 @@ public class JsBindingModule extends AbsModule implements JsFileLoadedListener {
     private JsBindedValue<String> onlineState;
 
     private JsDisplayList<JsDialog, Dialog> dialogsList;
+
     private JsDisplayList<JsContact, Contact> contactsList;
     private JsDisplayList<JsSearchEntity, SearchEntity> searchList;
     private HashMap<Peer, JsDisplayList<JsMessage, Message>> messageLists = new HashMap<>();
@@ -413,9 +415,9 @@ public class JsBindingModule extends AbsModule implements JsFileLoadedListener {
         if (dialogsList == null) {
             dialogsList = (JsDisplayList<JsDialog, Dialog>) context().getDisplayListsModule().getDialogsSharedList();
         }
-
         return dialogsList;
     }
+
 
     public JsDisplayList<JsMessage, Message> getSharedMessageList(Peer peer) {
         if (!messageLists.containsKey(peer)) {

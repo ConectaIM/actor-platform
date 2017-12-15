@@ -138,7 +138,7 @@ open class AABubbleDocumentCell: AABubbleBaseFileCell, UIDocumentInteractionCont
         }
     }
     
-    open func documentDidTap() {
+    @objc open func documentDidTap() {
         
         let content = bindedMessage!.content as! ACDocumentContent
         if let fileSource = content.getSource() as? ACFileRemoteSource {

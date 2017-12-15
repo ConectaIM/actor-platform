@@ -38,4 +38,8 @@ public class Conductor extends ActorInterface {
     public void onPhoneBookImported() {
         send(new ConductorActor.BookImported());
     }
+
+    public void onGruposPreLoaded(Integer idGrupoPai) {
+        send(new ConductorActor.GruposPreLoaded(idGrupoPai));
+    }
 }

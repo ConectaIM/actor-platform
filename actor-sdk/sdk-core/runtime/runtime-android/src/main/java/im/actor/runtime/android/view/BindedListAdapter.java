@@ -21,7 +21,6 @@ public abstract class BindedListAdapter<V extends BserObject & ListEngineItem,
     private BindedDisplayList<V> displayList;
 
     private DisplayList.AndroidChangeListener<V> listener;
-    // private DisplayList.Listener listener;
 
     private AndroidListUpdate<V> currentUpdate = null;
 
@@ -33,29 +32,26 @@ public abstract class BindedListAdapter<V extends BserObject & ListEngineItem,
         this.displayList = displayList;
         setHasStableIds(true);
 
-        listener = new DisplayList.AndroidChangeListener<V>() {
-            @Override
-            public void onCollectionChanged(AndroidListUpdate<V> modification) {
-                currentUpdate = modification;
-                ChangeDescription<V> currentChange;
-                while ((currentChange = modification.next()) != null) {
-                    switch (currentChange.getOperationType()) {
-                        case ADD:
-                            notifyItemRangeInserted(currentChange.getIndex(), currentChange.getLength());
-                            break;
-                        case UPDATE:
-                            notifyItemRangeChanged(currentChange.getIndex(), currentChange.getLength());
-                            break;
-                        case MOVE:
-                            notifyItemMoved(currentChange.getIndex(), currentChange.getDestIndex());
-                            break;
-                        case REMOVE:
-                            notifyItemRangeRemoved(currentChange.getIndex(), currentChange.getLength());
-                            break;
-                    }
+        listener = modification -> {
+            currentUpdate = modification;
+            ChangeDescription<V> currentChange;
+            while ((currentChange = modification.next()) != null) {
+                switch (currentChange.getOperationType()) {
+                    case ADD:
+                        notifyItemRangeInserted(currentChange.getIndex(), currentChange.getLength());
+                        break;
+                    case UPDATE:
+                        notifyItemRangeChanged(currentChange.getIndex(), currentChange.getLength());
+                        break;
+                    case MOVE:
+                        notifyItemMoved(currentChange.getIndex(), currentChange.getDestIndex());
+                        break;
+                    case REMOVE:
+                        notifyItemRangeRemoved(currentChange.getIndex(), currentChange.getLength());
+                        break;
                 }
-                currentUpdate = null;
             }
+            currentUpdate = null;
         };
         if (autoConnect) {
             resume();

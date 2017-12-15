@@ -135,7 +135,6 @@ public class ConductorActor extends ModuleActor {
      */
     public void onAppLoaded() {
         Log.d(TAG, "App Loaded");
-
         // Joining Groups
         if (config().getAutoJoinType() == AutoJoinType.IMMEDIATELY) {
             joinGroups();
@@ -147,7 +146,6 @@ public class ConductorActor extends ModuleActor {
      */
     public void onAppReady() {
         Log.d(TAG, "App Ready");
-
         // Joining Groups
         if (config().getAutoJoinType() == AutoJoinType.AFTER_INIT) {
             joinGroups();
@@ -206,6 +204,9 @@ public class ConductorActor extends ModuleActor {
         });
     }
 
+    public void onGruposPreLoaded(GruposPreLoaded gruposPreLoaded) {
+        Log.d(TAG, "GruposPre Loaded");
+    }
 
     //
     // Messages
@@ -251,6 +252,13 @@ public class ConductorActor extends ModuleActor {
             onDialogsChanged(((DialogsChanged) message).isEmpty());
         } else if (message instanceof FinishLaunching) {
             onFinishLaunching();
+        }else if (message instanceof GruposPreLoaded) {
+            if (!isStarted) {
+                stash();
+                return;
+            }
+            GruposPreLoaded gruposPreLoaded = (GruposPreLoaded) message;
+            onGruposPreLoaded(gruposPreLoaded);
         } else {
             super.onReceive(message);
         }
@@ -293,6 +301,19 @@ public class ConductorActor extends ModuleActor {
 
         public boolean isEmpty() {
             return isEmpty;
+        }
+    }
+
+    public static class GruposPreLoaded {
+
+        private final Integer parentId;
+
+        public GruposPreLoaded(Integer parentId) {
+            this.parentId = parentId;
+        }
+
+        public Integer getParentId() {
+            return parentId;
         }
     }
 

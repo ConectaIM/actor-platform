@@ -133,7 +133,7 @@ open class AABubbleStickerCell: AABubbleBaseFileCell {
 
     // Media Action
     
-    open func mediaDidTap() {
+    @objc open func mediaDidTap() {
         
         
     }

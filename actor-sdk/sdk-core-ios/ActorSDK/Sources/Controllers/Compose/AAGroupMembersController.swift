@@ -47,7 +47,7 @@ open class GroupMembersController: AAContactsListContentController, AAContactsLi
         
         let placeholder = AALocalized("CreateGroupMembersPlaceholders")
         let attributedPlaceholder = NSMutableAttributedString(string: placeholder)
-        attributedPlaceholder.addAttribute(NSForegroundColorAttributeName, value: appStyle.vcHintColor, range: NSRange(location: 0, length: placeholder.length))
+        attributedPlaceholder.addAttribute(NSAttributedStringKey.foregroundColor, value: appStyle.vcHintColor, range: NSRange(location: 0, length: placeholder.length))
         tokenView.placeholderAttributedText = attributedPlaceholder
         
         self.view.addSubview(tokenView)
@@ -75,7 +75,7 @@ open class GroupMembersController: AAContactsListContentController, AAContactsLi
         return true
     }
     
-    open func doNext() {
+    @objc open func doNext() {
         let res = IOSIntArray(length: UInt(selected.count))
         for i in 0..<selected.count {
             res?.replaceInt(at: UInt(i), with: selected[i].contact.uid)

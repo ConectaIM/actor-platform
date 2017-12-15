@@ -279,7 +279,7 @@ open class AABubbleMediaCell : AABubbleBaseFileCell, NYTPhotosViewControllerDele
     
     // Media Action
     
-    open func mediaDidTap() {
+    @objc open func mediaDidTap() {
         
         let content = bindedMessage!.content as! ACDocumentContent
         if let fileSource = content.getSource() as? ACFileRemoteSource {

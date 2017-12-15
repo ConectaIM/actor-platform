@@ -6,6 +6,8 @@ OBJ_DIR = $(WORKING_DIR)/Objects
 ARCHFLAGS = $(ARCHS:%=-arch %)
 SDKFLAGS = --sysroot $(SDKROOT)
 SDK_ROOT = $(abspath $(PROJECT_DIR)/..)
+J2OBJC_DISABLE_CAST_CHECKS = 1
+J2OBJC_DISABLE_ALL_CHECKS = 1
 
 ifdef OPTIMIZATION_LEVEL
 DEBUGFLAGS := $(DEBUGFLAGS) -O$(OPTIMIZATION_LEVEL)
@@ -28,8 +30,8 @@ space := ${null} ${null}
 J2OBJC_DISTRIBUTION = $(PODS_ROOT)/J2ObjC-Framework/Distributive
 J2OBJC = $(J2OBJC_DISTRIBUTION)/j2objc
 J2OBJCC = $(J2OBJC_DISTRIBUTION)/j2objcc
-J2OBJC_ARGS = -use-arc --generate-deprecated --doc-comments -g --swift-friendly -source 8 --nullability --strip-reflection
-J2OBJCC_ARGS = -ObjC -fobjc-arc -fembed-bitcode-marker -Wobjc-designated-initializers -Wno-nullability-completeness -g $(ARCHFLAGS) $(SDKFLAGS) -I$(J2OBJC_DISTRIBUTION)/include
+J2OBJC_ARGS = -use-arc --generate-deprecated --doc-comments -g --swift-friendly -source 8 --nullability --strip-reflection -v
+J2OBJCC_ARGS = -ObjC -fobjc-arc -fembed-bitcode-marker -l iconv -Wobjc-designated-initializers -Wno-nullability-completeness -g $(ARCHFLAGS) $(SDKFLAGS) -I$(J2OBJC_DISTRIBUTION)/include
 
 LIBRARY_NAME = libactor.so
 
@@ -66,13 +68,10 @@ define max_args
   $(foreach obj,$3,$(eval _args+=$(obj))$(if $(word $2,$(_args)),$1$(_args)$(EOL)$(eval _args:=)))
   $(if $(_args),$1$(_args))
 endef
+
 define EOL
 
-
-
-
 endef
-
 
 define long_list_to_file
 @if [ -e $(1) ]; then rm $(1); fi
@@ -101,7 +100,7 @@ endef
 
 # Build Tasks
 
-# default:
+#default:
 # 	echo $(SDKROOT)
 
 default: | translate build
@@ -111,7 +110,7 @@ default: | translate build
 translate: | $(SOURCES_DIR) $(WORKING_DIR) $(OBJ_DIR) pre_translate $(OBJC_FILES)
 	@if [ `cat $(UPDATED_SOURCES) | wc -l` -ge 1 ] ; then \
 	$(J2OBJC) $(J2OBJC_ARGS) $(PREFIXES) -sourcepath $(SOURCE_PATHS) -d $(SOURCES_DIR) \
-	`cat $(UPDATED_SOURCES)` ; \
+	'@$(UPDATED_SOURCES)' ; \
 	fi
 
 pre_translate:
@@ -125,11 +124,11 @@ endef
 $(foreach root,$(SOURCE_ROOTS),$(eval $(call SOURCE_ROOT_RULE,$(root))))
 
 # Compile files
-# $(call max_args,ar rcs $(OBJ_DIR)/$(LIBRARY_NAME),100,$(OBJECT_FILES))
-# @ar rcs $(OBJ_DIR)/$(LIBRARY_NAME) $(OBJECT_FILES)
-# @rm -f $(OBJ_DIR)/$(LIBRARY_NAME)
-# $(call max_args,@ar crv $(OBJ_DIR)/$(LIBRARY_NAME),2,$(OBJECT_FILES))
-# @$(call max_args,ar rcs $(OBJ_DIR)/$(LIBRARY_NAME),1100,$(OBJECT_FILES))
+#$(call max_args,ar rcs $(OBJ_DIR)/$(LIBRARY_NAME),100,$(OBJECT_FILES))
+#@ar rcs $(OBJ_DIR)/$(LIBRARY_NAME) $(OBJECT_FILES)
+#@rm -f $(OBJ_DIR)/$(LIBRARY_NAME)
+#$(call max_args,@ar crv $(OBJ_DIR)/$(LIBRARY_NAME),2,$(OBJECT_FILES))
+#@$(call max_args,ar rcs $(OBJ_DIR)/$(LIBRARY_NAME),1100,$(OBJECT_FILES))
 
 build: $(OBJ_DIR) $(OBJECT_FILES)
 	@rm -f $(OBJ_DIR)/$(LIBRARY_NAME)

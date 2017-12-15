@@ -47,23 +47,23 @@ class AAAutoCompleteCell: AATableViewCell {
         let nickAttrs = NSMutableAttributedString(string: nickText)
         let nameAttrs = NSMutableAttributedString(string: nameText)
         
-        nickAttrs.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: NSMakeRange(0, nickText.length))
-        nickAttrs.addAttribute(NSForegroundColorAttributeName, value: ActorSDK.sharedActor().style.cellTextColor, range: NSMakeRange(0, nickText.length))
+        nickAttrs.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: 14), range: NSMakeRange(0, nickText.length))
+        nickAttrs.addAttribute(NSAttributedStringKey.foregroundColor, value: ActorSDK.sharedActor().style.cellTextColor, range: NSMakeRange(0, nickText.length))
         
-        nameAttrs.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: NSMakeRange(0, nameText.length))
-        nameAttrs.addAttribute(NSForegroundColorAttributeName, value: ActorSDK.sharedActor().style.cellHintColor, range: NSMakeRange(0, nameText.length))
+        nameAttrs.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: 14), range: NSMakeRange(0, nameText.length))
+        nameAttrs.addAttribute(NSAttributedStringKey.foregroundColor, value: ActorSDK.sharedActor().style.cellHintColor, range: NSMakeRange(0, nameText.length))
         
         for i in 0..<user.mentionMatches.size() {
             let match = user.mentionMatches.getWith(i) as! ACStringMatch
             let nsRange = NSMakeRange(Int(match.getStart()), Int(match.getLength()))
-            nickAttrs.addAttribute(NSForegroundColorAttributeName, value: appStyle.chatAutocompleteHighlight, range: nsRange)
+            nickAttrs.addAttribute(NSAttributedStringKey.foregroundColor, value: appStyle.chatAutocompleteHighlight, range: nsRange)
         }
         
         if user.originalString != nil {
             for i in 0..<user.originalMatches.size() {
                 let match = user.originalMatches.getWith(i) as! ACStringMatch
                 let nsRange = NSMakeRange(Int(match.getStart()) + 3, Int(match.getLength()))
-                nameAttrs.addAttribute(NSForegroundColorAttributeName, value: appStyle.chatAutocompleteHighlight, range: nsRange)
+                nameAttrs.addAttribute(NSAttributedStringKey.foregroundColor, value: appStyle.chatAutocompleteHighlight, range: nsRange)
             }
         }
         

@@ -68,6 +68,7 @@ import im.actor.runtime.mvvm.MVVMCollection;
 import im.actor.runtime.promise.Promise;
 import im.actor.runtime.promise.Promises;
 import im.actor.runtime.storage.KeyValueEngine;
+import im.actor.runtime.storage.ListEngine;
 
 import static im.actor.runtime.actors.ActorSystem.system;
 
@@ -103,7 +104,6 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
     //
     // Storage
     //
-
     public KeyValueEngine<Group> getGroups() {
         return groups;
     }
@@ -140,18 +140,11 @@ public class GroupsModule extends AbsModule implements BusSubscriber {
     private Promise<Integer> createGroup(String title, String avatarDescriptor, int[] uids,
                                          ApiGroupType groupType) {
         long rid = RandomUtils.nextRid();
+
         return Promise.success(uids)
                 .map((Function<int[], List<ApiUserOutPeer>>) ints -> {
                     ArrayList<ApiUserOutPeer> peers = new ArrayList<>();
                     for (int u : uids) {
-
-//                        users().getValueAsync(u).then(new Consumer<User>() {
-//                            @Override
-//                            public void apply(User user) {
-//                                peers.add(new ApiUserOutPeer(u, user.getAccessHash()));
-//                            }
-//                        });
-
                         User user = users().getValue(u);
                         if (user != null) {
                             peers.add(new ApiUserOutPeer(u, user.getAccessHash()));

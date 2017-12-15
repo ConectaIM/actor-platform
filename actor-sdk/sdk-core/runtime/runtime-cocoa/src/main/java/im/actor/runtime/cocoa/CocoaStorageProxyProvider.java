@@ -2,6 +2,7 @@ package im.actor.runtime.cocoa;
 
 import com.google.j2objc.annotations.ObjectiveCName;
 
+import im.actor.runtime.Log;
 import im.actor.runtime.StorageRuntime;
 import im.actor.runtime.storage.KeyValueStorage;
 import im.actor.runtime.storage.ListStorage;

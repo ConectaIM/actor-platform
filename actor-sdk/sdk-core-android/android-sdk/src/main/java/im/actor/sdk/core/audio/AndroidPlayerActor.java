@@ -44,18 +44,10 @@ public class AndroidPlayerActor extends Actor {
             mplayer.prepare();
             mplayer.setLooping(false);
             mplayer.start();
-            mplayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    self().send(new Stop());
-                }
-            });
-            mplayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                @Override
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    self().send(new Error());
-                    return false;
-                }
+            mplayer.setOnCompletionListener(mp -> self().send(new Stop()));
+            mplayer.setOnErrorListener((mp, what, extra) -> {
+                self().send(new Error());
+                return false;
             });
         } catch (Exception e) {
             destroyPlayer();

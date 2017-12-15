@@ -17,6 +17,7 @@ import im.actor.core.modules.encryption.EncryptionModule;
 import im.actor.core.modules.eventbus.EventBusModule;
 import im.actor.core.modules.external.ExternalModule;
 import im.actor.core.modules.file.FilesModule;
+import im.actor.core.modules.grouppre.GrupoPreModule;
 import im.actor.core.modules.groups.GroupsModule;
 import im.actor.core.modules.mentions.MentionsModule;
 import im.actor.core.modules.messaging.MessagesModule;
@@ -79,6 +80,7 @@ public class Modules implements ModuleContext {
     private volatile EncryptionModule encryptionModule;
     private volatile ConductorModule conductor;
     private volatile EventBusModule eventBusModule;
+    private volatile GrupoPreModule grupoPreModule;
 
     public Modules(Messenger messenger, Configuration configuration) {
         this.messenger = messenger;
@@ -131,6 +133,10 @@ public class Modules implements ModuleContext {
         storageModule.run(first);
         timing.section("Groups");
         groups = new GroupsModule(this);
+
+        timing.section("GrupoPreee");
+        grupoPreModule = new GrupoPreModule(this);
+
         timing.section("Conductor");
         conductor.run();
         timing.section("Stickers");
@@ -171,10 +177,16 @@ public class Modules implements ModuleContext {
         timing = new Timing("ACCOUNT_RUN");
         timing.section("Users");
         users.run();
+
         timing.section("Groups");
         groups.run();
+
+        timing.section("GroupsPre");
+        grupoPreModule.run();
+
         timing.section("Settings");
         settings.run();
+
         timing.section("Files");
         filesModule.run();
         timing.section("Search");
@@ -374,6 +386,11 @@ public class Modules implements ModuleContext {
     @Override
     public ConductorModule getConductor() {
         return conductor;
+    }
+
+    @Override
+    public GrupoPreModule getGrupoPreModule() {
+        return grupoPreModule;
     }
 
     @Override

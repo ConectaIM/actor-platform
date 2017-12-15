@@ -2,6 +2,7 @@ package im.actor.sdk.controllers.compose;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -96,7 +97,7 @@ public class GroupNameFragment extends BaseFragment {
         avatarView.init(Screen.dp(96), 24);
         avatarView.getHierarchy().setPlaceholderImage(R.drawable.circle_placeholder);
         // avatarView.getHierarchy().setControllerOverlay(getResources().getDrawable(R.drawable.circle_selector));
-        avatarView.setImageURI(null);
+        avatarView.setImageURI(Uri.EMPTY);
 
         res.findViewById(R.id.pickAvatar).setOnClickListener(view -> {
             startActivityForResult(Intents.pickAvatar(avatarPath != null, getActivity()), REQUEST_AVATAR);

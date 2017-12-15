@@ -143,7 +143,7 @@ open class AACommonCell: AATableViewCell {
         }
     }
     
-    func switcherSwitched() {
+    @objc func switcherSwitched() {
         if switchBlock != nil {
             switchBlock!(switcher!.isOn)
         }
