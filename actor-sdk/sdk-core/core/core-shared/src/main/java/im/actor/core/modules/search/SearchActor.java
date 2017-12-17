@@ -28,7 +28,6 @@ public class SearchActor extends ModuleActor {
     @Override
     public void preStart() {
         super.preStart();
-
         listEngine = context().getSearchModule().getSearchList();
     }
 

@@ -34,7 +34,7 @@ import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 public class GroupPreSelectParentFragment extends DisplayListFragment<GroupPre, GrupoPreHolder> {
 
     private GroupVM groupVM;
-    private Integer parentId = -1;
+    private Integer parentId = GroupPre.DEFAULT_ID;
     private View emptyGroups;
 
     public static GroupPreSelectParentFragment create(int groupId) {
@@ -62,7 +62,7 @@ public class GroupPreSelectParentFragment extends DisplayListFragment<GroupPre, 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        BindedDisplayList<GroupPre> displayList = ActorSDK.sharedActor().getMessenger().getGroupPreDisplayList(parentId);
+        BindedDisplayList<GroupPre> displayList = ActorSDK.sharedActor().getMessenger().getGroupPreDisplayList(parentId, GroupType.GROUP, groupVM.getId());
 
         View res = inflate(inflater, container, R.layout.fragment_group_pre_select_parent, displayList);
         res.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
@@ -84,17 +84,10 @@ public class GroupPreSelectParentFragment extends DisplayListFragment<GroupPre, 
         // Empty View
         emptyGroups = res.findViewById(R.id.emptyGroups);
 
-//        bind(ActorSDK.sharedActor().getMessenger().getGrupoPreVM(idGrupoPai.longValue()).getIsEmpty(), (val, Value) -> {
-//            if (val) {
-//                emptyDialogs.setVisibility(View.VISIBLE);
-//            } else {
-//                emptyDialogs.setVisibility(View.GONE);
-//            }
-//        });
-
         ((TextView) emptyGroups.findViewById(R.id.empty_groups_text)).setTextColor(ActorSDK.sharedActor().style.getMainColor());
 
         emptyGroups.findViewById(R.id.empty_groups_bg).setBackgroundColor(ActorSDK.sharedActor().style.getMainColor());
+        emptyGroups.setVisibility(View.GONE);
 
         return res;
     }

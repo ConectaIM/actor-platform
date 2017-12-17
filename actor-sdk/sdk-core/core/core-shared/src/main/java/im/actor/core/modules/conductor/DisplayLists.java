@@ -28,7 +28,6 @@ public class DisplayLists extends AbsModule {
     private HashMap<Peer, PlatformDisplayList<Message>> chatsVideosGlobalLists = new HashMap<>();
 
     private HashMap<Integer, PlatformDisplayList<GroupPre>> gruposPreDisplayList = new HashMap<>();
-    private HashMap<Integer, PlatformDisplayList<GroupPre>> canaisPreDisplayList = new HashMap<>();
 
     public DisplayLists(ModuleContext context) {
         super(context);
@@ -186,28 +185,9 @@ public class DisplayLists extends AbsModule {
                 isShared, GroupPre.ENTITY_NAME);
 
         res.initTop();
+
         return res;
     }
 
-
-    public PlatformDisplayList<GroupPre> getCanaisPreDisplayList(Integer idGrupoPai) {
-        im.actor.runtime.Runtime.checkMainThread();
-
-        if (!canaisPreDisplayList.containsKey(idGrupoPai)) {
-            canaisPreDisplayList.put(idGrupoPai, buildCanaisPreList(idGrupoPai, true));
-        }
-
-        return canaisPreDisplayList.get(idGrupoPai);
-    }
-
-    private PlatformDisplayList<GroupPre> buildCanaisPreList(Integer idGrupoPai, boolean isShared) {
-        im.actor.runtime.Runtime.checkMainThread();
-
-        PlatformDisplayList<GroupPre> res = Storage.createDisplayList(context().getGrupoPreModule().getCanaispreEngine(idGrupoPai),
-                isShared, GroupPre.ENTITY_NAME);
-
-        res.initTop();
-        return res;
-    }
 
 }

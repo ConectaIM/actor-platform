@@ -46,67 +46,59 @@ public class AddContactActivity extends BaseFragmentActivity {
         findViewById(R.id.dividerBot).setBackgroundColor(ActorSDK.sharedActor().style.getDividerColor());
 
         ((TextView) findViewById(R.id.cancel)).setTextColor(ActorSDK.sharedActor().style.getTextPrimaryColor());
-        findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        findViewById(R.id.cancel).setOnClickListener(view -> finish());
         ((TextView) findViewById(R.id.ok)).setTextColor(ActorSDK.sharedActor().style.getTextPrimaryColor());
-        findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String query = searchQuery.getText().toString();
-                if (query.length() == 0) {
-                    return;
-                }
-                execute(messenger().findUsers(query), R.string.progress_common, new CommandCallback<UserVM[]>() {
-                    @Override
-                    public void onResult(final UserVM[] res) {
-                        if (res.length == 0) {
-                            new AlertDialog.Builder(AddContactActivity.this)
-                                    .setMessage(getString(R.string.alert_invite_text).replace("{0}", query).replace("{appName}", ActorSDK.sharedActor().getAppName()))
-                                    .setPositiveButton(R.string.alert_invite_yes, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            String inviteMessage = getString(R.string.invite_message).replace("{inviteUrl}", ActorSDK.sharedActor().getInviteUrl()).replace("{appName}", ActorSDK.sharedActor().getAppName());
-                                            Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-                                            sendIntent.setData(Uri.parse("sms:" + query));
-                                            sendIntent.putExtra("sms_body", inviteMessage);
-                                            startActivity(sendIntent);
-                                            finish();
-                                        }
-                                    })
-                                    .setNegativeButton(R.string.dialog_cancel, null)
-                                    .show()
-                                    .setCanceledOnTouchOutside(true);
-                        } else {
-                            execute(messenger().addContact(res[0].getId()), R.string.progress_common, new CommandCallback<Boolean>() {
-                                @Override
-                                public void onResult(Boolean res2) {
-                                    startActivity(Intents.openPrivateDialog(res[0].getId(),
-                                            true,
-                                            AddContactActivity.this));
-                                    finish();
-                                }
-
-                                @Override
-                                public void onError(Exception e) {
-                                    startActivity(Intents.openPrivateDialog(res[0].getId(),
-                                            true,
-                                            AddContactActivity.this));
-                                    finish();
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        // Never happens
-                    }
-                });
+        findViewById(R.id.ok).setOnClickListener(view -> {
+            final String query = searchQuery.getText().toString();
+            if (query.length() == 0) {
+                return;
             }
+            execute(messenger().findUsers(query), R.string.progress_common, new CommandCallback<UserVM[]>() {
+                @Override
+                public void onResult(final UserVM[] res) {
+                    if (res.length == 0) {
+                        new AlertDialog.Builder(AddContactActivity.this)
+                                .setMessage(getString(R.string.alert_invite_text).replace("{0}", query).replace("{appName}", ActorSDK.sharedActor().getAppName()))
+                                .setPositiveButton(R.string.alert_invite_yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        String inviteMessage = getString(R.string.invite_message).replace("{inviteUrl}", ActorSDK.sharedActor().getInviteUrl()).replace("{appName}", ActorSDK.sharedActor().getAppName());
+                                        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                                        sendIntent.setData(Uri.parse("sms:" + query));
+                                        sendIntent.putExtra("sms_body", inviteMessage);
+                                        startActivity(sendIntent);
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton(R.string.dialog_cancel, null)
+                                .show()
+                                .setCanceledOnTouchOutside(true);
+                    } else {
+                        execute(messenger().addContact(res[0].getId()), R.string.progress_common, new CommandCallback<Boolean>() {
+                            @Override
+                            public void onResult(Boolean res2) {
+                                startActivity(Intents.openPrivateDialog(res[0].getId(),
+                                        true,
+                                        AddContactActivity.this));
+                                finish();
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                startActivity(Intents.openPrivateDialog(res[0].getId(),
+                                        true,
+                                        AddContactActivity.this));
+                                finish();
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    // Never happens
+                }
+            });
         });
     }
 

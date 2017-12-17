@@ -70,7 +70,8 @@ public class GrupoPreActor extends ModuleActor {
                 .chain(r -> updates().loadRequiredPeers(new ArrayList<>(), r.getT2()))
                 .map(r -> PromisesArray.of(r.getT1())
                         .map(r2 -> Promises.tuple(Promise.success(r2), groups().getValueAsync(r2.getGroupId())))
-                        .map(r2 -> Promise.success(new GroupPre(r2.getT2(), r2.getT1().getOrder(), r2.getT1().hasChildrem())))
+                        .map(r2 -> Promise.success(new GroupPre(r2.getT1().getGroupId(), r2.getT1().getParentId(),
+                                r2.getT1().getOrder(), r2.getT1().hasChildrem())))
                         .zip())
                 .map(r -> r.map(r2 -> onGruposPreLoaded(r2)))
                 .after((r, e)->{

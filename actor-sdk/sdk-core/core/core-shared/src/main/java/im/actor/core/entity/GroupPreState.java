@@ -19,7 +19,7 @@ public class GroupPreState extends BserObject implements KeyValueItem {
     public static BserCreator<GroupPreState> CREATOR = GroupPreState::new;
 
     public static ValueDefaultCreator<GroupPreState> DEFAULT_CREATOR = groupId ->
-            new GroupPreState(groupId, GroupPre.NONE_PARENT_ID, false);
+            new GroupPreState(groupId, GroupPre.DEFAULT_ID, false);
 
     public static final String ENTITY_NAME = "GroupPreState";
 
