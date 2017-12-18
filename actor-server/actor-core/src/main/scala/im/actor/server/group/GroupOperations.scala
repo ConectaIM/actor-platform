@@ -22,11 +22,10 @@ private[group] sealed trait Commands extends UserAcl {
   implicit val timeout: Timeout
   implicit val ec: ExecutionContext
 
-  // TODO: find usages, replace GroupType
-  def create(groupId: Int, clientUserId: Int, clientAuthId: Long, title: String, randomId: Long, userIds: Set[Int], typ: GroupType.ValueType = GroupType.General): Future[CreateAck] = {
+  def create(groupId: Int, clientUserId: Int, clientAuthId: Long, title: String, randomId: Long, userIds: Set[Int], typ: Int = GroupType.General.value): Future[CreateAck] = {
     (processorRegion.ref ?
       GroupEnvelope(groupId)
-      .withCreate(Create(typ.value, clientUserId, clientAuthId, title, randomId, userIds.toSeq))).mapTo[CreateAck] //FIXME: typ.value
+      .withCreate(Create(typ, clientUserId, clientAuthId, title, randomId, userIds.toSeq))).mapTo[CreateAck]
   }
 
   // TODO: REMOVE. I guess it's obsolete

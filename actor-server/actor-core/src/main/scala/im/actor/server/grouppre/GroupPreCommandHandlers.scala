@@ -7,6 +7,7 @@ import akka.pattern.pipe
 import im.actor.server.GroupPreCommands.{ChangeParent, ChangeParentAck, Create, CreateAck, Remove, RemoveAck}
 import im.actor.server.persist.UserRepo
 import im.actor.server.persist.grouppre.{PublicGroup, PublicGroupRepo}
+import im.actor.server.sequence.SeqState
 import org.joda.time.Instant
 
 import scala.concurrent.Future
@@ -28,16 +29,12 @@ private [grouppre] trait GroupPreCommandHandlers {
           case Some(ApiGroupType.CHANNEL) => "C"
           case _ => "G"
         }),
-        order = 0,
-        hasChildrem = false,
-        parentId = None,
-        apiGroup.accessHash
+        accessHash = apiGroup.accessHash
       )
 
       _ <- db.run(
         (for {
           _ ← PublicGroupRepo.createOrUpdate(publicGroup)
-          //_ ← PublicGroupRepo.atualizaPossuiFilhos(cmd.parentId, true)
         } yield ())
       )
 
@@ -46,7 +43,7 @@ private [grouppre] trait GroupPreCommandHandlers {
         hasChildrem = false,
         acessHash = apiGroup.accessHash,
         order = 0,
-        parentId = publicGroup.parentId
+        parentId = Option(publicGroup.parentId)
       ))
 
       activeUsersIds <- db.run(UserRepo.activeUsersIds)
@@ -65,13 +62,13 @@ private [grouppre] trait GroupPreCommandHandlers {
       apiGroup <- groupExt.getApiStruct(cmd.groupId, cmd.userId)
       publicGroup <- db.run(PublicGroupRepo.findById(cmd.groupId))
 
-      (seqState, pubGroup) <- publicGroup match {
+      seqState:SeqState <- publicGroup match {
         case Some(pg) => {
           for{
-            _ <- db.run(PublicGroupRepo.delete(pg.id))
             _ <- db.run(for {
-              hasChildren <- PublicGroupRepo.possuiFilhos(pg.parentId.get)
-              _ <- PublicGroupRepo.atualizaPossuiFilhos(pg.parentId.get, hasChildren)
+              _ <- PublicGroupRepo.delete(pg.id)
+              hasChildren <- PublicGroupRepo.possuiFilhos(pg.parentId)
+              _ <- PublicGroupRepo.atualizaPossuiFilhos(pg.parentId, hasChildren)
             } yield ())
 
             update = UpdateGroupPreRemoved(ApiGroupPre(
@@ -79,22 +76,34 @@ private [grouppre] trait GroupPreCommandHandlers {
               hasChildrem = false,
               acessHash = apiGroup.accessHash,
               order = 0,
-              parentId = pg.parentId
+              parentId = Option(pg.parentId)
             ))
 
             activeUsersIds <- db.run(UserRepo.activeUsersIds)
             seqState <- seqUpdExt.broadcastClientUpdate(cmd.userId, cmd.authId, activeUsersIds.toSet, update)
-          } yield (seqState, pg)
+          } yield seqState
         }
         case None =>{
-          throw new RuntimeException("Group pre, alread removed")
+
+          val update = UpdateGroupPreRemoved(ApiGroupPre(
+            groupId = apiGroup.id,
+            hasChildrem = false,
+            acessHash = apiGroup.accessHash,
+            order = 0,
+            parentId = None
+          ))
+
+          for{
+            activeUsersIds <- db.run(UserRepo.activeUsersIds)
+            seqState <- seqUpdExt.broadcastClientUpdate(cmd.userId, cmd.authId, activeUsersIds.toSet, update)
+          } yield seqState
         }
       }
-    } yield (RemoveAck(Some(seqState)))
+    } yield (RemoveAck(Option(seqState)))
 
     result pipeTo sender() onFailure {
       case e ⇒
-        log.error(e, "Failed to create group pre")
+        log.error(e, "Failed to remove Group Pre")
     }
   }
 
@@ -108,7 +117,7 @@ private [grouppre] trait GroupPreCommandHandlers {
         _ ← PublicGroupRepo.atualizaPossuiFilhos(cmd.parentId, true)
       } yield(retorno))
 
-      update = UpdateGroupPreParentChanged(cmd.groupId, cmd.parentId, previous.get.parentId.getOrElse(-1))
+      update = UpdateGroupPreParentChanged(cmd.groupId, cmd.parentId, previous.get.parentId)
 
       activeUsersIds <- db.run(UserRepo.activeUsersIds)
       seqState <- seqUpdExt.broadcastClientUpdate(cmd.userId, cmd.authId, activeUsersIds.toSet, update)

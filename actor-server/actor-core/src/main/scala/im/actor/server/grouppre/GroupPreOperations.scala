@@ -40,9 +40,6 @@ private[grouppre] sealed trait Queries{
   implicit val ec: ExecutionContext
 
   def loadGroupsPre(clientUserId: Int, idGrupoPai:Option[Int]): Future[Seq[GroupPre]] =
-    if(idGrupoPai.isDefined){
-      (viewRegion.ref ? GetGroupsPre(groupFatherId = idGrupoPai.get)).mapTo[GetGroupsPreResponse].map(_.groups)
-    }else{
-      (viewRegion.ref ? GetGroupsPre()).mapTo[GetGroupsPreResponse].map(_.groups)
-    }
+      (viewRegion.ref ? GetGroupsPre(groupFatherId = idGrupoPai.getOrElse(0))).mapTo[GetGroupsPreResponse].map(_.groups)
+
 }

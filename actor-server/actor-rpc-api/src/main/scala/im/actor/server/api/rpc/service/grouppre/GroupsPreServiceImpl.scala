@@ -27,11 +27,12 @@ final class GroupsPreServiceImpl()(implicit actorSystem: ActorSystem) extends Gr
     authorized(clientData) { implicit client ⇒
       for {
         gruposPre <- groupPreExt.loadGroupsPre(client.userId, idGrupoPai)
+
         gruposApi = gruposPre map(gp =>  ApiGroupPre(groupId = gp.groupId,
           hasChildrem = gp.possuiFilhos,
           acessHash = gp.acessHash,
           order = gp.ordem,
-          parentId = if (gp.idPai > 0) Some(gp.idPai) else None ))
+          parentId = Option(gp.idPai)))
       } yield (Ok(ResponseLoadGroupsPre(groups = gruposApi.toIndexedSeq)))
     }
 
@@ -50,11 +51,17 @@ final class GroupsPreServiceImpl()(implicit actorSystem: ActorSystem) extends Gr
   override protected def doHandleChangeGroupPre(groupId: Int, isGroupPre: Boolean, clientData: ClientData):
   Future[HandlerResult[ResponseSeq]] =
       authorized(clientData) { implicit client ⇒
-        for{
-          ack <- groupPreExt.create(groupId) if(isGroupPre)
-          ack <- groupPreExt.remove(groupId) if(!isGroupPre)
-          seqState = ack.seqState.getOrElse(throw NoSeqStateDate)
-        }yield(Ok(ResponseSeq(seqState.seq, seqState.state.toByteArray)))
+        if(isGroupPre){
+          for{
+            ack <- groupPreExt.create(groupId)
+            seqState = ack.seqState.getOrElse(throw NoSeqStateDate)
+          }yield(Ok(ResponseSeq(seqState.seq, seqState.state.toByteArray)))
+        }else{
+          for{
+            ack <-  groupPreExt.remove(groupId)
+            seqState = ack.seqState.getOrElse(throw NoSeqStateDate)
+          }yield(Ok(ResponseSeq(seqState.seq, seqState.state.toByteArray)))
+        }
     }
 
 
