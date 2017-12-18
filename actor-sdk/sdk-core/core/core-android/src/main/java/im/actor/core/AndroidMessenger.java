@@ -58,7 +58,11 @@ import im.actor.runtime.actors.Props;
 import im.actor.runtime.android.AndroidContext;
 import im.actor.runtime.collections.ArrayUtils;
 import im.actor.runtime.eventbus.EventBus;
+import im.actor.runtime.generic.mvvm.AndroidListUpdate;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
+import im.actor.runtime.generic.mvvm.ChangeDescription;
+import im.actor.runtime.generic.mvvm.DisplayList;
+import im.actor.runtime.generic.mvvm.alg.Modification;
 import im.actor.runtime.generic.mvvm.alg.Modifications;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -599,19 +603,21 @@ public class AndroidMessenger extends im.actor.core.Messenger {
         if (groupPreList == null) {
             groupPreList = (BindedDisplayList<GroupPre>) modules.getDisplayListsModule().getGruposPreDisplayList(idGrupoPai);
 
-
-
-//            List<Long> itensRemover = new ArrayList<Long>();
-//
-//            for(int i = 0; i < groupPreList.getSize(); i++){
-//               GroupPre groupPre = groupPreList.getItem(i);
-//                if(groupPre.getGroup().getGroupType() != type
-//                        || groupPre.getGroup().getGroupId() != groupId){
-//                    itensRemover.add(groupPre.getEngineId());
-//                }
-//            }
-
-//            groupPreList.editList(Modifications.remove(ArrayUtils.toPrimitive(itensRemover.toArray(new Long[itensRemover.size()]))));
+            groupPreList.addAndroidListener(modification -> {
+                ChangeDescription<GroupPre> mod = modification.next();
+                switch (mod.getOperationType()){
+                    case ADD: {
+                        List<Long> itensRemover = new ArrayList<>();
+                        for(int i = 0; i < modification.getSize(); i++){
+                            GroupPre gp = modification.getItem(i);
+                            if(gp.getGroupId().compareTo(groupId) == 0){
+                                itensRemover.add(gp.getEngineId());
+                            }
+                        }
+                        groupPreList.editList(Modifications.remove(ArrayUtils.toPrimitive(itensRemover.toArray(new Long[itensRemover.size()]))));
+                    }
+                }
+            });
         }
         return groupPreList;
     }

@@ -215,7 +215,7 @@ public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.
         res.setPlaceholderIndex(Math.abs(arg.getGroupId()) % placeholderColors.length);
         res.setShortName(buildShortName(groupVM.getName().get()));
 
-        if (groupVM.getAvatar() != null) {
+        if (groupVM.getAvatar().get() != null) {
             AvatarImage image = getAvatarImage(groupVM.getAvatar().get());
             if (image != null) {
                 String desc = messenger().findDownloadedDescriptor(image.getFileReference().getFileId());
@@ -309,8 +309,6 @@ public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.
     private AvatarImage getAvatarImage(Avatar avatar) {
         return Screen.dp(52) >= 100 ? avatar.getLargeImage() : avatar.getSmallImage();
     }
-
-
 
     @Override
     protected boolean verifyDrawable(Drawable who) {

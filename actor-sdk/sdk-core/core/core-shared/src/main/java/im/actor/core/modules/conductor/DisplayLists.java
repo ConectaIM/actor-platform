@@ -164,6 +164,7 @@ public class DisplayLists extends AbsModule {
 
         PlatformDisplayList<SearchEntity> res = Storage.createDisplayList(context().getSearchModule().getSearchList(),
                 isGlobalList, SearchEntity.ENTITY_NAME);
+
         res.initEmpty();
         return res;
     }

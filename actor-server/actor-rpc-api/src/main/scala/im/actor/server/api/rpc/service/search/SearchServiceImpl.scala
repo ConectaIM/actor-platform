@@ -94,7 +94,6 @@ class SearchServiceImpl(implicit system: ActorSystem) extends SearchService {
       }
       ((users, userPeers), (groups, groupPeers)) ← EntitiesHelpers.usersAndGroupsByIds(groupIds, userIds, stripEntities, loadGroupMembers)
     } yield {
-
       Ok(ResponsePeerSearch(
         searchResults = searchResults,
         users = users,

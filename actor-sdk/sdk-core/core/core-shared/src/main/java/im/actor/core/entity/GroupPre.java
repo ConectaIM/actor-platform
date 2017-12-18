@@ -55,6 +55,13 @@ public class GroupPre extends BserObject implements ListEngineItem {
         this.hasChildren = hasChildren;
     }
 
+    public GroupPre(@NotNull Integer groupId, @NotNull Integer parentId) {
+        this.groupId = groupId;
+        this.parentId = parentId;
+        this.sortOrder = 0;
+        this.hasChildren = false;
+    }
+
     public GroupPre(@NotNull Integer groupId) {
         this.groupId = groupId;
         this.parentId = DEFAULT_ID;
