@@ -8,6 +8,7 @@ import com.google.j2objc.annotations.AutoreleasePool;
 
 import java.io.IOException;
 
+import im.actor.runtime.Log;
 import im.actor.runtime.collections.SparseArray;
 
 // Disabling Bounds checks for speeding up calculations
@@ -44,7 +45,7 @@ public abstract class BserObject {
         try {
             serialize(writer);
         } catch (IOException e) {
-            throw new RuntimeException("Unexpected IO exception");
+            throw new RuntimeException("Unexpected IO exception: "+e.getMessage());
         }
         return outputStream.toByteArray();
     }
