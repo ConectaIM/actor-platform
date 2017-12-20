@@ -64,6 +64,7 @@ import im.actor.runtime.generic.mvvm.ChangeDescription;
 import im.actor.runtime.generic.mvvm.DisplayList;
 import im.actor.runtime.generic.mvvm.alg.Modification;
 import im.actor.runtime.generic.mvvm.alg.Modifications;
+import im.actor.runtime.storage.ListEngineDisplayExt;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static im.actor.runtime.actors.ActorSystem.system;
@@ -82,7 +83,6 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     private HashMap<Peer, BindedDisplayList<Message>> docsLists = new HashMap<>();
     private HashMap<Peer, BindedDisplayList<Message>> photosList = new HashMap<>();
     private HashMap<Peer, BindedDisplayList<Message>> videosLists = new HashMap<>();
-    private BindedDisplayList<GroupPre> groupPreList;
 
     private GalleryVM galleryVM;
     private ActorRef galleryScannerActor;
@@ -600,25 +600,32 @@ public class AndroidMessenger extends im.actor.core.Messenger {
     }
 
     public BindedDisplayList<GroupPre> getGroupPreDisplayList(Integer idGrupoPai, Integer type, int groupId) {
-        if (groupPreList == null) {
-            groupPreList = (BindedDisplayList<GroupPre>) modules.getDisplayListsModule().getGruposPreDisplayList(idGrupoPai);
 
-            groupPreList.addAndroidListener(modification -> {
-                ChangeDescription<GroupPre> mod = modification.next();
-                switch (mod.getOperationType()){
-                    case ADD: {
-                        List<Long> itensRemover = new ArrayList<>();
-                        for(int i = 0; i < modification.getSize(); i++){
-                            GroupPre gp = modification.getItem(i);
-                            if(gp.getGroupId().compareTo(groupId) == 0){
-                                itensRemover.add(gp.getEngineId());
-                            }
-                        }
-                        groupPreList.editList(Modifications.remove(ArrayUtils.toPrimitive(itensRemover.toArray(new Long[itensRemover.size()]))));
-                    }
-                }
-            });
+        BindedDisplayList<GroupPre> groupPreList = (BindedDisplayList<GroupPre>) modules.getDisplayListsModule().buildGrupoPreList(idGrupoPai, false);
+
+//        groupPreList.addAndroidListener(modification -> {
+//            ChangeDescription<GroupPre> mod = modification.next();
+//            if(mod != null)
+//                switch (mod.getOperationType()){
+//                    case ADD: {
+//                        List<Long> itensRemover = new ArrayList<>();
+//                        for(int i = 0; i < modification.getSize(); i++){
+//                            GroupPre gp = modification.getItem(i);
+//                            if(gp.getGroupId().compareTo(groupId) == 0){
+//                                itensRemover.add(gp.getEngineId());
+//                            }
+//                        }
+//                        groupPreList.editList(Modifications.remove(ArrayUtils.toPrimitive(itensRemover.toArray(new Long[itensRemover.size()]))));
+//                    }
+//                }
+//        });
+
+        ListEngineDisplayExt<GroupPre> groupsPreListEngine = modules.getDisplayListsModule().getGroupsPreListEngine(idGrupoPai);
+
+        for(int i = 0; i < groupsPreListEngine.getCount(); i++){
+            Log.d(TAG, groupsPreListEngine.getHeadValue().getEngineId()+"");
         }
+
         return groupPreList;
     }
 

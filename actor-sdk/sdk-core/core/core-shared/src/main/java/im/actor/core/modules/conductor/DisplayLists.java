@@ -16,6 +16,7 @@ import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
 import im.actor.runtime.Storage;
 import im.actor.runtime.mvvm.PlatformDisplayList;
+import im.actor.runtime.storage.ListEngineDisplayExt;
 
 public class DisplayLists extends AbsModule {
 
@@ -26,8 +27,6 @@ public class DisplayLists extends AbsModule {
     private HashMap<Peer, PlatformDisplayList<Message>> chatsDocsGlobalLists = new HashMap<>();
     private HashMap<Peer, PlatformDisplayList<Message>> chatsPhotosGlobalLists = new HashMap<>();
     private HashMap<Peer, PlatformDisplayList<Message>> chatsVideosGlobalLists = new HashMap<>();
-
-    private HashMap<Integer, PlatformDisplayList<GroupPre>> gruposPreDisplayList = new HashMap<>();
 
     public DisplayLists(ModuleContext context) {
         super(context);
@@ -166,20 +165,11 @@ public class DisplayLists extends AbsModule {
                 isGlobalList, SearchEntity.ENTITY_NAME);
 
         res.initEmpty();
+
         return res;
     }
 
-    public PlatformDisplayList<GroupPre> getGruposPreDisplayList(Integer idGrupoPai) {
-        im.actor.runtime.Runtime.checkMainThread();
-
-        if (!gruposPreDisplayList.containsKey(idGrupoPai)) {
-            gruposPreDisplayList.put(idGrupoPai, buildGrupoPreList(idGrupoPai, true));
-        }
-
-        return gruposPreDisplayList.get(idGrupoPai);
-    }
-
-    private PlatformDisplayList<GroupPre> buildGrupoPreList(Integer idGrupoPai, boolean isShared) {
+    public PlatformDisplayList<GroupPre> buildGrupoPreList(Integer idGrupoPai, boolean isShared) {
         im.actor.runtime.Runtime.checkMainThread();
 
         PlatformDisplayList<GroupPre> res = Storage.createDisplayList(context().getGrupoPreModule().getGrupospreEngine(idGrupoPai),
@@ -190,5 +180,9 @@ public class DisplayLists extends AbsModule {
         return res;
     }
 
+
+    public ListEngineDisplayExt<GroupPre> getGroupsPreListEngine(Integer idGrupoPai){
+        return (ListEngineDisplayExt<GroupPre>) context().getGrupoPreModule().getGrupospreEngine(idGrupoPai);
+    }
 
 }
