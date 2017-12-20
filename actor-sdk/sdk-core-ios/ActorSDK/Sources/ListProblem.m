@@ -6,11 +6,10 @@
 //  Copyright © 2017 Steve Kite. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-@import j2objc;
-
+#import "ActorSDK.h"
 
 void workaround() {
     @protocol(JavaUtilCollection);
     @protocol(JavaUtilList);
+    @protocol(ARListStorageDisplayEx);
 }
