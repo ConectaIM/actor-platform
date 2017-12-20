@@ -65,6 +65,7 @@ import im.actor.runtime.generic.mvvm.DisplayList;
 import im.actor.runtime.generic.mvvm.alg.Modification;
 import im.actor.runtime.generic.mvvm.alg.Modifications;
 import im.actor.runtime.storage.ListEngineDisplayExt;
+import im.actor.runtime.storage.ListEngineDisplayListener;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static im.actor.runtime.actors.ActorSystem.system;
@@ -603,24 +604,41 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
         BindedDisplayList<GroupPre> groupPreList = (BindedDisplayList<GroupPre>) modules.getDisplayListsModule().buildGrupoPreList(idGrupoPai, false);
 
-//        groupPreList.addAndroidListener(modification -> {
-//            ChangeDescription<GroupPre> mod = modification.next();
-//            if(mod != null)
-//                switch (mod.getOperationType()){
-//                    case ADD: {
-//                        List<Long> itensRemover = new ArrayList<>();
-//                        for(int i = 0; i < modification.getSize(); i++){
-//                            GroupPre gp = modification.getItem(i);
-//                            if(gp.getGroupId().compareTo(groupId) == 0){
-//                                itensRemover.add(gp.getEngineId());
-//                            }
-//                        }
-//                        groupPreList.editList(Modifications.remove(ArrayUtils.toPrimitive(itensRemover.toArray(new Long[itensRemover.size()]))));
-//                    }
-//                }
-//        });
+
 
         ListEngineDisplayExt<GroupPre> groupsPreListEngine = modules.getDisplayListsModule().getGroupsPreListEngine(idGrupoPai);
+
+        groupsPreListEngine.subscribe(new ListEngineDisplayListener<GroupPre>() {
+            @Override
+            public void onItemRemoved(long key) {
+
+            }
+
+            @Override
+            public void onItemsRemoved(long[] keys) {
+
+            }
+
+            @Override
+            public void addOrUpdate(GroupPre item) {
+
+            }
+
+            @Override
+            public void addOrUpdate(List<GroupPre> items) {
+
+            }
+
+            @Override
+            public void onItemsReplaced(List<GroupPre> items) {
+
+            }
+
+            @Override
+            public void onListClear() {
+
+            }
+        });
 
         for(int i = 0; i < groupsPreListEngine.getCount(); i++){
             Log.d(TAG, groupsPreListEngine.getHeadValue().getEngineId()+"");
