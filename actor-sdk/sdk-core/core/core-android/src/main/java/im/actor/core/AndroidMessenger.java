@@ -62,6 +62,7 @@ import im.actor.runtime.generic.mvvm.AndroidListUpdate;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
 import im.actor.runtime.generic.mvvm.ChangeDescription;
 import im.actor.runtime.generic.mvvm.DisplayList;
+import im.actor.runtime.generic.mvvm.SimpleBindedDisplayList;
 import im.actor.runtime.generic.mvvm.alg.Modification;
 import im.actor.runtime.generic.mvvm.alg.Modifications;
 import im.actor.runtime.storage.ListEngineDisplayExt;
@@ -604,47 +605,14 @@ public class AndroidMessenger extends im.actor.core.Messenger {
 
         BindedDisplayList<GroupPre> groupPreList = (BindedDisplayList<GroupPre>) modules.getDisplayListsModule().buildGrupoPreList(idGrupoPai, false);
 
-
-
-        ListEngineDisplayExt<GroupPre> groupsPreListEngine = modules.getDisplayListsModule().getGroupsPreListEngine(idGrupoPai);
-
-        groupsPreListEngine.subscribe(new ListEngineDisplayListener<GroupPre>() {
-            @Override
-            public void onItemRemoved(long key) {
-
-            }
-
-            @Override
-            public void onItemsRemoved(long[] keys) {
-
-            }
-
-            @Override
-            public void addOrUpdate(GroupPre item) {
-
-            }
-
-            @Override
-            public void addOrUpdate(List<GroupPre> items) {
-
-            }
-
-            @Override
-            public void onItemsReplaced(List<GroupPre> items) {
-
-            }
-
-            @Override
-            public void onListClear() {
-
-            }
-        });
-
-        for(int i = 0; i < groupsPreListEngine.getCount(); i++){
-            Log.d(TAG, groupsPreListEngine.getHeadValue().getEngineId()+"");
-        }
-
         return groupPreList;
+    }
+
+
+    public SimpleBindedDisplayList<GroupPre> getGroupsPreDisplayList(Integer parentId){
+        SimpleBindedDisplayList<GroupPre> groupsPreListEngine =
+                new SimpleBindedDisplayList<>(modules.getDisplayListsModule().getGroupsPreListEngine(parentId));
+        return groupsPreListEngine;
     }
 
     public GalleryVM getGalleryVM() {
