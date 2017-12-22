@@ -35,7 +35,7 @@ xcodebuild \
   CODE_SIGNING_REQUIRED=NO
 
 rm -f build/Output/libactor.so
-lipo -create "build/Build/Intermediates/ActorSDK.build/Release-iphoneos/j2objc/Objects/libactor.so" "build/Build/Intermediates/ActorSDK.build/Release-iphonesimulator/j2objc/Objects/libactor.so" -output build/Output/libactor.so
+lipo -create "build/Build/Intermediates.noindex/ActorSDK.build/Release-iphoneos/j2objc/Objects/libactor.so" "build/Build/Intermediates.noindex/ActorSDK.build/Release-iphonesimulator/j2objc/Objects/libactor.so" -output build/Output/libactor.so
 
 # Building Framework
 # Copy base framework

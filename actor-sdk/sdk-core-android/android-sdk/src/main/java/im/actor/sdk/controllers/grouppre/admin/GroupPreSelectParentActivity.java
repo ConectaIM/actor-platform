@@ -16,7 +16,7 @@ public class GroupPreSelectParentActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            showFragment(GroupPreSelectParentFragment.create(
+            showFragment(GroupPreSelectParentFragment2.create(
                     getIntent().getIntExtra(Intents.EXTRA_GROUP_ID, 0)), false);
         }
     }

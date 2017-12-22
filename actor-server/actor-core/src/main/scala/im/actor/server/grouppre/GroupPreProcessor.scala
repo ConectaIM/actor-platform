@@ -73,7 +73,7 @@ private[grouppre] final class GroupPreProcessor
   }
 
   override protected def handleQuery: PartialFunction[Any, Future[Any]] = {
-    case ggp:GetGroupsPre => loadGroupsPre(Some(ggp.groupFatherId))
+    case ggp:GetGroupsPre => loadGroupsPre(ggp.groupFatherId)
   }
 
   override protected def getInitialState: GroupPreState = GroupPreState.empty

@@ -29,6 +29,7 @@ import im.actor.core.entity.AvatarImage;
 import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.GroupType;
 import im.actor.core.viewmodel.FileCallback;
+import im.actor.core.viewmodel.GroupVM;
 import im.actor.runtime.files.FileSystemReference;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorStyle;
@@ -38,6 +39,7 @@ import im.actor.sdk.view.ListItemBackgroundView;
 import im.actor.sdk.view.TintDrawable;
 import im.actor.sdk.view.emoji.keyboard.emoji.Emoji;
 
+import static im.actor.sdk.util.ActorSDKMessenger.groups;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 /**
@@ -66,6 +68,8 @@ public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.
     private long bindedId;
     private DraweeHolder<GenericDraweeHierarchy> draweeHolder;
     private RectF tmpRect = new RectF();
+
+    private GroupVM groupVM;
 
 
     public GrupoPreView(Context context) {
@@ -163,8 +167,15 @@ public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.
     // Binding
     //
     public void bind(GroupPre grupoPre) {
+        groupVM = groups().get(grupoPre.getGroupId());
         requestLayout(grupoPre, bindedId != grupoPre.getEngineId());
         bindedId = grupoPre.getEngineId();
+    }
+
+    public void unbind() {
+        cancelLayout();
+        bindedId = -1;
+        draweeHolder.onDetach();
     }
 
     @Override
@@ -201,11 +212,11 @@ public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.
 
         GrupoPreView.GrupoPreLayout res = new GrupoPreView.GrupoPreLayout();
 
-        res.setPlaceholderIndex(Math.abs(arg.getGroup().getGroupId()) % placeholderColors.length);
-        res.setShortName(buildShortName(arg.getGroup().getTitle()));
+        res.setPlaceholderIndex(Math.abs(arg.getGroupId()) % placeholderColors.length);
+        res.setShortName(buildShortName(groupVM.getName().get()));
 
-        if (arg.getGroup().getAvatar() != null) {
-            AvatarImage image = getAvatarImage(arg.getGroup().getAvatar());
+        if (groupVM.getAvatar().get() != null) {
+            AvatarImage image = getAvatarImage(groupVM.getAvatar().get());
             if (image != null) {
                 String desc = messenger().findDownloadedDescriptor(image.getFileReference().getFileId());
                 if (desc != null) {
@@ -245,7 +256,7 @@ public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.
 
         int maxTitleWidth = (width - Screen.dp(72)) - Screen.dp(8);
 
-        if (arg.getGroup().getGroupType() == GroupType.CHANNEL) {
+        if (groupVM.getGroupType() == GroupType.CHANNEL) {
             res.setTitleIcon(channelIcon);
             res.setTitleIconTop(Screen.dp(33));
         } else {
@@ -254,7 +265,7 @@ public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.
         }
 
         maxTitleWidth -= Screen.dp(16 + 4);
-        res.setTitleLayout(singleLineText(arg.getGroup().getTitle(), titlePaint, maxTitleWidth));
+        res.setTitleLayout(singleLineText(groupVM.getName().get(), titlePaint, maxTitleWidth));
 
         return res;
     }
@@ -297,14 +308,6 @@ public class GrupoPreView extends ListItemBackgroundView<GroupPre, GrupoPreView.
 
     private AvatarImage getAvatarImage(Avatar avatar) {
         return Screen.dp(52) >= 100 ? avatar.getLargeImage() : avatar.getSmallImage();
-    }
-
-    public void unbind() {
-        cancelLayout();
-
-        bindedId = -1;
-
-        draweeHolder.onDetach();
     }
 
     @Override

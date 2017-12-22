@@ -1,6 +1,7 @@
 package im.actor.core.modules.grouppre;
 
 import im.actor.core.api.updates.UpdateGroupPreCreated;
+import im.actor.core.api.updates.UpdateGroupPreParentChanged;
 import im.actor.core.api.updates.UpdateGroupPreRemoved;
 import im.actor.core.modules.AbsModule;
 import im.actor.core.modules.ModuleContext;
@@ -21,7 +22,8 @@ public class GroupPreProcessor extends AbsModule implements SequenceProcessor {
     @Override
     public Promise<Void> process(Update update) {
         if (update instanceof UpdateGroupPreCreated ||
-                update instanceof UpdateGroupPreRemoved) {
+                update instanceof UpdateGroupPreRemoved ||
+                update instanceof UpdateGroupPreParentChanged) {
             return context().getGrupoPreModule().getRouter().onUpdate(update);
         }
         return null;

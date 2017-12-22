@@ -248,24 +248,21 @@ public class BindedDisplayList<T extends BserObject & ListEngineItem> extends Di
         window.startInitCenter();
         pendingModifications.clear();
 
-        listEngine.loadCenter(centerSortKey, pageSize, cover(new ListEngineDisplayLoadCallback<T>() {
-            @Override
-            public void onLoaded(List<T> items, long topSortKey, long bottomSortKey) {
-                im.actor.runtime.Runtime.checkMainThread();
+        listEngine.loadCenter(centerSortKey, pageSize, cover((items, topSortKey, bottomSortKey) -> {
+            im.actor.runtime.Runtime.checkMainThread();
 
-                window.completeInitCenter(bottomSortKey, topSortKey);
+            window.completeInitCenter(bottomSortKey, topSortKey);
 
-                if (items.size() != 0) {
-                    editList(Modifications.addOrUpdate(items), true);
-                } else {
-                    window.onForwardCompleted();
-                    window.onBackwardCompleted();
-                }
-                for (Modification<T> m : pendingModifications) {
-                    editList(m);
-                }
-                pendingModifications.clear();
+            if (items.size() != 0) {
+                editList(Modifications.addOrUpdate(items), true);
+            } else {
+                window.onForwardCompleted();
+                window.onBackwardCompleted();
             }
+            for (Modification<T> m : pendingModifications) {
+                editList(m);
+            }
+            pendingModifications.clear();
         }, currentGeneration));
     }
 
@@ -444,20 +441,15 @@ public class BindedDisplayList<T extends BserObject & ListEngineItem> extends Di
     }
 
     private ListEngineDisplayLoadCallback<T> cover(final ListEngineDisplayLoadCallback<T> callback, final int generation) {
-        return new ListEngineDisplayLoadCallback<T>() {
+        return (items, topSortKey, bottomSortKey) -> im.actor.runtime.Runtime.postToMainThread(new Runnable() {
             @Override
-            public void onLoaded(final List<T> items, final long topSortKey, final long bottomSortKey) {
-                im.actor.runtime.Runtime.postToMainThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (generation != currentGeneration) {
-                            return;
-                        }
-                        callback.onLoaded(items, topSortKey, bottomSortKey);
-                    }
-                });
+            public void run() {
+                if (generation != currentGeneration) {
+                    return;
+                }
+                callback.onLoaded(items, topSortKey, bottomSortKey);
             }
-        };
+        });
     }
 
     private class EngineListener implements ListEngineDisplayListener<T> {

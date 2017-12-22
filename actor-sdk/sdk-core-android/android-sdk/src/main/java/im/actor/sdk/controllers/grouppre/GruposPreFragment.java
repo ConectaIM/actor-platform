@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import im.actor.core.entity.GroupPre;
+import im.actor.core.viewmodel.GroupVM;
 import im.actor.runtime.Log;
 import im.actor.runtime.android.view.BindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
@@ -27,6 +28,7 @@ import im.actor.sdk.util.Screen;
 import im.actor.sdk.util.SnackUtils;
 import im.actor.sdk.view.adapters.OnItemClickedListener;
 
+import static im.actor.sdk.util.ActorSDKMessenger.groups;
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 /**
@@ -37,20 +39,18 @@ public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHol
 
     private View emptyDialogs;
     private static String TAG = GruposPreFragment.class.getName();
-
-    private Integer idGrupoPai = GroupPre.NONE_PARENT_ID;
+    private Integer idGrupoPai = GroupPre.DEFAULT_ID;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        BindedDisplayList<GroupPre> displayList = ActorSDK.sharedActor().getMessenger().getGroupPreDisplayList(idGrupoPai);
+        BindedDisplayList<GroupPre> displayList = ActorSDK.sharedActor().getMessenger().getGroupPreDisplayList(idGrupoPai, 1,1);
 
         View res = inflate(inflater, container, R.layout.fragment_grupos_pre, displayList);
         res.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
 
         // Footer
-
         FrameLayout footer = new FrameLayout(getActivity());
         footer.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Screen.dp(160)));
         footer.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
@@ -65,18 +65,11 @@ public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHol
 
         // Empty View
         emptyDialogs = res.findViewById(R.id.emptyGroups);
-
-//        bind(ActorSDK.sharedActor().getMessenger().getGrupoPreVM(idGrupoPai.longValue()).getIsEmpty(), (val, Value) -> {
-//            if (val) {
-//                emptyDialogs.setVisibility(View.VISIBLE);
-//            } else {
-//                emptyDialogs.setVisibility(View.GONE);
-//            }
-//        });
         
         ((TextView) emptyDialogs.findViewById(R.id.empty_groups_text)).setTextColor(ActorSDK.sharedActor().style.getMainColor());
 
         emptyDialogs.findViewById(R.id.empty_groups_bg).setBackgroundColor(ActorSDK.sharedActor().style.getMainColor());
+        emptyDialogs.setVisibility(View.GONE);
 
         return res;
     }
@@ -86,13 +79,16 @@ public class GruposPreFragment extends DisplayListFragment<GroupPre, GrupoPreHol
     }
 
     private void entrarNoGrupo(GroupPre grupo) {
-        if (grupo.getGroup().isMember()) {
-            startActivity(Intents.openGroupDialog(grupo.getGroup().getGroupId(), true, getActivity()));
+
+        GroupVM groupVM = groups().get(grupo.getGroupId());
+
+        if (groupVM.isMember().get()) {
+            startActivity(Intents.openGroupDialog(grupo.getGroupId(), true, getActivity()));
         } else {
             final ProgressDialog dialog = ProgressDialog.show(getContext(), "", "Entrando", true, false);
-            messenger().joinGroupById(grupo.getGroup().getGroupId()).then((val) -> {
+            messenger().joinGroupById(grupo.getGroupId()).then((val) -> {
                 dialog.dismiss();
-                startActivity(Intents.openGroupDialog(grupo.getGroup().getGroupId(), true, getActivity()));
+                startActivity(Intents.openGroupDialog(grupo.getGroupId(), true, getActivity()));
             }).failure((ex) -> {
                 dialog.dismiss();
                 Log.e(TAG, ex);

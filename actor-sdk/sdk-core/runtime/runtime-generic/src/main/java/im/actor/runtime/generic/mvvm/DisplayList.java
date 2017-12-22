@@ -271,37 +271,34 @@ public class DisplayList<T> {
                                        final boolean isLoadedMore,
                                        final Object processedList) {
             isLocked = true;
-            im.actor.runtime.Runtime.postToMainThread(new Runnable() {
-                @Override
-                public void run() {
+            im.actor.runtime.Runtime.postToMainThread(() -> {
 
-                    displayList.currentList = (displayList.currentList + 1) % 2;
-                    displayList.processedList = processedList;
+                displayList.currentList = (displayList.currentList + 1) % 2;
+                displayList.processedList = processedList;
 
-                    if (androidChanges != null) {
-                        for (AndroidChangeListener<T> l : displayList.androidListeners) {
-                            l.onCollectionChanged(new AndroidListUpdate<T>(initialList, androidChanges, isLoadedMore));
-                        }
+                if (androidChanges != null) {
+                    for (AndroidChangeListener<T> l : displayList.androidListeners) {
+                        l.onCollectionChanged(new AndroidListUpdate<T>(initialList, androidChanges, isLoadedMore));
                     }
-
-                    if (appleChanges != null) {
-                        for (AppleChangeListener<T> l : displayList.appleListeners) {
-                            l.onCollectionChanged(appleChanges);
-                        }
-                    }
-
-                    for (Listener l : displayList.listeners) {
-                        l.onCollectionChanged();
-                    }
-
-                    for (ModificationHolder m : modifications) {
-                        if (m.executeAfter != null) {
-                            m.executeAfter.run();
-                        }
-                    }
-
-                    self().send(new ListSwitched<T>(modifications));
                 }
+
+                if (appleChanges != null) {
+                    for (AppleChangeListener<T> l : displayList.appleListeners) {
+                        l.onCollectionChanged(appleChanges);
+                    }
+                }
+
+                for (Listener l : displayList.listeners) {
+                    l.onCollectionChanged();
+                }
+
+                for (ModificationHolder m : modifications) {
+                    if (m.executeAfter != null) {
+                        m.executeAfter.run();
+                    }
+                }
+
+                self().send(new ListSwitched<T>(modifications));
             });
         }
 

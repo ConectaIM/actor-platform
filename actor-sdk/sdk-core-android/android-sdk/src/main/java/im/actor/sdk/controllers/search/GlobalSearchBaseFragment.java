@@ -132,15 +132,14 @@ public abstract class GlobalSearchBaseFragment extends BaseFragment {
         searchView = (SearchView) searchMenu.getActionView();
         searchView.setIconifiedByDefault(true);
 
-        MenuItemCompat.setOnActionExpandListener(searchMenu, new MenuItemCompat.OnActionExpandListener() {
+        searchMenu.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
+            public boolean onMenuItemActionExpand(MenuItem menuItem) {
                 showSearch();
                 return true;
             }
-
             @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
+            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                 hideSearch();
                 return true;
             }
@@ -175,7 +174,6 @@ public abstract class GlobalSearchBaseFragment extends BaseFragment {
                                                 continue outer;
                                             }
                                         }
-
                                         Avatar avatar;
                                         Peer peer = pse.getPeer();
                                         String name;
@@ -198,9 +196,7 @@ public abstract class GlobalSearchBaseFragment extends BaseFragment {
                                     }
                                     checkGlobalSearch();
                                     onSearchChanged();
-
                                 }
-
                             }
 
                             @Override
@@ -254,18 +250,19 @@ public abstract class GlobalSearchBaseFragment extends BaseFragment {
 
             }
         });
+
         searchAdapter = new SearchAdapter(getActivity(), searchDisplay, new OnItemClickedListener<SearchEntity>() {
             @Override
             public void onClicked(SearchEntity item) {
                 onPeerPicked(item.getPeer());
                 searchMenu.collapseActionView();
             }
-
             @Override
             public boolean onLongClicked(SearchEntity item) {
                 return false;
             }
         });
+
         HeaderViewRecyclerAdapter recyclerAdapter = new HeaderViewRecyclerAdapter(searchAdapter);
 
         View header = new View(getActivity());

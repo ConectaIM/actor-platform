@@ -340,9 +340,9 @@
 		15F89F081C211FED00776ACD /* opus_multistream.h in Headers */ = {isa = PBXBuildFile; fileRef = 15F89F041C211FED00776ACD /* opus_multistream.h */; };
 		15F89F091C211FED00776ACD /* opus_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 15F89F051C211FED00776ACD /* opus_types.h */; };
 		15F89F0A1C211FED00776ACD /* opus.h in Headers */ = {isa = PBXBuildFile; fileRef = 15F89F061C211FED00776ACD /* opus.h */; };
-		2616FB1E4FDE48780ABF5B46 /* Pods_ActorSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29614BD032EB33B22B34279 /* Pods_ActorSDK.framework */; };
 		9AA6A41F1D08568A00957A7F /* AASettingsMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6A41E1D08568A00957A7F /* AASettingsMediaViewController.swift */; };
 		9AAE96481CF81F140092E366 /* AARingtonesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAE96471CF81F140092E366 /* AARingtonesViewController.swift */; };
+		B155415BAED124FC2BA6C29B /* Pods_ActorSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB25A92F679E862F539373D /* Pods_ActorSDK.framework */; };
 		BE237C9D1C422FFA00060648 /* AAStickersKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE237C9C1C422FFA00060648 /* AAStickersKeyboard.swift */; };
 		BE2621571C4656D700A817AB /* AAConvActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2621561C4656D700A817AB /* AAConvActionSheet.swift */; };
 		BE2621591C4656EE00A817AB /* AAThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2621581C4656EE00A817AB /* AAThumbnailView.swift */; };
@@ -375,6 +375,7 @@
 		BEE6EB041C4D9A4900A2280E /* AAWallpapersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6EB031C4D9A4900A2280E /* AAWallpapersCell.swift */; };
 		BEF11DB61C466D800076400A /* begin_record.caf in Resources */ = {isa = PBXBuildFile; fileRef = 153F6B3C1C2A9B1900C0B960 /* begin_record.caf */; };
 		BEFE68D51C4657360001F2D6 /* AAThumbnailCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFE68D41C4657360001F2D6 /* AAThumbnailCollectionCell.swift */; };
+		F17C24911FE9C61F002EFFF3 /* ListProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = F17C24901FE9C61F002EFFF3 /* ListProblem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -470,7 +471,7 @@
 		0659754F1BC7DD3C00B8C7DF /* highlight.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = highlight.min.js; sourceTree = "<group>"; };
 		065975531BC7DF5100B8C7DF /* CocoaAssetsRuntime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaAssetsRuntime.swift; sourceTree = "<group>"; };
 		065A06B51C6CEFE00012EA09 /* CocoaWebRTCRuntime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaWebRTCRuntime.swift; sourceTree = "<group>"; };
-		066A50D21BC4AE63000E606E /* ActorSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActorSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		066A50D21BC4AE63000E606E /* ActorSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ActorSDK.framework; path = "/Users/diego/Documents/projetos/actor-platform/actor-sdk/sdk-core-ios/build/Debug-iphoneos/ActorSDK.framework"; sourceTree = "<absolute>"; };
 		066A50D51BC4AE63000E606E /* ActorSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActorSDK.h; sourceTree = "<group>"; };
 		066A50D71BC4AE63000E606E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		066A50E11BC4AF9F000E606E /* ActorSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorSDK.swift; sourceTree = "<group>"; };
@@ -725,7 +726,6 @@
 		15F89F0F1C21317400776ACD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9AA6A41E1D08568A00957A7F /* AASettingsMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AASettingsMediaViewController.swift; sourceTree = "<group>"; };
 		9AAE96471CF81F140092E366 /* AARingtonesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AARingtonesViewController.swift; sourceTree = "<group>"; };
-		B29614BD032EB33B22B34279 /* Pods_ActorSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ActorSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE237C9C1C422FFA00060648 /* AAStickersKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAStickersKeyboard.swift; sourceTree = "<group>"; };
 		BE2621561C4656D700A817AB /* AAConvActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAConvActionSheet.swift; sourceTree = "<group>"; };
 		BE2621581C4656EE00A817AB /* AAThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAThumbnailView.swift; sourceTree = "<group>"; };
@@ -766,8 +766,9 @@
 		BEFE68D41C4657360001F2D6 /* AAThumbnailCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAThumbnailCollectionCell.swift; sourceTree = "<group>"; };
 		E30822B631D108159E8B306B /* Pods-ActorSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActorSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ActorSDK/Pods-ActorSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		F076508E3899D309954904A3 /* Pods-ActorSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActorSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-ActorSDK/Pods-ActorSDK.release.xcconfig"; sourceTree = "<group>"; };
-		F15398CB1DF3A8C600C67C7D /* AGEmojiKeyboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGEmojiKeyboard.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/ActorSDK-hfpcbgrswlpuwlafdzjxrahnyfmr/Build/Products/Debug-iphonesimulator/AGEmojiKeyboard/AGEmojiKeyboard.framework"; sourceTree = "<group>"; };
 		F175DF891E168C69005BCF1A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		F17C24901FE9C61F002EFFF3 /* ListProblem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListProblem.m; sourceTree = "<group>"; };
+		FCB25A92F679E862F539373D /* Pods_ActorSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ActorSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -778,7 +779,7 @@
 				06CE898C1BD841C9005A5530 /* SystemConfiguration.framework in Frameworks */,
 				BEAC2B311C42D683007F7A2F /* libopus.a in Frameworks */,
 				066A52001BC4E0B0000E606E /* libsqlite3.tbd in Frameworks */,
-				2616FB1E4FDE48780ABF5B46 /* Pods_ActorSDK.framework in Frameworks */,
+				B155415BAED124FC2BA6C29B /* Pods_ActorSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -919,17 +920,8 @@
 			children = (
 				066A50D41BC4AE63000E606E /* ActorSDK */,
 				2F428D134E194A828C3DF863 /* Frameworks */,
-				066A50D31BC4AE63000E606E /* Products */,
 				F0BB28A250FF185B1F4D414D /* Pods */,
 			);
-			sourceTree = "<group>";
-		};
-		066A50D31BC4AE63000E606E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				066A50D21BC4AE63000E606E /* ActorSDK.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		066A50D41BC4AE63000E606E /* ActorSDK */ = {
@@ -1412,6 +1404,7 @@
 				066A525B1BC502EB000E606E /* ActorSDKDelegate.swift */,
 				066A53381BC5456B000E606E /* ActorStyle.swift */,
 				066A50D71BC4AE63000E606E /* Info.plist */,
+				F17C24901FE9C61F002EFFF3 /* ListProblem.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1674,10 +1667,9 @@
 		2F428D134E194A828C3DF863 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F15398CB1DF3A8C600C67C7D /* AGEmojiKeyboard.framework */,
 				06CE898B1BD841C9005A5530 /* SystemConfiguration.framework */,
 				066A51FF1BC4E0B0000E606E /* libsqlite3.tbd */,
-				B29614BD032EB33B22B34279 /* Pods_ActorSDK.framework */,
+				FCB25A92F679E862F539373D /* Pods_ActorSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1954,7 +1946,7 @@
 				pt,
 			);
 			mainGroup = 066A50C81BC4AE63000E606E;
-			productRefGroup = 066A50D31BC4AE63000E606E /* Products */;
+			productRefGroup = 066A50C81BC4AE63000E606E;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -2072,6 +2064,7 @@
 				061850DB1C95CBF000C522D5 /* YYTextContainerView.m in Sources */,
 				15D35F301C20187200E3717A /* info.c in Sources */,
 				066A532E1BC53406000E606E /* AABubbleBaseFileCell.swift in Sources */,
+				F17C24911FE9C61F002EFFF3 /* ListProblem.m in Sources */,
 				06ABFE3D1D41283A0031A0D6 /* AAGroupAdministrationViewController.swift in Sources */,
 				066A514A1BC4BCE0000E606E /* Dispatch.swift in Sources */,
 				066A52401BC4EECD000E606E /* AABigPlaceholderView.swift in Sources */,

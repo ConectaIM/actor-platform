@@ -12,11 +12,17 @@ import scala.concurrent.Future
 trait GroupPreQueryHandlers {
   self: GroupPreProcessor =>
 
-  protected def loadGroupsPre(idPai: Option[Int]): Future[GetGroupsPreResponse]= {
+  protected def loadGroupsPre(idPai: Int): Future[GetGroupsPreResponse]= {
     val action = (for{
       groupsPre <- PublicGroupRepo.findByIdPai(idPai)
-      gruposApi = groupsPre map(gp => GroupPre(groupId = gp.id, tipo = gp.typ, ordem = gp.order, possuiFilhos = gp.hasChildrem,
-        idPai = gp.parentId.getOrElse(-1),  acessHash = gp.accessHash))
+
+      gruposApi = groupsPre map(gp => GroupPre(groupId = gp.id,
+        tipo = gp.typ,
+        ordem = gp.order,
+        possuiFilhos = gp.hasChildrem,
+        idPai = gp.parentId,
+        acessHash = gp.accessHash))
+
     } yield GetGroupsPreResponse(gruposApi.toIndexedSeq))
 
     db.run(action)

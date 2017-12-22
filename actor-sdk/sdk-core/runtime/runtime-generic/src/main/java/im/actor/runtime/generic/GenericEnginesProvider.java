@@ -13,19 +13,19 @@ import im.actor.runtime.storage.ListEngineItem;
 import im.actor.runtime.storage.ListStorage;
 import im.actor.runtime.storage.ListStorageDisplayEx;
 
-public class GenericEnginesProvider implements EnginesRuntime {
-
-//    static {
-//        ActorSystem.system().addDispatcher("display_list");
-//        ActorSystem.system().addDispatcher("db", 1);
-//    }
-
 /*-[
 #define J2OBJC_DISABLE_ARRAY_BOUND_CHECKS 1
 #define J2OBJC_DISABLE_ARRAY_TYPE_CHECKS 1
 #define J2OBJC_DISABLE_CAST_CHECKS 1
 #define J2OBJC_DISABLE_ARRAY_CHECKS 1
 ]-*/
+
+public class GenericEnginesProvider implements EnginesRuntime {
+
+//    static {
+//        ActorSystem.system().addDispatcher("display_list");
+//        ActorSystem.system().addDispatcher("db", 1);
+//    }
 
     private DisplayList.OperationMode operationMode;
 

@@ -63,7 +63,6 @@ public class SearchModule extends AbsModule {
         return searchList;
     }
 
-
     //
     // Message Search
     //

@@ -11,45 +11,41 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import im.actor.core.entity.Group;
 import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.GroupType;
+import im.actor.core.viewmodel.GroupPreVM;
 import im.actor.core.viewmodel.GroupVM;
-import im.actor.runtime.android.view.BindedListAdapter;
+import im.actor.runtime.android.view.SimpleBindedListAdapter;
 import im.actor.runtime.generic.mvvm.BindedDisplayList;
+import im.actor.runtime.generic.mvvm.SimpleBindedDisplayList;
+import im.actor.runtime.storage.ListEngineDisplayExt;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.R;
-import im.actor.sdk.controllers.DisplayListFragment;
-import im.actor.sdk.controllers.grouppre.view.GrupoPreAdapter;
+import im.actor.sdk.controllers.SimpleDisplayListFragment;
 import im.actor.sdk.controllers.grouppre.view.GrupoPreHolder;
 import im.actor.sdk.util.Screen;
-import im.actor.sdk.view.adapters.OnItemClickedListener;
 
 import static im.actor.sdk.util.ActorSDKMessenger.messenger;
 
 /**
- * Created by dsilv on 18/11/2017.
+ * Created by diego on 20/12/2017.
  */
 
-public class GroupPreSelectParentFragment extends DisplayListFragment<GroupPre, GrupoPreHolder> {
+public class GroupPreSelectParentFragment2 extends SimpleDisplayListFragment<GroupPre, GrupoPreHolder> {
 
     private GroupVM groupVM;
     private Integer parentId = GroupPre.DEFAULT_ID;
     private View emptyGroups;
 
-    public static GroupPreSelectParentFragment create(int groupId) {
+
+    public static GroupPreSelectParentFragment2 create(int groupId) {
         Bundle bundle = new Bundle();
         bundle.putInt("groupId", groupId);
-        GroupPreSelectParentFragment editFragment = new GroupPreSelectParentFragment();
+        GroupPreSelectParentFragment2 editFragment = new GroupPreSelectParentFragment2();
         editFragment.setArguments(bundle);
         return editFragment;
     }
 
-    public GroupPreSelectParentFragment() {
-        setRootFragment(true);
-        setHomeAsUp(true);
-        setShowHome(true);
-    }
 
     @Override
     public void onCreate(Bundle saveInstance) {
@@ -58,11 +54,13 @@ public class GroupPreSelectParentFragment extends DisplayListFragment<GroupPre, 
         setTitle(groupVM.getGroupType() == GroupType.CHANNEL ? R.string.select_channel_parent : R.string.select_group_parent);
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        BindedDisplayList<GroupPre> displayList = ActorSDK.sharedActor().getMessenger().getGroupPreDisplayList(parentId, GroupType.GROUP, groupVM.getId());
+        SimpleBindedDisplayList<GroupPre> displayList = ActorSDK.sharedActor().getMessenger().getGroupsPreDisplayList(parentId);
+
 
         View res = inflate(inflater, container, R.layout.fragment_group_pre_select_parent, displayList);
         res.setBackgroundColor(ActorSDK.sharedActor().style.getMainBackgroundColor());
@@ -92,23 +90,9 @@ public class GroupPreSelectParentFragment extends DisplayListFragment<GroupPre, 
         return res;
     }
 
+
     @Override
-    protected BindedListAdapter<GroupPre, GrupoPreHolder> onCreateAdapter(BindedDisplayList<GroupPre> displayList,
-                                                                          Activity activity) {
-        return new GrupoPreAdapter(displayList, new OnItemClickedListener<GroupPre>() {
-            @Override
-            public void onClicked(GroupPre item) {
-                onItemClick(item);
-            }
-
-            @Override
-            public boolean onLongClicked(GroupPre item) {
-                return false;
-            }
-        }, activity);
-    }
-
-    protected void onItemClick(GroupPre grupo) {
-        //todo: select parent group
+    protected SimpleBindedListAdapter onCreateAdapter(SimpleBindedDisplayList displayList, Activity activity) {
+        return null;
     }
 }

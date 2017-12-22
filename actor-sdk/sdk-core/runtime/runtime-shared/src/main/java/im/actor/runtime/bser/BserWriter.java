@@ -186,7 +186,6 @@ public class BserWriter {
         if (writtenFields.get(fieldNumber, false)) {
             return;
         }
-
         if (value instanceof Long) {
             writeLong(fieldNumber, (Long) value);
         } else if (value instanceof byte[]) {
@@ -198,11 +197,11 @@ public class BserWriter {
                 } else if (o instanceof byte[]) {
                     writeBytes(fieldNumber, (byte[]) o);
                 } else {
-                    throw new IOException("Incorrect unmapped value in List");
+                    throw new IOException("Incorrect unmapped value in List got: "+o.getClass().getSimpleName());
                 }
             }
         } else {
-            throw new IOException("Incorrect unmapped value");
+            throw new IOException("Incorrect unmapped value got: "+value.getClass().getSimpleName());
         }
     }
 

@@ -2,7 +2,6 @@ package im.actor.core.modules.grouppre;
 
 import java.util.HashMap;
 
-import im.actor.core.api.ApiGroupType;
 import im.actor.core.api.rpc.RequestChangeGroupPre;
 import im.actor.core.entity.GroupPre;
 import im.actor.core.entity.GroupPreState;
@@ -29,7 +28,6 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
     public static final String STORAGE_GRUPOSPRE_STATES = "grupospre_states";
 
     private final HashMap<Integer, ListEngine<GroupPre>> gruposPreEngine = new HashMap<>();
-    private final HashMap<Integer, ListEngine<GroupPre>> canaisPreEngine = new HashMap<>();
 
     private MVVMCollection<GroupPreState, GroupPreVM> groupsPreStates;
 
@@ -49,7 +47,8 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
     @Override
     public void onBusEvent(Event event) {
         if (event instanceof AppVisibleChanged) {
-            getGruposPreLoadActor(GroupPre.NONE_PARENT_ID);
+            if(((AppVisibleChanged)event).isVisible())
+                getGruposPreLoadActor(GroupPre.DEFAULT_ID);
         }
     }
 
@@ -66,19 +65,9 @@ public class GrupoPreModule extends AbsModule implements BusSubscriber {
         synchronized (gruposPreEngine) {
             if (!gruposPreEngine.containsKey(idGrupoPai)) {
                 gruposPreEngine.put(idGrupoPai,
-                        Storage.createList(STORAGE_GRUPOSPRE + ApiGroupType.GROUP + idGrupoPai, GroupPre.CREATOR));
+                        Storage.createList(STORAGE_GRUPOSPRE + idGrupoPai, GroupPre.CREATOR));
             }
             return gruposPreEngine.get(idGrupoPai);
-        }
-    }
-
-    public ListEngine<GroupPre> getCanaispreEngine(Integer idGrupoPai) {
-        synchronized (canaisPreEngine) {
-            if (!canaisPreEngine.containsKey(idGrupoPai)) {
-                canaisPreEngine.put(idGrupoPai,
-                        Storage.createList(STORAGE_GRUPOSPRE + ApiGroupType.CHANNEL + idGrupoPai, GroupPre.CREATOR));
-            }
-            return canaisPreEngine.get(idGrupoPai);
         }
     }
 

@@ -7,7 +7,7 @@ import JDStatusBarNotification
 import PushKit
 import SafariServices
 import DZNWebViewController
-import ReachabilitySwift
+import Reachability
 import UserNotifications
 
 @objc open class ActorSDK: NSObject, PKPushRegistryDelegate, UNUserNotificationCenterDelegate {
