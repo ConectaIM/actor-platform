@@ -82,15 +82,15 @@ public class SimpleBindedDisplayList<T extends BserObject & ListEngineItem>{
 
         currentList.clear();
 
-        for(int i = 0; i < listEngine.getCount(); i++){
-            listEngine.
-
-            if(filter != null){
-
-            }else{
-                //currentList.add(listEngine.)
-            }
-        }
+//        for(int i = 0; i < listEngine.getCount(); i++){
+//            listEngine.
+//
+//            if(filter != null){
+//
+//            }else{
+//                //currentList.add(listEngine.)
+//            }
+//        }
 
     }
 
